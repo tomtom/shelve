@@ -1,0 +1,12 @@
+<!ENTITY shelve.label "Shelve">
+<!ENTITY shelveMenu.accesskey "V">
+<!ENTITY shelveContextUrl.label "Shelve Verknüpfung&#8230;">
+<!ENTITY shelveContextUrl.accesskey "V">
+<!ENTITY shelveContextImage.label "Shelve Bild&#8230;">
+<!ENTITY shelveContextImage.accesskey "V">
+<!ENTITY shelveContextSelection.label "Shelve Auswahl als Text&#8230;">
+<!ENTITY shelveContextSelection.accesskey "V">
+<!ENTITY shelveContextUrlsInSelection.label "Shelve URLs in Auswahl&#8230;">
+<!ENTITY shelveContextUrlsInSelection.accesskey "V">
+<!ENTITY shelveToolbar.label "Shelve">
+<!ENTITY shelveToolbar.tooltip "Shelve - Webseiten mittels Dateinamenschablonen schnell speichern">

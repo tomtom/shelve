@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ***** BEGIN LICENSE BLOCK *****
+-   Version: MPL 1.1/GPL 2.0/LGPL 2.1
+-
+- The contents of this file are subject to the Mozilla Public License Version
+- 1.1 (the "License"); you may not use this file except in compliance with
+- the License. You may obtain a copy of the License at
+- http://www.mozilla.org/MPL/
+-
+- Software distributed under the License is distributed on an "AS IS" basis,
+- WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+- for the specific language governing rights and limitations under the
+- License.
+-
+- The Original Code is Shelve.
+-
+- The Initial Developer of the Original Code is
+- Thomas Link.
+- Portions created by the Initial Developer are Copyright (C) 2008
+- the Initial Developer. All Rights Reserved.
+-
+- Contributor(s):
+-
+- Alternatively, the contents of this file may be used under the terms of
+- either the GNU General Public License Version 2 or later (the "GPL"), or
+- the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
+- in which case the provisions of the GPL or the LGPL are applicable instead
+- of those above. If you wish to allow use of your version of this file only
+- under the terms of either the GPL or the LGPL, and not to allow others to
+- use your version of this file under the terms of the MPL, indicate your
+- decision by deleting the provisions above and replace them with the notice
+- and other provisions required by the GPL or the LGPL. If you do not delete
+- the provisions above, a recipient may use your version of this file under
+- the terms of any one of the MPL, the GPL or the LGPL.
+-
+- ***** END LICENSE BLOCK ***** -->
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<!DOCTYPE prefwindow SYSTEM "chrome://shelve/locale/prefwindow.dtd">
+<dialog
+    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    id="editShelf"
+    title="Shelve: &editShelf.title;"
+    ondialogaccept="return editShelf.onOK();"
+    onload="editShelf.onLoad();"
+    persist="screenX screenY"
+    windowtype="myDialogWindowType">
+    <!-- width="520" -->
+    <!-- height="410" -->
+    <!-- persist="screenX screenY width height" -->
+
+    <script src="shelveStore.js"/>
+    <script src="shelveUtils.js"/>
+    <script src="shelve.js"/>
+    <script src="editShelf.js"/>
+
+    <tabbox>
+
+        <tabs>
+            <tab label="&shelve.shelf;" accesskey="&shelve.shelf.accesskey;"/>
+            <tab label="&shelve.log;" accesskey="&shelve.log.accesskey;"/>
+            <tab label="&shelve.footer;" accesskey="&shelve.footer.accesskey;"/>
+        </tabs>
+
+        <tabpanels>
+
+            <tabpanel id="shelves" orient="vertical">
+
+                <label accesskey="&shelve.name.accesskey;" control="name">&shelve.name;:</label>
+                <textbox id="name" />
+
+                <hbox>
+                    <label accesskey="&shelve.template.accesskey;" control="template">&shelve.template;:</label>
+                    <spacer flex="1" />
+                    <toolbarbutton id="shelf.help" 
+                                   label="&shelve.help;"
+                                   accesskey="&shelve.help.accesskey;"
+                                   oncommand="shelveUtils.openDoc('chrome://shelve/content/help.xhtml'); return false;" />
+                    <toolbarbutton id="browse" 
+                                   image="chrome://browser/skin/places/query.png"
+                                   oncommand="shelveUtils.pick('template', 'template'); return false;"/>
+                </hbox>
+                <hbox>
+                    <textbox id="template" flex="1" 
+                             oninput="shelveUtils.validateTemplate(this, false, 'filename')" />
+                </hbox>
+
+                <label accesskey="&shelve.mime.accesskey;" control="mime">&shelve.mime;:</label>
+                <menulist id="mime" >
+                    <menupopup>
+                        <menuitem id="mimedefault" 
+                                  value="default" 
+                                  label="&shelve.mime.default;"/>
+                        <menuitem id="mimewebpage" 
+                                  value="webpage" 
+                                  label="&shelve.mime.webpage;"/>
+                        <menuitem id="mimehtml"    
+                                  value="html"    
+                                  label="&shelve.mime.html;"/>
+                        <menuitem id="mimetext"    
+                                  value="text"    
+                                  label="&shelve.mime.text;"/>
+                        <menuitem id="mimetext_latin1"
+                                  value="text_latin1"
+                                  label="&shelve.mime.text_latin1;"/>
+                    </menupopup>
+                </menulist>
+
+                <label accesskey="&shelve.rx.accesskey;" control="rx">&shelve.rx;:</label>
+                <textbox id="rx" />
+
+                <label accesskey="&hotkey.hotkey.accesskey;" control="hotkey_hotkey">&hotkey.hotkey;:</label>
+                <hbox>
+                    <!-- <textbox id="hotkey_hotkey" flex="0" size="7" /> -->
+                    <menulist id="hotkey_hotkey" >
+                        <menupopup>
+                            <menuitem value="" label="-"/>
+                            <!-- <menuitem value="CANCEL" label="CANCEL"/> -->
+                            <!-- <menuitem value="HELP" label="HELP"/> -->
+                            <!-- <menuitem value="BACK_SPACE" label="BACK_SPACE"/> -->
+                            <!-- <menuitem value="TAB" label="TAB"/> -->
+                            <!-- <menuitem value="CLEAR" label="CLEAR"/> -->
+                            <!-- <menuitem value="RETURN" label="RETURN"/> -->
+                            <!-- <menuitem value="ENTER" label="ENTER"/> -->
+                            <!-- <menuitem value="SHIFT" label="SHIFT"/> -->
+                            <!-- <menuitem value="CONTROL" label="CONTROL"/> -->
+                            <!-- <menuitem value="ALT" label="ALT"/> -->
+                            <!-- <menuitem value="PAUSE" label="PAUSE"/> -->
+                            <!-- <menuitem value="CAPS_LOCK" label="CAPS_LOCK"/> -->
+                            <menuitem value="F1" label="F1"/>
+                            <menuitem value="F2" label="F2"/>
+                            <menuitem value="F3" label="F3"/>
+                            <menuitem value="F4" label="F4"/>
+                            <menuitem value="F5" label="F5"/>
+                            <menuitem value="F6" label="F6"/>
+                            <menuitem value="F7" label="F7"/>
+                            <menuitem value="F8" label="F8"/>
+                            <menuitem value="F9" label="F9"/>
+                            <menuitem value="F10" label="F10"/>
+                            <menuitem value="F11" label="F11"/>
+                            <menuitem value="F12" label="F12"/>
+                            <menuitem value="F13" label="F13"/>
+                            <menuitem value="F14" label="F14"/>
+                            <menuitem value="F15" label="F15"/>
+                            <menuitem value="F16" label="F16"/>
+                            <menuitem value="F17" label="F17"/>
+                            <menuitem value="F18" label="F18"/>
+                            <menuitem value="F19" label="F19"/>
+                            <menuitem value="F20" label="F20"/>
+                            <menuitem value="F21" label="F21"/>
+                            <menuitem value="F22" label="F22"/>
+                            <menuitem value="F23" label="F23"/>
+                            <menuitem value="F24" label="F24"/>
+                            <menuitem value="0" label="0"/>
+                            <menuitem value="1" label="1"/>
+                            <menuitem value="2" label="2"/>
+                            <menuitem value="3" label="3"/>
+                            <menuitem value="4" label="4"/>
+                            <menuitem value="5" label="5"/>
+                            <menuitem value="6" label="6"/>
+                            <menuitem value="7" label="7"/>
+                            <menuitem value="8" label="8"/>
+                            <menuitem value="9" label="9"/>
+                            <menuitem value="A" label="A"/>
+                            <menuitem value="B" label="B"/>
+                            <menuitem value="C" label="C"/>
+                            <menuitem value="D" label="D"/>
+                            <menuitem value="E" label="E"/>
+                            <menuitem value="F" label="F"/>
+                            <menuitem value="G" label="G"/>
+                            <menuitem value="H" label="H"/>
+                            <menuitem value="I" label="I"/>
+                            <menuitem value="J" label="J"/>
+                            <menuitem value="K" label="K"/>
+                            <menuitem value="L" label="L"/>
+                            <menuitem value="M" label="M"/>
+                            <menuitem value="N" label="N"/>
+                            <menuitem value="O" label="O"/>
+                            <menuitem value="P" label="P"/>
+                            <menuitem value="Q" label="Q"/>
+                            <menuitem value="R" label="R"/>
+                            <menuitem value="S" label="S"/>
+                            <menuitem value="T" label="T"/>
+                            <menuitem value="U" label="U"/>
+                            <menuitem value="V" label="V"/>
+                            <menuitem value="W" label="W"/>
+                            <menuitem value="X" label="X"/>
+                            <menuitem value="Y" label="Y"/>
+                            <menuitem value="Z" label="Z"/>
+                            <menuitem value="NUMPAD0" label="NUMPAD0"/>
+                            <menuitem value="NUMPAD1" label="NUMPAD1"/>
+                            <menuitem value="NUMPAD2" label="NUMPAD2"/>
+                            <menuitem value="NUMPAD3" label="NUMPAD3"/>
+                            <menuitem value="NUMPAD4" label="NUMPAD4"/>
+                            <menuitem value="NUMPAD5" label="NUMPAD5"/>
+                            <menuitem value="NUMPAD6" label="NUMPAD6"/>
+                            <menuitem value="NUMPAD7" label="NUMPAD7"/>
+                            <menuitem value="NUMPAD8" label="NUMPAD8"/>
+                            <menuitem value="NUMPAD9" label="NUMPAD9"/>
+                            <menuitem value="SEMICOLON" label="SEMICOLON"/>
+                            <menuitem value="EQUALS" label="EQUALS"/>
+                            <menuitem value="MULTIPLY" label="MULTIPLY"/>
+                            <menuitem value="ADD" label="ADD"/>
+                            <menuitem value="SEPARATOR" label="SEPARATOR"/>
+                            <menuitem value="SUBTRACT" label="SUBTRACT"/>
+                            <menuitem value="DECIMAL" label="DECIMAL"/>
+                            <menuitem value="DIVIDE" label="DIVIDE"/>
+                            <!-- <menuitem value="NUM_LOCK" label="NUM_LOCK"/> -->
+                            <!-- <menuitem value="SCROLL_LOCK" label="SCROLL_LOCK"/> -->
+                            <menuitem value="COMMA" label="COMMA"/>
+                            <menuitem value="PERIOD" label="PERIOD"/>
+                            <menuitem value="SLASH" label="SLASH"/>
+                            <menuitem value="BACK_QUOTE" label="BACK_QUOTE"/>
+                            <menuitem value="OPEN_BRACKET" label="OPEN_BRACKET"/>
+                            <menuitem value="BACK_SLASH" label="BACK_SLASH"/>
+                            <menuitem value="CLOSE_BRACKET" label="CLOSE_BRACKET"/>
+                            <menuitem value="QUOTE" label="QUOTE"/>
+                            <menuitem value="CONTEXT_MENU" label="CONTEXT_MENU"/>
+                            <menuitem value="ESCAPE" label="ESCAPE"/>
+                            <menuitem value="SPACE" label="SPACE"/>
+                            <menuitem value="PAGE_UP" label="PAGE_UP"/>
+                            <menuitem value="PAGE_DOWN" label="PAGE_DOWN"/>
+                            <menuitem value="END" label="END"/>
+                            <menuitem value="HOME" label="HOME"/>
+                            <menuitem value="LEFT" label="LEFT"/>
+                            <menuitem value="UP" label="UP"/>
+                            <menuitem value="RIGHT" label="RIGHT"/>
+                            <menuitem value="DOWN" label="DOWN"/>
+                            <menuitem value="PRINTSCREEN" label="PRINTSCREEN"/>
+                            <menuitem value="INSERT" label="INSERT"/>
+                            <menuitem value="DELETE" label="DELETE"/>
+                            <!-- <menuitem value="META" label="META"/> -->
+                        </menupopup>
+                    </menulist>
+                    <spacer />
+                    <checkbox id="hotkey_ctrl" 
+                              accesskey="&hotkey.ctrl.accesskey;"
+                              label="&hotkey.ctrl;"
+                              checked="false"/>
+                    <checkbox id="hotkey_shift" 
+                              accesskey="&hotkey.shift.accesskey;"
+                              label="&hotkey.shift;"
+                              checked="false"/>
+                    <checkbox id="hotkey_alt" 
+                              accesskey="&hotkey.alt.accesskey;"
+                              label="&hotkey.alt;"
+                              checked="false"/>
+                    <checkbox id="hotkey_meta" 
+                              accesskey="&hotkey.meta.accesskey;"
+                              label="&hotkey.meta;"
+                              checked="false"/>
+                </hbox>
+            </tabpanel>
+
+            <tabpanel id="log" orient="vertical">
+
+                <hbox>
+                    <label control="log_file">&log.file;:</label>
+                    <spacer flex="1" />
+                    <toolbarbutton id="browse" 
+                                   image="chrome://browser/skin/places/query.png"
+                                   oncommand="shelveUtils.pick('log_file', 'save'); return false;"/>
+                </hbox>
+                <hbox>
+                    <textbox id="log_file" flex="1" />
+                </hbox>
+                <hbox>
+                    <label control="log_template">&log.template;:</label>
+                    <spacer flex="1" />
+                    <toolbarbutton id="log.help" 
+                                   label="&shelve.help;"
+                                   accesskey="&shelve.help.accesskey;"
+                                   oncommand="shelveUtils.openDoc('chrome://shelve/content/help.xhtml'); return false;" />
+                </hbox>
+                <textbox id="log_template" 
+                         width="420" height="120" 
+                         oninput="shelveUtils.validateTemplate(this, true, 'log')"
+                         multiline="true" rows="5" />
+
+            </tabpanel>
+
+            <tabpanel id="footer" orient="vertical">
+                <hbox>
+                    <label control="footer_html">&footer.html;:</label>
+                    <spacer flex="1" />
+                    <toolbarbutton id="footer.html.help" 
+                                   label="&shelve.help;"
+                                   accesskey="&shelve.help.accesskey;"
+                                   oncommand="shelveUtils.openDoc('chrome://shelve/content/help.xhtml'); return false;" />
+                </hbox>
+                <textbox id="footer_html"
+                         multiline="true"
+                         oninput="shelveUtils.validateTemplate(this, true, 'footer')"
+                         flex="1"/>
+                <hbox>
+                    <label control="footer_text">&footer.text;:</label>
+                    <spacer flex="1" />
+                    <toolbarbutton id="footer.text.help" 
+                                   label="&shelve.help;"
+                                   oncommand="shelveUtils.openDoc('chrome://shelve/content/help.xhtml'); return false;" />
+                </hbox>
+                <textbox id="footer_text"
+                         multiline="true"
+                         oninput="shelveUtils.validateTemplate(this, true, 'footer')"
+                         flex="1"/>
+            </tabpanel>
+
+        </tabpanels>
+    </tabbox>
+
+</dialog>

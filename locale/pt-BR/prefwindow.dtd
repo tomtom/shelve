@@ -1,0 +1,84 @@
+<!ENTITY prefwindow.title "Preferências do Shelve">
+<!ENTITY shelve.shelves "Shelves">
+<!ENTITY shelve.shelves.accesskey0 "V">
+<!ENTITY shelve.shelves.accesskey1 "S">
+<!ENTITY shelve.help "Ajuda">
+<!ENTITY shelve.help.accesskey "u">
+<!ENTITY shelve.title "Título">
+<!ENTITY shelve.title.accesskey "T">
+<!ENTITY shelve.clip "Clip">
+<!ENTITY shelve.clip.accesskey "C">
+<!ENTITY shelve.file "Arquivo">
+<!ENTITY shelve.file.accesskey "A">
+<!ENTITY shelve.name "Nome (os primeiros caracteres devem ser únicos)">
+<!ENTITY shelve.name.accesskey "N">
+<!ENTITY shelve.template "Modelo de nome de arquivo">
+<!ENTITY shelve.template.accesskey "M">
+<!ENTITY shelve.log "Log">
+<!ENTITY shelve.log.accesskey "L">
+<!ENTITY shelve.footer "Rodapé">
+<!ENTITY shelve.footer.accesskey "R">
+<!ENTITY shelve.bookmarks "Favoritos">
+<!ENTITY shelve.bookmarks.accesskey "F">
+<!ENTITY shelve.options "Opções">
+<!ENTITY shelve.options.accesskey "O">
+<!ENTITY shelve.parameters "Parâmetros">
+<!ENTITY shelve.startup "Inicialização">
+<!ENTITY shelve.startup.accesskey "I">
+<!ENTITY shelve.mime "MIME">
+<!ENTITY shelve.mime.accesskey "M">
+<!ENTITY shelve.mime.default "padrão">
+<!ENTITY shelve.mime.webpage "Página web, completa">
+<!ENTITY shelve.mime.html "Apenas HTML">
+<!ENTITY shelve.mime.text "Texto">
+<!ENTITY shelve.mime.text_latin1 "Texto (Latin-1)">
+<!ENTITY shelve.auto "Salvar Automaticamente">
+<!ENTITY shelve.auto.accesskey "A">
+<!ENTITY shelve.auto.rx "Não salvar documentos automaticamente para as URLs que combinem com esta Expressão Regular">
+<!ENTITY shelve.auto.rx.accesskey "R">
+<!ENTITY shelve.auto.notify "Notificar o usuário quando estiver fazendo algo automaticamente">
+<!ENTITY shelve.auto.notify.accesskey "N">
+<!ENTITY shelve.auto.shelf "Após iniciar o programa, salvar documentos automaticamente">
+<!ENTITY shelve.auto.shelf.accesskey "U">
+<!ENTITY shelve.up "Cima">
+<!ENTITY shelve.up.accesskey "C">
+<!ENTITY shelve.down "Baixo">
+<!ENTITY shelve.down.accesskey "B">
+<!ENTITY shelve.new "Novo">
+<!ENTITY shelve.new.accesskey "N">
+<!ENTITY shelve.clone "Duplicar">
+<!ENTITY shelve.clone.accesskey "D">
+<!ENTITY shelve.edit "Editar">
+<!ENTITY shelve.edit.accesskey "E">
+<!ENTITY shelve.remove "Apagar">
+<!ENTITY shelve.remove.accesskey "A">
+<!ENTITY log.file "Arquivo de Log (adiciona registros de log a este arquivo)">
+<!ENTITY log.file.accesskey "G">
+<!ENTITY log.template "Modelo para registros de log">
+<!ENTITY log.template.accesskey "M">
+<!ENTITY footer.text "Rodapé para arquivos salvos como texto">
+<!ENTITY footer.text.accesskey "X">
+<!ENTITY footer.html "Rodapé para arquivos salvos como HTML">
+<!ENTITY footer.html.accesskey "M">
+<!ENTITY pane1.title "Modelos de nome de arquivo">
+<!ENTITY pane1.description "Modelos de nome de arquivo">
+<!ENTITY shelve.shelf "Shelf">
+<!ENTITY shelve.shelf.accesskey "S">
+<!ENTITY shelve.note "Nota">
+<!ENTITY shelve.note.accesskey "N">
+<!ENTITY shelve.rx "Salvar um documento neste shelf automaticamente se a URL coincidir com esta RegExp">
+<!ENTITY shelve.rx.accesskey "R">
+<!ENTITY selectShelf.title "Selecionar Shelf">
+<!ENTITY editShelf.title "Editar Shelf">
+<!ENTITY shelve.hotkey "Atalho">
+<!ENTITY shelve.hotkey.accesskey "l">
+<!ENTITY hotkey.hotkey "Atalho">
+<!ENTITY hotkey.hotkey.accesskey "h">
+<!ENTITY hotkey.ctrl "Ctrl">
+<!ENTITY hotkey.ctrl.accesskey "C">
+<!ENTITY hotkey.shift "Shift">
+<!ENTITY hotkey.shift.accesskey "I">
+<!ENTITY hotkey.alt "Alt">
+<!ENTITY hotkey.alt.accesskey "A">
+<!ENTITY hotkey.meta "Meta/Win/Cmd">
+<!ENTITY hotkey.meta.accesskey "W">

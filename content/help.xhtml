@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.1//EN' 'http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd'
+[
+
+<!ENTITY % shelveDTD SYSTEM "chrome://shelve/locale/shelve_help.dtd" >
+%shelveDTD;
+
+]>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+		<title>&shelve.title.shelve.help;</title>
+        <link rel="stylesheet" type="text/css" href="shelve.css" />
+    </head>
+    <body>
+
+        <div id="content">
+            <h1><a href="http://www.lithom.net/software/firefox/shelve/">&shelve.a.shelve;</a></h1>
+
+            <ul>
+                <li><a href="http://www.lithom.net/software/firefox/shelve/">&shelve.a.more.help;</a></li>
+                <li>&sheve.help.on.regex;&nbsp;<a href="&shelve.regexp.hlp.moz;">Mozilla</a>,
+                <a href="&shelve.regexp.hlp.wik;">Wikipedia</a>
+                </li>
+            </ul>
+
+            <h2>&shelve.h2.place.holders;</h2>
+
+            <p>&shelve.p.please.define.a.set.of.templates;</p>
+            <p>&shelve.p.the.following.place.holders.can.be.used;</p>
+
+            <center>
+                <table>
+                    <tr>
+                        <th>%%</th>
+                        <td>&nbsp;</td>
+                        <td>%</td>
+                    </tr>
+                    <tr>
+                        <th>%[...]</th>
+                        <td>&nbsp;</td>
+                        <td colspan="5">&shelve.td.alternatives.example.ctf;</td>
+                    </tr>
+                    <tr>
+                        <th>%c</th>
+                        <th>%{clip}</th>
+                        <td>&shelve.td.clip;</td>
+                    </tr>
+                    <tr>
+                        <th>%C</th>
+                        <th>%{clip!}</th>
+                        <td>&shelve.td.clip.non.empty;</td>
+                    </tr>
+                    <tr>
+                        <th>%i</th>
+                        <th>%{input}</th>
+                        <td>&shelve.td.user.input;</td>
+                    </tr>
+                    <tr>
+                        <th>%I</th>
+                        <th>%{subdir}</th>
+                        <td>&shelve.td.pick.directory;</td>
+                    </tr>
+                    <tr>
+                        <th>%H</th>
+                        <th>%{host}</th>
+                        <td>&shelve.td.host;</td>
+                    </tr>
+                    <tr>
+                        <th>%B</th>
+                        <th>%{hostbasename}</th>
+                        <td>&shelve.td.base.hostname;</td>
+                    </tr>
+                    <tr>
+                        <th>%p</th>
+                        <th>%{fullpath}</th>
+                        <td>&shelve.td.path;</td>
+                    </tr>
+                    <tr>
+                        <th>%P</th>
+                        <th>%{path}</th>
+                        <td>&shelve.td.path.no.ext;</td>
+                    </tr>
+                    <tr>
+                        <th>%f</th>
+                        <th>%{filename}</th>
+                        <td>&shelve.td.filename;</td>
+                    </tr>
+                    <tr>
+                        <th>%F</th>
+                        <th>%{basename}</th>
+                        <td>&shelve.td.filename.no.ext;</td>
+                    </tr>
+                    <tr>
+                        <th>%e</th>
+                        <th>%{ext}</th>
+                        <td>&shelve.td.extension;</td>
+                    </tr>
+                    <tr>
+                        <th>%t</th>
+                        <th>%{title}</th>
+                        <td>&shelve.td.title;</td>
+                    </tr>
+                    <tr>
+                        <th>%k</th>
+                        <th>%{keywords}</th>
+                        <td>&shelve.td.keywords;</td>
+                    </tr>
+                    <tr>
+                        <th>%Y</th>
+                        <th>%{fullyear}</th>
+                        <td>&shelve.td.full.year;</td>
+                    </tr>
+                    <tr>
+                        <th>%y</th>
+                        <th>%{year}</th>
+                        <td>&shelve.td.year;</td>
+                    </tr>
+                    <tr>
+                        <th>%M</th>
+                        <th>%{month}</th>
+                        <td>&shelve.td.month;</td>
+                    </tr>
+                    <tr>
+                        <th>%D</th>
+                        <th>%{day}</th>
+                        <td>&shelve.td.day;</td>
+                    </tr>
+                    <tr>
+                        <th>%h</th>
+                        <th>%{hours}</th>
+                        <td>&shelve.td.hours;</td>
+                    </tr>
+                    <tr>
+                        <th>%m</th>
+                        <th>%{minutes}</th>
+                        <td>&shelve.td.minutes;</td>
+                    </tr>
+                    <tr>
+                        <th>%s</th>
+                        <th>%{secs}</th>
+                        <td>&shelve.td.seconds;</td>
+                    </tr>
+                    <tr>
+                        <th>%l</th>
+                        <th>%{msecs}</th>
+                        <td>&shelve.td.milliseconds;</td>
+                    </tr>
+                </table>
+            </center>
+
+            <p colspan="4">&shelve.p.only.available.in.log.templates;</p>
+            <center>
+                <table>
+                    <tr>
+                        <th>%n</th>
+                        <th>%{note}</th>
+                        <td>&shelve.td.note;</td>
+                    </tr>
+                    <tr>
+                        <th>%o</th>
+                        <th>%{outfile}</th>
+                        <td>&shelve.td.output.file;</td>
+                    </tr>
+                    <tr>
+                        <th>%u</th>
+                        <th>%{url}</th>
+                        <td>&shelve.td.url;</td>
+                    </tr>
+                    <tr>
+                        <th>%v</th>
+                        <th>%{shelf}</th>
+                        <td>&shelve.td.shelf.name;</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <th>%{content}</th>
+                        <td>&shelve.td.content;</td>
+                    </tr>
+                </table>
+            </center>
+            
+            <p>&shelve.p.the.shelf.name.is.optional;</p>
+
+            <p>&shelve.p.if.the.regular.expression;</p>
+
+            <h2>&shelve.h2.examples;</h2>
+
+            <dl>
+
+                <dt>[...]/archive/%H/%Y/%[ct].html</dt>
+                <dd>&shelve.dd.save.in.the.directory.host.year;</dd>
+
+                <dt>[...]/archive/%H/%Y-%M-%D/%F.html</dt>
+                <dd>&shelve.dd.save.as.host.year.month.day.filename;</dd>
+
+                <dt>[...]/archive/%H/%p</dt>
+                <dd>&shelve.dd.rebuild.the.original.file.system;</dd>
+
+                <dt>[...]/topics/%I/%H/%[ctF].html</dt>
+                <dd>&shelve.dd.save.under.topics.but.query.the.user;</dd>
+
+            </dl>
+
+        </div>
+    </body>
+</html>

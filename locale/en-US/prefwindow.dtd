@@ -1,0 +1,85 @@
+<!ENTITY prefwindow.title "Shelve preferences">
+<!ENTITY shelve.shelves "Shelves">
+<!ENTITY shelve.shelves.accesskey0 "V">
+<!ENTITY shelve.shelves.accesskey1 "S">
+<!ENTITY shelve.help "Help">
+<!ENTITY shelve.help.accesskey "H">
+<!ENTITY shelve.title "Title">
+<!ENTITY shelve.title.accesskey "T">
+<!ENTITY shelve.clip "Clip">
+<!ENTITY shelve.clip.accesskey "C">
+<!ENTITY shelve.file "File">
+<!ENTITY shelve.file.accesskey "F">
+<!ENTITY shelve.name "Name (leading characters should be unique)">
+<!ENTITY shelve.name.accesskey "N">
+<!ENTITY shelve.template "Filename Template">
+<!ENTITY shelve.template.accesskey "T">
+<!ENTITY shelve.log "Log">
+<!ENTITY shelve.log.accesskey "L">
+<!ENTITY shelve.footer "Footer">
+<!ENTITY shelve.footer.accesskey "F">
+<!ENTITY shelve.bookmarks "Bookmarks">
+<!ENTITY shelve.bookmarks.accesskey "B">
+<!ENTITY shelve.options "Options">
+<!ENTITY shelve.options.accesskey "O">
+<!ENTITY shelve.parameters "Parameters">
+<!ENTITY shelve.startup "Startup">
+<!ENTITY shelve.startup.accesskey "P">
+<!ENTITY shelve.mime "MIME">
+<!ENTITY shelve.mime.accesskey "M">
+<!ENTITY shelve.mime.default "default">
+<!ENTITY shelve.mime.webpage "Web page, complete">
+<!ENTITY shelve.mime.html "HTML only">
+<!ENTITY shelve.mime.text "Text">
+<!ENTITY shelve.mime.text_latin1 "Text (Latin-1)">
+<!ENTITY shelve.auto "Auto-Save">
+<!ENTITY shelve.auto.accesskey "A">
+<!ENTITY shelve.auto.rx "Do not automatically save documents the URL of which matches this RegExp">
+<!ENTITY shelve.auto.rx.accesskey "R">
+<!ENTITY shelve.auto.notify "Notify user when doing something automatically">
+<!ENTITY shelve.auto.notify.accesskey "N">
+<!ENTITY shelve.auto.shelf "After program start save documents automatically">
+<!ENTITY shelve.auto.shelf.accesskey "U">
+<!ENTITY shelve.up "Up">
+<!ENTITY shelve.up.accesskey "U">
+<!ENTITY shelve.down "Down">
+<!ENTITY shelve.down.accesskey "D">
+<!ENTITY shelve.new "New">
+<!ENTITY shelve.new.accesskey "N">
+<!ENTITY shelve.clone "Clone">
+<!ENTITY shelve.clone.accesskey "C">
+<!ENTITY shelve.edit "Edit">
+<!ENTITY shelve.edit.accesskey "E">
+<!ENTITY shelve.remove "Remove">
+<!ENTITY shelve.remove.accesskey "R">
+<!ENTITY log.file "Log file (append log entries to this file)">
+<!ENTITY log.file.accesskey "G">
+<!ENTITY log.template "Template for log entries">
+<!ENTITY log.template.accesskey "T">
+<!ENTITY footer.text "Footer for files saved as text">
+<!ENTITY footer.text.accesskey "X">
+<!ENTITY footer.html "Footer for files saved as HTML">
+<!ENTITY footer.html.accesskey "M">
+<!ENTITY pane1.title "Filename templates">
+<!ENTITY pane1.description "Filename templates">
+<!ENTITY shelve.shelf "Shelf">
+<!ENTITY shelve.shelf.accesskey "S">
+<!ENTITY shelve.note "Note">
+<!ENTITY shelve.note.accesskey "N">
+<!ENTITY shelve.rx "Automatically save a document to this shelf if the URL matches this RegExp">
+<!ENTITY shelve.rx.accesskey "R">
+<!ENTITY selectShelf.title "Select Shelf">
+<!ENTITY editShelf.title "Edit Shelf">
+<!ENTITY shelve.hotkey "Hotkey">
+<!ENTITY shelve.hotkey.accesskey "K">
+<!ENTITY hotkey.hotkey "Hotkey">
+<!ENTITY hotkey.hotkey.accesskey "Y">
+<!ENTITY hotkey.ctrl "Ctrl">
+<!ENTITY hotkey.ctrl.accesskey "C">
+<!ENTITY hotkey.shift "Shift">
+<!ENTITY hotkey.shift.accesskey "I">
+<!ENTITY hotkey.alt "Alt">
+<!ENTITY hotkey.alt.accesskey "A">
+<!ENTITY hotkey.meta "Meta/Win/Cmd">
+<!ENTITY hotkey.meta.accesskey "W">
+<!ENTITY shelve.help.log.mainfile "Define a main log file where all shelved documents are registered. You can also define special log files for single shelves. The syntax for the log-entry template is the same as for shelf templates.">

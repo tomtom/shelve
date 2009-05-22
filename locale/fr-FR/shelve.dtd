@@ -1,0 +1,12 @@
+<!ENTITY shelve.label "Shelve">
+<!ENTITY shelveMenu.accesskey "V">
+<!ENTITY shelveContextUrl.label "URL Shelve…">
+<!ENTITY shelveContextUrl.accesskey "U">
+<!ENTITY shelveContextImage.label "Image Shelve…">
+<!ENTITY shelveContextImage.accesskey "I">
+<!ENTITY shelveContextSelection.label "Sélection Shelve…">
+<!ENTITY shelveContextSelection.accesskey "S">
+<!ENTITY shelveContextUrlsInSelection.label "URL Shelve dans la sélection…">
+<!ENTITY shelveContextUrlsInSelection.accesskey "L">
+<!ENTITY shelveToolbar.label "Shelve">
+<!ENTITY shelveToolbar.tooltip "Shelve - enregistre la page courante vers un dossier prédéfini">

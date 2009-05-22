@@ -1,0 +1,13 @@
+content	shelve	content/
+locale	shelve	en-US	locale/en-US/
+locale	shelve	en-UK	locale/en-US/
+locale	shelve	en	locale/en-US/
+locale	shelve	de-DE	locale/de/
+locale	shelve	de-AT	locale/de/
+locale	shelve	de	locale/de/
+locale	shelve	fr-FR	locale/fr-FR/
+locale	shelve	pt	locale/pt-BR/
+locale	shelve	pt-BR	locale/pt-BR/
+skin	shelve	classic/1.0	skin/
+overlay	chrome://browser/content/browser.xul	chrome://shelve/content/firefoxOverlay.xul
+style	chrome://global/content/customizeToolbar.xul	chrome://shelve/skin/overlay.css

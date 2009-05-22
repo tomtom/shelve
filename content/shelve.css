@@ -1,0 +1,22 @@
+body {
+    background-color: #eee;
+}
+div#content {
+    border: 1px solid #eef;
+    background-color: #fff;
+    margin: 2% 5% 2% 5%;
+    padding: 2% 5% 2% 5%;
+}
+h1, h2 {
+    font-family: sans-serif;
+}
+th {
+    margin-left: 10px;
+    padding: 0 5px 0 5px;
+    border: 2px solid #fff;
+    background-color: #ffff80;
+    text-align: center;
+}
+td {
+    border: 2px solid #fff;
+}
