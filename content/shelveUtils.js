@@ -280,7 +280,7 @@ var shelveUtils = {
         } else {
             var phn = 0;
             var phs = shelveUtils.validPlaceholders(klass);
-            var good_rx = new RegExp('^(['+ phs +'%]|\\[['+ phs +'%]+\\])');
+            var good_rx = new RegExp('^('+ phs +'|\\['+ phs +'+\\])');
             var text = template;
             var malformed = false;
             while (true) {
@@ -307,17 +307,19 @@ var shelveUtils = {
     },
 
     validPlaceholders: function(klass) {
-        var chars = "cCDeEfFhBhiIklmMpPstyY";
+        var chars = "cCDeEfFhBhiIklmMpPstyY%";
+        var names = "clip|clip!|input|subdir|host|hostbasename|fullpath|path|filename|basename|ext|title|keywords|fullyear|year|month|day|hours|minutes|secs|msecs";
         switch(klass) {
             case 'log':
             case 'footer':
             chars += "nouv";
+            names += "|note|outfile|url|shelf|content";
             break;
             case 'filename':
             default:
             break;
         }
-        return chars;
+        return '(['+ chars +']|\\{('+ names +')\\})';
     },
 
     filenameJoin: function(parts) {
