@@ -130,7 +130,10 @@
                                        oncommand="shelveUtils.pick('text_log_file', 'save'); return false;"/>
                     </hbox>
                     <hbox>
-                        <textbox id="text_log_file" flex="1" preference="log_file"/>
+                        <textbox id="text_log_file"
+                                 flex="1" 
+                                 oninput="shelveUtils.validateTemplate(this, true, 'filename')"
+                                 preference="log_file"/>
                     </hbox>
                     <hbox>
                         <label control="text_log_template">&log.template;:</label>

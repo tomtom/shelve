@@ -725,7 +725,8 @@ var shelve = {
 
     log: function(sp_params) {
         var shelf = sp_params.shelf;
-        var log = shelve.log_param(shelf, 'file');
+        var log_file_template = shelve.log_param(shelf, 'file');
+        var log = shelve.expandTemplate(shelve.expandTemplateParams(sp_params, log_file_template));
         if (log && log.match(/\S/) && log != '-') {
             var template = shelve.log_param(shelf, 'template');
             if (template && template.match(/\S/)) {
@@ -843,20 +844,14 @@ var shelve = {
                 // single placeholder
                 case 1:
                 /*jsl:ignore*/
-                // [pos, name, mode] = shelve.varName(et_params.template, pos, ch);
-                // [next_state, val] = shelve.expandVar(out, 0, name, et_params);
-                // [state, out, skip_sep] = shelve.processValue(state, next_state, name, mode, val, out, line_start);
-                [state, pos, out, skip_sep] = shelve.processCharacter(state, 0, et_params, pos, ch, out, line_start);
+                [state, pos, out, skip_sep] = shelve.processCharacter(0, 0, et_params, pos, ch, out, line_start);
                 /*jsl:end*/
                 break;
 
                 // multiple placeholders
                 case 2:
                 /*jsl:ignore*/
-                // [pos, name, mode]  = shelve.varName(et_params.template, pos, ch);
-                // [next_state, val] = shelve.expandVar(out, 3, name, et_params);
-                // [state, out, skip_sep] = shelve.processValue(state, next_state, name, mode, val, out, line_start);
-                [state, pos, out, skip_sep] = shelve.processCharacter(state, 3, et_params, pos, ch, out, line_start);
+                [state, pos, out, skip_sep] = shelve.processCharacter(3, 2, et_params, pos, ch, out, line_start);
                 /*jsl:end*/
                 break;
 
@@ -881,13 +876,13 @@ var shelve = {
         return out;
     },
 
-    processCharacter: function(state, next_state, et_params, pos, ch, out, line_start) {
+    processCharacter: function(success_state, fail_state, et_params, pos, ch, out, line_start) {
         /*jsl:ignore*/
-        [pos, name, mode]  = shelve.varName(et_params.template, pos, ch);
-        [next_state, val] = shelve.expandVar(out, next_state, name, et_params);
-        [state, out, skip_sep] = shelve.processValue(state, next_state, name, mode, val, out, line_start);
+        [pos, name, mode] = shelve.varName(et_params.template, pos, ch);
+        [fail_state, val] = shelve.expandVar(out, fail_state, name, et_params);
+        [next_state, out, skip_sep] = shelve.processValue(success_state, fail_state, name, mode, val, out, line_start);
         /*jsl:end*/
-        return [state, pos, out, skip_sep];
+        return [next_state, pos, out, skip_sep];
     },
 
     varName: function(template, pos, ch) {
@@ -914,9 +909,11 @@ var shelve = {
         }
     },
 
-    processValue: function(state, next_state, name, mode, value, out, line_start) {
+    processValue: function(success_state, fail_state, name, mode, value, out, line_start) {
         var skip_sep;
+        var next_state;
         if (value === null || value === "") {
+            next_state = fail_state;
             if (mode !== null) {
                 if (mode.match(/!/)) {
                     var s_empty = shelveUtils.localized('missing');
@@ -925,30 +922,30 @@ var shelve = {
                 }
                 if (mode.match(/\?/)) {
                     out = out.slice(0, line_start);
-                    state = 4;
+                    next_state = 4;
                 }
             }
-            skip_sep = state == 0 && out.match(/[\/\\]$/);
+            skip_sep = next_state == 0 && out.match(/[\/\\]$/);
         } else {
-            state = next_state;
+            next_state = success_state;
             out += String(value);
             skip_sep = false;
         }
-        return [state, out, skip_sep];
+        return [next_state, out, skip_sep];
     },
 
-    expandVar: function(out, next_state, ch, et_params) {
+    expandVar: function(out, fail_state, ch, et_params) {
         var val;
         switch(ch) {
 
             case '[':
             val = null;
-            next_state = 2;
+            fail_state = 2;
             break;
 
             case ']':
             val = null;
-            next_state = 0;
+            fail_state = 0;
             break;
 
             case '%':
@@ -1100,11 +1097,11 @@ var shelve = {
 
             default:
             val = null;
-            next_state = 0;
+            fail_state = 0;
             alert(shelveUtils.localized('unknown') + ": %" + ch);
 
         }
-        return [next_state, val];
+        return [fail_state, val];
     },
 
     cleanValue: function(value) {
