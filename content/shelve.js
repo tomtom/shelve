@@ -832,13 +832,14 @@ var shelve = {
                 if (ch == '%') {
                     state = 1;
                 } else if (skip_sep && (ch == "\\" || ch == "/")) {
-                    skip_sep = false;
+                    null;
                 } else {
                     if (ch == "\n") {
                         line_start = out.length + 1;
                     }
                     out += ch;
                 }
+                skip_sep = false;
                 break;
 
                 // single placeholder
