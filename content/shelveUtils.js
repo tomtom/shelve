@@ -301,6 +301,9 @@ var shelveUtils = {
                     }
                 }
             }
+            if (phn == 0 && klass == "logfilename") {
+                phn = 1;
+            }
             var rv = malformed ? -phn : phn;
             return rv;
         }
@@ -315,7 +318,9 @@ var shelveUtils = {
             chars += "nouv";
             names += "|note|outfile|url|shelf|content";
             break;
+
             case 'filename':
+            case 'logfilename':
             default:
             break;
         }

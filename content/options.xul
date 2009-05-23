@@ -132,7 +132,7 @@
                     <hbox>
                         <textbox id="text_log_file"
                                  flex="1" 
-                                 oninput="shelveUtils.validateTemplate(this, true, 'filename')"
+                                 oninput="shelveUtils.validateTemplate(this, true, 'logfilename')"
                                  preference="log_file"/>
                     </hbox>
                     <hbox>
