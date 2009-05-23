@@ -7,6 +7,8 @@
 <!ENTITY shelve.h2.place.holders "Place-holders">
 <!ENTITY shelve.p.please.define.a.set.of.templates "Please define a set of templates. These will be used to determine the location where the document should be saved to.">
 <!ENTITY shelve.p.the.following.place.holders.can.be.used "The following place-holders can be used:">
+<!ENTITY shelve.p.modifier.mandatory "If a long name ends with '!', the information must be provided.">
+<!ENTITY shelve.p.modifier.optional.line "If a long name ends with '?', the line will be suppressed from output if its value is empty.">
 <!ENTITY shelve.long.var.names "Long names for place-holders:">
 <!ENTITY shelve.td.alternatives.example.ctf "Alternatives (Example: &#37;[ctF])">
 <!ENTITY shelve.td.clip "Clip">

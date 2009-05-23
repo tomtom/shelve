@@ -7,6 +7,8 @@
 <!ENTITY shelve.h2.place.holders "Platzhalter">
 <!ENTITY shelve.p.please.define.a.set.of.templates "Bitte definieren Sie einen Satz von Dateinamenschablonen, die zur Bestimmung des Speicherorts verwendet werden können.">
 <!ENTITY shelve.p.the.following.place.holders.can.be.used "Folgende Platzhalter können verwendet werden:">
+<!ENTITY shelve.p.modifier.mandatory "Wenn ein langer Name mit '!' endet, darf das Feld nicht leer sein.">
+<!ENTITY shelve.p.modifier.optional.line "Wenn ein lange Name mit '?' endet, wird die Zeile nicht ausgegeben, falls der Wert leer ist.">
 <!ENTITY shelve.long.var.names "Lange Namen für Platzhalter:">
 <!ENTITY shelve.td.alternatives.example.ctf "Alternativen (Beispiel: &#37;[ctF])">
 <!ENTITY shelve.td.clip "Auswahl">
