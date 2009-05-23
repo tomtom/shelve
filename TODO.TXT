@@ -1,27 +1,18 @@
 * TODO
 
-    #A1 skip sep
     #B1 Log filename should be a template too
     #B2 Shelf data: position field
     #B3 Shelve URL: blacklist (eg mailto:)
-    #B5 Title/Clip etc. rewriting per host/URL pattern?
-    #B5 Replace certain problematic characters in file names etc.
     #B5 Recode plain text output to a user-specified charset (make sure the file uses that charset)
-    #C5 Dialogs: Add drop-down menu for easier insertion of place holders
-    #C5 Maintain URL patterns etc. as list in a sqlite db.
+    #B5 Replace certain problematic characters in file names etc.
+    #B5 Title/Clip etc. rewriting per host/URL pattern?
+
     #C5 Auto-save to a certain shelf whenever loading a page matching a certain rx (per shelf)
+    #C5 Dialogs: Add drop-down menu for easier insertion of place holders
     #C5 Do-not-overwrite option (per shelf)
+    #C5 Maintain URL patterns etc. as list in a sqlite db.
     #E8 Log to sqlite db (or use places/save as bookmark?)
     #E9 Option to select more than one shelf?
-    % #B5 Escape notes according to the MIME type.
-    % #F5 Check for invalid path (display the last known/existing directory for each shelf in the configuration dialog?)
-    % #G5 Automatic selection of mime based on URL pattern (regexp)? (or simple create a new shelf)
-    % #G5 Log: escape special characters in HTML/XML output (would it be possible for special characters to be inserted in HTML output?)
-    % #G5 Option: Remember shelf for this site again during this session?
-    % #X Automatisches loggen: window.addEventListener('load',  onWindowLoad, true);
-    % #X Improved shelf selection dialog
-    % #X Inject source URL in saved document (take care of the mime type: html, text)
-    % #X Save images/pdfs as images/pdfs (i.e., take care of document.contentType)
 
 
 % 2008-07-28; @Last Change: 2009-05-23.
