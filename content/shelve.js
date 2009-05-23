@@ -821,54 +821,73 @@ var shelve = {
         var state = 0;
         var val;
         var skip_sep = false;
+        var line_start = 0;
         for (var pos = 0; pos < max; pos++) {
             ch = et_params.template[pos];
             switch(state) {
+
+                // scan
                 case 0:
                 if (ch == '%') {
                     state = 1;
                 } else if (skip_sep && (ch == "\\" || ch == "/")) {
                     skip_sep = false;
                 } else {
+                    if (ch == "\n") {
+                        line_start = out.length + 1;
+                    }
                     out += ch;
                 }
                 break;
 
+                // single placeholder
                 case 1:
-                state = 0;
                 /*jsl:ignore*/
-                [pos, name]  = shelve.varName(et_params.template, pos, ch);
-                [state, val] = shelve.expandVar(out, state, name, et_params);
+                // [pos, name, mode] = shelve.varName(et_params.template, pos, ch);
+                // [next_state, val] = shelve.expandVar(out, 0, name, et_params);
+                // [state, out, skip_sep] = shelve.processValue(state, next_state, name, mode, val, out, line_start);
+                [state, pos, out, skip_sep] = shelve.processCharacter(state, 0, et_params, pos, ch, out, line_start);
                 /*jsl:end*/
-                if (val) {
-                    out += shelve.filenamePart(String(val), out);
-                } else if (state == 0) {
-                    skip_sep = true;
-                }
                 break;
 
+                // multiple placeholders
                 case 2:
                 /*jsl:ignore*/
-                [pos, name]  = shelve.varName(et_params.template, pos, ch);
-                [state, val] = shelve.expandVar(out, state, name, et_params);
+                // [pos, name, mode]  = shelve.varName(et_params.template, pos, ch);
+                // [next_state, val] = shelve.expandVar(out, 3, name, et_params);
+                // [state, out, skip_sep] = shelve.processValue(state, next_state, name, mode, val, out, line_start);
+                [state, pos, out, skip_sep] = shelve.processCharacter(state, 3, et_params, pos, ch, out, line_start);
                 /*jsl:end*/
-                if (val) {
-                    out += shelve.filenamePart(String(val), out);
-                    state = 3;
-                } else if (state == 0) {
-                    skip_sep = true;
-                }
                 break;
 
+                // end of multiple placeholders
                 case 3:
                 switch(ch) {
                     case ']':
                     state = 0;
                     break;
                 }
+                break;
+
+                // skip line
+                case 4:
+                if (ch == "\n") {
+                    state = 0;
+                }
+                break;
+
             }
         }
         return out;
+    },
+
+    processCharacter: function(state, next_state, et_params, pos, ch, out, line_start) {
+        /*jsl:ignore*/
+        [pos, name, mode]  = shelve.varName(et_params.template, pos, ch);
+        [next_state, val] = shelve.expandVar(out, next_state, name, et_params);
+        [state, out, skip_sep] = shelve.processValue(state, next_state, name, mode, val, out, line_start);
+        /*jsl:end*/
+        return [state, pos, out, skip_sep];
     },
 
     varName: function(template, pos, ch) {
@@ -879,34 +898,57 @@ var shelve = {
             while (pos1 < max && template[pos1] != '}') {
                 pos1++;
             }
-            var name = template.slice(pos, pos1 + 1);
-            return [pos1, name];
+            var name = template.slice(pos + 1, pos1);
+            var mode = name.match(/[!?]$/);
+            if (mode) {
+                mode = mode[0];
+                name = name.replace(/[!?]+$/, '');
+            }
+            // alert(name +" "+ mode);
+            return [pos1, name, mode];
             break;
 
             default:
-            return [pos, ch];
+            return [pos, ch, ''];
             break;
         }
     },
 
-    filenamePart: function(val, out) {
-        // alert(out +" ... "+ val);
-        // if (val.match(/^[/\\]/) && out.match(/[/\\]$/)) {
-        //     return val.replace(/^[/\\]+/, '');
-        // } else {
-            return val;
-        // }
+    processValue: function(state, next_state, name, mode, value, out, line_start) {
+        var skip_sep;
+        if (value === null || value === "") {
+            if (mode !== null) {
+                if (mode.match(/!/)) {
+                    var s_empty = shelveUtils.localized('missing');
+                    alert(s_empty + " " + shelveUtils.localized('abort'));
+                    throw s_empty;
+                }
+                if (mode.match(/\?/)) {
+                    out = out.slice(0, line_start);
+                    state = 4;
+                }
+            }
+            skip_sep = state == 0 && out.match(/[\/\\]$/);
+        } else {
+            state = next_state;
+            out += String(value);
+            skip_sep = false;
+        }
+        return [state, out, skip_sep];
     },
 
-    expandVar: function(out, state, ch, et_params) {
+    expandVar: function(out, next_state, ch, et_params) {
         var val;
         switch(ch) {
 
             case '[':
-            val = null; state = 2;
+            val = null;
+            next_state = 2;
             break;
 
-            case ']': val = null; state = 0;
+            case ']':
+            val = null;
+            next_state = 0;
             break;
 
             case '%':
@@ -914,12 +956,12 @@ var shelve = {
             break;
 
             case 'c': 
-            case '{clip}': 
+            case 'clip': 
             val = shelve.cleanValue(et_params.clip);
             break;
 
             case 'C':
-            case '{clip!}': 
+            case 'Clip': 
             val = shelve.cleanValue(et_params.clip);
             if (et_params.interactive && !val.match(/\S/)) {
                 var s_empty = shelveUtils.localized('empty.clip');
@@ -929,99 +971,99 @@ var shelve = {
             break;
 
             case 'D':
-            case '{date}':
+            case 'date':
             val = shelve.lpadString(new Date().getDate(), "00");
             break;
 
             case 'E':
             alert(shelveUtils.localized('pct.e'));
             case 'e':
-            case '{ext}':
+            case 'ext':
             val = shelve.maybeExtension(out, et_params.extension);
             break;
 
             case 'f':
-            case '{filename}':
+            case 'filename':
             val = shelve.getDocumentFilename(et_params, 2);
             break;
 
             case 'F':
-            case '{basename}':
+            case 'basename':
             val = shelve.getDocumentFilename(et_params, 1);
             break;
 
             case 'H':
-            case '{host}':
+            case 'host':
             val = shelve.getDocumentHost(et_params, 0);
             break;
 
             case 'B':
-            case '{hostbasename}':
+            case 'hostbasename':
             val = shelve.getDocumentHost(et_params, 1);
             break;
 
             case 'h':
-            case '{hours}':
+            case 'hours':
             val = shelve.lpadString(new Date().getHours(), "00");
             break;
 
             case 'i':
-            case '{input}':
+            case 'input':
             val = et_params.interactive ? shelve.queryUser(et_params, "Input", "") : '%i';
             break;
 
             case 'I':
-            case '{subdir}':
+            case 'subdir':
             val = et_params.interactive ? shelve.queryDirectory(et_params, out) : '%I';
             break;
 
             case 'k':
-            case '{keywords}':
+            case 'keywords':
             val = shelve.getDocumentKeywords(et_params);
             break;
 
             case 'l':
-            case '{msecs}':
+            case 'msecs':
             val = new Date().getMilliseconds();
             break;
 
             case 'm':
-            case '{minutes}':
+            case 'minutes':
             val = shelve.lpadString(new Date().getMinutes(), "00");
             break;
 
             case 'M':
-            case '{month}':
+            case 'month':
             val = shelve.lpadString(new Date().getMonth() + 1, "00");
             break;
 
             case 'p':
-            case '{fullpath}':
+            case 'fullpath':
             val = shelve.getDocumentFilename(et_params, 3);
             break;
 
             case 'P':
-            case '{path}':
+            case 'path':
             val = shelve.getDocumentFilename(et_params, 4);
             break;
 
             case 's':
-            case '{secs}':
+            case 'secs':
             val = shelve.lpadString(new Date().getSeconds(), "00");
             break;
 
             case 't':
-            case '{title}':
+            case 'title':
             val = shelve.cleanValue(et_params.title);
             break;
 
             case 'Y':
-            case '{fullyear}':
+            case 'fullyear':
             val = new Date().getFullYear();
             break;
 
             case 'y':
-            case '{year}':
+            case 'year':
             var yr = String(new Date().getYear());
             val = shelve.lpadString(yr.slice(yr.length - 2), "00");
             break;
@@ -1029,12 +1071,12 @@ var shelve = {
 
             // log mode
             case 'n':
-            case '{note}':
+            case 'note':
             val = et_params.mode == 'log' ? shelve.getNote(et_params) : null;
             break;
 
             case 'o':
-            case '{outfile}':
+            case 'outfile':
             val = et_params.mode == 'log' ? et_params.output : null;
             if (val == '-') {
                 val = '';
@@ -1042,27 +1084,27 @@ var shelve = {
             break;
 
             case 'u':
-            case '{url}':
+            case 'url':
             val = et_params.mode == 'log' ? et_params.url : null;
             break;
             
-            case '{content}':
+            case 'content':
             val = et_params.mode == 'log' ? shelveUtils.unixString(et_params.shelve_content || "") : null;
             break;
 
             case 'v':
-            case '{shelf}':
+            case 'shelf':
             val = et_params.mode == 'log' ? et_params.shelve_name : null;
             break;
 
 
             default:
             val = null;
-            state = 0;
+            next_state = 0;
             alert(shelveUtils.localized('unknown') + ": %" + ch);
 
         }
-        return [state, val];
+        return [next_state, val];
     },
 
     cleanValue: function(value) {
