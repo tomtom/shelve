@@ -1,6 +1,8 @@
 * TODO
 
-    #B1 Shelf data: position field
+    #A1 skip sep
+    #B1 Log filename should be a template too
+    #B2 Shelf data: position field
     #B3 Shelve URL: blacklist (eg mailto:)
     #B5 Title/Clip etc. rewriting per host/URL pattern?
     #B5 Replace certain problematic characters in file names etc.
@@ -22,7 +24,7 @@
     % #X Save images/pdfs as images/pdfs (i.e., take care of document.contentType)
 
 
-% 2008-07-28; @Last Change: 2009-05-03.
+% 2008-07-28; @Last Change: 2009-05-23.
 % vi: ft=viki:tw=0:ts=4
 % Local Variables:
 % End:
