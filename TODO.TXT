@@ -1,6 +1,5 @@
 * TODO
 
-    #B1 Log filename should be a template too
     #B2 Shelf data: position field
     #B3 Shelve URL: blacklist (eg mailto:)
     #B5 Recode plain text output to a user-specified charset (make sure the file uses that charset)
