@@ -301,7 +301,7 @@ var shelveUtils = {
                     }
                 }
             }
-            if (phn == 0 && klass == "logfilename") {
+            if (phn === 0 && klass == "logfilename") {
                 phn = 1;
             }
             var rv = malformed ? -phn : phn;
