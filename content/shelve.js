@@ -733,7 +733,8 @@ var shelve = {
                 var et_params = shelve.expandTemplateParams(sp_params, template);
                 var log_entry = shelve.expandTemplate(et_params);
                 if (log_entry.match(/\S/)) {
-
+                    
+                    log_entry = shelveUtils.osString(log_entry);
                     var foStream = Components.classes["@mozilla.org/network/file-output-stream;1"].
                     createInstance(Components.interfaces.nsIFileOutputStream);
                     /*jsl:ignore*/
