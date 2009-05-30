@@ -91,7 +91,7 @@ var overlay = {
         if (props) {
             contentType = props.get("type", Components.interfaces.nsISupportsCString).toString();
         }
-        var title = overlay.imageTitle(gContextMenu.target);
+        var title = overlay.imageTitle(gContextMenu.target, url);
         shelve.saveURL(contentType, gContextMenu.target.src, title);
     },
 
@@ -99,8 +99,14 @@ var overlay = {
         overlay.onMenuItemCommand();
     },
 
-    imageTitle: function(image) {
-        return image.title || image.alt || "";
+    imageTitle: function(image, url) {
+        if (image.title && image.title != url) {
+            return image.title;
+        } else if (image.alt && image.alt != url) {
+            return image.alt;
+        } else {
+            return "";
+        }
     }
 
 };
