@@ -63,10 +63,7 @@ var shelve = {
     savePage: function() {
         if (shelve.autoPilot) {
             shelve.uninstallAutoShelve();
-            var prefs_auto = shelve.getPrefs("auto.");
-            if (shelve.getBoolPref(prefs_auto, 'notify_user', true)) {
-                shelve.notifyUser("Auto-save", "off", {});
-            }
+            shelve.notifyUser("Auto-save", "off", {});
         } else {
             try {
                 var sp_params = shelve.getSavePageParams({});
@@ -499,9 +496,7 @@ var shelve = {
                             if (filename == '-' || (file && !file.exists())) {
                                 shelve.autoPageParams.filename = filename;
                                 if (shelve.savePageWithParams(shelve.autoPageParams)) {
-                                    if (shelve.getBoolPref(prefs_auto, 'notify_user', true)) {
-                                        shelve.notifyUser("Auto-saved as", filename, shelve.autoPageParams);
-                                    }
+                                    shelve.notifyUser("Auto-saved as", filename, shelve.autoPageParams);
                                 }
                             }
                         }
@@ -764,13 +759,16 @@ var shelve = {
     notifyUser: function(title, text, sp_params) {
         // Log to error console
         shelveUtils.log(title + ': ' + text);
-        // Popup notification
-        if (!sp_params.noAlertNotification) {
-            var alertsService = Components.classes["@mozilla.org/alerts-service;1"].
-            getService(Components.interfaces.nsIAlertsService);
-            alertsService.showAlertNotification("chrome://mozapps/skin/downloads/downloadIcon.png", 
-            "Shelve: " + title, text, false, "", null);
-            // alert(text);
+        var prefs_auto = shelve.getPrefs("auto.");
+        if (shelve.getBoolPref(prefs_auto, 'notify_user', true)) {
+            // Popup notification
+            if (!sp_params.noAlertNotification) {
+                var alertsService = Components.classes["@mozilla.org/alerts-service;1"].
+                getService(Components.interfaces.nsIAlertsService);
+                alertsService.showAlertNotification("chrome://mozapps/skin/downloads/downloadIcon.png", 
+                "Shelve: " + title, text, false, "", null);
+                // alert(text);
+            }
         }
     },
 
