@@ -54,7 +54,7 @@ var shelve = {
         var sp_params = shelve.getSavePageToShelveParams(shelfId, {});
         if (sp_params && shelve.savePageWithParams(sp_params)){
             // shelve.notifyUser("Shelved:", sp_params.filename);
-            shelve.notifyUser("", sp_params.filename, sp_params);
+            // shelve.notifyUser("", sp_params.filename, sp_params);
             return true;
         }
         return null;
@@ -148,6 +148,7 @@ var shelve = {
                         shelve.saveBinary(doc, filename, params_fix);
                         break;
                     }
+                    shelve.notifyUser(shelveUtils.localized("saved.as"), filename, params_fix);
                 }
                 shelve.log(params_fix);
                 return true;
@@ -495,9 +496,10 @@ var shelve = {
                             var file = shelveUtils.localFile(filename);
                             if (filename == '-' || (file && !file.exists())) {
                                 shelve.autoPageParams.filename = filename;
-                                if (shelve.savePageWithParams(shelve.autoPageParams)) {
-                                    shelve.notifyUser("Auto-saved as", filename, shelve.autoPageParams);
-                                }
+                                shelve.savePageWithParams(shelve.autoPageParams);
+                                // if (shelve.savePageWithParams(shelve.autoPageParams)) {
+                                //     shelve.notifyUser("Auto-saved as", filename, shelve.autoPageParams);
+                                // }
                             }
                         }
                     }
@@ -575,7 +577,7 @@ var shelve = {
                     var rx = new RegExp(rxs);
                     if (url.match(rx)) {
                         var spp = shelve.getSavePageToShelveParams(i, doc_params);
-                        shelve.notifyUser(shelveUtils.localized("saved.as") + ":", spp.filename, spp);
+                        // shelve.notifyUser(shelveUtils.localized("saved.as") + ":", spp.filename, spp);
                         return spp;
                     }
                 }
@@ -763,10 +765,14 @@ var shelve = {
         if (shelve.getBoolPref(prefs_auto, 'notify_user', true)) {
             // Popup notification
             if (!sp_params.noAlertNotification) {
-                var alertsService = Components.classes["@mozilla.org/alerts-service;1"].
-                getService(Components.interfaces.nsIAlertsService);
-                alertsService.showAlertNotification("chrome://mozapps/skin/downloads/downloadIcon.png", 
-                "Shelve: " + title, text, false, "", null);
+                try {
+                    var alertsService = Components.classes["@mozilla.org/alerts-service;1"].
+                    getService(Components.interfaces.nsIAlertsService);
+                    alertsService.showAlertNotification("chrome://mozapps/skin/downloads/downloadIcon.png", 
+                    "Shelve: " + title, text, false, "", null);
+                } catch (e) {
+                    // Alert failed
+                }
                 // alert(text);
             }
         }
