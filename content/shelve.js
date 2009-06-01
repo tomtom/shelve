@@ -772,6 +772,8 @@ var shelve = {
                     "Shelve: " + title, text, false, "", null);
                 } catch (e) {
                     // Alert failed
+                    // nsIAlertsService not supported on Mac OSX?
+                    shelveUtils.log('Error when notifying the user (nsIAlertsService not supported?): ' + e);
                 }
                 // alert(text);
             }
