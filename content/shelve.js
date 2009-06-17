@@ -298,6 +298,8 @@ var shelve = {
         }
     },
 
+    restoreCount: 0,
+
     setupAutoshelf: function() {
         var autoshelf = shelve.getAutoshelfPref();
         if (autoshelf && autoshelf != "--") {
@@ -307,9 +309,25 @@ var shelve = {
                 sp_params.noAlertNotification = true;
                 shelve.installAutoShelve(sp_params);
                 shelveUtils.log('Installed autoshelf: ' + autoshelf);
+                shelve.restoreCount = 0;
+                document.addEventListener("SSTabRestoring", shelve.autoDisableWhileRestoring, false);
+                document.addEventListener("SSTabRestored", shelve.autoReEnableWhileRestoring, false);
             } else {
                 shelveUtils.log('Unknown autoshelf: ' + autoshelf);
             }
+        }
+    },
+
+    autoDisableWhileRestoring: function() {
+        shelve.autoPilot = false;
+        shelve.restoreCount++;
+    },
+
+    autoReEnableWhileRestoring: function() {
+        shelve.restoreCount--;
+        if (shelve.restoreCount == 0) {
+            shelve.autoPilot = true;
+            // alert("autoReEnableWhileRestoring:"+ shelve.autoPilot);
         }
     },
 
@@ -470,7 +488,7 @@ var shelve = {
 
     autoShelve: function(dclevent) {
         if (shelve.autoPageParams) {
-            if (dclevent.originalTarget instanceof HTMLDocument) {
+            if (shelve.autoPilot && dclevent.originalTarget instanceof HTMLDocument) {
                 var doc = dclevent.originalTarget;
                 // if (event.originalTarget.defaultView.frameElement) {
                 //     // Frame within a tab was loaded. doc should be the root document of
