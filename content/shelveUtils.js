@@ -43,6 +43,10 @@
 
 var shelveUtils = {
 
+    clone: function(obj) {
+        return eval(uneval(obj));
+    },
+
     pick: function(cid, mode) {
         const nsIFilePicker = Components.interfaces.nsIFilePicker;
         var fp = Components.classes["@mozilla.org/filepicker;1"].
@@ -171,6 +175,10 @@ var shelveUtils = {
     //     cs.getMIMETypeFromContent()
     // },
 
+    debug: function(text) {
+        shelveUtils.log("DEBUG: "+ text);
+    },
+
     log: function(text) {
         var aConsoleService = Components.classes["@mozilla.org/consoleservice;1"].
         getService(Components.interfaces.nsIConsoleService);
@@ -192,6 +200,10 @@ var shelveUtils = {
             shelveUtils.log('Malformed path: ' + String(path));
         }
         return null;
+    },
+
+    isSomeFilename: function(filename) {
+        return filename && filename.match(/\S/) && filename != '-';
     },
 
     newURI: function(url) {

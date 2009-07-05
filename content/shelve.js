@@ -128,36 +128,50 @@ var shelve = {
     savePageWithParams: function(sp_params) {
         var filename = sp_params.filename;
         if (filename) {
-            // http://developer.mozilla.org/en/docs/Code_snippets:Miscellaneous
-            try {
-                var params_fix = shelve.frozenParams(sp_params);
-                if (filename != '-') {
-                    var doc = shelve.getDocument(sp_params);
-                    switch(doc.contentType) {
-                        case 'text/html':
-                        case 'application/xhtml+xml':
-                        if (sp_params.shelve_content) {
-                            shelve.saveText(sp_params.shelve_content, filename, params_fix);
-                        } else {
-                            shelve.saveDocument(doc, filename, params_fix);
-                        }
-                        break;
+            // shelveUtils.debug("savePageWithParams filename="+ filename);
+            if (shelve.shouldWriteFile(filename)) {
+                // http://developer.mozilla.org/en/docs/Code_snippets:Miscellaneous
+                try {
+                    var params_fix = shelve.frozenParams(sp_params);
+                    if (filename != '-') {
+                        var doc = shelve.getDocument(sp_params);
+                        switch(doc.contentType) {
+                            case 'text/html':
+                            case 'application/xhtml+xml':
+                            if (sp_params.shelve_content) {
+                                shelve.saveText(sp_params.shelve_content, filename, params_fix);
+                            } else {
+                                shelve.saveDocument(doc, filename, params_fix);
+                            }
+                            break;
 
-                        default:
-                        // binary
-                        shelve.saveBinary(doc, filename, params_fix);
-                        break;
+                            default:
+                            // binary
+                            shelve.saveBinary(doc, filename, params_fix);
+                            break;
+                        }
+                        shelve.notifyUser(shelveUtils.localized("saved.as"), filename, params_fix);
                     }
-                    shelve.notifyUser(shelveUtils.localized("saved.as"), filename, params_fix);
+                    shelve.log(params_fix);
+                    return true;
+                } catch(e) {
+                    // alert(e);
+                    throw('Shelve: Error when saving document: ' + e + " " + filename);
                 }
-                shelve.log(params_fix);
-                return true;
-            } catch(e) {
-                // alert(e);
-                throw('Shelve: Error when saving document: ' + e + " " + filename);
+            } else {
+                shelveUtils.log("Shelve: Do not (over)write file: "+ filename);
             }
         }
         return false;
+    },
+
+    shouldWriteFile: function(filename) {
+        return true;
+        // shelveUtils.debug("shouldWriteFile: filename="+ filename);
+        // var file = shelveUtils.localFile(filename);
+        // var overwrite = shelveStore.getBool(null, "overwrite_files", true);
+        // shelveUtils.debug("shouldWriteFile: file.exists="+ file.exists() +" overwrite_files="+overwrite);
+        // return !file.exists() || overwrite;
     },
 
     saveDocument: function(doc, filename, sp_params) {
@@ -166,9 +180,9 @@ var shelve = {
         var dir = file.parent;
         if (!dir.exists()) {
             /*jsl:ignore*/
-             dir.create(dir.DIRECTORY_TYPE, 0755);
-             /*jsl:end*/
-         }
+            dir.create(dir.DIRECTORY_TYPE, 0755);
+            /*jsl:end*/
+        }
 
         var data = null;
         var mime = null;
@@ -222,7 +236,7 @@ var shelve = {
         var file = shelveUtils.localFile(filename);
         if(!file.exists()) {
             /*jsl:ignore*/
-            file.create(0x00,0644);
+             file.create(0x00,0644);
             /*jsl:end*/
         }
         var file_uri = shelveUtils.newFileURI(file); 
@@ -250,26 +264,26 @@ var shelve = {
         /*jsl:ignore*/
         foStream.init(file, 0x02 | 0x08 | 0x20, -1, 0); 
         /*jsl:end*/
-        foStream.write(text, text.length);
-        foStream.close();
+         foStream.write(text, text.length);
+         foStream.close();
 
-        // var charset = "UTF-8"; // Can be any character encoding name that Mozilla supports
-        // var os = Components.classes["@mozilla.org/intl/converter-output-stream;1"]
-        // .createInstance(Components.interfaces.nsIConverterOutputStream);
-        // os.init(fos, charset, 0, 0x0000);
-        // os.writeString(text);
-        // os.close();
+         // var charset = "UTF-8"; // Can be any character encoding name that Mozilla supports
+         // var os = Components.classes["@mozilla.org/intl/converter-output-stream;1"]
+         // .createInstance(Components.interfaces.nsIConverterOutputStream);
+         // os.init(fos, charset, 0, 0x0000);
+         // os.writeString(text);
+         // os.close();
 
-        shelve.addFooter(sp_params);
-    },
+         shelve.addFooter(sp_params);
+     },
 
-    registerDownload: function(mode, sp_params, persist, uri, file_uri) {
-        var prefs_dlm = shelve.getPrefs("use_download_manager.");
-        if (!sp_params.noAlertNotification && shelve.getBoolPref(prefs_dlm, mode) && !shelveUtils.appInfo().match(/^Firefox2/)) {
-            // var dm = Components.classes["@mozilla.org/download-manager;1"].
-            // getService(Components.interfaces.nsIDownloadManager);
-            // var dl = dm.addDownload(0, uri, file_uri, "", null, null, null, persist);
-            // persist.progressListener = dl;
+     registerDownload: function(mode, sp_params, persist, uri, file_uri) {
+         var prefs_dlm = shelve.getPrefs("use_download_manager.");
+         if (!sp_params.noAlertNotification && shelve.getBoolPref(prefs_dlm, mode) && !shelveUtils.appInfo().match(/^Firefox2/)) {
+             // var dm = Components.classes["@mozilla.org/download-manager;1"].
+             // getService(Components.interfaces.nsIDownloadManager);
+             // var dl = dm.addDownload(0, uri, file_uri, "", null, null, null, persist);
+             // persist.progressListener = dl;
             var tr = Components.classes["@mozilla.org/transfer;1"].
             createInstance(Components.interfaces.nsITransfer);
             tr.init(uri, file_uri, "", null, null, null, persist);
@@ -306,6 +320,7 @@ var shelve = {
             var shelfId = shelve.getShelfNumberByName(autoshelf);
             if (shelfId) {
                 var sp_params = shelve.getSavePageToShelveParams(shelfId, {});
+                // shelveUtils.debug("setupAutoshelf: sp_params="+ uneval(sp_params));
                 sp_params.noAlertNotification = true;
                 shelve.installAutoShelve(sp_params);
                 shelveUtils.log('Installed autoshelf: ' + autoshelf);
@@ -319,16 +334,16 @@ var shelve = {
     },
 
     autoDisableWhileRestoring: function() {
-        shelve.autoPilot = false;
-        shelve.restoreCount++;
+        // shelve.autoPilot = false;
+        // shelve.restoreCount++;
     },
 
     autoReEnableWhileRestoring: function() {
-        shelve.restoreCount--;
-        if (shelve.restoreCount == 0) {
-            shelve.autoPilot = true;
-            // alert("autoReEnableWhileRestoring:"+ shelve.autoPilot);
-        }
+        // shelve.restoreCount--;
+        // if (shelve.restoreCount === 0) {
+        //     shelve.autoPilot = true;
+        //     // alert("autoReEnableWhileRestoring:"+ shelve.autoPilot);
+        // }
     },
 
     setupHotkeys: function() {
@@ -505,18 +520,25 @@ var shelve = {
                     var prefs_auto = shelve.getPrefs("auto.");
                     var stop = shelve.getUnicharPref(prefs_auto, 'stop_rx') || '';
                     if (!stop.match(/\S/) || !doc.URL.match(new RegExp(stop))) {
-                        shelve.autoFileParams.title = doc.title;
-                        shelve.autoFileParams.clip = '';
-                        shelve.autoFileParams.url = doc.URL;
-                        shelve.autoFileParams.parentWindow = window;
-                        var filename = shelve.expandTemplate(shelve.autoFileParams);
+                        var afp = shelveUtils.clone(shelve.autoFileParams);
+                        afp.title = doc.title;
+                        afp.clip = '';
+                        afp.url = doc.URL;
+                        afp.parentWindow = window;
+                        // shelveUtils.debug("afp: "+ uneval(afp));
+                        var filename = shelve.expandTemplate(afp);
+                        // shelveUtils.debug("filename: "+ filename);
                         if (filename) {
                             var file = shelveUtils.localFile(filename);
                             if (filename == '-' || (file && !file.exists())) {
-                                shelve.autoPageParams.filename = filename;
-                                shelve.savePageWithParams(shelve.autoPageParams);
-                                // if (shelve.savePageWithParams(shelve.autoPageParams)) {
-                                //     shelve.notifyUser("Auto-saved as", filename, shelve.autoPageParams);
+                                var app = shelveUtils.clone(shelve.autoPageParams);
+                                // shelveUtils.debug("app: "+ uneval(app));
+                                app.filename = filename;
+                                app.doc = doc;
+                                app.url = doc.URL;
+                                shelve.savePageWithParams(app);
+                                // if (shelve.savePageWithParams(app)) {
+                                //     shelve.notifyUser("Auto-saved as", filename, app);
                                 // }
                             }
                         }
@@ -715,11 +737,13 @@ var shelve = {
 
     footer: function(id) {
         var sp_params = shelve.footers[id];
+        // shelveUtils.debug("footer "+ id +": sp_params="+ uneval(sp_params));
         var file = shelveUtils.localFile(sp_params.filename);
         if (file.exists() && file.isWritable()) {
             var template = shelve.getFooterTemplate(sp_params);
             if (template && template.match(/\S/)) {
                 var et_params = shelve.expandTemplateParams(sp_params, template);
+                // shelveUtils.debug("footer et_params="+ uneval(et_params));
                 var text = shelveUtils.osString(shelve.expandTemplate(et_params));
                 // var text = shelveUtils.asISupportsString(shelve.expandTemplate(et_params)).toString();
                 var foStream = Components.classes["@mozilla.org/network/file-output-stream;1"].
@@ -739,25 +763,30 @@ var shelve = {
     },
 
     log: function(sp_params) {
+        // shelveUtils.debug("log: sp_params="+ uneval(sp_params));
         var shelf = sp_params.shelf;
         var log_file_template = shelve.log_param(shelf, 'file');
-        var log = shelve.expandTemplate(shelve.expandTemplateParams(sp_params, log_file_template));
-        if (log && log.match(/\S/) && log != '-') {
-            var template = shelve.log_param(shelf, 'template');
-            if (template && template.match(/\S/)) {
-                var et_params = shelve.expandTemplateParams(sp_params, template);
-                var log_entry = shelve.expandTemplate(et_params);
-                if (log_entry.match(/\S/)) {
-                    
-                    log_entry = shelveUtils.osString(log_entry);
-                    var foStream = Components.classes["@mozilla.org/network/file-output-stream;1"].
-                    createInstance(Components.interfaces.nsIFileOutputStream);
-                    /*jsl:ignore*/
-                    foStream.init(shelveUtils.localFile(log), 0x02 | 0x10 | 0x08, -1, 0); 
-                    /*jsl:end*/
-                    foStream.write(log_entry, log_entry.length);
-                    foStream.close();
+        if (shelveUtils.isSomeFilename(log_file_template)) {
+            var log_file = shelve.expandTemplateParams(sp_params, log_file_template);
+            var log = shelve.expandTemplate(log_file);
+            if (shelveUtils.isSomeFilename(log)) {
+                var template = shelve.log_param(shelf, 'template');
+                if (template && template.match(/\S/)) {
+                    // shelveUtils.debug("log template="+ template);
+                    var et_params = shelve.expandTemplateParams(sp_params, template);
+                    var log_entry = shelve.expandTemplate(et_params);
+                    if (log_entry.match(/\S/)) {
 
+                        log_entry = shelveUtils.osString(log_entry);
+                        var foStream = Components.classes["@mozilla.org/network/file-output-stream;1"].
+                        createInstance(Components.interfaces.nsIFileOutputStream);
+                        /*jsl:ignore*/
+                        foStream.init(shelveUtils.localFile(log), 0x02 | 0x10 | 0x08, -1, 0); 
+                        /*jsl:end*/
+                        foStream.write(log_entry, log_entry.length);
+                        foStream.close();
+
+                    }
                 }
             }
         }
@@ -837,10 +866,12 @@ var shelve = {
             extension: shelveUtils.getExtension(doc_params.type, mime, shelve.getDocument(doc_params)),
             parentWindow: window
         };
+        // shelveUtils.debug("expandTemplateNow: et_params="+ uneval(et_params));
         return shelve.expandTemplate(et_params);
     },
 
     expandTemplate: function(et_params) {
+        // shelveUtils.debug("expandTemplate: et_params="+ uneval(et_params));
         var max = et_params.template.length;
         var ch = "";
         var out = "";
@@ -1146,7 +1177,7 @@ var shelve = {
 
     lpadString: function(str, fill) {
         str = String(str);
-        pad = fill.slice(0, fill.length - str.length);
+        var pad = fill.slice(0, fill.length - str.length);
         return pad + str;
     },
 
