@@ -72,6 +72,7 @@
             <preference id="hotkey_ctrl" name="extensions.shelve.hotkey.ctrl" type="bool"/>
             <preference id="hotkey_shift" name="extensions.shelve.hotkey.shift" type="bool"/>
             <preference id="hotkey_meta" name="extensions.shelve.hotkey.meta" type="bool"/>
+            <preference id="overwrite_files" name="extensions.shelve.overwrite_files" type="bool"/>
         </preferences>
 
         <tabbox>
@@ -359,6 +360,13 @@
                                                   checked="false"/>
                                     </hbox>
                                 </row>
+
+                                <!-- <row> -->
+                                <!--     <checkbox id="overwrite_files"  -->
+                                <!--               label="&shelve.overwrite_files;"  -->
+                                <!--               accesskey="&shelve.overwrite_files.accesskey;" -->
+                                <!--               preference="overwrite_files"/> -->
+                                <!-- </row> -->
 
                             </rows>
                         </grid>

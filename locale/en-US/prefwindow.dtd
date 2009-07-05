@@ -23,6 +23,8 @@
 <!ENTITY shelve.options "Options">
 <!ENTITY shelve.options.accesskey "O">
 <!ENTITY shelve.parameters "Parameters">
+<!ENTITY shelve.overwrite_files "Overwrite files">
+<!ENTITY shelve.overwrite_files.accesskey "T">
 <!ENTITY shelve.startup "Startup">
 <!ENTITY shelve.startup.accesskey "P">
 <!ENTITY shelve.mime "MIME">
