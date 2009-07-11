@@ -1103,7 +1103,7 @@ var shelve = {
 
             case 'q':
             case 'query':
-            val = shelve.getDocumentUrlQuerhey(et_params);
+            val = shelve.getDocumentUrlQuery(et_params);
             break;
 
             case 's':
@@ -1424,7 +1424,7 @@ var shelve = {
 
     getDocumentUrlQuery: function(et_params) {
         var url = shelve.getDocumentURL(et_params);
-        var rest = host.match(/\?(.*)$/);
+        var rest = url.match(/\?(.*)$/);
         return rest ? rest[1] : rest;
     }
 
