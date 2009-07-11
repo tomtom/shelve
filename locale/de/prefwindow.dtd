@@ -23,6 +23,8 @@
 <!ENTITY shelve.options "Einstellungen">
 <!ENTITY shelve.options.accesskey "E">
 <!ENTITY shelve.parameters "Parameter">
+<!ENTITY shelve.overwrite_files "Dateien überschreiben">
+<!ENTITY shelve.overwrite_files.accesskey "C">
 <!ENTITY shelve.startup "Programmstart">
 <!ENTITY shelve.startup.accesskey "P">
 <!ENTITY shelve.mime "MIME">

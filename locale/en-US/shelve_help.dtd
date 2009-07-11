@@ -18,6 +18,7 @@
 <!ENTITY shelve.td.pick.directory "Pick directory">
 <!ENTITY shelve.td.host "Host">
 <!ENTITY shelve.td.base.hostname "Base Hostname">
+<!ENTITY shelve.td.query "Query (the part in the URL after the questionmark)">
 <!ENTITY shelve.td.path "Path">
 <!ENTITY shelve.td.path.no.ext "Path (no ext)">
 <!ENTITY shelve.td.filename "Filename">

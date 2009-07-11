@@ -18,6 +18,7 @@
 <!ENTITY shelve.td.pick.directory "Wählbares Unterverzeichnis">
 <!ENTITY shelve.td.host "Host">
 <!ENTITY shelve.td.base.hostname "Basisname des Host">
+<!ENTITY shelve.td.query "Query (der Teil der URL nach dem Fragezeichen)`">
 <!ENTITY shelve.td.path "Pfad">
 <!ENTITY shelve.td.path.no.ext "Pfad (ohne Erweiterung)">
 <!ENTITY shelve.td.filename "Dateiname">

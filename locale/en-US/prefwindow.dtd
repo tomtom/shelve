@@ -84,4 +84,3 @@
 <!ENTITY hotkey.alt.accesskey "A">
 <!ENTITY hotkey.meta "Meta/Win/Cmd">
 <!ENTITY hotkey.meta.accesskey "W">
-<!ENTITY shelve.help.log.mainfile "Define a main log file where all shelved documents are registered. You can also define special log files for single shelves. The syntax for the log-entry template is the same as for shelf templates.">
