@@ -236,7 +236,7 @@ var shelve = {
         var file = shelveUtils.localFile(filename);
         if(!file.exists()) {
             /*jsl:ignore*/
-             file.create(0x00,0644);
+            file.create(0x00,0644);
             /*jsl:end*/
         }
         var file_uri = shelveUtils.newFileURI(file); 
@@ -1101,6 +1101,11 @@ var shelve = {
             val = shelve.getDocumentFilename(et_params, 4);
             break;
 
+            case 'q':
+            case 'query':
+            val = shelve.getDocumentUrlQuerhey(et_params);
+            break;
+
             case 's':
             case 'secs':
             val = shelve.lpadString(new Date().getSeconds(), "00");
@@ -1416,6 +1421,12 @@ var shelve = {
             return 'localhost';
         }
     },
+
+    getDocumentUrlQuery: function(et_params) {
+        var url = shelve.getDocumentURL(et_params);
+        var rest = host.match(/\?(.*)$/);
+        return rest ? rest[1] : rest;
+    }
 
 };
 
