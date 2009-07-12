@@ -520,22 +520,26 @@ var shelve = {
                     var prefs_auto = shelve.getPrefs("auto.");
                     var stop = shelve.getUnicharPref(prefs_auto, 'stop_rx') || '';
                     if (!stop.match(/\S/) || !doc.URL.match(new RegExp(stop))) {
-                        var afp = shelveUtils.clone(shelve.autoFileParams);
+                        var afp   = shelveUtils.clone(shelve.autoFileParams);
+                        // shelveUtils.debug("afp0: "+ uneval(afp));
+                        afp.doc   = doc;
                         afp.title = doc.title;
-                        afp.clip = '';
-                        afp.url = doc.URL;
+                        afp.url   = doc.URL;
+                        afp.clip  = '';
                         afp.parentWindow = window;
-                        // shelveUtils.debug("afp: "+ uneval(afp));
+                        // shelveUtils.debug("afp1: "+ uneval(afp));
                         var filename = shelve.expandTemplate(afp);
                         // shelveUtils.debug("filename: "+ filename);
                         if (filename) {
                             var file = shelveUtils.localFile(filename);
                             if (filename == '-' || (file && !file.exists())) {
                                 var app = shelveUtils.clone(shelve.autoPageParams);
-                                // shelveUtils.debug("app: "+ uneval(app));
+                                // shelveUtils.debug("app0: "+ uneval(app));
                                 app.filename = filename;
                                 app.doc = doc;
+                                app.title = doc.title;
                                 app.url = doc.URL;
+                                // shelveUtils.debug("app1: "+ uneval(app));
                                 shelve.savePageWithParams(app);
                                 // if (shelve.savePageWithParams(app)) {
                                 //     shelve.notifyUser("Auto-saved as", filename, app);
@@ -689,10 +693,10 @@ var shelve = {
                     return val.data;
                 }
             }
+            return null;
         } catch(e) {
             throw(e);
         }
-        return null;
     },
 
     setUnicharPref: function(prefs, name, value) {
@@ -1021,7 +1025,7 @@ var shelve = {
                 var s_empty = shelveUtils.localized('empty.clip');
                 alert(s_empty + " " + shelveUtils.localized('abort'));
                 throw s_empty;
-            };
+            }
             break;
 
             case 'D':
@@ -1406,8 +1410,7 @@ var shelve = {
     },
 
     getDocumentHost: function(et_params, mode) {
-        var host = shelve.getDocumentURL(et_params);
-        var host = host.match(/^\w+:\/\/([^?\/]+)/);
+        var host = shelve.getDocumentURL(et_params).match(/^\w+:\/\/([^?\/]+)/);
         if (host) {
             host = host[1];
             switch(mode) {
