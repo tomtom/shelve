@@ -200,6 +200,7 @@ var shelveUtils = {
         } catch(e) {
             shelveUtils.log('Malformed path: ' + String(path));
         }
+        return null;
     },
 
     isSomeFilename: function(filename) {
