@@ -69,8 +69,10 @@ var selectShelf = {
     },
 
     onOK: function() {
+        // shelveUtils.debug("onOK1 filename="+ filename +"; ext="+ selectShelf.getExtension());
         if (selectShelf.finalized || selectShelf.onSelect(true, false)) {
             var filename = document.getElementById("filename").value;
+            // shelveUtils.debug("onOK2 filename="+ filename +"; ext="+ selectShelf.getExtension());
             window.arguments[0].sp_params = {
                 doc: window.arguments[0].inn.doc,
                 filename: filename,
@@ -125,8 +127,10 @@ var selectShelf = {
     },
 
     onFinalize: function() {
-        selectShelf.onSelect(true, false);
-        selectShelf.finalized = true;
+        if (!selectShelf.finalized){
+            selectShelf.onSelect(true, false);
+            selectShelf.finalized = true;
+        }
     },
 
     onSelectMime: function() {

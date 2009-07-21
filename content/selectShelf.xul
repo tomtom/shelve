@@ -116,7 +116,7 @@
                             </row>
                             <row>
                                 <label accesskey="&shelve.file.accesskey;" control="filename">&shelve.file;</label>
-                                <textbox id="filename" width="450" onselect="selectShelf.onFinalize()"/>
+                                <textbox id="filename" width="450" onkeydown="selectShelf.onFinalize()"/>
                             </row>
                         </rows>
                     </grid>
