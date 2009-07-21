@@ -1,6 +1,5 @@
 * TODO
 
-    #B2 %r placeholder: "Rest"/right hand part of an URL after the "?"
     #B2 Shelf data: position field
     #B3 Shelve URL: blacklist (eg mailto:)
     #B5 Recode plain text output to a user-specified charset (make sure the file uses that charset)
@@ -15,7 +14,7 @@
     #E9 Option to select more than one shelf?
 
 
-% 2008-07-28; @Last Change: 2009-07-05.
+% 2008-07-28; @Last Change: 2009-07-12.
 % vi: ft=viki:tw=0:ts=4
 % Local Variables:
 % End:
