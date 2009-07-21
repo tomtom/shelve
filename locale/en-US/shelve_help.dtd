@@ -1,14 +1,14 @@
 <!ENTITY shelve.title.shelve.help "Shelve: Help">
 <!ENTITY shelve.a.shelve "Shelve">
 <!ENTITY shelve.a.more.help "More help">
-<!ENTITY sheve.help.on.regex "Help on regular expressions (RegExp):" >
+<!ENTITY sheve.help.on.regex "Help on regular expressions (RegExp):">
 <!ENTITY shelve.regexp.hlp.moz "https://developer.mozilla.org/En/Core_JavaScript_1.5_Guide:Regular_Expressions">
 <!ENTITY shelve.regexp.hlp.wik "http://en.wikipedia.org/wiki/Regular_expression">
 <!ENTITY shelve.h2.place.holders "Place-holders">
 <!ENTITY shelve.p.please.define.a.set.of.templates "Please define a set of templates. These will be used to determine the location where the document should be saved to.">
 <!ENTITY shelve.p.the.following.place.holders.can.be.used "The following place-holders can be used:">
-<!ENTITY shelve.p.modifier.mandatory "If a long name ends with '!', the information must be provided.">
-<!ENTITY shelve.p.modifier.optional.line "If a long name ends with '?', the line will be suppressed from output if its value is empty.">
+<!ENTITY shelve.p.modifier.mandatory "If a long name ends with &apos;!&apos;, the information must be provided.">
+<!ENTITY shelve.p.modifier.optional.line "If a long name ends with &apos;?&apos;, the line will be suppressed from output if its value is empty.">
 <!ENTITY shelve.long.var.names "Long names for place-holders:">
 <!ENTITY shelve.td.alternatives.example.ctf "Alternatives (Example: &#37;[ctF])">
 <!ENTITY shelve.td.clip "Clip">
@@ -45,4 +45,4 @@
 <!ENTITY shelve.dd.save.in.the.directory.host.year "Save in the directory HOST/YEAR, use either some selected text or the title as filename.">
 <!ENTITY shelve.dd.save.as.host.year.month.day.filename "Save as HOST/YEAR-MONTH-DAY/FILENAME (the original extension will be stripped)">
 <!ENTITY shelve.dd.rebuild.the.original.file.system "Rebuild the original file system">
-<!ENTITY shelve.dd.save.under.topics.but.query.the.user "Save under .../topics but query the user for a subdirectory. Use either selected text, the title or the base filename plus '.html' as filename.">
+<!ENTITY shelve.dd.save.under.topics.but.query.the.user "Save under .../topics but query the user for a subdirectory. Use either selected text, the title or the base filename plus &apos;.html&apos; as filename.">

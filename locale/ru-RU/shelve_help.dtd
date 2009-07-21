@@ -1,0 +1,48 @@
+<!ENTITY shelve.title.shelve.help "Shelve: Справка">
+<!ENTITY shelve.a.shelve "Shelve">
+<!ENTITY shelve.a.more.help "Подробная справка">
+<!ENTITY sheve.help.on.regex "Справка по регулярным выражениям (RegExp):">
+<!ENTITY shelve.regexp.hlp.moz "https://developer.mozilla.org/En/Core_JavaScript_1.5_Guide:Regular_Expressions">
+<!ENTITY shelve.regexp.hlp.wik "http://ru.wikipedia.org/wiki/&#37;D0&#37;A0&#37;D0&#37;B5&#37;D0&#37;B3&#37;D1&#37;83&#37;D0&#37;BB&#37;D1&#37;8F&#37;D1&#37;80&#37;D0&#37;BD&#37;D1&#37;8B&#37;D0&#37;B5_&#37;D0&#37;B2&#37;D1&#37;8B&#37;D1&#37;80&#37;D0&#37;B0&#37;D0&#37;B6&#37;D0&#37;B5&#37;D0&#37;BD&#37;D0&#37;B8&#37;D1&#37;8F">
+<!ENTITY shelve.h2.place.holders "Переменные">
+<!ENTITY shelve.p.please.define.a.set.of.templates "Пожалуйста, выберите набор шаблонов. Они необходимы для задания места сохранения документа.">
+<!ENTITY shelve.p.the.following.place.holders.can.be.used "Следующие переменные могут быть использованы:">
+<!ENTITY shelve.p.modifier.mandatory "При наличии &quot;!&quot; в конце длинного имени необходима дополнительная информация.">
+<!ENTITY shelve.p.modifier.optional.line "При наличии &quot;?&quot; в конце длинного имени строка будет удалена из вывода, если её значение не определено.">
+<!ENTITY shelve.long.var.names "Длинные имена для переменных:">
+<!ENTITY shelve.td.alternatives.example.ctf "Альтернативы (к примеру, &#37;[ctF])">
+<!ENTITY shelve.td.clip "Имя">
+<!ENTITY shelve.td.clip.non.empty "Имя (не пустое)">
+<!ENTITY shelve.td.content "Ваш текст (при записи в лог выбранного текста)">
+<!ENTITY shelve.td.user.input "Пользовательский ввод">
+<!ENTITY shelve.td.pick.directory "Папка">
+<!ENTITY shelve.td.host "Хост">
+<!ENTITY shelve.td.base.hostname "Базовое имя хоста">
+<!ENTITY shelve.td.query "Запрос (часть URL после знака вопроса)">
+<!ENTITY shelve.td.path "Путь">
+<!ENTITY shelve.td.path.no.ext "Путь (без расширения)">
+<!ENTITY shelve.td.filename "Имя файла">
+<!ENTITY shelve.td.filename.no.ext "Базовое имя файла (без расширения)">
+<!ENTITY shelve.td.extension "Расширение">
+<!ENTITY shelve.td.title "Заголовок">
+<!ENTITY shelve.td.keywords "Ключевые слова">
+<!ENTITY shelve.td.full.year "Год полностью">
+<!ENTITY shelve.td.year "Год">
+<!ENTITY shelve.td.month "Месяц">
+<!ENTITY shelve.td.day "День">
+<!ENTITY shelve.td.hours "Часы">
+<!ENTITY shelve.td.minutes "Минуты">
+<!ENTITY shelve.td.seconds "Секунды">
+<!ENTITY shelve.td.milliseconds "Миллисекунды">
+<!ENTITY shelve.p.only.available.in.log.templates "Используются только для шаблонов записей в лог:">
+<!ENTITY shelve.td.note "Заметка">
+<!ENTITY shelve.td.output.file "Вывод">
+<!ENTITY shelve.td.url "URL">
+<!ENTITY shelve.td.shelf.name "Имя папки">
+<!ENTITY shelve.p.the.shelf.name.is.optional "Имя папки может быть опущено. В этом случае будут использованы цифры.">
+<!ENTITY shelve.p.if.the.regular.expression "Если регулярное выражение соответствует данному URL, шаблон будет применён немедленно.">
+<!ENTITY shelve.h2.examples "Примеры">
+<!ENTITY shelve.dd.save.in.the.directory.host.year "Сохранить в папку Хост/Год. Имя файла создаётся из выбранного текста или заголовка.">
+<!ENTITY shelve.dd.save.as.host.year.month.day.filename "Сохранить как Хост/Год-Месяц-День/Имя файла (оригинальное расширение будет опущено).">
+<!ENTITY shelve.dd.rebuild.the.original.file.system "Перестроить оригинальную файловую структуру">
+<!ENTITY shelve.dd.save.under.topics.but.query.the.user "Сохранить в папку .&#46;&#46;/topics, но спросить о подпапке. Имя файла создаётся из выбранного текста, заголовка или базового имени файла плюс расширение &quot;.html&quot;.">

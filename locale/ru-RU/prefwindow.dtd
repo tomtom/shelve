@@ -1,0 +1,86 @@
+<!ENTITY prefwindow.title "Настройки Shelve">
+<!ENTITY shelve.shelves "Папки">
+<!ENTITY shelve.shelves.accesskey0 "V">
+<!ENTITY shelve.shelves.accesskey1 "S">
+<!ENTITY shelve.help "Справка">
+<!ENTITY shelve.help.accesskey "H">
+<!ENTITY shelve.title "Заголовок">
+<!ENTITY shelve.title.accesskey "T">
+<!ENTITY shelve.clip "Имя">
+<!ENTITY shelve.clip.accesskey "C">
+<!ENTITY shelve.file "Файл">
+<!ENTITY shelve.file.accesskey "F">
+<!ENTITY shelve.name "Имя (начальные символы должны отличаться)">
+<!ENTITY shelve.name.accesskey "N">
+<!ENTITY shelve.template "Шаблон имени файла">
+<!ENTITY shelve.template.accesskey "T">
+<!ENTITY shelve.log "Лог">
+<!ENTITY shelve.log.accesskey "L">
+<!ENTITY shelve.footer "Маркер">
+<!ENTITY shelve.footer.accesskey "F">
+<!ENTITY shelve.bookmarks "Закладки">
+<!ENTITY shelve.bookmarks.accesskey "B">
+<!ENTITY shelve.options "Настройки">
+<!ENTITY shelve.options.accesskey "O">
+<!ENTITY shelve.parameters "Параметры">
+<!ENTITY shelve.overwrite_files "Overwrite files">
+<!ENTITY shelve.overwrite_files.accesskey "T">
+<!ENTITY shelve.startup "Запуск">
+<!ENTITY shelve.startup.accesskey "P">
+<!ENTITY shelve.mime "Тип MIME">
+<!ENTITY shelve.mime.accesskey "M">
+<!ENTITY shelve.mime.default "по умолчанию">
+<!ENTITY shelve.mime.webpage "Веб-страница, полностью">
+<!ENTITY shelve.mime.html "Веб-страница, только HTML">
+<!ENTITY shelve.mime.text "Текстовый файл">
+<!ENTITY shelve.mime.text_latin1 "Текстовый файл (латиница 1)">
+<!ENTITY shelve.auto "Авто-сохранение">
+<!ENTITY shelve.auto.accesskey "A">
+<!ENTITY shelve.auto.rx "Не сохранять автоматически документы, URL которых соответствует регулярному выражению:">
+<!ENTITY shelve.auto.rx.accesskey "R">
+<!ENTITY shelve.auto.notify "Выдавать оповещение при проведении автоматических операций">
+<!ENTITY shelve.auto.notify.accesskey "N">
+<!ENTITY shelve.auto.shelf "После запуска программы сохранять документы автоматически">
+<!ENTITY shelve.auto.shelf.accesskey "U">
+<!ENTITY shelve.up "Вверх">
+<!ENTITY shelve.up.accesskey "U">
+<!ENTITY shelve.down "Вниз">
+<!ENTITY shelve.down.accesskey "D">
+<!ENTITY shelve.new "Создать">
+<!ENTITY shelve.new.accesskey "B">
+<!ENTITY shelve.clone "Дубль">
+<!ENTITY shelve.clone.accesskey "C">
+<!ENTITY shelve.edit "Изменить">
+<!ENTITY shelve.edit.accesskey "E">
+<!ENTITY shelve.remove "Удалить">
+<!ENTITY shelve.remove.accesskey "R">
+<!ENTITY log.file "Файл лога (запись в лог происходит в этот файл)">
+<!ENTITY log.file.accesskey "G">
+<!ENTITY log.template "Шаблон для записи в лог">
+<!ENTITY log.template.accesskey "T">
+<!ENTITY footer.text "Маркер для файлов, сохранённых как текст">
+<!ENTITY footer.text.accesskey "X">
+<!ENTITY footer.html "Маркер для файлов, сохранённых как HTML">
+<!ENTITY footer.html.accesskey "M">
+<!ENTITY pane1.title "Шаблон имени файла">
+<!ENTITY pane1.description "Шаблон имени файла">
+<!ENTITY shelve.shelf "Папка">
+<!ENTITY shelve.shelf.accesskey "S">
+<!ENTITY shelve.note "Заметка">
+<!ENTITY shelve.note.accesskey "N">
+<!ENTITY shelve.rx "Автоматически сохранять в эту папку документ, URL которого соответствует регулярному выражению:">
+<!ENTITY shelve.rx.accesskey "R">
+<!ENTITY selectShelf.title "Выбрать папку">
+<!ENTITY editShelf.title "Изменить папку">
+<!ENTITY shelve.hotkey "Горячая клавиша">
+<!ENTITY shelve.hotkey.accesskey "K">
+<!ENTITY hotkey.hotkey "Горячая клавиша">
+<!ENTITY hotkey.hotkey.accesskey "Y">
+<!ENTITY hotkey.ctrl "Ctrl">
+<!ENTITY hotkey.ctrl.accesskey "C">
+<!ENTITY hotkey.shift "Shift">
+<!ENTITY hotkey.shift.accesskey "I">
+<!ENTITY hotkey.alt "Alt">
+<!ENTITY hotkey.alt.accesskey "A">
+<!ENTITY hotkey.meta "Meta/Win/Cmd">
+<!ENTITY hotkey.meta.accesskey "W">

@@ -1,14 +1,14 @@
 <!ENTITY shelve.title.shelve.help "Shelve: Hilfe">
 <!ENTITY shelve.a.shelve "Shelve">
 <!ENTITY shelve.a.more.help "Weitere Informationen">
-<!ENTITY sheve.help.on.regex "Hinweise zu regulären Ausdrücken (RegExp):" >
+<!ENTITY sheve.help.on.regex "Hinweise zu regulären Ausdrücken (RegExp):">
 <!ENTITY shelve.regexp.hlp.moz "https://developer.mozilla.org/En/Core_JavaScript_1.5_Guide:Regular_Expressions">
 <!ENTITY shelve.regexp.hlp.wik "http://de.wikipedia.org/wiki/Regul&#37;C3&#37;A4re_Ausdr&#37;C3&#37;BCcke">
 <!ENTITY shelve.h2.place.holders "Platzhalter">
 <!ENTITY shelve.p.please.define.a.set.of.templates "Bitte definieren Sie einen Satz von Dateinamenschablonen, die zur Bestimmung des Speicherorts verwendet werden können.">
 <!ENTITY shelve.p.the.following.place.holders.can.be.used "Folgende Platzhalter können verwendet werden:">
-<!ENTITY shelve.p.modifier.mandatory "Wenn ein langer Name mit '!' endet, darf das Feld nicht leer sein.">
-<!ENTITY shelve.p.modifier.optional.line "Wenn ein lange Name mit '?' endet, wird die Zeile nicht ausgegeben, falls der Wert leer ist.">
+<!ENTITY shelve.p.modifier.mandatory "Wenn ein langer Name mit &apos;!&apos; endet, darf das Feld nicht leer sein.">
+<!ENTITY shelve.p.modifier.optional.line "Wenn ein lange Name mit &apos;?&apos; endet, wird die Zeile nicht ausgegeben, falls der Wert leer ist.">
 <!ENTITY shelve.long.var.names "Lange Namen für Platzhalter:">
 <!ENTITY shelve.td.alternatives.example.ctf "Alternativen (Beispiel: &#37;[ctF])">
 <!ENTITY shelve.td.clip "Auswahl">
@@ -45,4 +45,4 @@
 <!ENTITY shelve.dd.save.in.the.directory.host.year "Speichere das Dokument im Verzeichnis HOST/JAHR. Verwende entweder den aktuell ausgewählten Text oder sonst den Dokumenttitel als Dateiname.">
 <!ENTITY shelve.dd.save.as.host.year.month.day.filename "Speichere das Dokument als HOST/JAHR-MONAT-TAG/DATEINAME -- die ursprüngliche Erweiterung wird durch .html ersetzt.">
 <!ENTITY shelve.dd.rebuild.the.original.file.system "Bilde die Verzeichnisstruktur auf dem HOST ab.">
-<!ENTITY shelve.dd.save.under.topics.but.query.the.user "Speichere das Dokument in einem vom Nutzer auszuwählenden Unterverzeichnis von .../topics. Verwende, sofern vorhanden, den ausgewählten Text oder sonst den Dokumenttitel oder den Basisdateinamen (der Dateiname ohne Erweiterung) plus '.html' als Dateiname.">
+<!ENTITY shelve.dd.save.under.topics.but.query.the.user "Speichere das Dokument in einem vom Nutzer auszuwählenden Unterverzeichnis von .../topics. Verwende, sofern vorhanden, den ausgewählten Text oder sonst den Dokumenttitel oder den Basisdateinamen (der Dateiname ohne Erweiterung) plus &apos;.html&apos; als Dateiname.">

@@ -7,18 +7,18 @@
 <!ENTITY shelve.h2.place.holders "Chaînes de substitution">
 <!ENTITY shelve.p.please.define.a.set.of.templates "Veuillez définir un jeu de modèles. Cela permettra de déterminer l&apos;emplacement vers lequel le document pourra être enregistré.">
 <!ENTITY shelve.p.the.following.place.holders.can.be.used "Les chaînes de substitution suivantes peuvent être utilisées :">
-<!ENTITY shelve.p.modifier.mandatory "If a long name ends with '!', the information must be provided.`">
-<!ENTITY shelve.p.modifier.optional.line "If a long name ends with '?', the line will be suppressed from output if its value is empty.`">
-<!ENTITY shelve.long.var.names "Long names for place-holders:`">
+<!ENTITY shelve.p.modifier.mandatory "Si un nom long se termine par « ! », cette information doit être fournie.">
+<!ENTITY shelve.p.modifier.optional.line "Si un nom long se termine par « ? », la ligne ne sera pas affichée si sa valeur est nulle.">
+<!ENTITY shelve.long.var.names "Noms longs pour chaînes de substitution :">
 <!ENTITY shelve.td.alternatives.example.ctf "Alternatives (exemple : &#37;[ctF])">
 <!ENTITY shelve.td.clip "Clip">
 <!ENTITY shelve.td.clip.non.empty "Clip (non vide)">
-<!ENTITY shelve.td.content "Content (when logging selected text)`">
+<!ENTITY shelve.td.content "Contenu (lors de la sauvegarde du texte sélectionné)">
 <!ENTITY shelve.td.user.input "Entrée utilisateur">
 <!ENTITY shelve.td.pick.directory "Dossier d&apos;extraction">
 <!ENTITY shelve.td.host "Hôte">
 <!ENTITY shelve.td.base.hostname "Nom d&apos;hôte d&apos;origine">
-<!ENTITY shelve.td.query "Query (the part in the URL after the questionmark)`">
+<!ENTITY shelve.td.query "Requête (La partie située après le point d&apos;interrogation dans l&apos;URL)">
 <!ENTITY shelve.td.path "Chemin">
 <!ENTITY shelve.td.path.no.ext "Chemin (sans ext.)">
 <!ENTITY shelve.td.filename "Nom de fichier">

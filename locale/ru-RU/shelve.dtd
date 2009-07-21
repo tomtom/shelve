@@ -1,0 +1,12 @@
+<!ENTITY shelve.label "Shelve">
+<!ENTITY shelveMenu.accesskey "V">
+<!ENTITY shelveContextUrl.label "Ссылка...">
+<!ENTITY shelveContextUrl.accesskey "v">
+<!ENTITY shelveContextImage.label "Изображение...">
+<!ENTITY shelveContextImage.accesskey "v">
+<!ENTITY shelveContextSelection.label "Выбранный текст...">
+<!ENTITY shelveContextSelection.accesskey "V">
+<!ENTITY shelveContextUrlsInSelection.label "Выбранные URL...">
+<!ENTITY shelveContextUrlsInSelection.accesskey "V">
+<!ENTITY shelveToolbar.label "Shelve">
+<!ENTITY shelveToolbar.tooltip "Shelve - быстрое сохранение веб-страниц в заданные папки">

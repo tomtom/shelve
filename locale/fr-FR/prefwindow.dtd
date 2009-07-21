@@ -23,7 +23,7 @@
 <!ENTITY shelve.options "Options">
 <!ENTITY shelve.options.accesskey "O">
 <!ENTITY shelve.parameters "Paramètres">
-<!ENTITY shelve.overwrite_files "Overwrite files`">
+<!ENTITY shelve.overwrite_files "Remplacer les fichiers">
 <!ENTITY shelve.overwrite_files.accesskey "T">
 <!ENTITY shelve.startup "Démarrage">
 <!ENTITY shelve.startup.accesskey "D">
@@ -63,7 +63,7 @@
 <!ENTITY footer.html "Pied de page pour les fichiers enregistrés au format HTML">
 <!ENTITY footer.html.accesskey "H">
 <!ENTITY pane1.title "Modèles de nom de fichier">
-<!ENTITY pane1.description "Modèles de nom de fichiers">
+<!ENTITY pane1.description "Modèles de nom de fichier">
 <!ENTITY shelve.shelf "Shelf">
 <!ENTITY shelve.shelf.accesskey "S">
 <!ENTITY shelve.note "Remarque">
