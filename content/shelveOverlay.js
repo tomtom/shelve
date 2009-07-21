@@ -42,14 +42,14 @@
 /*jsl:import shelve.js*/
 
 
-var overlay = {
+var shelveOverlay = {
 
     initialized: false,
 
     onLoad: function() {
         // initialization code
-        overlay.initialized = true;
-        overlay.strings = document.getElementById("shelve-strings");
+        shelveOverlay.initialized = true;
+        shelveOverlay.strings = document.getElementById("shelve-strings");
         shelve.setupHotkeys();
         shelve.setupAutoshelf();
         shelve.setupPopup();
@@ -60,7 +60,7 @@ var overlay = {
     },
 
     onToolbarButtonCommand: function() {
-        overlay.onMenuItemCommand();
+        shelveOverlay.onMenuItemCommand();
         // TODO: <ctrl-mouseleft> ... switch back on auto-shelve
     },
 
@@ -71,7 +71,7 @@ var overlay = {
     onPopupLink: function(ev) {
         var title = gContextMenu.target.title || gContextMenu.target.innerHTML.toString();
         if (!title && gContextMenu.onImage) {
-            title = overlay.imageTitle(gContextMenu.target);
+            title = shelveOverlay.imageTitle(gContextMenu.target);
         }
         if (title == gContextMenu.linkURL) {
             title = "";
@@ -91,12 +91,12 @@ var overlay = {
         if (props) {
             contentType = props.get("type", Components.interfaces.nsISupportsCString).toString();
         }
-        var title = overlay.imageTitle(gContextMenu.target, url);
+        var title = shelveOverlay.imageTitle(gContextMenu.target, url);
         shelve.saveURL(contentType, gContextMenu.target.src, title);
     },
 
     onHotKey: function() {
-        overlay.onMenuItemCommand();
+        shelveOverlay.onMenuItemCommand();
     },
 
     imageTitle: function(image, url) {
@@ -111,4 +111,4 @@ var overlay = {
 
 };
 
-window.addEventListener("load", function(e) { overlay.onLoad(e); }, false);
+window.addEventListener("load", function(e) { shelveOverlay.onLoad(e); }, false);

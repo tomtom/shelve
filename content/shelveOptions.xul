@@ -55,7 +55,7 @@
     <script src="shelveStore.js"/>
     <script src="shelveUtils.js"/>
     <script src="shelve.js"/>
-    <script src="options.js"/>
+    <script src="shelveOptions.js"/>
 
     <prefpane id="pane1" label="&pane1.title;">
         <preferences>
