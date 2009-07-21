@@ -8,12 +8,10 @@
     <em:creator>Thomas Link</em:creator>
     <em:translator>jojaba (fr-FR)</em:translator>
     <em:translator>Marcelo Ghelman (ghelman.net) (pt-BR)</em:translator>
+    <em:translator>k78 (ru-RU)</em:translator>
     <em:description>Quickly save the current document in a pre-defined folder</em:description>
     <em:homepageURL>http://www.lithom.net/software/firefox/shelve/</em:homepageURL>
-    <!-- <em:updateURL>https://www.lithom.net/software/firefox/shelve.rdf</em:updateURL> -->
-    <!-- <em:aboutURL>chrome://shelve/content/about.xul</em:aboutURL> -->
-    <!-- <em:optionsURL>chrome://shelve/content/options.xul</em:optionsURL> -->
-    <em:optionsURL>javascript:opener.openDialog('chrome://shelve/content/options.xul','','chrome,modal,resizable');window.close();</em:optionsURL>
+    <em:optionsURL>javascript:opener.openDialog('chrome://shelve/content/shelveOptions.xul','','chrome,modal,resizable');window.close();</em:optionsURL>
     <em:iconURL>chrome://shelve/content/shelve.png</em:iconURL>
     <em:targetApplication>
       <Description>
