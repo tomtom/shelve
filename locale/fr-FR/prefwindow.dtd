@@ -68,7 +68,7 @@
 <!ENTITY shelve.shelf.accesskey "S">
 <!ENTITY shelve.note "Remarque">
 <!ENTITY shelve.note.accesskey "R">
-<!ENTITY shelve.rx "Enregistrer automatiquement un document vers ce shelf si l&apos;URL correspond à cette RegExp">
+<!ENTITY shelve.rx "Enregistrer automatiquement un document vers ce shelf si l&apos;URL correspond à cette ExpReg">
 <!ENTITY shelve.rx.accesskey "t">
 <!ENTITY selectShelf.title "Choisir le shelf">
 <!ENTITY editShelf.title "Modifier le shelf">
