@@ -1,7 +1,7 @@
 pref("extensions.shelve.max", 0);
 // pref("extensions.shelve.hotkey.keycode", 'F9');
 pref("extensions.shelve.mime", 'default');
-pref("extensions.shelve.auto.stop_rx", "^(about|https):");
+pref("extensions.shelve.auto.stop_rx", "^(about|chrome|https):");
 pref("extensions.shelve.auto.notify_user", true);
 pref("extensions.shelve.default_template", "%[ctF]%e");
 pref("extensions.shelve.overwrite_files", true);
