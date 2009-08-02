@@ -61,15 +61,17 @@ var shelve = {
     },
 
     savePage: function() {
-        if (shelve.autoPilot) {
-            shelve.uninstallAutoShelve();
-            shelve.notifyUser("Auto-save", "off", {});
+        if (shelve.onAutoPilot() == 1) {
+            if (shelve.uninstallAutoShelve(false)) {
+                shelve.notifyUser("Auto-save", "off", {});
+            }
         } else {
             try {
                 var sp_params = shelve.getSavePageParams({});
                 if (sp_params && sp_params.filename) {
                     shelve.savePageWithParams(sp_params);
                     if (sp_params.auto) {
+                        shelveUtils.debug("savePage: sp_params.interactive="+ sp_params.interactive);
                         shelve.installAutoShelve(sp_params);
                     }
                 }
@@ -315,13 +317,15 @@ var shelve = {
     restoreCount: 0,
 
     setupAutoshelf: function() {
-        var autoshelf = shelve.getAutoshelfPref();
-        if (autoshelf && autoshelf != "--") {
+        var autoshelf = shelve.getAutoshelf();
+        if (autoshelf) {
+            shelveUtils.debug("setupAutoshelf: autoshelf="+ autoshelf);
             var shelfId = shelve.getShelfNumberByName(autoshelf);
             if (shelfId) {
                 var sp_params = shelve.getSavePageToShelveParams(shelfId, {});
-                // shelveUtils.debug("setupAutoshelf: sp_params="+ uneval(sp_params));
+                shelveUtils.debug("setupAutoshelf: sp_params="+ uneval(sp_params));
                 sp_params.noAlertNotification = true;
+                sp_params.interactive = false;
                 shelve.installAutoShelve(sp_params);
                 shelveUtils.log('Installed autoshelf: ' + autoshelf);
                 shelve.restoreCount = 0;
@@ -331,6 +335,11 @@ var shelve = {
                 shelveUtils.log('Unknown autoshelf: ' + autoshelf);
             }
         }
+    },
+
+    getAutoshelf: function() {
+        var autoshelf = shelve.getAutoshelfPref();
+        return autoshelf == "--" ? null : autoshelf;
     },
 
     autoDisableWhileRestoring: function() {
@@ -465,11 +474,21 @@ var shelve = {
     
     autoPilot: false,
 
+    onAutoPilot: function() {
+        if (shelve.autoPilot && shelve.autoPageParams) {
+            return shelve.autoPageParams.interactive === true ? 1 : 2;
+        } else {
+            return 0;
+        }
+    },
+
     installAutoShelve: function(sp_params) {
+        shelveUtils.debug("installAutoShelve: sp_params="+ uneval(sp_params));
         // http://developer.mozilla.org/en/docs/Code_snippets:Tabbed_browser#Detecting_page_load
         // http://developer.mozilla.org/en/docs/Code_snippets:On_page_load
         if (sp_params) {
-            shelve.autoPageParams = sp_params;
+            sp_params.doc = null;
+            shelve.autoPageParams = shelveUtils.clone(sp_params);
         }
         if (shelve.autoPageParams) {
             shelve.autoPilot = true;
@@ -486,12 +505,23 @@ var shelve = {
         }
     },
 
-    uninstallAutoShelve: function() {
-        shelve.autoPilot = false;
-        shelve.autoFileParams = null;
-        shelve.autoPageParams = null;
-        shelve.setToolbarButton(false);
-        window.removeEventListener("load", shelve.autoShelve, true);
+    uninstallAutoShelve: function(stop) {
+        shelveUtils.debug("uninstallAutoShelve: shelve.autoPageParams.interactive = "+ shelve.autoPageParams.interactive);
+        if (shelve.autoPageParams) {
+            shelve.autoPilot = false;
+            shelve.autoFileParams = null;
+            shelve.autoPageParams = null;
+            shelve.setToolbarButton(false);
+            window.removeEventListener("DOMContentLoaded", shelve.autoShelve, true);
+            if (!stop && shelve.getAutoshelf) {
+                shelve.setupAutoshelf();
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return false;
+        }
     },
 
     setToolbarButton: function(value) {
@@ -520,26 +550,28 @@ var shelve = {
                     var prefs_auto = shelve.getPrefs("auto.");
                     var stop = shelve.getUnicharPref(prefs_auto, 'stop_rx') || '';
                     if (!stop.match(/\S/) || !doc.URL.match(new RegExp(stop))) {
+                        shelveUtils.debug("autoFileParams: "+ uneval(shelve.autoFileParams));
                         var afp   = shelveUtils.clone(shelve.autoFileParams);
-                        // shelveUtils.debug("afp0: "+ uneval(afp));
+                        shelveUtils.debug("afp0: "+ uneval(afp));
                         afp.doc   = doc;
                         afp.title = doc.title;
                         afp.url   = doc.URL;
                         afp.clip  = '';
                         afp.parentWindow = window;
-                        // shelveUtils.debug("afp1: "+ uneval(afp));
+                        shelveUtils.debug("afp1: "+ uneval(afp));
                         var filename = shelve.expandTemplate(afp);
-                        // shelveUtils.debug("filename: "+ filename);
+                        shelveUtils.debug("filename: "+ filename);
                         if (filename) {
                             var file = shelveUtils.localFile(filename);
                             if (filename == '-' || (file && !file.exists())) {
+                                shelveUtils.debug("autoPageParams: "+ uneval(shelve.autoPageParams));
                                 var app = shelveUtils.clone(shelve.autoPageParams);
-                                // shelveUtils.debug("app0: "+ uneval(app));
+                                shelveUtils.debug("app0: "+ uneval(app));
                                 app.filename = filename;
                                 app.doc = doc;
                                 app.title = doc.title;
                                 app.url = doc.URL;
-                                // shelveUtils.debug("app1: "+ uneval(app));
+                                shelveUtils.debug("app1: "+ uneval(app));
                                 shelve.savePageWithParams(app);
                                 // if (shelve.savePageWithParams(app)) {
                                 //     shelve.notifyUser("Auto-saved as", filename, app);
@@ -553,7 +585,7 @@ var shelve = {
                 }
             }
         } else {
-            shelve.uninstallAutoShelve();
+            shelve.uninstallAutoShelve(true);
         }
     },
 
@@ -570,6 +602,7 @@ var shelve = {
     },
 
     getSavePageToShelveParams: function(shelfId, doc_params) {
+        shelveUtils.debug("getSavePageToShelveParams: doc_params="+ uneval(doc_params));
         var template = shelveStore.get(shelfId, 'dir');
         var mime = shelve.getShelfMime(shelfId, doc_params);
         var filename = shelve.expandTemplateNow(shelfId, template, doc_params);
@@ -647,8 +680,12 @@ var shelve = {
         };
         window.openDialog("chrome://shelve/content/selectShelf.xul", "",
         "chrome, dialog, modal, resizable=yes", select_params).focus();
+        shelveUtils.debug("getSavePageParams: select_params.sp_params="+ uneval(select_params.sp_params));
+        shelveUtils.debug("getSavePageParams: onAutoPilot="+ shelve.onAutoPilot());
         if (select_params.sp_params) {
             return select_params.sp_params;
+        } else if (shelve.onAutoPilot()) {
+            shelve.uninstallAutoShelve(true);
         }
         return null;
     },
@@ -842,7 +879,7 @@ var shelve = {
         var et_params = {
             clip: sp_params.clip,
             extension: sp_params.extension,
-            interactive: true,
+            interactive: sp_params.interactive === undefined || sp_params.interactive,
             mime: sp_params.mime,
             mode: "log",
             note: sp_params.note,
@@ -862,6 +899,7 @@ var shelve = {
         var et_params = {
             template: template,
             mime: mime,
+            // interactive: doc_params.interactive === undefined || doc_params.interactive,
             interactive: true,
             title: shelve.getDocumentTitle(doc_params),
             clip: shelve.getDocumentClip(doc_params),
