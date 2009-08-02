@@ -204,7 +204,7 @@ var shelveUtils = {
     },
 
     isSomeFilename: function(filename) {
-        return filename && filename.match(/\S/) && filename != '-';
+        return filename && filename.match(/\S/) && !filename.match(/^-+$/);
     },
 
     newURI: function(url) {
