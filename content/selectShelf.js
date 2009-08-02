@@ -91,6 +91,10 @@ var selectShelf = {
         }
     },
 
+    onCancel: function() {
+        window.arguments[0].sp_params = null;
+    },
+
     selectThisShelf: function(shelf, interactive, setmime) {
         try {
             // selectShelf.alertMime("onSelect 1");

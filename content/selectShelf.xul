@@ -42,6 +42,7 @@
     id="selectShelf"
     title="Shelve: &selectShelf.title;"
     ondialogaccept="return selectShelf.onOK();"
+    ondialogcancel="return selectShelf.onCancel();"
     onload="selectShelf.onLoad();"
     width="550"
     height="480"
