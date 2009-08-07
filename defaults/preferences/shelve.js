@@ -1,4 +1,6 @@
 pref("extensions.shelve.max", 0);
+pref("extensions.shelve.log_level", 1);
+pref("extensions.shelve.assertions", false);
 // pref("extensions.shelve.hotkey.keycode", 'F9');
 pref("extensions.shelve.mime", 'default');
 pref("extensions.shelve.auto.stop_rx", "^(about|chrome|https):");
