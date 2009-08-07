@@ -110,9 +110,6 @@ var shelveUtils = {
                 break;
             }
         }
-        var e = document.createEvent("Event");
-        e.initEvent("input", true, false);
-        textbox.dispatchEvent(e);
 
     },
 
@@ -175,8 +172,30 @@ var shelveUtils = {
     //     cs.getMIMETypeFromContent()
     // },
 
-    debug: function(text) {
-        shelveUtils.log("DEBUG: "+ text);
+    assert: function(value, expected, text) {
+        if (value !== expected) {
+            var t = "";
+            if (text) {
+                t += text +": ";
+            }
+            try {
+                t += "expected "+ uneval(expected) +" but got "+ uneval(value);
+            } catch(e) {
+                t += "expected "+ expected + " but got "+ value;
+            }
+            alert(t);
+        }
+    },
+
+    debug: function(text, value) {
+        // var log_level = shelveStore.getBool(null, 'log_level', 1);
+        // if (log_level >= 3) {
+            try {
+                shelveUtils.log("DEBUG: "+ text + uneval(value));
+            } catch(e) {
+                shelveUtils.log("DEBUG: "+ text + value);
+            }
+        // }
     },
 
     log: function(text) {

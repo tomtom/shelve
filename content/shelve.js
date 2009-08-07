@@ -71,7 +71,7 @@ var shelve = {
                 if (sp_params && sp_params.filename) {
                     shelve.savePageWithParams(sp_params);
                     if (sp_params.auto) {
-                        shelveUtils.debug("savePage: sp_params.interactive="+ sp_params.interactive);
+                        // shelveUtils.debug("savePage: sp_params.interactive=", sp_params.interactive);
                         shelve.installAutoShelve(sp_params);
                     }
                 }
@@ -130,7 +130,7 @@ var shelve = {
     savePageWithParams: function(sp_params) {
         var filename = sp_params.filename;
         if (filename) {
-            // shelveUtils.debug("savePageWithParams filename="+ filename);
+            // shelveUtils.debug("savePageWithParams filename=", filename);
             if (shelve.shouldWriteFile(filename)) {
                 // http://developer.mozilla.org/en/docs/Code_snippets:Miscellaneous
                 try {
@@ -169,10 +169,11 @@ var shelve = {
 
     shouldWriteFile: function(filename) {
         return true;
-        // shelveUtils.debug("shouldWriteFile: filename="+ filename);
+        // shelveUtils.debug("shouldWriteFile: filename=", filename);
         // var file = shelveUtils.localFile(filename);
         // var overwrite = shelveStore.getBool(null, "overwrite_files", true);
-        // shelveUtils.debug("shouldWriteFile: file.exists="+ file.exists() +" overwrite_files="+overwrite);
+        // shelveUtils.debug("shouldWriteFile: file.exists=", file.exists());
+        // shelveUtils.debug("shouldWriteFile: overwrite_files=", overwrite);
         // return !file.exists() || overwrite;
     },
 
@@ -319,11 +320,11 @@ var shelve = {
     setupAutoshelf: function() {
         var autoshelf = shelve.getAutoshelf();
         if (autoshelf) {
-            shelveUtils.debug("setupAutoshelf: autoshelf="+ autoshelf);
+            // shelveUtils.debug("setupAutoshelf: autoshelf=", autoshelf);
             var shelfId = shelve.getShelfNumberByName(autoshelf);
             if (shelfId) {
                 var sp_params = shelve.getSavePageToShelveParams(shelfId, {});
-                shelveUtils.debug("setupAutoshelf: sp_params="+ uneval(sp_params));
+                // shelveUtils.debug("setupAutoshelf: sp_params=", sp_params);
                 sp_params.noAlertNotification = true;
                 sp_params.interactive = false;
                 shelve.installAutoShelve(sp_params);
@@ -468,11 +469,11 @@ var shelve = {
         }
     },
 
-    autoFileParams: null,
-    
     autoPageParams: null,
     
-    autoPilot: false,
+    autoFileParams: null,
+    
+    autoPilot: null,
 
     onAutoPilot: function() {
         if (shelve.autoPilot && shelve.autoPageParams) {
@@ -483,7 +484,7 @@ var shelve = {
     },
 
     installAutoShelve: function(sp_params) {
-        shelveUtils.debug("installAutoShelve: sp_params="+ uneval(sp_params));
+        // shelveUtils.debug("installAutoShelve: sp_params=", sp_params);
         // http://developer.mozilla.org/en/docs/Code_snippets:Tabbed_browser#Detecting_page_load
         // http://developer.mozilla.org/en/docs/Code_snippets:On_page_load
         if (sp_params) {
@@ -491,7 +492,8 @@ var shelve = {
             shelve.autoPageParams = shelveUtils.clone(sp_params);
         }
         if (shelve.autoPageParams) {
-            shelve.autoPilot = true;
+            // shelveUtils.assert(!sp_params.shelf, false, "sp_params.shelf is not empty");
+            shelve.autoPilot = sp_params.shelf;
             shelve.autoFileParams = {
                 template: shelve.autoPageParams.template,
                 interactive: true,
@@ -506,9 +508,9 @@ var shelve = {
     },
 
     uninstallAutoShelve: function(stop) {
-        shelveUtils.debug("uninstallAutoShelve: shelve.autoPageParams.interactive = "+ shelve.autoPageParams.interactive);
+        // shelveUtils.debug("uninstallAutoShelve: shelve.autoPageParams.interactive=", shelve.autoPageParams.interactive);
         if (shelve.autoPageParams) {
-            shelve.autoPilot = false;
+            shelve.autoPilot = null;
             shelve.autoFileParams = null;
             shelve.autoPageParams = null;
             shelve.setToolbarButton(false);
@@ -550,28 +552,28 @@ var shelve = {
                     var prefs_auto = shelve.getPrefs("auto.");
                     var stop = shelve.getUnicharPref(prefs_auto, 'stop_rx') || '';
                     if (!stop.match(/\S/) || !doc.URL.match(new RegExp(stop))) {
-                        shelveUtils.debug("autoFileParams: "+ uneval(shelve.autoFileParams));
+                        // shelveUtils.debug("autoFileParams: ", shelve.autoFileParams);
                         var afp   = shelveUtils.clone(shelve.autoFileParams);
-                        shelveUtils.debug("afp0: "+ uneval(afp));
+                        // shelveUtils.debug("afp0: ", afp);
                         afp.doc   = doc;
                         afp.title = doc.title;
                         afp.url   = doc.URL;
                         afp.clip  = '';
                         afp.parentWindow = window;
-                        shelveUtils.debug("afp1: "+ uneval(afp));
+                        // shelveUtils.debug("afp1: ", afp);
                         var filename = shelve.expandTemplate(afp);
-                        shelveUtils.debug("filename: "+ filename);
+                        // shelveUtils.debug("filename: ", filename);
                         if (filename) {
                             var file = shelveUtils.localFile(filename);
                             if (filename == '-' || (file && !file.exists())) {
-                                shelveUtils.debug("autoPageParams: "+ uneval(shelve.autoPageParams));
+                                // shelveUtils.debug("autoPageParams: ", shelve.autoPageParams);
                                 var app = shelveUtils.clone(shelve.autoPageParams);
-                                shelveUtils.debug("app0: "+ uneval(app));
+                                // shelveUtils.debug("app0: ", app);
                                 app.filename = filename;
                                 app.doc = doc;
                                 app.title = doc.title;
                                 app.url = doc.URL;
-                                shelveUtils.debug("app1: "+ uneval(app));
+                                // shelveUtils.debug("app1: ", app);
                                 shelve.savePageWithParams(app);
                                 // if (shelve.savePageWithParams(app)) {
                                 //     shelve.notifyUser("Auto-saved as", filename, app);
@@ -602,7 +604,7 @@ var shelve = {
     },
 
     getSavePageToShelveParams: function(shelfId, doc_params) {
-        shelveUtils.debug("getSavePageToShelveParams: doc_params="+ uneval(doc_params));
+        // shelveUtils.debug("getSavePageToShelveParams: doc_params=", doc_params);
         var template = shelveStore.get(shelfId, 'dir');
         var mime = shelve.getShelfMime(shelfId, doc_params);
         var filename = shelve.expandTemplateNow(shelfId, template, doc_params);
@@ -672,6 +674,9 @@ var shelve = {
                 title: shelve.getDocumentTitle(doc_params),
                 mime: shelve.getDocumentMime(doc_params),
                 content_type: doc_params.content_type,
+
+                autoPilot: shelve.autoPilot,
+
                 shelves: shelves,
                 shelfNos: shelfNos,
                 shelve: this
@@ -680,8 +685,8 @@ var shelve = {
         };
         window.openDialog("chrome://shelve/content/selectShelf.xul", "",
         "chrome, dialog, modal, resizable=yes", select_params).focus();
-        shelveUtils.debug("getSavePageParams: select_params.sp_params="+ uneval(select_params.sp_params));
-        shelveUtils.debug("getSavePageParams: onAutoPilot="+ shelve.onAutoPilot());
+        // shelveUtils.debug("getSavePageParams: select_params.sp_params=", select_params.sp_params);
+        // shelveUtils.debug("getSavePageParams: onAutoPilot=", shelve.onAutoPilot());
         if (select_params.sp_params) {
             return select_params.sp_params;
         } else if (shelve.onAutoPilot()) {
@@ -778,13 +783,13 @@ var shelve = {
 
     footer: function(id) {
         var sp_params = shelve.footers[id];
-        // shelveUtils.debug("footer "+ id +": sp_params="+ uneval(sp_params));
+        // shelveUtils.debug("footer "+ id +": sp_params=", sp_params);
         var file = shelveUtils.localFile(sp_params.filename);
         if (file.exists() && file.isWritable()) {
             var template = shelve.getFooterTemplate(sp_params);
             if (template && template.match(/\S/)) {
                 var et_params = shelve.expandTemplateParams(sp_params, template);
-                // shelveUtils.debug("footer et_params="+ uneval(et_params));
+                // shelveUtils.debug("footer et_params=", et_params);
                 var text = shelveUtils.osString(shelve.expandTemplate(et_params));
                 // var text = shelveUtils.asISupportsString(shelve.expandTemplate(et_params)).toString();
                 var foStream = Components.classes["@mozilla.org/network/file-output-stream;1"].
@@ -804,7 +809,7 @@ var shelve = {
     },
 
     log: function(sp_params) {
-        // shelveUtils.debug("log: sp_params="+ uneval(sp_params));
+        // shelveUtils.debug("log: sp_params=", sp_params);
         var shelf = sp_params.shelf;
         var log_file_template = shelve.log_param(shelf, 'file');
         if (shelveUtils.isSomeFilename(log_file_template)) {
@@ -813,7 +818,7 @@ var shelve = {
             if (shelveUtils.isSomeFilename(log)) {
                 var template = shelve.log_param(shelf, 'template');
                 if (template && template.match(/\S/)) {
-                    // shelveUtils.debug("log template="+ template);
+                    // shelveUtils.debug("log template=", template);
                     var et_params = shelve.expandTemplateParams(sp_params, template);
                     var log_entry = shelve.expandTemplate(et_params);
                     if (log_entry.match(/\S/)) {
@@ -908,12 +913,12 @@ var shelve = {
             extension: shelveUtils.getExtension(doc_params.type, mime, shelve.getDocument(doc_params)),
             parentWindow: window
         };
-        // shelveUtils.debug("expandTemplateNow: et_params="+ uneval(et_params));
+        // shelveUtils.debug("expandTemplateNow: et_params=", et_params);
         return shelve.expandTemplate(et_params);
     },
 
     expandTemplate: function(et_params) {
-        // shelveUtils.debug("expandTemplate: et_params="+ uneval(et_params));
+        // shelveUtils.debug("expandTemplate: et_params=", et_params);
         var max = et_params.template.length;
         var ch = "";
         var out = "";
