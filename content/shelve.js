@@ -61,11 +61,11 @@ var shelve = {
     },
 
     savePage: function() {
-        if (shelve.onAutoPilot() == 1) {
-            if (shelve.uninstallAutoShelve(false)) {
-                shelve.notifyUser("Auto-save", "off", {});
-            }
-        } else {
+        // if (shelve.onAutoPilot() == 1) {
+        //     if (shelve.uninstallAutoShelve(false)) {
+        //         shelve.notifyUser("Auto-save", "off", {});
+        //     }
+        // } else {
             try {
                 var sp_params = shelve.getSavePageParams({});
                 if (sp_params && sp_params.filename) {
@@ -79,7 +79,7 @@ var shelve = {
                 // alert(e);
                 throw('Shelve page: ' + e);
             }
-        }
+        // }
     },
 
     saveSelection: function() {
@@ -229,7 +229,12 @@ var shelve = {
         var uri = shelveUtils.newURI(sp_params.url);
         var file_uri = shelveUtils.newFileURI(file);
         shelve.registerDownload("document", sp_params, wbp, uri, file_uri);
-        wbp.saveDocument(doc, file, data, mime, encode, null);
+        try {
+            wbp.saveDocument(doc, file, data, mime, encode, null);
+        } catch(exception) {
+            // alert(shelveUtils.localized("error.saving")+": "+ filename);
+            shelve.notifyUser(shelveUtils.localized("error.saving"), filename, sp_params);
+        }
     },
 
     saveBinary: function(doc, filename, sp_params) {
@@ -861,7 +866,8 @@ var shelve = {
                 try {
                     var alertsService = Components.classes["@mozilla.org/alerts-service;1"].
                     getService(Components.interfaces.nsIAlertsService);
-                    alertsService.showAlertNotification("chrome://mozapps/skin/downloads/downloadIcon.png", 
+                    // alertsService.showAlertNotification("chrome://mozapps/skin/downloads/downloadIcon.png", 
+                    alertsService.showAlertNotification("chrome://shelve/content/shelve.png", 
                     "Shelve: " + title, text, false, "", null);
                 } catch (e) {
                     // Alert failed
