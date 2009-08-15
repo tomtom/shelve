@@ -67,12 +67,12 @@ var editShelf = {
 
     onOK: function() {
         var shelfId = window.arguments[0].inn.item;
-        shelveUtils.debug("editShelf onOK: shelfId=", shelfId);
+        // shelveUtils.debug("editShelf onOK: shelfId=", shelfId);
         var template = document.getElementById("dir").value;
-        shelveUtils.debug("editShelf onOK: template=", template);
+        // shelveUtils.debug("editShelf onOK: template=", template);
         if (template.match(/\S/)) {
             var name = document.getElementById("name").value || shelfId;
-            shelveUtils.debug("editShelf onOK: name=", name);
+            // shelveUtils.debug("editShelf onOK: name=", name);
             var valid = shelveUtils.validTemplate(template, 'filename');
             if (valid <= 0) {
                 alert(shelveUtils.localized('malformed_template'));
@@ -87,7 +87,7 @@ var editShelf = {
             shelveStore.setUnichar(shelfId, 'footer_html', document.getElementById("footer_html").value);
             shelveStore.setUnichar(shelfId, 'log_file', document.getElementById("log_file").value);
             shelveStore.setUnichar(shelfId, 'log_template', document.getElementById("log_template").value);
-            shelveUtils.debug("editShelf onOK: auto=", document.getElementById("auto").checked);
+            // shelveUtils.debug("editShelf onOK: auto=", document.getElementById("auto").checked);
             shelveStore.setBool(shelfId, 'auto', document.getElementById("auto").checked);
             var hkk = document.getElementById("hotkey").value;
             var hkc = document.getElementById("hotkey_ctrl").checked;
@@ -95,7 +95,7 @@ var editShelf = {
             var hka = document.getElementById("hotkey_alt").checked;
             var hkm = document.getElementById("hotkey_meta").checked;
             var hk0 = shelveStore.get(shelfId, 'hotkey', null);
-            shelveUtils.debug("editShelf onOK: hkk=", hkk);
+            // shelveUtils.debug("editShelf onOK: hkk=", hkk);
             if (hkk && hkk.match(/\S/)) {
                 if (hkk != hk0 || 
                 hka != shelveStore.get(shelfId, 'hotkey_alt', false) || 
@@ -157,7 +157,7 @@ var editShelf = {
                     shelveStore.clear(shelfId, 'mime');
                 }
             }
-            shelveUtils.debug("editShelf onOK: ok=", true);
+            // shelveUtils.debug("editShelf onOK: ok=", true);
             window.arguments[0].out = {ok: true};
         }
     }

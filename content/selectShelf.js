@@ -133,9 +133,9 @@ var selectShelf = {
                 // shelveUtils.debug("selectThisShelf mime=", mime);
                 selectShelf.dlgSetMime(mime);
             }
-            shelveUtils.debug("selectShelf selectThisShelf: auto=", selectShelf.auto);
+            // shelveUtils.debug("selectShelf selectThisShelf: auto=", selectShelf.auto);
             if (selectShelf.auto === null) {
-                shelveUtils.debug("selectShelf selectThisShelf: shelf.auto=", shelveStore.get(shelf, 'auto', false));
+                // shelveUtils.debug("selectShelf selectThisShelf: shelf.auto=", shelveStore.get(shelf, 'auto', false));
                 document.getElementById("auto").checked = shelveStore.get(shelf, 'auto', false);
             }
             var template = selectShelf.getTemplate(shelf);
