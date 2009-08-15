@@ -42,12 +42,6 @@
 
 var shelveOptions = {
     
-    fields: [
-        'name', 'dir', 'rx', 'mime',
-        'log_file', 'log_template', 'footer_text', 'footer_html',
-        'hotkey', 'hotkey_alt', 'hotkey_ctrl', 'hotkey_shift', 'hotkey_meta'
-    ],
-
     onLoad: function() {
         shelveOptions.fillListbox(0);
         // var view = document.getElementById("bookmarksTree");
@@ -212,8 +206,7 @@ var shelveOptions = {
     swap: function(item, other) {
         var thisShelfId = item.value;
         var thatShelfId = other.value;
-        for (var i in shelveOptions.fields) {
-            var name = shelveOptions.fields[i];
+        for (var name in shelveStore.fields) {
             var type = shelveStore.getType(thatShelfId, name) || shelveStore.getType(thisShelfId, name);
             var oval = shelveStore.get(thatShelfId, name, null);
             var cval = shelveStore.get(thisShelfId, name, null);
@@ -231,8 +224,7 @@ var shelveOptions = {
     },
 
     copy: function(thisShelfId, thatShelfId) {
-        for (var i in shelveOptions.fields) {
-            var name = shelveOptions.fields[i];
+        for (var name in shelveStore.fields) {
             var cval = shelveStore.get(thisShelfId, name, null);
             if (cval) {
                 var type = shelveStore.getType(thisShelfId, name);

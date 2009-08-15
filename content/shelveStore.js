@@ -43,6 +43,23 @@
 
 
 var shelveStore = {
+    
+    fields: {
+        'name': '',
+        'dir': '',
+        'rx': '',
+        'mime': '',
+        'log_file': '',
+        'log_template': '',
+        'footer_text': '',
+        'footer_html': '',
+        'auto': false,
+        'hotkey': '',
+        'hotkey_alt': false,
+        'hotkey_ctrl': false,
+        'hotkey_shift': false,
+        'hotkey_meta': false
+    },
 
     prefs: null,
 
@@ -61,6 +78,11 @@ var shelveStore = {
 
     setMax: function(value) {
         return shelveStore.setInt(null, 'max', value);
+    },
+
+    getDefault: function(field) {
+        // TODO: throw an exception if the field/key doesn't exist
+        return shelveStore.fields[field];
     },
 
     prefName: function(shelfId, pname) {
