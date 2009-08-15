@@ -48,30 +48,31 @@ var editShelf = {
     onLoad: function() {
         editShelf.strings = document.getElementById("shelve-strings");
         var shelfId = window.arguments[0].inn.item;
-        document.getElementById("name").value           = shelveStore.get(shelfId, 'name', '');
-        document.getElementById("template").value       = shelveStore.get(shelfId, 'dir', '');
-        document.getElementById("rx").value             = shelveStore.get(shelfId, 'rx', '');
-        document.getElementById("log_file").value       = shelveStore.get(shelfId, 'log_file', '');
-        document.getElementById("log_template").value   = shelveStore.get(shelfId, 'log_template', '');
-        document.getElementById("hotkey_hotkey").value  = shelveStore.get(shelfId, 'hotkey', '');
-        document.getElementById("hotkey_ctrl").checked  = shelveStore.get(shelfId, 'hotkey_ctrl', false);
-        document.getElementById("hotkey_shift").checked = shelveStore.get(shelfId, 'hotkey_shift', false);
-        document.getElementById("hotkey_alt").checked   = shelveStore.get(shelfId, 'hotkey_alt', false);
-        document.getElementById("hotkey_meta").checked  = shelveStore.get(shelfId, 'hotkey_meta', false);
-        document.getElementById("footer_text").value    = shelveStore.get(shelfId, 'footer_text', '');
-        document.getElementById("footer_html").value    = shelveStore.get(shelfId, 'footer_html', '');
+        for (var field in shelveStore.fields) {
+            // shelveUtils.debug("editShelf: onLoad: field=", field);
+            // shelveUtils.debug("editShelf: onLoad: value=", shelveStore.fields[field]);
+            var value = shelveStore.get(shelfId, field, shelveStore.fields[field]);
+            if (value === true || value === false) {
+                document.getElementById(field).checked = value;
+            } else {
+                document.getElementById(field).value = value;
+            }
+        }
         var mime     = shelveStore.get(shelfId, 'mime', 'default');
         var mimelist = document.getElementById("mime");
         var mimeitem = document.getElementById("mime" + mime);
         mimelist.selectedItem = mimeitem;
-        shelveUtils.validateTemplate(document.getElementById("template"), false, "filename");
+        shelveUtils.validateTemplate(document.getElementById("dir"), false, "filename");
     },
 
     onOK: function() {
         var shelfId = window.arguments[0].inn.item;
-        var template = document.getElementById("template").value;
+        shelveUtils.debug("editShelf onOK: shelfId=", shelfId);
+        var template = document.getElementById("dir").value;
+        shelveUtils.debug("editShelf onOK: template=", template);
         if (template.match(/\S/)) {
             var name = document.getElementById("name").value || shelfId;
+            shelveUtils.debug("editShelf onOK: name=", name);
             var valid = shelveUtils.validTemplate(template, 'filename');
             if (valid <= 0) {
                 alert(shelveUtils.localized('malformed_template'));
@@ -86,12 +87,15 @@ var editShelf = {
             shelveStore.setUnichar(shelfId, 'footer_html', document.getElementById("footer_html").value);
             shelveStore.setUnichar(shelfId, 'log_file', document.getElementById("log_file").value);
             shelveStore.setUnichar(shelfId, 'log_template', document.getElementById("log_template").value);
-            var hkk = document.getElementById("hotkey_hotkey").value;
+            shelveUtils.debug("editShelf onOK: auto=", document.getElementById("auto").checked);
+            shelveStore.setBool(shelfId, 'auto', document.getElementById("auto").checked);
+            var hkk = document.getElementById("hotkey").value;
             var hkc = document.getElementById("hotkey_ctrl").checked;
             var hks = document.getElementById("hotkey_shift").checked;
             var hka = document.getElementById("hotkey_alt").checked;
             var hkm = document.getElementById("hotkey_meta").checked;
             var hk0 = shelveStore.get(shelfId, 'hotkey', null);
+            shelveUtils.debug("editShelf onOK: hkk=", hkk);
             if (hkk && hkk.match(/\S/)) {
                 if (hkk != hk0 || 
                 hka != shelveStore.get(shelfId, 'hotkey_alt', false) || 
@@ -131,33 +135,31 @@ var editShelf = {
                         shelveStore.clear(shelfId, 'hotkey_meta');
                     }
                     shelveUtils.withBrowserWindows(
-                        function(win) {
-                            win.shelve.registerHotkeyForShelf(name, hkd);
-                        }
+                        function(win) { win.shelve.registerHotkeyForShelf(name, hkd); }
                     );
                 }
-                } else if (hk0 && hk0.match(/\S/)) {
-                    shelveUtils.withBrowserWindows(
-                        function(win) { win.shelve.removeHotkeyForShelf(name); }
-                    );
-                    shelveStore.clear(shelfId, 'hotkey');
-                    shelveStore.clear(shelfId, 'hotkey_alt');
-                    shelveStore.clear(shelfId, 'hotkey_ctrl');
-                    shelveStore.clear(shelfId, 'hotkey_shift');
-                    shelveStore.clear(shelfId, 'hotkey_meta');
+            } else if (hk0 && hk0.match(/\S/)) {
+                shelveUtils.withBrowserWindows(
+                    function(win) { win.shelve.removeHotkeyForShelf(name); }
+                );
+                shelveStore.clear(shelfId, 'hotkey');
+                shelveStore.clear(shelfId, 'hotkey_alt');
+                shelveStore.clear(shelfId, 'hotkey_ctrl');
+                shelveStore.clear(shelfId, 'hotkey_shift');
+                shelveStore.clear(shelfId, 'hotkey_meta');
+            }
+            var mimetype = document.getElementById("mime").selectedItem;
+            if (mimetype) {
+                var mime = mimetype.value;
+                if (mime != 'default') {
+                    shelveStore.setUnichar(shelfId, 'mime', mime);
+                } else {
+                    shelveStore.clear(shelfId, 'mime');
                 }
-                var mimetype = document.getElementById("mime").selectedItem;
-                if (mimetype) {
-                    var mime = mimetype.value;
-                    if (mime != 'default') {
-                        shelveStore.setUnichar(shelfId, 'mime', mime);
-                    } else {
-                        shelveStore.clear(shelfId, 'mime');
-                    }
-                }
+            }
+            shelveUtils.debug("editShelf onOK: ok=", true);
             window.arguments[0].out = {ok: true};
         }
     }
-    
 };
 

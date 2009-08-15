@@ -61,6 +61,7 @@
             <tab label="&shelve.shelf;" accesskey="&shelve.shelf.accesskey;"/>
             <tab label="&shelve.log;" accesskey="&shelve.log.accesskey;"/>
             <tab label="&shelve.footer;" accesskey="&shelve.footer.accesskey;"/>
+            <tab label="&shelve.options;" accesskey="&shelve.options.accesskey;"/>
         </tabs>
 
         <tabpanels>
@@ -71,7 +72,7 @@
                 <textbox id="name" />
 
                 <hbox>
-                    <label accesskey="&shelve.template.accesskey;" control="template">&shelve.template;:</label>
+                    <label accesskey="&shelve.template.accesskey;" control="dir">&shelve.template;:</label>
                     <spacer flex="1" />
                     <toolbarbutton id="shelf.help" 
                                    label="&shelve.help;"
@@ -82,12 +83,12 @@
                                    oncommand="shelveUtils.pick('template', 'template'); return false;"/>
                 </hbox>
                 <hbox>
-                    <textbox id="template" flex="1" 
+                    <textbox id="dir" flex="1" 
                              oninput="shelveUtils.validateTemplate(this, false, 'filename')" />
                 </hbox>
 
-                <label accesskey="&shelve.mime.accesskey;" control="mime">&shelve.mime;:</label>
-                <menulist id="mime" >
+                <label accesskey="&shelve.mime.accesskey;" width="250" flex="1" control="mime">&shelve.mime;:</label>
+                <menulist id="mime" width="250" flex="1" >
                     <menupopup>
                         <menuitem id="mimedefault" 
                                   value="default" 
@@ -110,10 +111,10 @@
                 <label accesskey="&shelve.rx.accesskey;" control="rx">&shelve.rx;:</label>
                 <textbox id="rx" />
 
-                <label accesskey="&hotkey.hotkey.accesskey;" control="hotkey_hotkey">&hotkey.hotkey;:</label>
+                <label accesskey="&hotkey.hotkey.accesskey;" control="hotkey">&hotkey.hotkey;:</label>
                 <hbox>
-                    <!-- <textbox id="hotkey_hotkey" flex="0" size="7" /> -->
-                    <menulist id="hotkey_hotkey" >
+                    <!-- <textbox id="hotkey" flex="0" size="7" /> -->
+                    <menulist id="hotkey" >
                         <menupopup>
                             <menuitem value="" label="-"/>
                             <!-- <menuitem value="CANCEL" label="CANCEL"/> -->
@@ -306,6 +307,12 @@
                          multiline="true"
                          oninput="shelveUtils.validateTemplate(this, true, 'footer')"
                          flex="1"/>
+            </tabpanel>
+            
+            <tabpanel id="options" orient="vertical">
+                <checkbox accesskey="&shelve.auto.accesskey;" id="auto" 
+                          label="&shelve.auto;"
+                          checked="false"/>
             </tabpanel>
 
         </tabpanels>

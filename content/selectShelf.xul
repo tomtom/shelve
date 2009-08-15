@@ -111,6 +111,7 @@
                                         </menupopup>
                                     </menulist>
                                     <checkbox accesskey="&shelve.auto.accesskey;" id="auto" 
+                                              onkeyup="selectShelf.onSelectAuto()"
                                               label="&shelve.auto;"
                                               checked="false"/>
                                 </hbox>

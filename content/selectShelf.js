@@ -44,6 +44,7 @@
 
 var selectShelf = {
     finalized: false,
+    auto: null,
     mime0: null,
     mime: null,
 
@@ -132,6 +133,11 @@ var selectShelf = {
                 // shelveUtils.debug("selectThisShelf mime=", mime);
                 selectShelf.dlgSetMime(mime);
             }
+            shelveUtils.debug("selectShelf selectThisShelf: auto=", selectShelf.auto);
+            if (selectShelf.auto === null) {
+                shelveUtils.debug("selectShelf selectThisShelf: shelf.auto=", shelveStore.get(shelf, 'auto', false));
+                document.getElementById("auto").checked = shelveStore.get(shelf, 'auto', false);
+            }
             var template = selectShelf.getTemplate(shelf);
             // shelveUtils.debug("selectThisShelf template=", template);
             if (template) {
@@ -159,6 +165,11 @@ var selectShelf = {
 
     onSelect: function(interactive, setmime) {
         return selectShelf.selectThisShelf(selectShelf.getShelfIndex(), interactive, setmime);
+    },
+
+    onSelectAuto: function() {
+        selectShelf.auto = document.getElementById("auto").checked;
+        return selectShelf.onSelect(false, false);
     },
 
     onFinalize: function() {
