@@ -52,6 +52,7 @@ var shelveOverlay = {
         shelveOverlay.strings = document.getElementById("shelve-strings");
         shelve.setupHotkeys();
         shelve.setupAutoshelf();
+        shelve.setupAutoSelect();
         shelve.setupPopup();
     },
 

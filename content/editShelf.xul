@@ -110,6 +110,9 @@
 
                 <label accesskey="&shelve.rx.accesskey;" control="rx">&shelve.rx;:</label>
                 <textbox id="rx" />
+                <checkbox accesskey="&shelve.autoselect.accesskey;" id="autoselect" 
+                          label="&shelve.autoselect;"
+                          checked="false"/>
 
                 <label accesskey="&hotkey.hotkey.accesskey;" control="hotkey">&hotkey.hotkey;:</label>
                 <hbox>

@@ -87,8 +87,12 @@ var editShelf = {
             shelveStore.setUnichar(shelfId, 'footer_html', document.getElementById("footer_html").value);
             shelveStore.setUnichar(shelfId, 'log_file', document.getElementById("log_file").value);
             shelveStore.setUnichar(shelfId, 'log_template', document.getElementById("log_template").value);
-            // shelveUtils.debug("editShelf onOK: auto=", document.getElementById("auto").checked);
             shelveStore.setBool(shelfId, 'auto', document.getElementById("auto").checked);
+            var autoselect = document.getElementById("autoselect").checked;
+            shelveStore.setBool(shelfId, 'autoselect', autoselect);
+            if (autoselect) {
+                shelve.setupAutoSelect();
+            }
             var hkk = document.getElementById("hotkey").value;
             var hkc = document.getElementById("hotkey_ctrl").checked;
             var hks = document.getElementById("hotkey_shift").checked;

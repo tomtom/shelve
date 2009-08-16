@@ -70,6 +70,8 @@
 <!ENTITY shelve.note.accesskey "N">
 <!ENTITY shelve.rx "Dateien in diesem Fach abspeichern, wenn die URLs dieser RegExp entspricht">
 <!ENTITY shelve.rx.accesskey "R">
+<!ENTITY shelve.autoselect "Passende Seiten automatisch abspeichern">
+<!ENTITY shelve.autoselect.accesskey "C">
 <!ENTITY selectShelf.title "Fach auswählen">
 <!ENTITY editShelf.title "Fach bearbeiten">
 <!ENTITY shelve.hotkey "Schnelltaste">
