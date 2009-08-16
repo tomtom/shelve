@@ -51,6 +51,7 @@ var shelve = {
     },
     
     withShelfNumber: function(shelfId) {
+        // shelveUtils.debug("withShelfNumber shelfId=", shelfId);
         var sp_params = shelve.getSavePageToShelveParams(shelfId, {});
         if (sp_params && shelve.savePageWithParams(sp_params)){
             // shelve.notifyUser("Shelved:", sp_params.filename);
@@ -343,6 +344,23 @@ var shelve = {
         }
     },
 
+    autoselect: false,
+
+    setupAutoSelect: function() {
+        if (!shelve.autoselect) {
+            var max = shelveStore.max();
+            for (var i = 1; i <= max; i++) {
+                var autoselect = shelveStore.get(i, 'autoselect', null);
+                if (autoselect) {
+                    window.addEventListener("DOMContentLoaded", shelve.autoSelectShelve, true);
+                    shelve.autoselect = true;
+                    // shelveUtils.debug("setupAutoSelect autoselect=", shelveUtils.autoselect);
+                    break;
+                }
+            }
+        }
+    },
+
     getAutoshelf: function() {
         var autoshelf = shelve.getAutoshelfPref();
         return autoshelf == "--" ? null : autoshelf;
@@ -538,6 +556,27 @@ var shelve = {
         }
     },
 
+    autoSelectShelve: function(dclevent) {
+        var url = shelve.getDocumentURL({});
+        // shelveUtils.debug("autoSelectShelve url=", url);
+        if (!shelve.matchStopRx(url)) {
+            // shelveUtils.debug("autoSelectShelve match stop_rx=", false);
+            var max = shelveStore.max();
+            for (var i = 1; i <= max; i++) {
+                var autoselect = shelveStore.get(i, 'autoselect', null);
+                // shelveUtils.debug("autoSelectShelve shelfNo=", i);
+                // shelveUtils.debug("autoSelectShelve autoselect=", autoselect);
+                if (autoselect) {
+                    if (shelve.matchRx(i, url)) {
+                        // shelveUtils.debug("autoSelectShelve match rx=", true);
+                        shelve.withShelfNumber(i);
+                    }
+                    break;
+                }
+            }
+        }
+    },
+
     autoShelve: function(dclevent) {
         if (shelve.autoPageParams) {
             if (shelve.autoPilot && dclevent.originalTarget instanceof HTMLDocument) {
@@ -554,9 +593,7 @@ var shelve = {
                 // }
 
                 try {
-                    var prefs_auto = shelve.getPrefs("auto.");
-                    var stop = shelve.getUnicharPref(prefs_auto, 'stop_rx') || '';
-                    if (!stop.match(/\S/) || !doc.URL.match(new RegExp(stop))) {
+                    if (!shelve.matchStopRx(doc.URL)) {
                         // shelveUtils.debug("autoFileParams: ", shelve.autoFileParams);
                         var afp   = shelveUtils.clone(shelve.autoFileParams);
                         // shelveUtils.debug("afp0: ", afp);
@@ -656,14 +693,10 @@ var shelve = {
                     alert(shelveUtils.localized("malformed_template") + ": " + template);
                     template = shelve.cleanValue(template);
                 }
-                var rxs = shelveStore.get(i, 'rx', null);
-                if (rxs && rxs.match(/\S/)) {
-                    var rx = new RegExp(rxs);
-                    if (url.match(rx)) {
-                        var spp = shelve.getSavePageToShelveParams(i, doc_params);
-                        // shelve.notifyUser(shelveUtils.localized("saved.as") + ":", spp.filename, spp);
-                        return spp;
-                    }
+                if (shelve.matchRx(i, url)) {
+                    var spp = shelve.getSavePageToShelveParams(i, doc_params);
+                    // shelve.notifyUser(shelveUtils.localized("saved.as") + ":", spp.filename, spp);
+                    return spp;
                 }
                 shelves.push(template);
                 shelfNos.push(i);
@@ -698,6 +731,23 @@ var shelve = {
             shelve.uninstallAutoShelve(true);
         }
         return null;
+    },
+
+    matchRx: function(shelfNo, url) {
+        var rxs = shelveStore.get(shelfNo, 'rx', null);
+        if (rxs && rxs.match(/\S/)) {
+            var rx = new RegExp(rxs);
+            if (url.match(rx)) {
+                return true;
+            }
+        }
+        return false;
+    },
+
+    matchStopRx: function(url) {
+        var prefs_auto = shelve.getPrefs("auto.");
+        var stop = shelve.getUnicharPref(prefs_auto, 'stop_rx') || '';
+        return stop.match(/\S/) && url.match(new RegExp(stop));
     },
 
     getAutoshelfPref: function() {
@@ -1044,9 +1094,41 @@ var shelve = {
         return [next_state, out, skip_sep];
     },
 
+    expandVarNames: {
+        'c': 'clip',
+        'C': 'Clip',
+        'D': 'date',
+        'e': 'ext',
+        'E': 'ext',
+        'f': 'filename',
+        'F': 'basename',
+        'H': 'host',
+        'B': 'hostbasename',
+        'h': 'hours',
+        'i': 'input',
+        'I': 'subdir',
+        'k': 'keywords',
+        'l': 'msecs',
+        'm': 'minutes',
+        'M': 'month',
+        'p': 'fullpath',
+        'P': 'path',
+        'q': 'query',
+        's': 'secs',
+        't': 'title',
+        'Y': 'fullyear',
+        'y': 'year',
+        'n': 'note',
+        'o': 'outfile',
+        'u': 'url',
+        'v': 'shelf'
+    },
+
     expandVar: function(out, fail_state, ch, et_params) {
+        var name = shelve.expandVarNames[ch] || ch;
+        // shelveUtils.debug('shelve expandVar: [ch, name]=', [ch, name]);
         var val;
-        switch(ch) {
+        switch(name) {
 
             case '[':
             val = null;
@@ -1062,12 +1144,10 @@ var shelve = {
             val = ch;
             break;
 
-            case 'c': 
             case 'clip': 
             val = shelve.cleanValue(et_params.clip);
             break;
 
-            case 'C':
             case 'Clip': 
             val = shelve.cleanValue(et_params.clip);
             if (et_params.interactive && !val.match(/\S/)) {
@@ -1077,104 +1157,85 @@ var shelve = {
             }
             break;
 
-            case 'D':
             case 'date':
             val = shelve.lpadString(new Date().getDate(), "00");
             break;
 
-            case 'E':
-            alert(shelveUtils.localized('pct.e'));
-            case 'e':
             case 'ext':
+            if (ch === 'E') {
+                alert(shelveUtils.localized('pct.e'));
+            }
             val = shelve.maybeExtension(out, et_params.extension);
             break;
 
-            case 'f':
             case 'filename':
             val = shelve.getDocumentFilename(et_params, 2);
             break;
 
-            case 'F':
             case 'basename':
             val = shelve.getDocumentFilename(et_params, 1);
             break;
 
-            case 'H':
             case 'host':
             val = shelve.getDocumentHost(et_params, 0);
             break;
 
-            case 'B':
             case 'hostbasename':
             val = shelve.getDocumentHost(et_params, 1);
             break;
 
-            case 'h':
             case 'hours':
             val = shelve.lpadString(new Date().getHours(), "00");
             break;
 
-            case 'i':
             case 'input':
             val = et_params.interactive ? shelve.queryUser(et_params, "Input", "") : '%i';
             break;
 
-            case 'I':
             case 'subdir':
             val = et_params.interactive ? shelve.queryDirectory(et_params, out) : '%I';
             break;
 
-            case 'k':
             case 'keywords':
             val = shelve.getDocumentKeywords(et_params);
             break;
 
-            case 'l':
             case 'msecs':
             val = new Date().getMilliseconds();
             break;
 
-            case 'm':
             case 'minutes':
             val = shelve.lpadString(new Date().getMinutes(), "00");
             break;
 
-            case 'M':
             case 'month':
             val = shelve.lpadString(new Date().getMonth() + 1, "00");
             break;
 
-            case 'p':
             case 'fullpath':
             val = shelve.getDocumentFilename(et_params, 3);
             break;
 
-            case 'P':
             case 'path':
             val = shelve.getDocumentFilename(et_params, 4);
             break;
 
-            case 'q':
             case 'query':
             val = shelve.getDocumentUrlQuery(et_params);
             break;
 
-            case 's':
             case 'secs':
             val = shelve.lpadString(new Date().getSeconds(), "00");
             break;
 
-            case 't':
             case 'title':
             val = shelve.cleanValue(et_params.title);
             break;
 
-            case 'Y':
             case 'fullyear':
             val = new Date().getFullYear();
             break;
 
-            case 'y':
             case 'year':
             var yr = String(new Date().getYear());
             val = shelve.lpadString(yr.slice(yr.length - 2), "00");
@@ -1182,12 +1243,10 @@ var shelve = {
 
 
             // log mode
-            case 'n':
             case 'note':
             val = et_params.mode == 'log' ? shelve.getNote(et_params) : null;
             break;
 
-            case 'o':
             case 'outfile':
             val = et_params.mode == 'log' ? et_params.output : null;
             if (val == '-') {
@@ -1195,7 +1254,6 @@ var shelve = {
             }
             break;
 
-            case 'u':
             case 'url':
             val = et_params.mode == 'log' ? et_params.url : null;
             break;
@@ -1204,7 +1262,6 @@ var shelve = {
             val = et_params.mode == 'log' ? shelveUtils.unixString(et_params.shelve_content || "") : null;
             break;
 
-            case 'v':
             case 'shelf':
             val = et_params.mode == 'log' ? et_params.shelve_name : null;
             break;
@@ -1215,6 +1272,9 @@ var shelve = {
             fail_state = 0;
             alert(shelveUtils.localized('unknown') + ": %" + ch);
 
+        }
+        if (val) {
+            val = shelveSubstitute.rewrite(name, et_params.url, val);
         }
         return [fail_state, val];
     },
