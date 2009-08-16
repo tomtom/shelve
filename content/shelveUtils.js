@@ -226,6 +226,24 @@ var shelveUtils = {
         return filename && filename.match(/\S/) && !filename.match(/^-+$/);
     },
 
+    getProfDir: function() {
+        var dir = Components.classes["@mozilla.org/file/directory_service;1"].
+        getService(Components.interfaces.nsIProperties).
+        get("ProfD", Components.interfaces.nsIFile);
+        return dir.clone();
+    },
+
+    getShelveDir: function() {
+        var shelveDir = shelveUtils.getProfDir();
+        shelveDir.append("shelve");
+        if (!shelveDir.exists()) {
+            /*jsl:ignore*/
+            shelveDir.create(0x01,0755);
+            /*jsl:end*/
+        }
+        return shelveDir;
+    },
+
     newURI: function(url) {
         var ios = Components.classes['@mozilla.org/network/io-service;1'].
         getService(Components.interfaces.nsIIOService);
