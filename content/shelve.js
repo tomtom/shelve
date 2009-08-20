@@ -442,7 +442,7 @@ var shelve = {
         if (gContextMenu.onImage) {
             document.getElementById("context-shelve-image").hidden = false;
         }
-        if (gContextMenu.onLink) {
+        if (gContextMenu.onLink && !shelve.matchStopRx(gContextMenu.linkURL, "blacklist")) {
             document.getElementById("context-shelve-url").hidden = false;
         }
         if (gContextMenu.isTextSelected) {
@@ -744,9 +744,9 @@ var shelve = {
         return false;
     },
 
-    matchStopRx: function(url) {
+    matchStopRx: function(url, klass) {
         var prefs_auto = shelve.getPrefs("auto.");
-        var stop = shelve.getUnicharPref(prefs_auto, 'stop_rx') || '';
+        var stop = shelve.getUnicharPref(prefs_auto, (klass || 'stop') + '_rx') || '';
         return stop.match(/\S/) && url.match(new RegExp(stop));
     },
 
@@ -1274,7 +1274,7 @@ var shelve = {
 
         }
         if (val) {
-            val = shelveSubstitute.rewrite(name, et_params.url, val);
+            val = shelveDb.rewrite(name, et_params.url, val);
         }
         return [fail_state, val];
     },

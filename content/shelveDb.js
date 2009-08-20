@@ -38,16 +38,15 @@
 /*jsl:declare document*/ 
 /*jsl:declare window*/ 
 /*jsl:declare alert*/ 
-/*jsl:import shelveStore.js*/
 
-var shelveSubstitute = {
+var shelveDb = {
 
     getDB: function() {
         // var dbdir = shelveUtils.getShelveDir();
         var dbdir = shelveUtils.getProfDir();
         var db = dbdir.clone();
         db.append("shelve.sqlite");
-        // shelveUtils.debug("shelveSubstitute getDB: db=", db.path);
+        // shelveUtils.debug("shelveDb getDB: db=", db.path);
         var create = !db.exists();
         var storageService = Components.classes["@mozilla.org/storage/service;1"].
         getService(Components.interfaces.mozIStorageService);
@@ -60,35 +59,38 @@ var shelveSubstitute = {
                 ');'+
                 'INSERT INTO meta VALUES("schema", "1");'+
                 'CREATE TABLE IF NOT EXISTS replacements ( '+
-                '  priority INTEGER NOT NULL, '+
-                '  url VARCHAR(255) NOT NULL, '+
-                '  klass VARCHAR(20) NOT NULL, '+
+                '  url VARCHAR(255) NOT NULL DEFAULT "%", '+
+                '  klass VARCHAR(20) NOT NULL DEFAULT "title", '+
                 '  rx VARCHAR(255) NOT NULL, '+
                 '  subst VARCHAR(255), '+
-                '  break INTEGER '+
-                ');'
-            );
+                '  priority INTEGER NOT NULL DEFAULT 50, '+
+                '  stop INTEGER DEFAULT 0'+
+                ');');
+            shelveUtils.log("Create shelve.sqlite tables");
         }
         return con;
     },
 
     selectSubstitutions: function(type, url) {
-        var con = shelveSubstitute.getDB();
+        var con = shelveDb.getDB();
         if (con) {
             try {
                 var statement = con.createStatement(
-                    "SELECT r.rx, coalesce(r.subst, ''), coalesce(r.break, 0) "+
+                    "SELECT r.rx, coalesce(r.subst, ''), r.stop "+
                     "FROM replacements r "+
-                    "WHERE ?1 LIKE klass ESCAPE '^' AND ?2 LIKE url ESCAPE '^' "+
-                    "ORDER BY priority DESC;"
-                );
+                    "WHERE ?1 LIKE r.klass ESCAPE '^' AND ?2 LIKE r.url ESCAPE '^' "+
+                    "ORDER BY r.priority ASC;");
                 try {
                     statement.bindUTF8StringParameter(0, type);
                     statement.bindUTF8StringParameter(1, url);
                     var values = [];
                     while (statement.executeStep()) {
-                       // shelveUtils.debug('shelveSubstitute selectSubstitutions: ', [statement.getUTF8String(0), statement.getUTF8String(1)].join("; "));
-                        values.push([statement.getUTF8String(0), statement.getUTF8String(1)]);
+                       // shelveUtils.debug('shelveDb selectSubstitutions: ', [statement.getUTF8String(0), statement.getUTF8String(1)].join("; "));
+                       values.push({
+                           rx: statement.getUTF8String(0),
+                           subst: statement.getUTF8String(1),
+                           stop: statement.getInt32(2) == 1
+                       });
                     }
                     return values;
                 } finally {
@@ -104,21 +106,19 @@ var shelveSubstitute = {
     },
 
     rewrite: function(type, url, value) {
-        // shelveUtils.debug('shelveSubstitute rewrite: ', [type, url, value]);
+        // shelveUtils.debug('shelveDb rewrite: ', [type, url, value]);
         var val = value;
-        var replacements = shelveSubstitute.selectSubstitutions(type, url);
+        var replacements = shelveDb.selectSubstitutions(type, url);
         if (replacements) {
-            var rxs;
-            var rx;
-            var subst;
-            var stop;
-            for (idx in replacements) {
-                [rxs, subst, stop] = replacements[idx];
-                rx = new RegExp(rxs, 'g');
+            for (var idx in replacements) {
+                var vals = replacements[idx];
+                // shelveUtils.debug('shelveDb rewrite: ', [vals.rx, vals.subst, vals.stop]);
+                var rx = new RegExp(vals.rx, 'g');
                 if (val.match(rx)) {
-                    // shelveUtils.debug('shelveSubstitute rewrite: ', [rx, subst, stop]);
-                    val = val.replace(rx, subst);
-                    if (stop) {
+                    // shelveUtils.debug('shelveDb rewrite: match=', true);
+                    val = val.replace(rx, vals.subst);
+                    // shelveUtils.debug('shelveDb rewrite: => ', val);
+                    if (vals.stop) {
                         break;
                     }
                 }

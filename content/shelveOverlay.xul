@@ -42,7 +42,7 @@
 
     <script src="shelveStore.js"/>
     <script src="shelveUtils.js"/>
-    <script src="shelveSubstitute.js"/>
+    <script src="shelveDb.js"/>
     <script src="shelve.js"/>
     <script src="shelveOverlay.js"/>
 
