@@ -1,14 +1,13 @@
 * TODO
 
     #B5 Recode plain text output to a user-specified charset (make sure the file uses that charset)
-    #B5 Replace certain problematic characters in file names etc.
-
+    #B5 The footer should be added when the progress listener gets the signal that the download was finished
     #C5 Dialogs: Add drop-down menu for easier insertion of place holders
     #E8 Log to sqlite db (or use places/save as bookmark?)
     #E9 Option to select more than one shelf?
 
 
-% 2008-07-28; @Last Change: 2009-08-16.
+% 2008-07-28; @Last Change: 2009-08-22.
 % vi: ft=viki:tw=0:ts=4
 % Local Variables:
 % End:
