@@ -557,7 +557,9 @@ var shelve = {
     },
 
     autoSelectShelve: function(dclevent) {
-        var url = shelve.getDocumentURL({});
+        // shelveUtils.debug("autoSelectShelve dclevent=", dclevent);
+        var doc = dclevent.originalTarget;
+        var url = shelve.getDocumentURL({doc: doc});
         // shelveUtils.debug("autoSelectShelve url=", url);
         if (!shelve.matchStopRx(url)) {
             // shelveUtils.debug("autoSelectShelve match stop_rx=", false);
