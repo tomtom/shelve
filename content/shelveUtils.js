@@ -147,7 +147,8 @@ var shelveUtils = {
             path = path.replace(/[#?].*$/, '');
             var ext = path.match(/\.\w+$/);
             if (ext) {
-                return ext;
+                // shelveUtils.debug("shelveUtils getExtension ext=", ext);
+                return ext[0];
             } else {
                 if (content_type !== null && content_type.match(/^image/)) {
                     var img_type = content_type.match(/^image\/(.*)$/);

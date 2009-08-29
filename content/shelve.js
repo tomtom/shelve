@@ -1389,6 +1389,10 @@ var shelve = {
     },
 
     maybeExtension: function(filename, extension) {
+        // shelveUtils.debug('shelve maybeExtension filename=', filename);
+        // shelveUtils.debug('shelve maybeExtension extension=', extension);
+        // shelveUtils.debug('shelve maybeExtension slice pos=', ("" || extension).length);
+        // shelveUtils.debug('shelve maybeExtension slice=', filename.slice(filename.length - ("" || extension).length));
         if (extension != null && filename.slice(filename.length - extension.length) != extension) {
             return extension;
         } else {
