@@ -50,9 +50,9 @@ var shelve = {
         }
     },
     
-    withShelfNumber: function(shelfId) {
+    withShelfNumber: function(shelfId, doc_params) {
         // shelveUtils.debug("withShelfNumber shelfId=", shelfId);
-        var sp_params = shelve.getSavePageToShelveParams(shelfId, {});
+        var sp_params = shelve.getSavePageToShelveParams(shelfId, doc_params || {});
         if (sp_params && shelve.savePageWithParams(sp_params)){
             // shelve.notifyUser("Shelved:", sp_params.filename);
             // shelve.notifyUser("", sp_params.filename, sp_params);
@@ -558,8 +558,8 @@ var shelve = {
 
     autoSelectShelve: function(dclevent) {
         // shelveUtils.debug("autoSelectShelve dclevent=", dclevent);
-        var doc = dclevent.originalTarget;
-        var url = shelve.getDocumentURL({doc: doc});
+        var doc_params = {doc: dclevent.originalTarget};
+        var url = shelve.getDocumentURL(doc_params);
         // shelveUtils.debug("autoSelectShelve url=", url);
         if (!shelve.matchStopRx(url)) {
             // shelveUtils.debug("autoSelectShelve match stop_rx=", false);
@@ -571,7 +571,7 @@ var shelve = {
                 if (autoselect) {
                     if (shelve.matchRx(i, url)) {
                         // shelveUtils.debug("autoSelectShelve match rx=", true);
-                        shelve.withShelfNumber(i);
+                        shelve.withShelfNumber(i, doc_params);
                     }
                     break;
                 }
