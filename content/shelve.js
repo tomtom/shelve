@@ -882,14 +882,18 @@ var shelve = {
                     var log_entry = shelve.expandTemplate(et_params);
                     if (log_entry.match(/\S/)) {
 
+                        // shelveUtils.debug("log log_entry=", log_entry);
                         log_entry = shelveUtils.osString(log_entry);
-                        var foStream = Components.classes["@mozilla.org/network/file-output-stream;1"].
+
+                        var fos = Components.classes["@mozilla.org/network/file-output-stream;1"].
                         createInstance(Components.interfaces.nsIFileOutputStream);
-                        /*jsl:ignore*/
-                        foStream.init(shelveUtils.localFile(log), 0x02 | 0x10 | 0x08, -1, 0); 
-                        /*jsl:end*/
-                        foStream.write(log_entry, log_entry.length);
-                        foStream.close();
+                        fos.init(shelveUtils.localFile(log), 0x02 | 0x10 | 0x08, -1, 0); 
+
+                        var os = Components.classes["@mozilla.org/intl/converter-output-stream;1"]
+                        .createInstance(Components.interfaces.nsIConverterOutputStream);
+                        os.init(fos, "UTF-8", 0, 0x0000);
+                        os.writeString(log_entry);
+                        os.close();
 
                     }
                 }
