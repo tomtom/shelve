@@ -80,7 +80,7 @@
                                    oncommand="shelveUtils.openDoc('chrome://shelve/content/help.xhtml'); return false;" />
                     <toolbarbutton id="browse" 
                                    image="chrome://browser/skin/places/query.png"
-                                   oncommand="shelveUtils.pick('template', 'template'); return false;"/>
+                                   oncommand="shelveUtils.pick('dir', 'template'); return false;"/>
                 </hbox>
                 <hbox>
                     <textbox id="dir" flex="1" 
