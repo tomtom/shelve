@@ -38,6 +38,9 @@
 /*jsl:declare document*/ 
 /*jsl:declare window*/ 
 /*jsl:declare alert*/ 
+/*jsl:import shelve.js*/
+/*jsl:import shelveStore.js*/
+/*jsl:import shelveUtils.js*/
 
 var shelveDb = {
 

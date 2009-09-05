@@ -37,6 +37,7 @@
 /*jsl:option explicit*/ 
 /*jsl:declare document*/ 
 /*jsl:declare window*/ 
+/*jsl:import shelve.js*/
 /*jsl:import shelveStore.js*/
 /*jsl:import shelveUtils.js*/
 

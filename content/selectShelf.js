@@ -198,7 +198,7 @@ var selectShelf = {
 
     getShelfIndexForShelfNumber: function(shelf) {
         var shelfNos = window.arguments[0].inn.shelfNos;
-        for (e in shelfNos) {
+        for (var e in shelfNos) {
             if (shelfNos[e] === shelf) {
                 return e;
             }

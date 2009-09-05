@@ -48,11 +48,15 @@ var shelveUtils = {
     },
 
     pick: function(cid, mode) {
+        // shelveUtils.debug("shelveUtils pick: cid=", cid);
+        // shelveUtils.debug("shelveUtils pick: mode=", mode);
         const nsIFilePicker = Components.interfaces.nsIFilePicker;
         var fp = Components.classes["@mozilla.org/filepicker;1"].
         createInstance(nsIFilePicker);
+        // shelveUtils.debug("shelveUtils pick: fp=", fp);
 
         var textbox = document.getElementById(cid);
+        // shelveUtils.debug("shelveUtils pick: textbox=", textbox);
         var val = textbox.value;
         if (val === "") {
             var prefs = Components.classes["@mozilla.org/preferences-service;1"].
@@ -63,6 +67,7 @@ var shelveUtils = {
                 val = "";
             }
         }
+        // shelveUtils.debug("shelveUtils pick: val=", val);
         var init = shelveUtils.localFile(val);
         var fpMode;
 
@@ -98,7 +103,9 @@ var shelveUtils = {
         nsIFilePicker.filterHTML | nsIFilePicker.filterXML);
         fp.init(window, "Select " + name, fpMode);
         var rv = fp.show();
+        // shelveUtils.debug("shelveUtils pick: rv=", rv);
         if (rv == nsIFilePicker.returnOK || rv == nsIFilePicker.returnReplace) {
+            // shelveUtils.debug("shelveUtils pick: rv=", fp.file.path);
             textbox.value = fp.file.path;
             switch(mode) {
                 case 'template':
