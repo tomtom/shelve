@@ -689,6 +689,7 @@ var shelve = {
         var max = shelveStore.max();
         var url = shelve.getDocumentURL(doc_params);
         for (var i = 1; i <= max; i++) {
+            // shelveUtils.debug("shelve.getSavePageParams i=", i);
             template = shelveStore.get(i, 'dir', null);
             if (template && template.match(/\S/)) {
                 if (template.match(/[*|<>&?"]/)) {
@@ -700,6 +701,7 @@ var shelve = {
                     // shelve.notifyUser(shelveUtils.localized("saved.as") + ":", spp.filename, spp);
                     return spp;
                 }
+                // shelveUtils.debug("shelve.getSavePageParams template=", template);
                 shelves.push(template);
                 shelfNos.push(i);
                 list.push(shelveStore.getDescription(i));

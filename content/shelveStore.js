@@ -196,8 +196,8 @@ var shelveStore = {
                     case shelveStore.data.PREF_INVALID:
                     return defaultValue;
 
-                    case shelveStore.data.PREF_STRING:
-                    return shelveStore.getString(shelfId, pname, defaultValue);
+                    // case shelveStore.data.PREF_STRING:
+                    // return shelveStore.getString(shelfId, pname, defaultValue);
 
                     case shelveStore.data.PREF_INT:
                     return shelveStore.getInt(shelfId, pname, defaultValue);
@@ -246,8 +246,8 @@ var shelveStore = {
                 case shelveStore.data.PREF_INVALID:
                 return null;
 
-                case shelveStore.data.PREF_STRING:
-                return shelveStore.setString(shelfId, pname, value);
+                // case shelveStore.data.PREF_STRING:
+                // return shelveStore.setString(shelfId, pname, value);
 
                 case shelveStore.data.PREF_INT:
                 return shelveStore.setInt(shelfId, pname, value);
