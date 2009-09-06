@@ -766,7 +766,7 @@ var shelve = {
 
     getPrefs: function(ns) {
         var prefs = Components.classes["@mozilla.org/preferences-service;1"].
-        getService(Components.interfaces.nsIPrefService).getBranch("extensions.shelve." + ns);
+        getService(Components.interfaces.nsIPrefService).getBranch("extensions.shelve." + (ns || ""));
         return prefs;
     },
 
