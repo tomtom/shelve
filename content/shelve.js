@@ -264,29 +264,16 @@ var shelve = {
     saveText: function(text, filename, sp_params) {
         var file = shelveUtils.localFile(filename);
         if(!file.exists()) {
-            /*jsl:ignore*/
             file.create(0x00,0644);
-            /*jsl:end*/
         }
-        var foStream = Components.classes["@mozilla.org/network/file-output-stream;1"].
-        createInstance(Components.interfaces.nsIFileOutputStream);
-        /*jsl:ignore*/
-        foStream.init(file, 0x02 | 0x08 | 0x20, -1, 0); 
-        /*jsl:end*/
-         foStream.write(text, text.length);
-         foStream.close();
 
-         // var charset = "UTF-8"; // Can be any character encoding name that Mozilla supports
-         // var os = Components.classes["@mozilla.org/intl/converter-output-stream;1"]
-         // .createInstance(Components.interfaces.nsIConverterOutputStream);
-         // os.init(fos, charset, 0, 0x0000);
-         // os.writeString(text);
-         // os.close();
+        var text_enc = shelve.getUnicharPref(shelve.getPrefs('text.'), 'encoding');
+        shelveUtils.writeTextFile(file, text, text_enc, 0x02 | 0x08 | 0x20);
+        
+        shelve.addFooter(sp_params);
+    },
 
-         shelve.addFooter(sp_params);
-     },
-
-     registerDownload: function(mode, sp_params, persist, uri, file_uri) {
+    registerDownload: function(mode, sp_params, persist, uri, file_uri) {
          var prefs_dlm = shelve.getPrefs("use_download_manager.");
          if (!sp_params.noAlertNotification && shelve.getBoolPref(prefs_dlm, mode) && !shelveUtils.appInfo().match(/^Firefox2/)) {
              // var dm = Components.classes["@mozilla.org/download-manager;1"].
@@ -749,9 +736,13 @@ var shelve = {
     },
 
     matchStopRx: function(url, klass) {
-        var prefs_auto = shelve.getPrefs("auto.");
-        var stop = shelve.getUnicharPref(prefs_auto, (klass || 'stop') + '_rx') || '';
-        return stop.match(/\S/) && url.match(new RegExp(stop));
+        if (url) {
+            var prefs_auto = shelve.getPrefs("auto.");
+            var stop = shelve.getUnicharPref(prefs_auto, (klass || 'stop') + '_rx') || '';
+            return stop.match(/\S/) && url.match(new RegExp(stop));
+        } else {
+            return false;
+        }
     },
 
     getAutoshelfPref: function() {
@@ -842,7 +833,7 @@ var shelve = {
 
     footer: function(id) {
         var sp_params = shelve.footers[id];
-        // shelveUtils.debug("footer "+ id +": sp_params=", sp_params);
+        shelveUtils.debug("footer "+ id +": sp_params=", sp_params);
         var file = shelveUtils.localFile(sp_params.filename);
         if (file.exists() && file.isWritable()) {
             var template = shelve.getFooterTemplate(sp_params);
@@ -851,15 +842,10 @@ var shelve = {
                 // shelveUtils.debug("footer et_params=", et_params);
                 var text = shelveUtils.osString(shelve.expandTemplate(et_params));
                 // var text = shelveUtils.asISupportsString(shelve.expandTemplate(et_params)).toString();
-                var foStream = Components.classes["@mozilla.org/network/file-output-stream;1"].
-                createInstance(Components.interfaces.nsIFileOutputStream);
 
-                /*jsl:ignore*/
-                foStream.init(file, 0x02 | 0x10 | 0x08, -1, 0); 
-                /*jsl:end*/
-                foStream.write(text, text.length);
-                foStream.close();
-
+                // FIXME: Use the document's encoding
+                shelveUtils.writeTextFile(file, text);
+                // shelveUtils.writeTextFile(file, text, 'UTF-8');
             }
             delete shelve.footers[id];
         } else {
@@ -868,7 +854,7 @@ var shelve = {
     },
 
     log: function(sp_params) {
-        // shelveUtils.debug("log: sp_params=", sp_params);
+        shelveUtils.debug("log: sp_params=", sp_params);
         var shelf = sp_params.shelf;
         var log_file_template = shelve.log_param(shelf, 'file');
         if (shelveUtils.isSomeFilename(log_file_template)) {
@@ -885,16 +871,9 @@ var shelve = {
                         // shelveUtils.debug("log log_entry=", log_entry);
                         log_entry = shelveUtils.osString(log_entry);
 
-                        var fos = Components.classes["@mozilla.org/network/file-output-stream;1"].
-                        createInstance(Components.interfaces.nsIFileOutputStream);
-                        fos.init(shelveUtils.localFile(log), 0x02 | 0x10 | 0x08, -1, 0); 
-
-                        var os = Components.classes["@mozilla.org/intl/converter-output-stream;1"]
-                        .createInstance(Components.interfaces.nsIConverterOutputStream);
-                        os.init(fos, "UTF-8", 0, 0x0000);
-                        os.writeString(log_entry);
-                        os.close();
-
+                        var log_enc = shelve.getUnicharPref(shelve.getPrefs('log.'), 'encoding');
+                        shelveUtils.debug("log: log_enc=", log_enc);
+                        shelveUtils.writeTextFile(shelveUtils.localFile(log), log_entry, log_enc);
                     }
                 }
             }

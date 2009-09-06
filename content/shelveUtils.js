@@ -234,6 +234,31 @@ var shelveUtils = {
         return filename && filename.match(/\S/) && !filename.match(/^-+$/);
     },
 
+    writeTextFile: function(file, text, enc, init_flags) {
+        // if(!file.exists()) {
+        //     file.create(0x00,0644);
+        // }
+
+        var init_flags = init_flags === undefined ? 0x02 | 0x10 | 0x08 : init_flags;
+        shelveUtils.debug('shelveUtils writeTextFile enc=', enc);
+        shelveUtils.debug('shelveUtils writeTextFile init_flags=', init_flags);
+
+        var fos = Components.classes["@mozilla.org/network/file-output-stream;1"].
+        createInstance(Components.interfaces.nsIFileOutputStream);
+        fos.init(file, init_flags, -1, 0); 
+
+        if (enc) {
+            var os = Components.classes["@mozilla.org/intl/converter-output-stream;1"]
+            .createInstance(Components.interfaces.nsIConverterOutputStream);
+            os.init(fos, enc, 0, 0x0000);
+            os.writeString(text);
+            os.close();
+        } else {
+            fos.write(text, text.length);
+            fos.close();
+        }
+    },
+
     getProfDir: function() {
         var dir = Components.classes["@mozilla.org/file/directory_service;1"].
         getService(Components.interfaces.nsIProperties).

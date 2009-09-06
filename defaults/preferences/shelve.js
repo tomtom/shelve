@@ -8,6 +8,8 @@ pref("extensions.shelve.auto.blacklist_rx", "^(about|chrome|mailto):");
 pref("extensions.shelve.auto.notify_user", true);
 pref("extensions.shelve.default_template", "%[ctF]%e");
 pref("extensions.shelve.overwrite_files", true);
+pref("extensions.shelve.text.encoding", "UTF-8");
+pref("extensions.shelve.log.encoding", "UTF-8");
 pref("extensions.shelve.use_download_manager.binary", false);
 pref("extensions.shelve.use_download_manager.document", false);
 // See http://kb.mozillazine.org/Localize_extension_descriptions
