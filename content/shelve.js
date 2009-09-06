@@ -1263,7 +1263,7 @@ var shelve = {
             break;
 
             case 'url':
-            val = et_params.mode == 'log' ? et_params.url : null;
+            val = et_params.mode == 'log' ? shelve.getDocumentURL(et_params) : null;
             break;
             
             case 'content':
@@ -1282,7 +1282,7 @@ var shelve = {
 
         }
         if (val) {
-            val = shelveDb.rewrite(name, et_params.url, val);
+            val = shelveDb.rewrite(name, shelve.getDocumentURL(et_params), val);
         }
         return [fail_state, val];
     },
