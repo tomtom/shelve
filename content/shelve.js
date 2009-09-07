@@ -548,7 +548,7 @@ var shelve = {
         var doc_params = {doc: dclevent.originalTarget};
         var url = shelve.getDocumentURL(doc_params);
         // shelveUtils.debug("autoSelectShelve url=", url);
-        if (!shelve.matchStopRx(url)) {
+        if (!shelve.matchStopRx(url, "blacklist")) {
             // shelveUtils.debug("autoSelectShelve match stop_rx=", false);
             var max = shelveStore.max();
             for (var i = 1; i <= max; i++) {
@@ -739,6 +739,10 @@ var shelve = {
         if (url) {
             var prefs_auto = shelve.getPrefs("auto.");
             var stop = shelve.getUnicharPref(prefs_auto, (klass || 'stop') + '_rx') || '';
+            // shelveUtils.debug('shelve matchStopRx: url=', url);
+            // shelveUtils.debug('shelve matchStopRx: klass=', klass);
+            // shelveUtils.debug('shelve matchStopRx: stop=', stop);
+            // shelveUtils.debug('shelve matchStopRx: match=', stop.match(/\S/) && url.match(new RegExp(stop)));
             return stop.match(/\S/) && url.match(new RegExp(stop));
         } else {
             return false;
@@ -833,7 +837,7 @@ var shelve = {
 
     footer: function(id) {
         var sp_params = shelve.footers[id];
-        shelveUtils.debug("footer "+ id +": sp_params=", sp_params);
+        // shelveUtils.debug("footer "+ id +": sp_params=", sp_params);
         var file = shelveUtils.localFile(sp_params.filename);
         if (file.exists() && file.isWritable()) {
             var template = shelve.getFooterTemplate(sp_params);
@@ -854,7 +858,7 @@ var shelve = {
     },
 
     log: function(sp_params) {
-        shelveUtils.debug("log: sp_params=", sp_params);
+        // shelveUtils.debug("log: sp_params=", sp_params);
         var shelf = sp_params.shelf;
         var log_file_template = shelve.log_param(shelf, 'file');
         if (shelveUtils.isSomeFilename(log_file_template)) {
@@ -872,7 +876,7 @@ var shelve = {
                         log_entry = shelveUtils.osString(log_entry);
 
                         var log_enc = shelve.getUnicharPref(shelve.getPrefs('log.'), 'encoding');
-                        shelveUtils.debug("log: log_enc=", log_enc);
+                        // shelveUtils.debug("log: log_enc=", log_enc);
                         shelveUtils.writeTextFile(shelveUtils.localFile(log), log_entry, log_enc);
                     }
                 }
