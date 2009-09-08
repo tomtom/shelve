@@ -180,8 +180,11 @@ var shelve = {
     },
 
     saveDocument: function(doc, filename, sp_params) {
+        // shelveUtils.debug("shelve saveDocument: sp_params=", sp_params);
+        // shelveUtils.debug("shelve saveDocument: filename=", filename);
         var file = shelveUtils.localFile(filename);
         var dataname = filename.replace(/\.\w+$/, '_files');
+        // shelveUtils.debug("shelve saveDocument: dataname=", dataname);
         var dir = file.parent;
         if (!dir.exists()) {
             /*jsl:ignore*/
@@ -207,8 +210,8 @@ var shelve = {
             case 'text_latin1':
             mime = 'text/plain';
             encode = wbp.ENCODE_FLAGS_FORMATTED |
-            wbp.ENCODE_FLAGS_ABSOLUTE_LINKS | 
-            wbp.ENCODE_FLAGS_NOFRAMES_CONTENT;
+            wbp.ENCODE_FLAGS_ABSOLUTE_LINKS;
+            // | wbp.ENCODE_FLAGS_NOFRAMES_CONTENT;
             break;
 
             case 'html':
@@ -227,6 +230,8 @@ var shelve = {
             // alert(dataname);
             break;
         }
+        // shelveUtils.debug("shelve saveDocument: mime=", mime);
+        // shelveUtils.debug("shelve saveDocument: encode=", encode);
         shelve.addFooter(sp_params);
         var uri = shelveUtils.newURI(sp_params.url);
         var file_uri = shelveUtils.newFileURI(file);
@@ -259,16 +264,18 @@ var shelve = {
         wbp.saveURI(uri, null, null, null, null, file_uri);
         // cachekey = shelveUtils.asISupportsString(sp_params.url);
         // wbp.saveURI(uri, cachekey, null, null, null, file);
-
     },
 
     saveText: function(text, filename, sp_params) {
+        // shelveUtils.debug('shelve saveText: filename=', filename);
+        // shelveUtils.debug('shelve saveText: text=', text);
         var file = shelveUtils.localFile(filename);
         if(!file.exists()) {
             file.create(0x00,0644);
         }
 
         var text_enc = shelve.getUnicharPref(shelve.getPrefs('text.'), 'encoding');
+        // shelveUtils.debug('shelve saveText: text_enc=', text_enc);
         shelveUtils.writeTextFile(file, text, text_enc, 0x02 | 0x08 | 0x20);
         
         shelve.addFooter(sp_params);
@@ -808,12 +815,16 @@ var shelve = {
     count: 0,
 
     addFooter: function(sp_params) {
-        var template = shelve.getFooterTemplate(sp_params);
-        if (template && template.match(/\S/)) {
-            shelve.count++;
-            var id = shelve.count;
-            shelve.footers[id] = sp_params;
-            shelve.delayedFooter(id);
+        try {
+            var template = shelve.getFooterTemplate(sp_params);
+            if (template && template.match(/\S/)) {
+                shelve.count++;
+                var id = shelve.count;
+                shelve.footers[id] = sp_params;
+                shelve.delayedFooter(id);
+            }
+        } catch (ex) {
+            shelveUtils.log('Error when preparing footer: ' + ex);
         }
     },
 
@@ -1137,11 +1148,13 @@ var shelve = {
             break;
 
             case 'clip': 
-            val = shelve.cleanValue(et_params.clip);
+            // val = shelve.cleanValue(et_params.clip);
+            val = et_params.clip;
             break;
 
             case 'Clip': 
-            val = shelve.cleanValue(et_params.clip);
+            // val = shelve.cleanValue(et_params.clip);
+            val = et_params.clip;
             if (et_params.interactive && !val.match(/\S/)) {
                 var s_empty = shelveUtils.localized('empty.clip');
                 alert(s_empty + " " + shelveUtils.localized('abort'));
@@ -1221,7 +1234,8 @@ var shelve = {
             break;
 
             case 'title':
-            val = shelve.cleanValue(et_params.title);
+            // val = shelve.cleanValue(et_params.title);
+            val = et_params.title;
             break;
 
             case 'fullyear':
@@ -1265,9 +1279,14 @@ var shelve = {
             alert(shelveUtils.localized('unknown') + ": %" + ch);
 
         }
+
         if (val) {
             val = shelveDb.rewrite(name, shelve.getDocumentURL(et_params), val);
+            if (et_params.mode != 'log') {
+                val = shelve.cleanValue(val);
+            }
         }
+
         return [fail_state, val];
     },
 
