@@ -66,7 +66,7 @@ var shelveOverlay = {
     },
 
     onPopupSelection: function(ev) {
-        shelve.saveSelection();
+        shelve.saveSelection(ev.originalTarget);
     },
 
     onPopupLink: function(ev) {

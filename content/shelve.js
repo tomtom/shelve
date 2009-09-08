@@ -83,9 +83,10 @@ var shelve = {
         // }
     },
 
-    saveSelection: function() {
+    saveSelection: function(doc) {
         try {
-            var content = shelve.getDocumentClip({});
+            var content = shelve.getDocumentClip({doc: doc});
+            // shelveUtils.debug("shelve saveSelection: content=", content);
             var doc_params = {
                 mime: "text",
                 clip: ""
