@@ -72,7 +72,7 @@
             <preference id="hotkey_ctrl" name="extensions.shelve.hotkey.ctrl" type="bool"/>
             <preference id="hotkey_shift" name="extensions.shelve.hotkey.shift" type="bool"/>
             <preference id="hotkey_meta" name="extensions.shelve.hotkey.meta" type="bool"/>
-            <preference id="overwrite_files" name="extensions.shelve.overwrite_files" type="bool"/>
+            <preference id="overwrite_files" name="extensions.shelve.overwrite_files" type="int"/>
         </preferences>
 
         <tabbox>
@@ -362,10 +362,15 @@
                                 </row>
 
                                 <!-- <row> -->
-                                <!--     <checkbox id="overwrite_files"  -->
-                                <!--               label="&shelve.overwrite_files;"  -->
-                                <!--               accesskey="&shelve.overwrite_files.accesskey;" -->
-                                <!--               preference="overwrite_files"/> -->
+                                <!--     <label accesskey="&shelve.overwrite_files.accesskey;" control="list_overwrite_files">&shelve.overwrite_files;:</label> -->
+                                <!--     <hbox> -->
+                                <!--         <menulist id="list_overwrite_files" preference="overwrite_files"> -->
+                                <!--             <menupopup> -->
+                                <!--                 <menuitem value="0" label="Never TODO" /> -->
+                                <!--                 <menuitem value="1" label="Always TODO" /> -->
+                                <!--             </menupopup> -->
+                                <!--         </menulist> -->
+                                <!--     </hbox> -->
                                 <!-- </row> -->
 
                             </rows>

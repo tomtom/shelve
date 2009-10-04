@@ -131,9 +131,9 @@ var shelve = {
 
     savePageWithParams: function(sp_params) {
         var filename = sp_params.filename;
-        if (filename) {
-            // shelveUtils.debug("savePageWithParams filename=", filename);
-            if (shelve.shouldWriteFile(filename)) {
+        if (shelve.shouldWriteFile(sp_params)) {
+            if (filename) {
+                // shelveUtils.debug("savePageWithParams filename=", filename);
                 // http://developer.mozilla.org/en/docs/Code_snippets:Miscellaneous
                 try {
                     var params_fix = shelve.frozenParams(sp_params);
@@ -162,21 +162,32 @@ var shelve = {
                     // alert(e);
                     throw('Shelve: Error when saving document: ' + e + " " + filename);
                 }
-            } else {
-                shelveUtils.log("Shelve: Do not (over)write file: "+ filename);
             }
+        } else {
+            shelveUtils.log("Shelve: Do not (over)write file: "+ filename);
         }
         return false;
     },
 
-    shouldWriteFile: function(filename) {
-        return true;
+    shouldWriteFile: function(sp_params) {
+        // shelveUtils.debug("shouldWriteFile: sp_params=", sp_params);
+        var filename = sp_params.filename;
         // shelveUtils.debug("shouldWriteFile: filename=", filename);
-        // var file = shelveUtils.localFile(filename);
-        // var overwrite = shelveStore.getBool(null, "overwrite_files", true);
+        var file = shelveUtils.localFile(filename);
         // shelveUtils.debug("shouldWriteFile: file.exists=", file.exists());
-        // shelveUtils.debug("shouldWriteFile: overwrite_files=", overwrite);
-        // return !file.exists() || overwrite;
+        if (file.exists()) {
+            var shelfNo = sp_params.shelf;
+            if (shelfNo) {
+                var overwrite_files = shelveStore.getBool(null, "overwrite_files", 1);
+                // shelveUtils.debug("shouldWriteFile: overwrite_files=", overwrite_files);
+                var overwrite = shelveStore.get(shelfNo, 'overwrite', overwrite_files);
+                // shelveUtils.debug("shouldWriteFile: overwrite=", overwrite);
+                return overwrite === 1;
+            } else {
+                shelveUtils.log("shouldWriteFile: Unknown shelfNo: Please report");
+            }
+        }
+        return true;
     },
 
     saveDocument: function(doc, filename, sp_params) {

@@ -55,6 +55,7 @@ var shelveStore = {
         'footer_html': '',
         'auto': false,
         'autoselect': false,
+        'overwrite': true,
         'hotkey': '',
         'hotkey_alt': false,
         'hotkey_ctrl': false,

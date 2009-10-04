@@ -242,9 +242,9 @@ var shelveUtils = {
         // shelveUtils.debug('shelveUtils writeTextFile enc=', enc);
         // shelveUtils.debug('shelveUtils writeTextFile init_flags=', init_flags);
         
-        // if(!file.exists()) {
-        //     file.create(0x00,0644);
-        // }
+        if(!file.exists()) {
+            file.create(0x00,0644);
+        }
 
         var fos = Components.classes["@mozilla.org/network/file-output-stream;1"].
         createInstance(Components.interfaces.nsIFileOutputStream);
