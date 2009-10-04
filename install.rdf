@@ -6,11 +6,12 @@
     <em:name>Shelve</em:name>
     <em:version>1.20</em:version>
     <em:creator>Thomas Link</em:creator>
-    <em:translator>jojaba (fr-FR)</em:translator>
+    <em:translator>Jojaba - BabelZilla (fr-FR)</em:translator>
     <em:translator>Marcelo Ghelman (ghelman.net) (pt-BR)</em:translator>
-    <em:translator>k78 (ru-RU)</em:translator>
+    <em:translator>Владимир Герасимов (ru-RU)</em:translator>
+    <em:translator>yfdyh000 (zh-CN)</em:translator>
     <em:description>Quickly save the current document in a pre-defined folder</em:description>
-    <em:homepageURL>http://www.lithom.net/software/firefox/shelve/</em:homepageURL>
+    <em:homepageURL>http://shelve.sourceforge.net</em:homepageURL>
     <em:optionsURL>javascript:opener.openDialog('chrome://shelve/content/shelveOptions.xul','','chrome,modal,resizable');window.close();</em:optionsURL>
     <em:iconURL>chrome://shelve/content/shelve.png</em:iconURL>
     <em:targetApplication>

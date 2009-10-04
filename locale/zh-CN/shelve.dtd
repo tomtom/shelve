@@ -1,0 +1,12 @@
+<!ENTITY shelve.label "Shelve">
+<!ENTITY shelveMenu.accesskey "V">
+<!ENTITY shelveContextUrl.label "Shelve 链接…">
+<!ENTITY shelveContextUrl.accesskey "v">
+<!ENTITY shelveContextImage.label "Shelve 图片…">
+<!ENTITY shelveContextImage.accesskey "v">
+<!ENTITY shelveContextSelection.label "Shelve 选择的文本…">
+<!ENTITY shelveContextSelection.accesskey "V">
+<!ENTITY shelveContextUrlsInSelection.label "Shelve 选择的网址…">
+<!ENTITY shelveContextUrlsInSelection.accesskey "V">
+<!ENTITY shelveToolbar.label "Shelve">
+<!ENTITY shelveToolbar.tooltip "Shelve - 保存当前网页到预设文件夹">

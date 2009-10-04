@@ -70,6 +70,8 @@
 <!ENTITY shelve.note.accesskey "R">
 <!ENTITY shelve.rx "Enregistrer automatiquement un document vers ce shelf si l&apos;URL correspond à cette ExpReg">
 <!ENTITY shelve.rx.accesskey "t">
+<!ENTITY shelve.autoselect "Enregistrer automatiquement toutes les pages correspondantes">
+<!ENTITY shelve.autoselect.accesskey "u">
 <!ENTITY selectShelf.title "Choisir le shelf">
 <!ENTITY editShelf.title "Modifier le shelf">
 <!ENTITY shelve.hotkey "Raccourci clavier">

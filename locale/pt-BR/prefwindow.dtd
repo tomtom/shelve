@@ -70,6 +70,8 @@
 <!ENTITY shelve.note.accesskey "N">
 <!ENTITY shelve.rx "Salvar um documento neste shelf automaticamente se a URL coincidir com esta RegExp">
 <!ENTITY shelve.rx.accesskey "R">
+<!ENTITY shelve.autoselect "Salvar automaticamente todas as páginas que coincidirem">
+<!ENTITY shelve.autoselect.accesskey "U">
 <!ENTITY selectShelf.title "Selecionar Shelf">
 <!ENTITY editShelf.title "Editar Shelf">
 <!ENTITY shelve.hotkey "Atalho">

@@ -23,7 +23,7 @@
 <!ENTITY shelve.options "Настройки">
 <!ENTITY shelve.options.accesskey "O">
 <!ENTITY shelve.parameters "Параметры">
-<!ENTITY shelve.overwrite_files "Overwrite files">
+<!ENTITY shelve.overwrite_files "Перезаписать файл(ы)">
 <!ENTITY shelve.overwrite_files.accesskey "T">
 <!ENTITY shelve.startup "Запуск">
 <!ENTITY shelve.startup.accesskey "P">
@@ -70,6 +70,8 @@
 <!ENTITY shelve.note.accesskey "N">
 <!ENTITY shelve.rx "Автоматически сохранять в эту папку документ, URL которого соответствует регулярному выражению:">
 <!ENTITY shelve.rx.accesskey "R">
+<!ENTITY shelve.autoselect "Сохранять соответствующие параметрам документы автоматически">
+<!ENTITY shelve.autoselect.accesskey "U">
 <!ENTITY selectShelf.title "Выбрать папку">
 <!ENTITY editShelf.title "Изменить папку">
 <!ENTITY shelve.hotkey "Горячая клавиша">
