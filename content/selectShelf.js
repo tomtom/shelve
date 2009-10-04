@@ -52,7 +52,10 @@ var selectShelf = {
         document.getElementById("clip").value = window.arguments[0].inn.clip;
         document.getElementById("title").value = window.arguments[0].inn.title;
         selectShelf.mime0 = window.arguments[0].inn.mime;
-        selectShelf.mime = selectShelf.mime0 || 'default';
+        // shelveUtils.debug("selectShelf.onLoad mime0=", selectShelf.mime0);
+        // selectShelf.mime = selectShelf.mime0 || 'default';
+        selectShelf.mime = 'default';
+        // shelveUtils.debug("selectShelf.onLoad mime=", selectShelf.mime);
         selectShelf.dlgSetMime(selectShelf.mime);
         var autoPilot = window.arguments[0].inn.autoPilot;
         // shelveUtils.debug("selectShelf.onLoad: autoPilot=", autoPilot);
@@ -77,7 +80,7 @@ var selectShelf = {
         //     // var e = document.createEvent("Event");
         //     // e.initEvent("change", true, false);
         //     // listbox.dispatchEvent(e);
-        //     shelveUtils.debug("shelveUtils.onLoad: selectedIndex=", listbox.selectedIndex);
+        // shelveUtils.debug("shelveUtils.onLoad: selectedIndex=", listbox.selectedIndex);
         // }
         if (autoPilot) {
             selectShelf.selectThisShelf(autoPilot, false, true);
@@ -128,7 +131,8 @@ var selectShelf = {
             // selectShelf.alertMime("onSelect 1");
             var mime;
             // shelveUtils.debug("selectThisShelf mime0=", selectShelf.mime0);
-            if (setmime && (selectShelf.mime0 === null || selectShelf.mime0 === 'default')) {
+            // if (setmime && (selectShelf.mime0 === null || selectShelf.mime0 === 'default')) {
+            if (setmime) {
                 mime = shelveStore.get(shelf, 'mime', selectShelf.mime);
                 // shelveUtils.debug("selectThisShelf mime=", mime);
                 selectShelf.dlgSetMime(mime);
@@ -238,13 +242,14 @@ var selectShelf = {
     },
 
     getMime: function() {
-        var mimetype = document.getElementById("mime").selectedItem;
-        // selectShelf.alertMime("getMime1");
-        if (mimetype) {
-            return mimetype.value;
+        if (selectShelf.mime0 == "binary") {
+            return selectShelf.mime0;
         } else {
-            // selectShelf.alertMime("getMime2");
-            return selectShelf.mime || 'default';
+            var mimetype = document.getElementById("mime").selectedItem;
+            // shelveUtils.debug("selectShelf.getMime mimetype=", mimetype);
+            var mime = mimetype ? mimetype.value : (selectShelf.mime || 'default');
+            // shelveUtils.debug("selectShelf.getMime mime=", mime);
+            return mime == "default" ? selectShelf.mime0 : mime;
         }
     },
 
