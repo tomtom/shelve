@@ -736,7 +736,7 @@ var shelve = {
         var rxs = shelveStore.get(shelfNo, 'rx', null);
         if (rxs && rxs.match(/\S/)) {
             var rx = new RegExp(rxs);
-            if (url.match(rx)) {
+            if (url && url.match(rx)) {
                 return true;
             }
         }
