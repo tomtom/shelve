@@ -182,6 +182,16 @@ var shelve = {
                 // shelveUtils.debug("shouldWriteFile: overwrite_files=", overwrite_files);
                 var overwrite = shelveStore.get(shelfNo, 'overwrite', overwrite_files);
                 // shelveUtils.debug("shouldWriteFile: overwrite=", overwrite);
+                if (overwrite === 2) {
+                    var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"].
+                    getService(Components.interfaces.nsIPromptService);
+                    // TODO: Localization
+                    var result = prompts.confirm(window, "File already exists", "Overwrite file?");
+                    // shelveUtils.debug("shelve.shouldWriteFile result=", result);
+                    if (result) {
+                        overwrite = 1;
+                    }
+                }
                 return overwrite === 1;
             } else {
                 shelveUtils.log("shouldWriteFile: Unknown shelfNo: Please report");

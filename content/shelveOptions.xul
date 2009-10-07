@@ -368,6 +368,7 @@
                                 <!--             <menupopup> -->
                                 <!--                 <menuitem value="0" label="Never TODO" /> -->
                                 <!--                 <menuitem value="1" label="Always TODO" /> -->
+                                <!--                 <menuitem value="2" label="Query user TODO" /> -->
                                 <!--             </menupopup> -->
                                 <!--         </menulist> -->
                                 <!--     </hbox> -->
