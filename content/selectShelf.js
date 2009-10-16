@@ -231,7 +231,7 @@ var selectShelf = {
         // selectShelf.alertMime("dlgSetMime1 "+ mime);
         var mimelist = document.getElementById("mime");
         if (!mimelist.disabled) {
-            if (mime == 'binary') {
+            if (selectShelf.mime0 == 'binary') {
                 mimelist.disabled = true;
             } else {
                 var mimeitem = document.getElementById("mime" + mime);
@@ -255,7 +255,7 @@ var selectShelf = {
 
     getExtension: function() {
         var type = window.arguments[0].inn.content_type;
-        var mime = window.arguments[0].inn.mime == 'binary' ? 'binary' : selectShelf.getMime();
+        var mime = selectShelf.mime0 === 'binary' ? 'binary' : selectShelf.getMime();
         var doc = window.arguments[0].inn.doc;
         return shelveUtils.getExtension(type, mime, doc);
     },
