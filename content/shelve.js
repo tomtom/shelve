@@ -850,7 +850,9 @@ var shelve = {
     },
 
     delayedFooter: function(id) {
-        setTimeout('shelve.footer('+ id +')', 1000);
+        // setTimeout('shelve.footer('+ id +')', 1000);
+        // setTimeout(function(id) {shelve.footer(id)}, 1000, id);
+        setTimeout(function() {shelve.footer(id);}, 1000);
     },
 
     getFooterTemplate: function(sp_params) {
