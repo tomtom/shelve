@@ -292,7 +292,7 @@ var shelve = {
         // shelveUtils.debug('shelve saveText: text=', text);
         var file = shelveUtils.localFile(filename);
         if(!file.exists()) {
-            file.create(0x00,0644);
+            file.create(0x00, 0644);
         }
 
         var text_enc = shelve.getUnicharPref(shelve.getPrefs('text.'), 'encoding');
