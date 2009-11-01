@@ -74,17 +74,17 @@
                     </listbox>
                     <grid>
                         <columns>
-                            <columns width="30"/>
-                            <column width="450" stretch="1" flex="1"/>
+                            <column width="30"/>
+                            <column flex="1"/>
                         </columns>
                         <rows>
                             <row>
                                 <label accesskey="&shelve.title.accesskey;" control="title">&shelve.title;</label>
-                                <textbox id="title" width="450" onkeyup="selectShelf.onSelect(false, false)"/>
+                                <textbox id="title" onkeyup="selectShelf.onSelect(false, false)"/>
                             </row>
                             <row>
                                 <label accesskey="&shelve.clip.accesskey;" control="clip">&shelve.clip;</label>
-                                <textbox id="clip" width="450" onkeyup="selectShelf.onSelect(false, false)"/>
+                                <textbox id="clip" onkeyup="selectShelf.onSelect(false, false)"/>
                             </row>
                             <row>
                                 <label accesskey="&shelve.mime.accesskey;" control="mime">&shelve.mime;</label>
@@ -118,7 +118,7 @@
                             </row>
                             <row>
                                 <label accesskey="&shelve.file.accesskey;" control="filename">&shelve.file;</label>
-                                <textbox id="filename" width="450" onkeydown="selectShelf.onFinalize()"/>
+                                <textbox id="filename" onkeydown="selectShelf.onFinalize()"/>
                             </row>
                         </rows>
                     </grid>
