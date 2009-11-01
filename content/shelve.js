@@ -180,7 +180,7 @@ var shelve = {
         if (file.exists()) {
             var shelfNo = sp_params.shelf;
             if (shelfNo) {
-                var overwrite_files = shelveStore.getBool(null, "overwrite_files", 1);
+                var overwrite_files = shelveStore.getInt(null, "overwrite_files", 1);
                 // shelveUtils.debug("shouldWriteFile: overwrite_files=", overwrite_files);
                 var overwrite = shelveStore.get(shelfNo, 'overwrite', overwrite_files);
                 // shelveUtils.debug("shouldWriteFile: overwrite=", overwrite);
@@ -853,8 +853,6 @@ var shelve = {
     },
 
     delayedFooter: function(id) {
-        // setTimeout('shelve.footer('+ id +')', 1000);
-        // setTimeout(function(id) {shelve.footer(id)}, 1000, id);
         setTimeout(function() {shelve.footer(id);}, 1000);
     },
 
