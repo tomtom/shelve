@@ -45,6 +45,7 @@
 var selectShelf = {
     finalized: false,
     auto: null,
+    mime_fix: false,
     mime0: null,
     mime: null,
 
@@ -52,6 +53,7 @@ var selectShelf = {
         document.getElementById("clip").value = window.arguments[0].inn.clip;
         document.getElementById("title").value = window.arguments[0].inn.title;
         selectShelf.mime0 = window.arguments[0].inn.mime;
+        selectShelf.mime_fix = window.arguments[0].inn.mime_fix;
         // shelveUtils.debug("selectShelf.onLoad mime0=", selectShelf.mime0);
         // selectShelf.mime = selectShelf.mime0 || 'default';
         selectShelf.mime = 'default';
@@ -132,7 +134,7 @@ var selectShelf = {
             var mime;
             // shelveUtils.debug("selectThisShelf mime0=", selectShelf.mime0);
             // if (setmime && (selectShelf.mime0 === null || selectShelf.mime0 === 'default')) {
-            if (setmime) {
+            if (!selectShelf.mime_fix) {
                 mime = shelveStore.get(shelf, 'mime', selectShelf.mime);
                 // shelveUtils.debug("selectThisShelf mime=", mime);
                 selectShelf.dlgSetMime(mime);
@@ -231,7 +233,9 @@ var selectShelf = {
         // selectShelf.alertMime("dlgSetMime1 "+ mime);
         var mimelist = document.getElementById("mime");
         if (!mimelist.disabled) {
-            if (selectShelf.mime0 == 'binary') {
+            // if (selectShelf.mime0 == 'binary') {
+            // if (selectShelf.mime0 != 'default') {
+            if (selectShelf.mime_fix) {
                 mimelist.disabled = true;
             } else {
                 var mimeitem = document.getElementById("mime" + mime);

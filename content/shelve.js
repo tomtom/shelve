@@ -89,6 +89,7 @@ var shelve = {
             // shelveUtils.debug("shelve saveSelection: content=", content);
             var doc_params = {
                 mime: "text",
+                mime_fix: true,
                 clip: ""
             };
             var sp_params = shelve.getSavePageParams(doc_params);
@@ -118,6 +119,7 @@ var shelve = {
                 title: "",
                 // FIXME: getUrlMime()
                 mime: "binary",
+                mime_fix: true,
                 keywords: ""
             };
             var sp_params = shelve.getSavePageParams(doc_params);
@@ -731,6 +733,7 @@ var shelve = {
                 clip: shelve.getDocumentClip(doc_params),
                 title: shelve.getDocumentTitle(doc_params),
                 mime: shelve.getDocumentMime(doc_params),
+                mime_fix: doc_params.mime_fix || false,
                 content_type: doc_params.content_type,
 
                 autoPilot: shelve.autoPilot,
