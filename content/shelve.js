@@ -539,7 +539,7 @@ var shelve = {
                 template: shelve.autoPageParams.template,
                 interactive: true,
                 mime: shelve.autoPageParams.mime,
-                extension: shelve.autoPageParams.extension,
+                // extension: shelve.autoPageParams.extension,
                 userInput: shelve.userInput,
                 userDirectory: shelve.userDirectory
             };
