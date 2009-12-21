@@ -242,15 +242,15 @@ var shelveUtils = {
         // shelveUtils.debug('shelveUtils writeTextFile enc=', enc);
         // shelveUtils.debug('shelveUtils writeTextFile init_flags=', init_flags);
         
-        if(!file.exists()) {
-            file.create(0x00,0644);
-        }
-
-        var fos = Components.classes["@mozilla.org/network/file-output-stream;1"].
-        createInstance(Components.interfaces.nsIFileOutputStream);
-        fos.init(file, init_flags, -1, 0); 
-
         try {
+            if(!file.exists()) {
+                file.create(0x00,0644);
+            }
+
+            var fos = Components.classes["@mozilla.org/network/file-output-stream;1"].
+            createInstance(Components.interfaces.nsIFileOutputStream);
+            fos.init(file, init_flags, -1, 0); 
+
             if (enc) {
                 var os = Components.classes["@mozilla.org/intl/converter-output-stream;1"].
                 createInstance(Components.interfaces.nsIConverterOutputStream);
@@ -263,7 +263,7 @@ var shelveUtils = {
             }
             // shelveUtils.debug('shelveUtils writeTextFile ok=', true);
         } catch (ex) {
-            shelveUtils.log('Error when writing text file:' +  ex);
+            shelveUtils.log('Error when writing text file:'+  ex +"; file="+ file +"; text="+ text);
         }
     },
 
@@ -371,7 +371,7 @@ var shelveUtils = {
         } else {
             var phn = 0;
             var phs = shelveUtils.validPlaceholders(klass);
-            var good_rx = new RegExp('^('+ phs +'|\\['+ phs +'+\\])');
+            var good_rx = new RegExp('^\\d*('+ phs +'|\\['+ phs +'+\\])');
             var text = template;
             var malformed = false;
             while (true) {
@@ -401,7 +401,7 @@ var shelveUtils = {
     },
 
     validPlaceholders: function(klass) {
-        var chars = "cCDeEfFhBhiIklmMpPqstyY%";
+        var chars = "cCDeEfFhHBhiIklmMpPqstyY%";
         var names = "clip|clip!|input|subdir|host|hostbasename|query|fullpath|path|filename|basename|ext|title|keywords|fullyear|year|month|day|hours|minutes|secs|msecs";
         switch(klass) {
             case 'log':

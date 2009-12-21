@@ -598,6 +598,7 @@ var shelve = {
     },
 
     autoShelve: function(dclevent) {
+        // shelveUtils.debug('shelve.autoShelve dclevent=', dclevent);
         if (shelve.autoPageParams) {
             if (shelve.autoPilot && dclevent.originalTarget instanceof HTMLDocument) {
                 var doc = dclevent.originalTarget;
@@ -1009,6 +1010,7 @@ var shelve = {
         var val;
         var skip_sep = false;
         var line_start = 0;
+        var width = null;
         for (var pos = 0; pos < max; pos++) {
             ch = et_params.template[pos];
             switch(state) {
@@ -1017,6 +1019,9 @@ var shelve = {
                 case 0:
                 if (ch == '%') {
                     state = 1;
+                    // shelveUtils.debug('shelve expandTemplate: [pos, ch]=', [pos, et_params.template[pos]]);
+                    [pos, width] = shelve.fieldWidth(et_params.template, pos);
+                    // shelveUtils.debug('shelve expandTemplate: [pos, width, ch]=', [pos, width, et_params.template[pos]]);
                 } else if (skip_sep && (ch == "\\" || ch == "/")) {
                     null;
                 } else {
@@ -1031,14 +1036,14 @@ var shelve = {
                 // single placeholder
                 case 1:
                 /*jsl:ignore*/
-                [state, pos, out, skip_sep] = shelve.processCharacter(0, 0, et_params, pos, ch, out, line_start);
+                [state, pos, out, skip_sep] = shelve.processCharacter(0, 0, et_params, pos, ch, out, line_start, width);
                 /*jsl:end*/
                 break;
 
                 // multiple placeholders
                 case 2:
                 /*jsl:ignore*/
-                [state, pos, out, skip_sep] = shelve.processCharacter(3, 2, et_params, pos, ch, out, line_start);
+                [state, pos, out, skip_sep] = shelve.processCharacter(3, 2, et_params, pos, ch, out, line_start, width);
                 /*jsl:end*/
                 break;
 
@@ -1063,13 +1068,32 @@ var shelve = {
         return out;
     },
 
-    processCharacter: function(success_state, fail_state, et_params, pos, ch, out, line_start) {
+    processCharacter: function(success_state, fail_state, et_params, pos, ch, out, line_start, width) {
         /*jsl:ignore*/
         [pos, name, mode] = shelve.varName(et_params.template, pos, ch);
-        [fail_state, val] = shelve.expandVar(out, fail_state, name, et_params);
+        // shelveUtils.debug('shelve processCharacter1: [pos, name, mode]=', [pos, name, mode]);
+        [fail_state, val] = shelve.expandVar(out, fail_state, name, et_params, width);
+        // shelveUtils.debug('shelve processCharacter2: [fail_state, val]=', [fail_state, val]);
         [next_state, out, skip_sep] = shelve.processValue(success_state, fail_state, name, mode, val, out, line_start);
+        // shelveUtils.debug('shelve processCharacter3: [next_state, out, skip_sep]=', [next_state, out, skip_sep]);
         /*jsl:end*/
         return [next_state, pos, out, skip_sep];
+    },
+
+    fieldWidth: function(template, pos0) {
+        var max = template.length;
+        var pos = pos0 + 1;
+        if (pos < max && template[pos].match(/\d/)) {
+            while (pos < max && template[pos].match(/\d/)) {
+                pos++;
+            }
+            var ws = template.slice(pos0 + 1, pos);
+            var width = parseInt(ws);
+            // shelveUtils.debug('shelve fieldWidth: [pos0, pos, ws, width]=', [pos0, pos, ws, width]);
+            return [pos - 1, width];
+        } else {
+            return [pos0, null];
+        }
     },
 
     varName: function(template, pos, ch) {
@@ -1151,9 +1175,9 @@ var shelve = {
         'v': 'shelf'
     },
 
-    expandVar: function(out, fail_state, ch, et_params) {
+    expandVar: function(out, fail_state, ch, et_params, width) {
         var name = shelve.expandVarNames[ch] || ch;
-        // shelveUtils.debug('shelve expandVar: [ch, name]=', [ch, name]);
+        // shelveUtils.debug('shelve expandVar1: [ch, name, width]=', [ch, name, width]);
         var val;
         switch(name) {
 
@@ -1305,9 +1329,13 @@ var shelve = {
         }
 
         if (val) {
+            // shelveUtils.debug('shelve expandVar2: [val, length]=', [val, val.length]);
             val = shelveDb.rewrite(name, shelve.getDocumentURL(et_params), val);
             if (et_params.mode != 'log') {
                 val = shelve.cleanValue(val);
+            }
+            if (typeof(width) == 'number' && val.length > width) {
+                val = val.substr(0, width);
             }
         }
 
@@ -1323,6 +1351,7 @@ var shelve = {
             value = value.replace(/[\r\n\t]+/g, ' ');
             value = value.replace(/^\s+/g, '');
             value = value.replace(/\s+$/g, '');
+            value = value.replace(/\s\s+/g, ' ');
             // alert("OUT: "+ value);
             return value;
         }
