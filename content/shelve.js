@@ -623,6 +623,7 @@ var shelve = {
                         afp.url   = doc.URL;
                         afp.clip  = '';
                         afp.parentWindow = window;
+                        afp.extension = shelveUtils.getExtension(null, afp.mime, doc)
                         // shelveUtils.debug("afp1: ", afp);
                         var filename = shelve.expandTemplate(afp);
                         // shelveUtils.debug("filename: ", filename);
