@@ -640,7 +640,7 @@ var shelve = {
                         afp.url   = doc.URL;
                         afp.clip  = '';
                         afp.parentWindow = window;
-                        afp.extension = shelveUtils.getExtension(null, afp.mime, doc)
+                        afp.extension = shelveUtils.getExtension(null, afp.mime, doc);
                         // shelveUtils.debug("afp1: ", afp);
                         var filename = shelve.expandTemplate(afp);
                         // shelveUtils.debug("filename: ", filename);
@@ -1045,7 +1045,9 @@ var shelve = {
                 if (ch == '%') {
                     state = 1;
                     // shelveUtils.debug('shelve expandTemplate: [pos, ch]=', [pos, et_params.template[pos]]);
+                    /*jsl:ignore*/
                     [pos, width] = shelve.fieldWidth(et_params.template, pos);
+                    /*jsl:end*/
                     // shelveUtils.debug('shelve expandTemplate: [pos, width, ch]=', [pos, width, et_params.template[pos]]);
                 } else if (skip_sep && (ch == "\\" || ch == "/")) {
                     null;
