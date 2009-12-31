@@ -61,7 +61,7 @@
             <tab label="&shelve.shelf;" accesskey="&shelve.shelf.accesskey;"/>
             <tab label="&shelve.log;" accesskey="&shelve.log.accesskey;"/>
             <tab label="&shelve.footer;" accesskey="&shelve.footer.accesskey;"/>
-            <tab label="&shelve.options;" accesskey="&shelve.options.accesskey;"/>
+            <tab label="&shelve.auto;" accesskey="&shelve.auto.tab.accesskey;"/>
         </tabs>
 
         <tabpanels>
@@ -107,12 +107,6 @@
                                   label="&shelve.mime.text_latin1;"/>
                     </menupopup>
                 </menulist>
-
-                <label accesskey="&shelve.rx.accesskey;" control="rx">&shelve.rx;:</label>
-                <textbox id="rx" />
-                <checkbox accesskey="&shelve.autoselect.accesskey;" id="autoselect" 
-                          label="&shelve.autoselect;"
-                          checked="false"/>
 
                 <label accesskey="&hotkey.hotkey.accesskey;" control="hotkey">&hotkey.hotkey;:</label>
                 <hbox>
@@ -312,10 +306,23 @@
                          flex="1"/>
             </tabpanel>
             
-            <tabpanel id="options" orient="vertical">
-                <checkbox accesskey="&shelve.auto.accesskey;" id="auto" 
-                          label="&shelve.auto;"
+            <tabpanel id="autoshelve" orient="vertical">
+
+                <checkbox accesskey="&shelve.auto.accesskey;" id="auto"
+                          label="&shelve.automode;"
                           checked="false"/>
+
+                <label accesskey="&shelve.rx.accesskey;" control="rx">&shelve.rx;:</label>
+                <textbox id="rx" />
+
+                <checkbox accesskey="&shelve.autoselect.accesskey;" id="autoselect"
+                          label="&shelve.autoselect;"
+                          checked="false"/>
+
+                <checkbox accesskey="&shelve.autocontinue.accesskey;" id="autocontinue"
+                          label="&shelve.autocontinue;"
+                          checked="false"/>
+
             </tabpanel>
 
         </tabpanels>

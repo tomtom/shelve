@@ -590,8 +590,11 @@ var shelve = {
                     if (shelve.matchRx(i, url)) {
                         // shelveUtils.debug("autoSelectShelve match rx=", true);
                         shelve.withShelfNumber(i, doc_params);
+                        var autocontinue = shelveStore.get(i, 'autocontinue', false);
+                        if (!autocontinue) {
+                            break;
+                        }
                     }
-                    break;
                 }
             }
         }
@@ -717,9 +720,12 @@ var shelve = {
                     template = shelve.cleanValue(template);
                 }
                 if (shelve.matchRx(i, url)) {
-                    var spp = shelve.getSavePageToShelveParams(i, doc_params);
-                    // shelve.notifyUser(shelveUtils.localized("saved.as") + ":", spp.filename, spp);
-                    return spp;
+                    var autoselect = shelveStore.get(i, 'autoselect', null);
+                    if (!autoselect) {
+                        var spp = shelve.getSavePageToShelveParams(i, doc_params);
+                        // shelve.notifyUser(shelveUtils.localized("saved.as") + ":", spp.filename, spp);
+                        return spp;
+                    }
                 }
                 // shelveUtils.debug("shelve.getSavePageParams template=", template);
                 shelves.push(template);

@@ -55,6 +55,7 @@ var shelveStore = {
         'footer_html': '',
         'auto': false,
         'autoselect': false,
+        'autocontinue': false,
         'overwrite': true,
         'hotkey': '',
         'hotkey_alt': false,
@@ -227,6 +228,10 @@ var shelveStore = {
     getDescription: function(shelfId) {
         // String(shelfId % 10)
         var desc = shelveStore.get(shelfId, 'name', shelfId);
+        var auto = shelveStore.get(shelfId, 'autoselect', false);
+        if (auto) {
+            desc = '['+ desc +']';
+        }
         var hk   = shelveStore.get(shelfId, 'hotkey', null);
         if (hk) {
             desc += ' <';

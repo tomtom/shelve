@@ -36,6 +36,7 @@
 <!ENTITY shelve.mime.text_latin1 "Text (Latin-1)">
 <!ENTITY shelve.auto "Auto-Speichern">
 <!ENTITY shelve.auto.accesskey "A">
+<!ENTITY shelve.auto.tab.accesskey "T">
 <!ENTITY shelve.auto.rx "Dokumente nicht automatisch speichern, wenn die URL mit dieser RegExp übereinstimmt">
 <!ENTITY shelve.auto.rx.accesskey "R">
 <!ENTITY shelve.auto.notify "Anwender bei selbstständigen Aktionen benachrichtigen">
@@ -68,10 +69,14 @@
 <!ENTITY shelve.shelf.accesskey "F">
 <!ENTITY shelve.note "Notiz">
 <!ENTITY shelve.note.accesskey "N">
-<!ENTITY shelve.rx "Dateien in diesem Fach abspeichern, wenn die URLs dieser RegExp entspricht">
+<!ENTITY shelve.rx "Seiten in diesem Fach abspeichern, wenn die URL dieser RegExp entspricht">
 <!ENTITY shelve.rx.accesskey "R">
-<!ENTITY shelve.autoselect "Passende Seiten automatisch abspeichern">
+<!ENTITY shelve.automode "Bei der Auswahl dieses Fachs, das automatische Speichern einschalten">
+<!ENTITY shelve.automode.accesskey "L">
+<!ENTITY shelve.autoselect "Die RegExp während des Browsens prüfen, nicht beim manuellen Aufruf von Shelve">
 <!ENTITY shelve.autoselect.accesskey "C">
+<!ENTITY shelve.autocontinue "Nach dem automatischen Speichern auch noch die anderen Fächer prüfen">
+<!ENTITY shelve.autocontinue.accesskey "P">
 <!ENTITY selectShelf.title "Fach auswählen">
 <!ENTITY editShelf.title "Fach bearbeiten">
 <!ENTITY shelve.hotkey "Schnelltaste">

@@ -1,0 +1,8 @@
+* editShelf.xul
+    - Caption of the tab has changed from &shelve.options to 
+      &shelve.auto. Please check the functionality of the accesskey.
+    - The text for &shelve.autoselect has changed.
+
+
+% 2009-12-31; @Last Change: 2009-12-31.
+% vi: ft=viki:tw=72:ts=4

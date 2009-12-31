@@ -88,12 +88,20 @@ var editShelf = {
             shelveStore.setUnichar(shelfId, 'footer_html', document.getElementById("footer_html").value);
             shelveStore.setUnichar(shelfId, 'log_file', document.getElementById("log_file").value);
             shelveStore.setUnichar(shelfId, 'log_template', document.getElementById("log_template").value);
-            shelveStore.setBool(shelfId, 'auto', document.getElementById("auto").checked);
+
+            var auto = document.getElementById("auto").checked;
+            shelveUtils.debug("editShelf onOK: auto=", auto);
+            shelveStore.setBool(shelfId, 'auto', auto);
             var autoselect = document.getElementById("autoselect").checked;
+            shelveUtils.debug("editShelf onOK: autoselect=", autoselect);
             shelveStore.setBool(shelfId, 'autoselect', autoselect);
             if (autoselect) {
                 shelve.setupAutoSelect();
             }
+            var autocontinue = document.getElementById("autocontinue").checked;
+            shelveUtils.debug("editShelf onOK: autocontinue=", autocontinue);
+            shelveStore.setBool(shelfId, 'autocontinue', autocontinue);
+
             var hkk = document.getElementById("hotkey").value;
             var hkc = document.getElementById("hotkey_ctrl").checked;
             var hks = document.getElementById("hotkey_shift").checked;

@@ -36,6 +36,7 @@
 <!ENTITY shelve.mime.text_latin1 "Text (Latin-1)">
 <!ENTITY shelve.auto "Auto-Save">
 <!ENTITY shelve.auto.accesskey "A">
+<!ENTITY shelve.auto.tab.accesskey "O">
 <!ENTITY shelve.auto.rx "Do not automatically save documents the URL of which matches this RegExp">
 <!ENTITY shelve.auto.rx.accesskey "R">
 <!ENTITY shelve.auto.notify "Notify user when doing something automatically">
@@ -70,8 +71,12 @@
 <!ENTITY shelve.note.accesskey "N">
 <!ENTITY shelve.rx "Save a document to this shelf if the URL matches this RegExp">
 <!ENTITY shelve.rx.accesskey "R">
-<!ENTITY shelve.autoselect "Automatically save all matching pages">
-<!ENTITY shelve.autoselect.accesskey "U">
+<!ENTITY shelve.automode "When selecting this shelf, switch to auto-shelve mode">
+<!ENTITY shelve.automode.accesskey "L">
+<!ENTITY shelve.autoselect "Check the RegExp during browsing, not when manually invoking Shelve">
+<!ENTITY shelve.autoselect.accesskey "B">
+<!ENTITY shelve.autocontinue "After automatically saving a page, continue with other shelves">
+<!ENTITY shelve.autocontinue.accesskey "C">
 <!ENTITY selectShelf.title "Select Shelf">
 <!ENTITY editShelf.title "Edit Shelf">
 <!ENTITY shelve.hotkey "Hotkey">
