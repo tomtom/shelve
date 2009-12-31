@@ -177,7 +177,9 @@ var shelve = {
         // shelveUtils.debug("shouldWriteFile: filename=", filename);
         var file = shelveUtils.localFile(filename);
         // shelveUtils.debug("shouldWriteFile: file.exists=", file.exists());
-        if (file.exists()) {
+        if (file === null) {
+            return false;
+        } else if (file.exists()) {
             var shelfNo = sp_params.shelf;
             if (shelfNo) {
                 var overwrite_files = shelveStore.getInt(null, "overwrite_files", 1);
@@ -206,6 +208,9 @@ var shelve = {
         // shelveUtils.debug("shelve saveDocument: sp_params=", sp_params);
         // shelveUtils.debug("shelve saveDocument: filename=", filename);
         var file = shelveUtils.localFile(filename);
+        if (file === null) {
+            return false;
+        }
         var dataname = filename.replace(/\.\w+$/, '_files');
         // shelveUtils.debug("shelve saveDocument: dataname=", dataname);
         var dir = file.parent;
@@ -261,10 +266,12 @@ var shelve = {
         shelve.registerDownload("document", sp_params, wbp, uri, file_uri);
         try {
             wbp.saveDocument(doc, file, data, mime, encode, null);
+            return true;
         } catch(exception) {
             // alert(shelveUtils.localized("error.saving")+": "+ filename);
             shelve.notifyUser(shelveUtils.localized("error.saving"), filename, sp_params);
         }
+        return false;
     },
 
     saveBinary: function(doc, filename, sp_params) {
@@ -272,7 +279,9 @@ var shelve = {
 
         // filename = filename.replace(/\\\\+/g, '\\');
         var file = shelveUtils.localFile(filename);
-        if(!file.exists()) {
+        if (file === null) {
+            return false;
+        } else if(!file.exists()) {
             /*jsl:ignore*/
             file.create(0x00,0644);
             /*jsl:end*/
@@ -287,13 +296,16 @@ var shelve = {
         wbp.saveURI(uri, null, null, null, null, file_uri);
         // cachekey = shelveUtils.asISupportsString(sp_params.url);
         // wbp.saveURI(uri, cachekey, null, null, null, file);
+        return true;
     },
 
     saveText: function(text, filename, sp_params) {
         // shelveUtils.debug('shelve saveText: filename=', filename);
         // shelveUtils.debug('shelve saveText: text=', text);
         var file = shelveUtils.localFile(filename);
-        if(!file.exists()) {
+        if (file === null) {
+            return false;
+        } else if(!file.exists()) {
             file.create(0x00, 0644);
         }
 
@@ -302,6 +314,7 @@ var shelve = {
         shelveUtils.writeTextFile(file, text, text_enc, 0x02 | 0x08 | 0x20);
         
         shelve.addFooter(sp_params);
+        return true;
     },
 
     registerDownload: function(mode, sp_params, persist, uri, file_uri) {
@@ -883,7 +896,9 @@ var shelve = {
         var sp_params = shelve.footers[id];
         // shelveUtils.debug("footer "+ id +": sp_params=", sp_params);
         var file = shelveUtils.localFile(sp_params.filename);
-        if (file.exists() && file.isWritable()) {
+        if (file === null) {
+            return false;
+        } else if (file.exists() && file.isWritable()) {
             var template = shelve.getFooterTemplate(sp_params);
             if (template && template.match(/\S/)) {
                 var et_params = shelve.expandTemplateParams(sp_params, template);
@@ -899,6 +914,7 @@ var shelve = {
         } else {
             shelve.delayedFooter(id);
         }
+        return true;
     },
 
     log: function(sp_params) {
@@ -1398,7 +1414,9 @@ var shelve = {
             .createInstance(nsIFilePicker);
             fp.init(et_params.parentWindow, shelveUtils.localized("select.subdir"), nsIFilePicker.modeGetFolder);
             var initDir = shelveUtils.localFile(cd);
-            if (!initDir.exists()) {
+            if (initDir === null) {
+                return null;
+            } else if (!initDir.exists()) {
                 alert(shelveUtils.localized('dir.notexists') + ': ' + cd);
             } else if (!initDir.isDirectory()) {
                 alert(shelveUtils.localized('dir.not') + ': ' + cd);

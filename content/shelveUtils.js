@@ -237,6 +237,9 @@ var shelveUtils = {
     writeTextFile: function(file, text, enc, init_flags0) {
         // shelveUtils.debug('shelveUtils writeTextFile file=', file);
         // shelveUtils.debug('shelveUtils writeTextFile text=', text);
+        if (file === null) {
+            return false;
+        }
 
         var init_flags = init_flags0 === undefined ? 0x02 | 0x10 | 0x08 : init_flags0;
         // shelveUtils.debug('shelveUtils writeTextFile enc=', enc);
@@ -262,9 +265,11 @@ var shelveUtils = {
                 fos.close();
             }
             // shelveUtils.debug('shelveUtils writeTextFile ok=', true);
+            return true;
         } catch (ex) {
             shelveUtils.log('Error when writing text file:'+  ex +"; file="+ file +"; text="+ text);
         }
+        return false;
     },
 
     getProfDir: function() {
