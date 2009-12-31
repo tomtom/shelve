@@ -133,7 +133,7 @@ var shelve = {
 
     savePageWithParams: function(sp_params) {
         var filename = sp_params.filename;
-        if (shelve.shouldWriteFile(sp_params)) {
+        if (filename === "-" || shelve.shouldWriteFile(sp_params)) {
             if (filename) {
                 // shelveUtils.debug("savePageWithParams filename=", filename);
                 // http://developer.mozilla.org/en/docs/Code_snippets:Miscellaneous
