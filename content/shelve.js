@@ -245,6 +245,7 @@ var shelve = {
             case 'html':
             mime = 'text/html';
             encode = wbp.ENCODE_FLAGS_RAW;
+            wbp.persistFlags |= wbp.PERSIST_FLAGS_IGNORE_IFRAMES | wbp.PERSIST_FLAGS_IGNORE_REDIRECTED_DATA;
             break;
 
             case 'webpage':
