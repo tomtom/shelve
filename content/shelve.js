@@ -946,8 +946,9 @@ var shelve = {
                     var alertsService = Components.classes["@mozilla.org/alerts-service;1"].
                     getService(Components.interfaces.nsIAlertsService);
                     // alertsService.showAlertNotification("chrome://mozapps/skin/downloads/downloadIcon.png", 
-                    alertsService.showAlertNotification("chrome://shelve/content/shelve.png", 
-                    "Shelve: " + title, text, false, "", null);
+                    alertsService.showAlertNotification(
+                        "chrome://shelve/content/shelve.png", 
+                        "Shelve: " + title, "" + text);
                 } catch (e) {
                     // Alert failed
                     // nsIAlertsService not supported on Mac OSX?
