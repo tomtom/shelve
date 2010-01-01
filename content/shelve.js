@@ -259,13 +259,16 @@ var shelve = {
             wbp.persistFlags |= wbp.PERSIST_FLAGS_IGNORE_IFRAMES | wbp.PERSIST_FLAGS_IGNORE_REDIRECTED_DATA;
             break;
 
-            case 'webpage':
-            mime = 'text/html';
-            encode = wbp.ENCODE_FLAGS_RAW;
+            // case 'webpage':
             /*jsl:fallthru*/
 
             default:
+            mime = 'text/html';
+            // encode = wbp.ENCODE_FLAGS_RAW;
             data = shelveUtils.localFile(dataname);
+            // shelveUtils.debug("shelve saveDocument: data=", data);
+            // shelveUtils.debug("shelve saveDocument: dataname=", dataname);
+
             // var maf = shelveStore.getBool(null, "use_mht", false);
             // if (maf) {
             //     var MafObjects = {};
@@ -276,8 +279,7 @@ var shelve = {
             //         shelveUtils.log('Error when creating MAF object: ' + e);
             //     }
             // }
-            // alert(data);
-            // alert(dataname);
+            
             break;
         }
         // shelveUtils.debug("shelve saveDocument: mime=", mime);
