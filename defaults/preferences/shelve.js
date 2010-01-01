@@ -2,7 +2,7 @@ pref("extensions.shelve.max", 0);
 pref("extensions.shelve.log_level", 1);
 pref("extensions.shelve.assertions", false);
 // pref("extensions.shelve.hotkey.keycode", 'F9');
-pref("extensions.shelve.mime", 'default');
+pref("extensions.shelve.mime", 'webpage');
 pref("extensions.shelve.auto.stop_rx", "^(about|chrome|mailto|https):");
 pref("extensions.shelve.auto.blacklist_rx", "^(about|chrome|mailto):");
 pref("extensions.shelve.auto.notify_user", true);
