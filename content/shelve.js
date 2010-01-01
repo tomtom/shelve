@@ -223,16 +223,17 @@ var shelve = {
         var data = null;
         var mime = null;
         var encode = null;
-        // var saver = function(doc, file, dataPath, outputContentType, encodingFlags, wrapColumn) {
-        //     // nsIDOMDocument document, 
-        //     // nsISupports file, 
-        //     // nsISupports dataPath, 
-        //     // char* outputContentType, 
-        //     // PRUint32 encodingFlags, 
-        //     // PRUint32 wrapColumn 
-        //     wbp.saveDocument(doc, file, dataPath, outputContentType, encodingFlags, wrapColumn);
-        //     return true;
-        // };
+        var allow_footer = true;
+
+        var saver = function(doc, file, dataPath, outputContentType, encodingFlags, wrapColumn) {
+            // nsIDOMDocument document, 
+            // nsISupports file, 
+            // nsISupports dataPath, 
+            // char* outputContentType, 
+            // PRUint32 encodingFlags, 
+            // PRUint32 wrapColumn 
+            wbp.saveDocument(doc, file, dataPath, outputContentType, encodingFlags, wrapColumn);
+        };
 
         var wbp = Components.classes['@mozilla.org/embedding/browser/nsWebBrowserPersist;1'].
         createInstance(Components.interfaces.nsIWebBrowserPersist);
@@ -259,42 +260,43 @@ var shelve = {
             wbp.persistFlags |= wbp.PERSIST_FLAGS_IGNORE_IFRAMES | wbp.PERSIST_FLAGS_IGNORE_REDIRECTED_DATA;
             break;
 
-            // case 'webpage':
-            /*jsl:fallthru*/
+            case 'webpage_maf':
+            mime = 'text/html';
+            allow_footer = false;
+            saver = shelveUtils.getMafSaver(doc, file, "TypeMAFF") || saver;
+            break;
 
+            case 'webpage_mht':
+            mime = 'text/html';
+            allow_footer = false;
+            saver = shelveUtils.getMafSaver(doc, file, "TypeMHTML") || saver;
+            break;
+
+            case 'webpage':
+            /*jsl:fallthru*/
             default:
             mime = 'text/html';
             // encode = wbp.ENCODE_FLAGS_RAW;
             data = shelveUtils.localFile(dataname);
             // shelveUtils.debug("shelve saveDocument: data=", data);
             // shelveUtils.debug("shelve saveDocument: dataname=", dataname);
-
-            // var maf = shelveStore.getBool(null, "use_mht", false);
-            // if (maf) {
-            //     var MafObjects = {};
-            //     try {
-            //         Components.utils.import("resource://maf/modules/mafObjects.jsm", MafObjects);
-            //         wbp = MafObjects.SaveCompletePersist();
-            //     } catch (e) {
-            //         shelveUtils.log('Error when creating MAF object: ' + e);
-            //     }
-            // }
-            
             break;
         }
         // shelveUtils.debug("shelve saveDocument: mime=", mime);
         // shelveUtils.debug("shelve saveDocument: encode=", encode);
-        shelve.addFooter(sp_params);
         var uri = shelveUtils.newURI(sp_params.url);
         var file_uri = shelveUtils.newFileURI(file);
         shelve.registerDownload("document", sp_params, wbp, uri, file_uri);
         try {
-            // return saver(doc, file, data, mime, encode, null);
-            wbp.saveDocument(doc, file, data, mime, encode, null);
+            saver(doc, file, data, mime, encode, null);
+            if (allow_footer) {
+                shelve.addFooter(sp_params);
+            }
             return true;
         } catch(exception) {
             // alert(shelveUtils.localized("error.saving")+": "+ filename);
             shelve.notifyUser(shelveUtils.localized("error.saving"), filename, sp_params);
+            shelveUtils.log(exception);
         }
         return false;
     },

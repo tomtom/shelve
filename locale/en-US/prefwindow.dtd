@@ -91,8 +91,6 @@
 <!ENTITY hotkey.alt.accesskey "A">
 <!ENTITY hotkey.meta "Meta/Win/Cmd">
 <!ENTITY hotkey.meta.accesskey "W">
-<!ENTITY shelve.use.mht "Save webpages in MAF format (requires the MAF add-on to be installed)">
-<!ENTITY shelve.use.mht.accesskey "V">
 <!ENTITY shelve.save.format "Save format">
 <!ENTITY shelve.invocation "Invocation">
 

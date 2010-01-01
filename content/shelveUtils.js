@@ -169,14 +169,16 @@ var shelveUtils = {
             case 'text_latin1':
             return '.txt';
 
-            // case 'webpage':
-            // case 'default':
-            // var maf = shelveStore.getBool(null, "use_mht", false);
-            // if (maf) {
-            //     return '.mht'
-            // }
-            /*jsl:fallthru*/
+            case 'webpage_maf':
+            return '.maff';
 
+            case 'webpage_mht':
+            return '.mht';
+
+            case 'webpage':
+            /*jsl:fallthru*/
+            case 'html':
+            case 'default':
             default:
             return '.html';
         }
@@ -465,6 +467,32 @@ var shelveUtils = {
         var info = Components.classes["@mozilla.org/xre/app-info;1"].
         getService(Components.interfaces.nsIXULAppInfo);  
         return info.name + info.version;
+    },
+
+    mafObjects: null,
+
+    getMafSaver: function(doc, file, format) {
+        if (shelveUtils.mafObjects === false) {
+            return null;
+        } else if (shelveUtils.mafObjects === null) {
+            try {
+                MafObjects = {};
+                Components.utils.import("resource://maf/modules/mafObjects.jsm", MafObjects);
+                shelveUtils.mafObjects = MafObjects;
+            } catch (e) {
+                shelveUtils.log('Error when creating MAF object: ' + e);
+                shelveUtils.log(shelveUtils.localized("require.maf"));
+                alert(shelveUtils.localized("require.maf"));
+                shelveUtils.mafObjects = false;
+                return null;
+            }
+        }
+        return function(doc, file, dataPath, outputContentType, encodingFlags, wrapColumn) {
+            // TODO: Define a proper event listener to the SaveJob
+            var saveJob = new shelveUtils.mafObjects.SaveJob({});
+            saveJob.addJobFromDocument(doc, file, format);
+            saveJob.start();
+        };
     }
 
 };

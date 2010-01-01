@@ -73,7 +73,7 @@
             <preference id="hotkey_shift" name="extensions.shelve.hotkey.shift" type="bool"/>
             <preference id="hotkey_meta" name="extensions.shelve.hotkey.meta" type="bool"/>
             <preference id="overwrite_files" name="extensions.shelve.overwrite_files" type="int"/>
-            <!-- <preference id="use_mht" name="extensions.shelve.use_mht" type="bool"/> -->
+            <preference id="use_mht" name="extensions.shelve.use_mht" type="bool"/>
         </preferences>
 
         <tabbox>
@@ -210,12 +210,18 @@
                                     <label accesskey="&shelve.mime.accesskey;" control="listmime">&shelve.mime;</label>
                                     <menulist id="listmime" preference="mime">
                                         <menupopup>
-                                            <menuitem id="mimedefault" 
-                                                      value="default" 
-                                                      label="&shelve.mime.default;"/>
+                                            <!-- <menuitem id="mimedefault"  -->
+                                            <!--           value="default"  -->
+                                            <!--           label="&shelve.mime.default;"/> -->
                                             <menuitem id="mimewebpage" 
                                                       value="webpage" 
-                                                      label="&shelve.mime.webpage;"/>
+                                                      label="&shelve.mime.webpage; (HTML)"/>
+                                            <menuitem id="mimewebpage_mht" 
+                                                      value="webpage_mht" 
+                                                      label="&shelve.mime.webpage; (MHTML)"/>
+                                            <menuitem id="mimewebpage_maf" 
+                                                      value="webpage_maf" 
+                                                      label="&shelve.mime.webpage; (MAFF)"/>
                                             <menuitem id="mimehtml"    
                                                       value="html"    
                                                       label="&shelve.mime.html;"/>
@@ -229,15 +235,6 @@
                                     </menulist>
                                 </row>
                                 
-                                <!-- <row> -->
-                                <!--     <label></label> -->
-                                <!--     <checkbox id="check_mht"  -->
-                                <!--               preference="use_mht" -->
-                                <!--               accesskey="&shelve.use.mht.accesskey;" -->
-                                <!--               label="&shelve.use.mht;" -->
-                                <!--               checked="false"/> -->
-                                <!-- </row> -->
-
                             </rows>
                         </grid>
 

@@ -95,7 +95,13 @@
                                   label="&shelve.mime.default;"/>
                         <menuitem id="mimewebpage" 
                                   value="webpage" 
-                                  label="&shelve.mime.webpage;"/>
+                                  label="&shelve.mime.webpage; (&shelve.mime.html;)"/>
+                        <menuitem id="mimewebpage_mht" 
+                                  value="webpage_mht" 
+                                  label="&shelve.mime.webpage; (MHTML)"/>
+                        <menuitem id="mimewebpage_maf" 
+                                  value="webpage_maf" 
+                                  label="&shelve.mime.webpage; (MAFF)"/>
                         <menuitem id="mimehtml"    
                                   value="html"    
                                   label="&shelve.mime.html;"/>
