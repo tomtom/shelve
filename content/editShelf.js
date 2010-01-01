@@ -52,11 +52,18 @@ var editShelf = {
         for (var field in shelveStore.fields) {
             // shelveUtils.debug("editShelf: onLoad: field=", field);
             // shelveUtils.debug("editShelf: onLoad: value=", shelveStore.fields[field]);
-            var value = shelveStore.get(shelfId, field, shelveStore.fields[field]);
-            if (value === true || value === false) {
-                document.getElementById(field).checked = value;
-            } else {
-                document.getElementById(field).value = value;
+            try {
+                var value = shelveStore.get(shelfId, field, shelveStore.fields[field]);
+                var elt = document.getElementById(field);
+                if (elt) {
+                    if (value === true || value === false) {
+                        elt.checked = value;
+                    } else {
+                        elt.value = value;
+                    }
+                }
+            } catch(exception) {
+                shelveUtils.log("Error when filling in "+ field +": " + exception);
             }
         }
         var mime     = shelveStore.get(shelfId, 'mime', 'default');
