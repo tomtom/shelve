@@ -230,7 +230,7 @@ var shelveStore = {
         var desc = shelveStore.get(shelfId, 'name', shelfId);
         var auto = shelveStore.get(shelfId, 'autoselect', false);
         if (auto) {
-            desc = '['+ desc +']';
+            desc += '*';
         }
         var hk   = shelveStore.get(shelfId, 'hotkey', null);
         if (hk) {
