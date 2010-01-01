@@ -91,3 +91,5 @@
 <!ENTITY hotkey.alt.accesskey "A">
 <!ENTITY hotkey.meta "Meta/Win/Cmd">
 <!ENTITY hotkey.meta.accesskey "W">
+<!ENTITY shelve.use.mht "Ganze Webseiten im MAF Format speichern (benötigt die MAF Erweiterung)">
+<!ENTITY shelve.use.mht.accesskey "N">

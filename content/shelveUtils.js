@@ -169,6 +169,14 @@ var shelveUtils = {
             case 'text_latin1':
             return '.txt';
 
+            // case 'webpage':
+            // case 'default':
+            // var maf = shelveStore.getBool(null, "use_mht", false);
+            // if (maf) {
+            //     return '.mht'
+            // }
+            /*jsl:fallthru*/
+
             default:
             return '.html';
         }

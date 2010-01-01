@@ -73,6 +73,7 @@
             <preference id="hotkey_shift" name="extensions.shelve.hotkey.shift" type="bool"/>
             <preference id="hotkey_meta" name="extensions.shelve.hotkey.meta" type="bool"/>
             <preference id="overwrite_files" name="extensions.shelve.overwrite_files" type="int"/>
+            <!-- <preference id="use_mht" name="extensions.shelve.use_mht" type="bool"/> -->
         </preferences>
 
         <tabbox>
@@ -227,6 +228,15 @@
                                         </menupopup>
                                     </menulist>
                                 </row>
+                                
+                                <!-- <row> -->
+                                <!--     <label></label> -->
+                                <!--     <checkbox id="check_mht"  -->
+                                <!--               preference="use_mht" -->
+                                <!--               accesskey="&shelve.use.mht.accesskey;" -->
+                                <!--               label="&shelve.use.mht;" -->
+                                <!--               checked="false"/> -->
+                                <!-- </row> -->
 
                                 <row>
                                     <label accesskey="&hotkey.hotkey.accesskey;" control="list_hotkey_key">&hotkey.hotkey;:</label>

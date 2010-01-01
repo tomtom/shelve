@@ -223,6 +223,17 @@ var shelve = {
         var data = null;
         var mime = null;
         var encode = null;
+        // var saver = function(doc, file, dataPath, outputContentType, encodingFlags, wrapColumn) {
+        //     // nsIDOMDocument document, 
+        //     // nsISupports file, 
+        //     // nsISupports dataPath, 
+        //     // char* outputContentType, 
+        //     // PRUint32 encodingFlags, 
+        //     // PRUint32 wrapColumn 
+        //     wbp.saveDocument(doc, file, dataPath, outputContentType, encodingFlags, wrapColumn);
+        //     return true;
+        // };
+
         var wbp = Components.classes['@mozilla.org/embedding/browser/nsWebBrowserPersist;1'].
         createInstance(Components.interfaces.nsIWebBrowserPersist);
         // wbp.persistFlags |= wbp.PERSIST_FLAGS_FROM_CACHE;
@@ -255,6 +266,16 @@ var shelve = {
 
             default:
             data = shelveUtils.localFile(dataname);
+            // var maf = shelveStore.getBool(null, "use_mht", false);
+            // if (maf) {
+            //     var MafObjects = {};
+            //     try {
+            //         Components.utils.import("resource://maf/modules/mafObjects.jsm", MafObjects);
+            //         wbp = MafObjects.SaveCompletePersist();
+            //     } catch (e) {
+            //         shelveUtils.log('Error when creating MAF object: ' + e);
+            //     }
+            // }
             // alert(data);
             // alert(dataname);
             break;
@@ -266,6 +287,7 @@ var shelve = {
         var file_uri = shelveUtils.newFileURI(file);
         shelve.registerDownload("document", sp_params, wbp, uri, file_uri);
         try {
+            // return saver(doc, file, data, mime, encode, null);
             wbp.saveDocument(doc, file, data, mime, encode, null);
             return true;
         } catch(exception) {
