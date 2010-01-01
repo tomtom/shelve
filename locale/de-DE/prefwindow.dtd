@@ -75,7 +75,7 @@
 <!ENTITY shelve.automode.accesskey "L">
 <!ENTITY shelve.autoselect "Die RegExp während des Browsens prüfen, nicht beim manuellen Aufruf von Shelve">
 <!ENTITY shelve.autoselect.accesskey "C">
-<!ENTITY shelve.autocontinue "Nach dem automatischen Speichern auch noch die anderen Fächer prüfen">
+<!ENTITY shelve.autocontinue "Nach einem automatischen Speichern auch noch die anderen Fächer prüfen">
 <!ENTITY shelve.autocontinue.accesskey "P">
 <!ENTITY selectShelf.title "Fach auswählen">
 <!ENTITY editShelf.title "Fach bearbeiten">
@@ -93,3 +93,5 @@
 <!ENTITY hotkey.meta.accesskey "W">
 <!ENTITY shelve.use.mht "Ganze Webseiten im MAF Format speichern (benötigt die MAF Erweiterung)">
 <!ENTITY shelve.use.mht.accesskey "N">
+<!ENTITY shelve.save.format "Speicherformat">
+<!ENTITY shelve.invocation "Aufruf">

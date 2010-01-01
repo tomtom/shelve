@@ -73,7 +73,7 @@
 <!ENTITY shelve.rx.accesskey "R">
 <!ENTITY shelve.automode "When selecting this shelf, switch to auto-shelve mode">
 <!ENTITY shelve.automode.accesskey "L">
-<!ENTITY shelve.autoselect "Check the RegExp during browsing, not when manually invoking Shelve">
+<!ENTITY shelve.autoselect "Check the RegExp while browsing, not when manually invoking Shelve">
 <!ENTITY shelve.autoselect.accesskey "B">
 <!ENTITY shelve.autocontinue "After automatically saving a page, continue with other shelves">
 <!ENTITY shelve.autocontinue.accesskey "C">
@@ -93,3 +93,6 @@
 <!ENTITY hotkey.meta.accesskey "W">
 <!ENTITY shelve.use.mht "Save webpages in MAF format (requires the MAF add-on to be installed)">
 <!ENTITY shelve.use.mht.accesskey "V">
+<!ENTITY shelve.save.format "Save format">
+<!ENTITY shelve.invocation "Invocation">
+

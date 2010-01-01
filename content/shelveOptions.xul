@@ -84,7 +84,7 @@
                 <tab label="&shelve.footer;" accesskey="&shelve.footer.accesskey;"/>
                 <!-- <tab label="&shelve.bookmarks;" accesskey="&shelve.bookmarks.accesskey;"/> -->
                 <tab label="&shelve.options;" accesskey="&shelve.options.accesskey;"/>
-                <tab label="&shelve.startup;" accesskey="&shelve.startup.accesskey;"/>
+                <tab label="&shelve.auto;" accesskey="&shelve.auto.tab.accesskey;"/>
             </tabs>
 
             <tabpanels>
@@ -197,7 +197,7 @@
                 <tabpanel id="options" orient="vertical">
 
                     <groupbox>
-                        <caption label="&shelve.parameters;" />
+                        <caption label="&shelve.save.format;" />
 
                         <grid>
                             <columns>
@@ -237,6 +237,16 @@
                                 <!--               label="&shelve.use.mht;" -->
                                 <!--               checked="false"/> -->
                                 <!-- </row> -->
+
+                            </rows>
+                        </grid>
+
+                    </groupbox>
+
+                    <groupbox>
+                        <caption label="&shelve.invocation;" />
+                        <grid>
+                            <rows>
 
                                 <row>
                                     <label accesskey="&hotkey.hotkey.accesskey;" control="list_hotkey_key">&hotkey.hotkey;:</label>
@@ -389,6 +399,10 @@
 
                     </groupbox>
 
+                </tabpanel>
+
+                <tabpanel id="autotab" orient="vertical" >
+
                     <groupbox>
                         <caption label="&shelve.auto;" />
                         <checkbox id="check_notify" 
@@ -398,10 +412,6 @@
                         <label accesskey="&shelve.auto.rx.accesskey;" control="text_auto_stop_rx">&shelve.auto.rx;</label>
                         <textbox id="text_auto_stop_rx" width="420" preference="auto_stop_rx"/>
                     </groupbox>
-
-                </tabpanel>
-
-                <tabpanel id="startup" orient="vertical" >
 
                     <groupbox>
                         <caption label="&shelve.auto.shelf;" />
