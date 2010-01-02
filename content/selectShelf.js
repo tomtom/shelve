@@ -52,6 +52,7 @@ var selectShelf = {
     onLoad: function() {
         document.getElementById("clip").value = window.arguments[0].inn.clip;
         document.getElementById("title").value = window.arguments[0].inn.title;
+        shelveUtils.checkMafMimeItems(document);
         selectShelf.mime0 = window.arguments[0].inn.mime;
         selectShelf.mime_fix = window.arguments[0].inn.mime_fix;
         // shelveUtils.debug("selectShelf.onLoad mime0=", selectShelf.mime0);

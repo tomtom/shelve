@@ -471,28 +471,47 @@ var shelveUtils = {
 
     mafObjects: null,
 
-    getMafSaver: function(doc, file, format) {
+    isMafEnabled: function(doAlert) {
         if (shelveUtils.mafObjects === false) {
-            return null;
+            return false;
         } else if (shelveUtils.mafObjects === null) {
             try {
                 MafObjects = {};
                 Components.utils.import("resource://maf/modules/mafObjects.jsm", MafObjects);
                 shelveUtils.mafObjects = MafObjects;
+                return true;
             } catch (e) {
-                shelveUtils.log('Error when creating MAF object: ' + e);
-                shelveUtils.log(shelveUtils.localized("require.maf"));
-                alert(shelveUtils.localized("require.maf"));
+                if (doAlert) {
+                    shelveUtils.log('Error when creating MAF object: ' + e);
+                    shelveUtils.log(shelveUtils.localized("require.maf"));
+                    alert(shelveUtils.localized("require.maf"));
+                }
                 shelveUtils.mafObjects = false;
-                return null;
+                return false;
             }
+        } else {
+            return true;
         }
-        return function(doc, file, dataPath, outputContentType, encodingFlags, wrapColumn) {
-            // TODO: Define a proper event listener to the SaveJob
-            var saveJob = new shelveUtils.mafObjects.SaveJob({});
-            saveJob.addJobFromDocument(doc, file, format);
-            saveJob.start();
-        };
+    },
+
+    checkMafMimeItems: function(doc) {
+        if (!shelveUtils.isMafEnabled(false)) {
+            doc.getElementById("mimewebpage_mht").hidden = true;
+            doc.getElementById("mimewebpage_maf").hidden = true;
+        }
+    },
+
+    getMafSaver: function(doc, file, format) {
+        if (shelveUtils.isMafEnabled(true)) {
+            return function(doc, file, dataPath, outputContentType, encodingFlags, wrapColumn) {
+                // TODO: Define a proper event listener to the SaveJob
+                var saveJob = new shelveUtils.mafObjects.SaveJob({});
+                saveJob.addJobFromDocument(doc, file, format);
+                saveJob.start();
+            };
+        } else {
+            return null;
+        }
     }
 
 };
