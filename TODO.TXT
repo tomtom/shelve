@@ -1,5 +1,6 @@
 * TODO
 
+    #A5 Shortcuts aren't checked for auto-shelves that are checked when browsing
     #B5 Handle mime/save-format types as object/hash map so that they are easier to maintain
     #B5 Recode plain text output to a user-specified charset (make sure the file uses that charset)
     #B5 The footer should be added when the progress listener gets the signal that the download was finished
@@ -10,7 +11,7 @@
     #E9 Also support UnMHT?
 
 
-% 2008-07-28; @Last Change: 2010-01-02.
+% 2008-07-28; @Last Change: 2010-01-08.
 % vi: ft=viki:tw=0:ts=4
 % Local Variables:
 % End:
