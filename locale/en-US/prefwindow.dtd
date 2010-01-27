@@ -73,7 +73,9 @@
 <!ENTITY shelve.rx.accesskey "R">
 <!ENTITY shelve.automode "When selecting this shelf, switch to auto-shelve mode">
 <!ENTITY shelve.automode.accesskey "L">
-<!ENTITY shelve.autoselect "Check the RegExp while browsing, not when manually invoking Shelve">
+<!ENTITY shelve.noautosave "Do not check this RegExp on manual invocations">
+<!ENTITY shelve.noautosave.accesskey "M">
+<!ENTITY shelve.autoselect "Check this RegExp while browsing, not when manually invoking Shelve">
 <!ENTITY shelve.autoselect.accesskey "B">
 <!ENTITY shelve.autocontinue "After automatically saving a page, continue with other shelves">
 <!ENTITY shelve.autocontinue.accesskey "C">

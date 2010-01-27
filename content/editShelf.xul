@@ -321,6 +321,10 @@
                 <label accesskey="&shelve.rx.accesskey;" control="rx">&shelve.rx;:</label>
                 <textbox id="rx" />
 
+                <checkbox accesskey="&shelve.noautosave.accesskey;" id="noautosave"
+                          label="&shelve.noautosave;"
+                          checked="false"/>
+
                 <checkbox accesskey="&shelve.autoselect.accesskey;" id="autoselect"
                           label="&shelve.autoselect;"
                           checked="false"/>

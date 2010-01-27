@@ -48,6 +48,7 @@ var shelveOverlay = {
 
     onLoad: function() {
         // initialization code
+        // shelveUtils.debug('shelveOverlay.onLoad');
         shelveOverlay.initialized = true;
         shelveOverlay.strings = document.getElementById("shelve-strings");
         shelve.setupHotkeys();
@@ -57,19 +58,23 @@ var shelveOverlay = {
     },
 
     onMenuItemCommand: function() {
+        // shelveUtils.debug('shelveOverlay.onMenuItemCommand');
         shelve.savePage();
     },
 
     onToolbarButtonCommand: function() {
+        // shelveUtils.debug('shelveOverlay.OnToolbarButtonCommand');
         shelveOverlay.onMenuItemCommand();
         // TODO: <ctrl-mouseleft> ... switch back on auto-shelve
     },
 
     onPopupSelection: function(ev) {
+        // shelveUtils.debug('shelveOverlay.onPopupSelection ev=', ev);
         shelve.saveSelection(ev.originalTarget);
     },
 
     onPopupLink: function(ev) {
+        // shelveUtils.debug('shelveOverlay.onPopupLink ev=', ev);
         var title = gContextMenu.target.title || gContextMenu.target.innerHTML.toString();
         if (!title && gContextMenu.onImage) {
             title = shelveOverlay.imageTitle(gContextMenu.target);
@@ -81,6 +86,7 @@ var shelveOverlay = {
     },
 
     onPopupImage: function(ev) {
+        // shelveUtils.debug('shelveOverlay.onPopupImage ev=', ev);
         var contentType = 'image';
         var imageCache = Components.classes["@mozilla.org/image/cache;1"].
         getService(Components.interfaces.imgICache);
@@ -97,6 +103,7 @@ var shelveOverlay = {
     },
 
     onHotKey: function() {
+        // shelveUtils.debug('shelveOverlay.onHotKey');
         shelveOverlay.onMenuItemCommand();
     },
 

@@ -98,17 +98,22 @@ var editShelf = {
             shelveStore.setUnichar(shelfId, 'log_template', document.getElementById("log_template").value);
 
             var auto = document.getElementById("auto").checked;
-            shelveUtils.debug("editShelf onOK: auto=", auto);
+            // shelveUtils.debug("editShelf onOK: auto=", auto);
             shelveStore.setBool(shelfId, 'auto', auto);
             var autoselect = document.getElementById("autoselect").checked;
-            shelveUtils.debug("editShelf onOK: autoselect=", autoselect);
+            // shelveUtils.debug("editShelf onOK: autoselect=", autoselect);
             shelveStore.setBool(shelfId, 'autoselect', autoselect);
             if (autoselect) {
                 shelve.setupAutoSelect();
             }
+
             var autocontinue = document.getElementById("autocontinue").checked;
-            shelveUtils.debug("editShelf onOK: autocontinue=", autocontinue);
+            // shelveUtils.debug("editShelf onOK: autocontinue=", autocontinue);
             shelveStore.setBool(shelfId, 'autocontinue', autocontinue);
+
+            var noautosave = document.getElementById("noautosave").checked;
+            // shelveUtils.debug("editShelf onOK: noautosave=", noautosave);
+            shelveStore.setBool(shelfId, 'noautosave', noautosave);
 
             var hkk = document.getElementById("hotkey").value;
             var hkc = document.getElementById("hotkey_ctrl").checked;
