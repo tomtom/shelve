@@ -103,25 +103,25 @@ var shelve = {
     },
 
     saveURL: function(type, url, title) {
+        var doc_params = {
+            url: url,
+            content_type: type,
+            // FIXME: doc = {} ok?
+            doc: {
+                mockup: true,
+                documentURI: url,
+                URL: url,
+                //TODO: guess contentType
+                contentType: "",
+                title: title
+            },
+            title: "",
+            // FIXME: getUrlMime()
+            mime: "binary",
+            mime_fix: true,
+            keywords: ""
+        };
         try {
-            var doc_params = {
-                url: url,
-                content_type: type,
-                // FIXME: doc = {} ok?
-                doc: {
-                    mockup: true,
-                    documentURI: url,
-                    URL: url,
-                    //TODO: guess contentType
-                    contentType: "",
-                    title: title
-                },
-                title: "",
-                // FIXME: getUrlMime()
-                mime: "binary",
-                mime_fix: true,
-                keywords: ""
-            };
             var sp_params = shelve.getSavePageParams(doc_params);
             if (sp_params && sp_params.filename) {
                 shelve.savePageWithParams(sp_params);
