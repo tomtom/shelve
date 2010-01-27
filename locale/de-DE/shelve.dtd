@@ -2,7 +2,7 @@
 <!ENTITY shelveMenu.accesskey "V">
 <!ENTITY shelveContextUrl.label "Shelve Verknüpfung&#8230;">
 <!ENTITY shelveContextUrl.accesskey "V">
-<!ENTITY shelveContextImage.label "Shelve Bild&#8230;">
+<!ENTITY shelveContextImage.label "Shelve Grafik&#8230;">
 <!ENTITY shelveContextImage.accesskey "V">
 <!ENTITY shelveContextSelection.label "Shelve Auswahl als Text&#8230;">
 <!ENTITY shelveContextSelection.accesskey "V">
