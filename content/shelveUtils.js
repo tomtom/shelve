@@ -144,6 +144,8 @@ var shelveUtils = {
     },
 
     getExtension: function(content_type, mime, doc) {
+        // shelveUtils.debug("shelveUtils getExtension content_type=", content_type);
+        // shelveUtils.debug("shelveUtils getExtension mime=", mime);
         // alert("DBG getExtension: "+ content_type +": "+ mime);
         switch(mime) {
             case 'binary':
@@ -173,7 +175,7 @@ var shelveUtils = {
             return '.maff';
 
             case 'webpage_mht':
-            return '.mht';
+            return '.mhtml';
 
             case 'webpage':
             /*jsl:fallthru*/
@@ -182,6 +184,30 @@ var shelveUtils = {
             default:
             return '.html';
         }
+    },
+
+    getClipboard: function() {
+        // https://developer.mozilla.org/en/Using_the_Clipboard
+        var clip = Components.classes["@mozilla.org/widget/clipboard;1"].
+        getService(Components.interfaces.nsIClipboard);
+        if (clip) {
+            var trans = Components.classes["@mozilla.org/widget/transferable;1"].
+            createInstance(Components.interfaces.nsITransferable);
+            if (trans) {
+                trans.addDataFlavor("text/unicode");
+                clip.getData(trans, clip.kGlobalClipboard);
+                var str       = new Object();
+                var strLength = new Object();
+                trans.getTransferData("text/unicode", str, strLength);
+                if (str) {
+                    str = str.value.QueryInterface(Components.interfaces.nsISupportsString);
+                    if (str) {
+                        return str.data.substring(0, strLength.value / 2);
+                    }
+                }
+            }
+        }
+        return "";
     },
 
     // getContentType: function(url) {

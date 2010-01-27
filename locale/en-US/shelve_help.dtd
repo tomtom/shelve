@@ -34,6 +34,7 @@
 <!ENTITY shelve.td.minutes "Minutes">
 <!ENTITY shelve.td.seconds "Seconds">
 <!ENTITY shelve.td.milliseconds "Milliseconds">
+<!ENTITY shelve.td.clipboard "Clipboard">
 <!ENTITY shelve.p.only.available.in.log.templates "Only available in log templates:">
 <!ENTITY shelve.td.note "Note">
 <!ENTITY shelve.td.output.file "Output file">

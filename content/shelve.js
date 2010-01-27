@@ -1220,6 +1220,7 @@ var shelve = {
         'q': 'query',
         's': 'secs',
         't': 'title',
+        'x': 'clipboard',
         'Y': 'fullyear',
         'y': 'year',
         'n': 'note',
@@ -1261,6 +1262,10 @@ var shelve = {
                 alert(s_empty + " " + shelveUtils.localized('abort'));
                 throw s_empty;
             }
+            break;
+
+            case 'clipboard':
+            val = shelveUtils.getClipboard();
             break;
 
             case 'date':

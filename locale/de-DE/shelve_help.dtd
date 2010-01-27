@@ -34,6 +34,7 @@
 <!ENTITY shelve.td.minutes "Minute">
 <!ENTITY shelve.td.seconds "Sekunde">
 <!ENTITY shelve.td.milliseconds "Millisekunde">
+<!ENTITY shelve.td.clipboard "Zwischenablage">
 <!ENTITY shelve.p.only.available.in.log.templates "Nur für spezielle Schablonen (z.B. Log) verfügbar:">
 <!ENTITY shelve.td.note "Notiz">
 <!ENTITY shelve.td.output.file "Ausgabedatei">
