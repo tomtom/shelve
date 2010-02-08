@@ -495,6 +495,25 @@ var shelveUtils = {
         return info.name + info.version;
     },
 
+    getProgressListener: function(file) {
+        var pl = {
+            onJobComplete: function(aJob, aResult) {
+                if (!Components.isSuccessCode(aResult)) {
+                    shelveUtils.log('Error when saving file: ' + file.path);
+                    shelveUtils.log('Error when saving file: ' + uneval(aResult));
+                    // An error occurred
+                } else {
+                    // The save operation completed successfully
+                }
+            },
+            onJobProgressChange: function(aJob, aWebProgress, aRequest, aCurSelfProgress, aMaxSelfProgress, aCurTotalProgress, aMaxTotalProgress) {
+            },
+            onStatusChange: function(aWebProgress, aRequest, aStatus, aMessage) {
+            }
+        };
+        return pl;
+    },
+
     mafObjects: null,
 
     isMafEnabled: function(doAlert) {
@@ -502,7 +521,7 @@ var shelveUtils = {
             return false;
         } else if (shelveUtils.mafObjects === null) {
             try {
-                MafObjects = {};
+                var MafObjects = {};
                 Components.utils.import("resource://maf/modules/mafObjects.jsm", MafObjects);
                 shelveUtils.mafObjects = MafObjects;
                 return true;
@@ -530,10 +549,13 @@ var shelveUtils = {
     getMafSaver: function(doc, file, format) {
         if (shelveUtils.isMafEnabled(true)) {
             return function(doc, file, dataPath, outputContentType, encodingFlags, wrapColumn) {
-                // TODO: Define a proper event listener to the SaveJob
-                var saveJob = new shelveUtils.mafObjects.SaveJob({});
+                var progressListener = shelveUtils.getProgressListener(file);
+                var saveJob = new shelveUtils.mafObjects.SaveJob(progressListener);
                 saveJob.addJobFromDocument(doc, file, format);
                 saveJob.start();
+                // var fileUri = shelveUtils.newFileURI(file);
+                // var persistObject = new shelveUtils.mafObjects.MafArchivePersist(null, format);
+                // persistObject.saveDocument(doc, file);
             };
         } else {
             return null;
