@@ -1235,7 +1235,7 @@ var shelve = {
     expandVar: function(out, fail_state, ch, et_params, width) {
         var name = shelve.expandVarNames[ch] || ch;
         // shelveUtils.debug('shelve expandVar1: [ch, name, width]=', [ch, name, width]);
-        var val;
+        var val = null;
         switch(name) {
 
             case '[':
@@ -1383,9 +1383,22 @@ var shelve = {
 
 
             default:
-            val = null;
-            fail_state = 0;
-            alert(shelveUtils.localized('unknown') + ": %" + ch);
+            if (name.charAt(0) == '$') {
+                var env = Components.classes["@mozilla.org/process/environment;1"].
+                getService(Components.interfaces.nsIEnvironment);
+                var vname = name.substr(1);
+                // shelveUtils.debug('shelve.expandVar vname=', vname)
+                // shelveUtils.debug('shelve.expandVar', env.exists(vname))
+                if (env.exists(vname)) {
+                    val = env.get(vname);
+                // } else {
+                //     val = null;
+                }
+            } else {
+                // val = null;
+                fail_state = 0;
+                alert(shelveUtils.localized('unknown') + ": %" + ch);
+            }
 
         }
 

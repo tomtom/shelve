@@ -456,7 +456,7 @@ var shelveUtils = {
             default:
             break;
         }
-        return '(['+ chars +']|\\{('+ names +')[!?]?\\})';
+        return '(['+ chars +']|\\{(\\$\\w+|'+ names +')[!?]?\\})';
     },
 
     filenameJoin: function(parts) {
