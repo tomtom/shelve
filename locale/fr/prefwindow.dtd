@@ -36,9 +36,10 @@
 <!ENTITY shelve.mime.text_latin1 "Fichier texte (Latin-1)">
 <!ENTITY shelve.auto "Enregistrement automatique">
 <!ENTITY shelve.auto.accesskey "A">
-<!ENTITY shelve.auto.rx "Ne pas enregistrer automatiquement les documents dont l&apos;URL correspond à cette RegExp">
+<!ENTITY shelve.auto.tab.accesskey "O">
+<!ENTITY shelve.auto.rx "Ne pas enregistrer automatiquement les documents dont l'URL correspond à cette RegExp">
 <!ENTITY shelve.auto.rx.accesskey "R">
-<!ENTITY shelve.auto.notify "Avertir l&apos;utilisateur lors d&apos;une action automatique">
+<!ENTITY shelve.auto.notify "Avertir l'utilisateur lors d'une action automatique">
 <!ENTITY shelve.auto.notify.accesskey "A">
 <!ENTITY shelve.auto.shelf "Après démarrage du programme, enregistrer les documents automatiquement">
 <!ENTITY shelve.auto.shelf.accesskey "u">
@@ -68,10 +69,16 @@
 <!ENTITY shelve.shelf.accesskey "S">
 <!ENTITY shelve.note "Remarque">
 <!ENTITY shelve.note.accesskey "R">
-<!ENTITY shelve.rx "Enregistrer automatiquement un document vers ce shelf si l&apos;URL correspond à cette ExpReg">
+<!ENTITY shelve.rx "Enregistrer automatiquement un document vers ce shelf si l'URL correspond à cette ExpReg">
 <!ENTITY shelve.rx.accesskey "t">
-<!ENTITY shelve.autoselect "Enregistrer automatiquement toutes les pages correspondantes">
+<!ENTITY shelve.automode "Lors de la sélection de ce shelf, basculer en mode auto-shelve">
+<!ENTITY shelve.automode.accesskey "L">
+<!ENTITY shelve.noautosave "Ne pas vérifier cette ExpReg lors d'appels manuels">
+<!ENTITY shelve.noautosave.accesskey "M">
+<!ENTITY shelve.autoselect "Vérifier l'Expression régulière pendant la navigation">
 <!ENTITY shelve.autoselect.accesskey "u">
+<!ENTITY shelve.autocontinue "Après l'enregistrement automatique d'une page, continuer avec d'autres shelves">
+<!ENTITY shelve.autocontinue.accesskey "C">
 <!ENTITY selectShelf.title "Choisir le shelf">
 <!ENTITY editShelf.title "Modifier le shelf">
 <!ENTITY shelve.hotkey "Raccourci clavier">
@@ -86,3 +93,5 @@
 <!ENTITY hotkey.alt.accesskey "A">
 <!ENTITY hotkey.meta "Meta/Win/Cmd">
 <!ENTITY hotkey.meta.accesskey "W">
+<!ENTITY shelve.save.format "Enregistrer le format">
+<!ENTITY shelve.invocation "Invocation">

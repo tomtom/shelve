@@ -36,6 +36,7 @@
 <!ENTITY shelve.mime.text_latin1 "Texto (Latin-1)">
 <!ENTITY shelve.auto "Salvar Automaticamente">
 <!ENTITY shelve.auto.accesskey "A">
+<!ENTITY shelve.auto.tab.accesskey "O">
 <!ENTITY shelve.auto.rx "Não salvar documentos automaticamente para as URLs que combinem com esta Expressão Regular">
 <!ENTITY shelve.auto.rx.accesskey "R">
 <!ENTITY shelve.auto.notify "Notificar o usuário quando estiver fazendo algo automaticamente">
@@ -70,8 +71,14 @@
 <!ENTITY shelve.note.accesskey "N">
 <!ENTITY shelve.rx "Salvar um documento neste shelf automaticamente se a URL coincidir com esta RegExp">
 <!ENTITY shelve.rx.accesskey "R">
+<!ENTITY shelve.automode "Ao selecionar este shelf, mudar para modo auto-shelve">
+<!ENTITY shelve.automode.accesskey "L">
+<!ENTITY shelve.noautosave "Não marcar essa Expressão Regular em invocações manuais">
+<!ENTITY shelve.noautosave.accesskey "M">
 <!ENTITY shelve.autoselect "Salvar automaticamente todas as páginas que coincidirem">
 <!ENTITY shelve.autoselect.accesskey "U">
+<!ENTITY shelve.autocontinue "Após salvar uma página automaticamente, continuar com outros shelves">
+<!ENTITY shelve.autocontinue.accesskey "C">
 <!ENTITY selectShelf.title "Selecionar Shelf">
 <!ENTITY editShelf.title "Editar Shelf">
 <!ENTITY shelve.hotkey "Atalho">
@@ -86,3 +93,5 @@
 <!ENTITY hotkey.alt.accesskey "A">
 <!ENTITY hotkey.meta "Meta/Win/Cmd">
 <!ENTITY hotkey.meta.accesskey "W">
+<!ENTITY shelve.save.format "Salvar formato">
+<!ENTITY shelve.invocation "Invocação">

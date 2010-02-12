@@ -36,6 +36,7 @@
 <!ENTITY shelve.mime.text_latin1 "文本（拉丁语-1）">
 <!ENTITY shelve.auto "自动保存">
 <!ENTITY shelve.auto.accesskey "A">
+<!ENTITY shelve.auto.tab.accesskey "O">
 <!ENTITY shelve.auto.rx "不要自动保存文件，其中 URL 匹配此 RegExp">
 <!ENTITY shelve.auto.rx.accesskey "R">
 <!ENTITY shelve.auto.notify "通知用户在做一些事情时自动">
@@ -70,8 +71,14 @@
 <!ENTITY shelve.note.accesskey "N">
 <!ENTITY shelve.rx "如果 URL 符合此 RegExp 保存文件到">
 <!ENTITY shelve.rx.accesskey "R">
+<!ENTITY shelve.automode "当选择此架子时，切换到自动搁置模式">
+<!ENTITY shelve.automode.accesskey "L">
+<!ENTITY shelve.noautosave "在手动调用时不选中此 RegExp">
+<!ENTITY shelve.noautosave.accesskey "M">
 <!ENTITY shelve.autoselect "自动保存所有匹配页">
 <!ENTITY shelve.autoselect.accesskey "U">
+<!ENTITY shelve.autocontinue "在自动保存一个网页后，继续用其他架子">
+<!ENTITY shelve.autocontinue.accesskey "C">
 <!ENTITY selectShelf.title "选择 Shelf">
 <!ENTITY editShelf.title "编辑 Shelf">
 <!ENTITY shelve.hotkey "热键">
@@ -86,3 +93,5 @@
 <!ENTITY hotkey.alt.accesskey "A">
 <!ENTITY hotkey.meta "Meta/Win/Cmd">
 <!ENTITY hotkey.meta.accesskey "W">
+<!ENTITY shelve.save.format "保存格式">
+<!ENTITY shelve.invocation "祈求">

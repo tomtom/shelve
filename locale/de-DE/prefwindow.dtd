@@ -75,8 +75,8 @@
 <!ENTITY shelve.automode.accesskey "L">
 <!ENTITY shelve.noautosave "Diese RegExp nicht bei manuellen Aufrufen prüfen">
 <!ENTITY shelve.noautosave.accesskey "M">
-<!ENTITY shelve.autoselect "Diese RegExp während des Browsens prüfen, nicht beim manuellen Aufruf von Shelve">
-<!ENTITY shelve.autoselect.accesskey "C">
+<!ENTITY shelve.autoselect "Diese RegExp während des Browsens prüfen">
+<!ENTITY shelve.autoselect.accesskey "B">
 <!ENTITY shelve.autocontinue "Nach einem automatischen Speichern auch noch die anderen Fächer prüfen">
 <!ENTITY shelve.autocontinue.accesskey "P">
 <!ENTITY selectShelf.title "Fach auswählen">

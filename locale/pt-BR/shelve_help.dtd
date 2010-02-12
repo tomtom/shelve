@@ -7,10 +7,10 @@
 <!ENTITY shelve.h2.place.holders "Variáveis">
 <!ENTITY shelve.p.please.define.a.set.of.templates "Favor definir um conjunto de modelos. Estes serão usados para determinar o local onde o documento deve ser salvo.">
 <!ENTITY shelve.p.the.following.place.holders.can.be.used "As seguintes variáveis podem ser usadas:">
-<!ENTITY shelve.p.modifier.mandatory "Se um nome longo terminar com &apos;!&apos;, o dado precisa ser informado.">
-<!ENTITY shelve.p.modifier.optional.line "Se um nome longo terminar com &apos;?&apos;, a linha será suprimida da saída se seu valor for vazio.">
+<!ENTITY shelve.p.modifier.mandatory "Se um nome longo terminar com '!', o dado precisa ser informado.">
+<!ENTITY shelve.p.modifier.optional.line "Se um nome longo terminar com '?', a linha será suprimida da saída se seu valor for vazio.">
 <!ENTITY shelve.long.var.names "Nomes longos para variáveis:">
-<!ENTITY shelve.td.alternatives.example.ctf "Alternativas (Examplo: &#37;[ctF])">
+<!ENTITY shelve.td.alternatives.example.ctf "Alternativas (Exemplo: &#37;[ctF])">
 <!ENTITY shelve.td.clip "Clip">
 <!ENTITY shelve.td.clip.non.empty "Clip (não vazio)">
 <!ENTITY shelve.td.content "Conteúdo (ao logar o texto selecionado)">
@@ -34,6 +34,7 @@
 <!ENTITY shelve.td.minutes "Minutos">
 <!ENTITY shelve.td.seconds "Segundos">
 <!ENTITY shelve.td.milliseconds "Milissegundos">
+<!ENTITY shelve.td.clipboard "Área de transferência">
 <!ENTITY shelve.p.only.available.in.log.templates "Disponível apenas em modelos de log">
 <!ENTITY shelve.td.note "Nota">
 <!ENTITY shelve.td.output.file "Arquivo de saída">
@@ -45,4 +46,4 @@
 <!ENTITY shelve.dd.save.in.the.directory.host.year "Salvar no diretório SERVIDOR/ANO, usando algum texto selecionado ou o título como nome de arquivo.">
 <!ENTITY shelve.dd.save.as.host.year.month.day.filename "Salvar como SERVIDOR/ANO-MÊS-DIA/NOME_DE_ARQUIVO (a extensão original não será usada)">
 <!ENTITY shelve.dd.rebuild.the.original.file.system "Reconstruir o sistema de arquivos original">
-<!ENTITY shelve.dd.save.under.topics.but.query.the.user "Salvar em .&#46;&#46;/topics mas pedir ao usuário um subdiretório. Usar o texto selecionado, o título ou o nome do arquivo sem extensão mais &apos;.html&apos; como nome de arquivo.">
+<!ENTITY shelve.dd.save.under.topics.but.query.the.user "Salvar em .../topics mas pedir ao usuário um subdiretório. Usar o texto selecionado, o título ou o nome do arquivo sem extensão mais '.html' como nome de arquivo.">

@@ -34,8 +34,9 @@
 <!ENTITY shelve.mime.html "Веб-страница, только HTML">
 <!ENTITY shelve.mime.text "Текстовый файл">
 <!ENTITY shelve.mime.text_latin1 "Текстовый файл (латиница 1)">
-<!ENTITY shelve.auto "Авто-сохранение">
+<!ENTITY shelve.auto "Автосохранение">
 <!ENTITY shelve.auto.accesskey "A">
+<!ENTITY shelve.auto.tab.accesskey "O">
 <!ENTITY shelve.auto.rx "Не сохранять автоматически документы, URL которых соответствует регулярному выражению:">
 <!ENTITY shelve.auto.rx.accesskey "R">
 <!ENTITY shelve.auto.notify "Выдавать оповещение при проведении автоматических операций">
@@ -70,8 +71,14 @@
 <!ENTITY shelve.note.accesskey "N">
 <!ENTITY shelve.rx "Автоматически сохранять в эту папку документ, URL которого соответствует регулярному выражению:">
 <!ENTITY shelve.rx.accesskey "R">
+<!ENTITY shelve.automode "При выборе этой папки переключитесь в авторежим">
+<!ENTITY shelve.automode.accesskey "L">
+<!ENTITY shelve.noautosave "Не учитывать это регулярное выражение при сохранении вручную">
+<!ENTITY shelve.noautosave.accesskey "M">
 <!ENTITY shelve.autoselect "Сохранять соответствующие параметрам документы автоматически">
 <!ENTITY shelve.autoselect.accesskey "U">
+<!ENTITY shelve.autocontinue "После автосохранения страницы вернуться к папкам">
+<!ENTITY shelve.autocontinue.accesskey "C">
 <!ENTITY selectShelf.title "Выбрать папку">
 <!ENTITY editShelf.title "Изменить папку">
 <!ENTITY shelve.hotkey "Горячая клавиша">
@@ -86,3 +93,5 @@
 <!ENTITY hotkey.alt.accesskey "A">
 <!ENTITY hotkey.meta "Meta/Win/Cmd">
 <!ENTITY hotkey.meta.accesskey "W">
+<!ENTITY shelve.save.format "Формат">
+<!ENTITY shelve.invocation "Выбор">

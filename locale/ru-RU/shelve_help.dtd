@@ -34,6 +34,7 @@
 <!ENTITY shelve.td.minutes "Минуты">
 <!ENTITY shelve.td.seconds "Секунды">
 <!ENTITY shelve.td.milliseconds "Миллисекунды">
+<!ENTITY shelve.td.clipboard "Буфер обмена">
 <!ENTITY shelve.p.only.available.in.log.templates "Используются только для шаблонов записей в лог:">
 <!ENTITY shelve.td.note "Заметка">
 <!ENTITY shelve.td.output.file "Вывод">
@@ -43,6 +44,6 @@
 <!ENTITY shelve.p.if.the.regular.expression "Если регулярное выражение соответствует данному URL, шаблон будет применён немедленно.">
 <!ENTITY shelve.h2.examples "Примеры">
 <!ENTITY shelve.dd.save.in.the.directory.host.year "Сохранить в папку Хост/Год. Имя файла создаётся из выбранного текста или заголовка.">
-<!ENTITY shelve.dd.save.as.host.year.month.day.filename "Сохранить как Хост/Год-Месяц-День/Имя файла (оригинальное расширение будет опущено).">
+<!ENTITY shelve.dd.save.as.host.year.month.day.filename "Сохранить как Хост/Год-Месяц-День/Имя-файла (оригинальное расширение будет опущено).">
 <!ENTITY shelve.dd.rebuild.the.original.file.system "Перестроить оригинальную файловую структуру">
-<!ENTITY shelve.dd.save.under.topics.but.query.the.user "Сохранить в папку .&#46;&#46;/topics, но спросить о подпапке. Имя файла создаётся из выбранного текста, заголовка или базового имени файла плюс расширение &quot;.html&quot;.">
+<!ENTITY shelve.dd.save.under.topics.but.query.the.user "Сохранить в папку .../topics, но спросить о подпапке. Имя файла создаётся из выбранного текста, заголовка или базового имени файла плюс расширение &quot;.html&quot;.">

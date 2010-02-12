@@ -7,8 +7,8 @@
 <!ENTITY shelve.h2.place.holders "位置标识符">
 <!ENTITY shelve.p.please.define.a.set.of.templates "请定义一个模版。这些将用于确定该文件应保存到的位置。">
 <!ENTITY shelve.p.the.following.place.holders.can.be.used "下面的地方，持有人可以使用：">
-<!ENTITY shelve.p.modifier.mandatory "如果一个长名称结尾是 &apos;!&apos;，则资料必须提供。">
-<!ENTITY shelve.p.modifier.optional.line "如果一个长名称结尾是 &apos;?&apos;, 如果它的输出值为空则该生产线将被抑制。">
+<!ENTITY shelve.p.modifier.mandatory "如果一个长名称结尾是 '!'，则资料必须提供。">
+<!ENTITY shelve.p.modifier.optional.line "如果一个长名称结尾是 '?', 如果它的输出值为空则该生产线将被抑制。">
 <!ENTITY shelve.long.var.names "地方负责人使用长文件名：">
 <!ENTITY shelve.td.alternatives.example.ctf "可选方案（例如：&#37;[ctF]）">
 <!ENTITY shelve.td.clip "夹">
@@ -34,6 +34,7 @@
 <!ENTITY shelve.td.minutes "分钟">
 <!ENTITY shelve.td.seconds "秒">
 <!ENTITY shelve.td.milliseconds "毫秒">
+<!ENTITY shelve.td.clipboard "剪贴板">
 <!ENTITY shelve.p.only.available.in.log.templates "仅提供在日志模版：">
 <!ENTITY shelve.td.note "笔记">
 <!ENTITY shelve.td.output.file "输出文件">
@@ -45,4 +46,4 @@
 <!ENTITY shelve.dd.save.in.the.directory.host.year "保存在这个目录主机/年，文件名使用选中的文本或这个标题。">
 <!ENTITY shelve.dd.save.as.host.year.month.day.filename "保存为 主机/年-月-日/文件名称（原来的扩展将被剥夺）">
 <!ENTITY shelve.dd.rebuild.the.original.file.system "重建原始文件系统">
-<!ENTITY shelve.dd.save.under.topics.but.query.the.user "保存在 .&#46;&#46;/topics 但查询这个用户对一个子目录。使用任何选择的文本，这个标题或基本文件名增强 &apos;.html&apos; 作为文件名称。">
+<!ENTITY shelve.dd.save.under.topics.but.query.the.user "保存在 .../topics 但查询这个用户对一个子目录。使用任何选择的文本，这个标题或基本文件名增强 '.html' 作为文件名称。">
