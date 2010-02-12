@@ -549,13 +549,13 @@ var shelveUtils = {
     getMafSaver: function(doc, file, format) {
         if (shelveUtils.isMafEnabled(true)) {
             return function(doc, file, dataPath, outputContentType, encodingFlags, wrapColumn) {
-                var progressListener = shelveUtils.getProgressListener(file);
-                var saveJob = new shelveUtils.mafObjects.SaveJob(progressListener);
-                saveJob.addJobFromDocument(doc, file, format);
-                saveJob.start();
-                // var fileUri = shelveUtils.newFileURI(file);
-                // var persistObject = new shelveUtils.mafObjects.MafArchivePersist(null, format);
-                // persistObject.saveDocument(doc, file);
+                // var progressListener = shelveUtils.getProgressListener(file);
+                // var saveJob = new shelveUtils.mafObjects.SaveJob(progressListener);
+                // saveJob.addJobFromDocument(doc, file, format);
+                // saveJob.start();
+                var fileUri = shelveUtils.newFileURI(file);
+                var persistObject = new shelveUtils.mafObjects.MafArchivePersist(null, format);
+                persistObject.saveDocument(doc, fileUri);
             };
         } else {
             return null;
