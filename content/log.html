@@ -1,0 +1,219 @@
+<html>
+    <head>
+        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<!--
+Based on ShelveSlogger by silverwav:
+http://groups.google.com/group/shelve-firefox-addon/browse_frm/thread/7e3656c884ada277
+
+Use with this template:
+
+<tr>
+    <td class="date" nowrap="nowrap">%Y-%M-%D %h:%m</td>
+    <td class="description">
+        <div class="title">%[tcf]</div>
+        <div class="sup">Keywords: %{keywords?}</pre>
+        <pre width="80" class="sup">%{clip?}</pre>
+        <pre width="80" class="sup">%{note?}</pre>
+    </td>
+    <td class="links">
+        <a class="url" href="%{url?}">url</a>
+        <a class="local" href="./%{outfile?}">local</a>
+    </td>
+</tr>
+
+-->
+        <style type="text/css">
+            body {
+            }
+            p {
+                margin: 0;
+            }
+            table {
+                background-color: black;
+                margin-top: 1em;
+            }
+            th {
+                padding: 3px 6px 3px 6px;
+                background-color: #9acd32;
+                text-align: left;
+                vertical-align: top;
+            }
+            tr {
+                background-color: white;
+            }
+            td {
+                padding: 3px 6px 3px 6px;
+                vertical-align: top;
+            }
+            td.label {
+                background-color: #d5eaa8;
+                text-align: right;
+            }
+            td.description {
+                width: 70%;
+            }
+            div.title {
+                font-weight: bold;
+            }
+            pre.sup {
+                font-family: serif;
+            }
+            .sup {
+                font-size: 0.9em;
+                margin: 0;
+            }
+            span.checkboxLabel {
+                margin-left: 0.4em;
+                color: #555555;
+            }
+            .error {
+                font-family: sans-serif;
+                margin-left: 0.4em;
+                padding: 0.1em 0.4em 0.1em 0.4em;
+                display: none;
+                background-color: red;
+                color: yellow;
+                font-weight: bold;
+            }
+            .controls {
+                font-size: 0.8em;
+            }
+            #controls {
+                background-color: white;
+            }
+            #filter {
+                background-color: #f5f5f5;
+                border: 1px solid #aaaaaa;
+            }
+            a.invalidFilter {
+                background-color: red;
+                color: yellow;
+                font-weight: bold;
+            }
+        </style>
+<script type="text/javascript">
+
+function setSupDataVisibility() {
+    var value = document.getElementById('checkSupDataVisibility').checked;
+    var display = value ? "block" : "none";
+    setEltsSupDataVisibility(display, document.getElementsByTagName("pre"));
+    setEltsSupDataVisibility(display, document.getElementsByTagName("div"));
+}
+
+function setEltsSupDataVisibility(display, elts) {
+    for (var idx = 0; idx < elts.length; idx++) {
+        var e = elts[idx];
+        if (e.className == "sup") {
+            e.style.display = display;
+        }
+    }
+}
+
+var filterScheduled = 0;
+
+function scheduleFilter(id) {
+    filterScheduled++;
+    setTimeout(function() {filterRows(id);}, 500);
+}
+
+function filterRows(id) {
+    filterScheduled--;
+    if (filterScheduled > 0) {
+        return;
+    }
+    var value = document.getElementById(id).value;
+    var rx = new RegExp(value, 'i');
+    var matchDate = document.getElementById('filterMatchDate').checked;
+    var matchDesc = document.getElementById('filterMatchDesc').checked;
+    var matchUrl = document.getElementById('filterMatchUrl').checked;
+    var matchLocal = document.getElementById('filterMatchLocal').checked;
+    var trs = document.getElementsByTagName("tr");
+    var invalidFilter = document.getElementById("invalidFilter");
+    if (invalidFilter.style.display != "none") {
+        invalidFilter.style.display = "none";
+    }
+    for (var tri = 0; tri < trs.length; tri++) {
+        var tr = trs[tri];
+        var setDisplay = false;
+        var display = "none";
+        var tds = tr.childNodes;
+SetDisplay:
+        for (var tdi = 0; tdi < tds.length; tdi++) {
+            var td = tds[tdi];
+            if ((matchDesc && td.className == "description") || 
+            (matchDate && td.className == "date") ||
+            ((matchLocal || matchUrl) && td.className == "links")) {
+                var elts = td.childNodes;
+                for (var elti = 0; elti < elts.length; elti++) {
+                    var elt = elts[elti];
+                    var text = null;
+                    if (elt.className == "title" || elt.className == "sup") {
+                        text = elt.innerHTML;
+                    } else if (elt.nodeName == "A") {
+                        if ((matchUrl && elt.className == 'url') || (matchLocal && elt.className == 'local')) {
+                            text = elt.href;
+                        }
+                    } else if (elts.length == 1 && elt.nodeName == "#text") {
+                        text = elt.data;
+                    }
+                    if (text != null) {
+                        setDisplay = true;
+                        try {
+                            if (text.match(rx)) {
+                                display = "";
+                                break SetDisplay;
+                            }
+                        } catch (e) {
+                            invalidFilter.style.display = "inline";
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+        if (setDisplay && tr.style.display != display) {
+            tr.style.display = display;
+        }
+    }
+}
+
+</script>
+</head>
+
+<body>
+    <h2>Shelve Log</h2>
+
+    <table id="controls">
+        <tr>
+            <td><u>F</u>ilter:</td>
+            <td>
+            <p>
+                <input class="controls" accesskey="F" id="filter" name="filter" type="text" size="60" maxlength="60" onkeyup="scheduleFilter('filter')">
+                <span id="invalidFilter" class="error">
+                    <a class="invalidFilter" href="https://developer.mozilla.org/En/Core_JavaScript_1.5_Guide:Regular_Expressions">Invalid regular expression</a>
+                </span>
+            </p>
+            <p>
+            <input onclick="scheduleFilter('filter')" id="filterMatchDesc" checked="true" type="checkbox"><span class="checkboxlabel">Desc</span>
+            <input onclick="scheduleFilter('filter')" id="filterMatchDate" type="checkbox"><span class="checkboxlabel">Date</span>
+            <input onclick="scheduleFilter('filter')" id="filterMatchUrl" type="checkbox"><span class="checkboxlabel">URL</span>
+            <input onclick="scheduleFilter('filter')" id="filterMatchLocal" type="checkbox"><span class="checkboxlabel">Local filename</span>
+            </p>
+            </td>
+        </tr>
+    </table>
+
+    <table cellspacing="1">
+        <thead>
+            <tr>
+                <th>Date/Time</th>
+                <th>
+                    Description <span class="controls" 
+                        onclick="setSupDataVisibility()">(<input id="checkSupDataVisibility" checked="true" type="checkbox" accesskey="S"><span class="checkboxlabel"><u>S</u>how supplemental data</span>)</span>
+                </th>
+                <th>Links</th>
+            </tr>
+        </thead>
+        <tbody>
+<!-- -----8<---------------- Log starts here -----8<---------------- -->
+
