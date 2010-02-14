@@ -1228,6 +1228,7 @@ var shelve = {
         'y': 'year',
         'n': 'note',
         'o': 'outfile',
+        // 'O': 'relativeoutfile',
         'u': 'url',
         'v': 'shelf'
     },
@@ -1600,6 +1601,14 @@ var shelve = {
                 for (var i in tags) {
                     var content = tags[i].content;
                     if (content) {
+                        // Canonic separator
+                        if (content.indexOf(";") == -1) {
+                            if (content.indexOf(",") != -1) {
+                                content = content.replace(/\s*,\s*/g, "; ");
+                            }
+                        } else {
+                            content = content.replace(/\s*;\s*/g, "; ");
+                        }
                         keywords.push(content);
                     }
                 }
