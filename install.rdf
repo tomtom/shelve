@@ -6,7 +6,7 @@
     <em:name>Shelve</em:name>
     <em:version>1.22</em:version>
     <em:creator>Thomas Link</em:creator>
-    <em:translator>Jojaba - BabelZilla (fr-FR)</em:translator>
+    <em:translator>Jojaba - BabelZilla (fr)</em:translator>
     <em:translator>Marcelo Ghelman (ghelman.net) (pt-BR)</em:translator>
     <em:translator>Владимир Герасимов (ru-RU)</em:translator>
     <em:translator>yfdyh000 (zh-CN)</em:translator>
@@ -18,7 +18,7 @@
       <Description>
         <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id> <!-- firefox -->
         <em:minVersion>3.0</em:minVersion>
-        <em:maxVersion>3.7a1pre</em:maxVersion>
+        <em:maxVersion>3.7a2pre</em:maxVersion>
       </Description>
     </em:targetApplication>
   </Description>

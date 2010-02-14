@@ -502,7 +502,7 @@ var shelveUtils = {
                     shelveUtils.log('Error when saving file: ' + file.path);
                     shelveUtils.log('Error when saving file: ' + uneval(aResult));
                     // An error occurred
-                } else {
+                // } else {
                     // The save operation completed successfully
                 }
             },
@@ -522,7 +522,9 @@ var shelveUtils = {
         } else if (shelveUtils.mafObjects === null) {
             try {
                 var MafObjects = {};
+                /*jsl:ignore*/
                 Components.utils.import("resource://maf/modules/mafObjects.jsm", MafObjects);
+                /*jsl:end*/
                 shelveUtils.mafObjects = MafObjects;
                 return true;
             } catch (e) {
