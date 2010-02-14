@@ -1,15 +1,17 @@
 * TODO
 
-    #B5 Handle mime/save-format types as object/hash map so that they are easier to maintain
+    #B5 ''%O/%{relativeoutfile}'': a filename relative to the log file
+    #B5 New log file templates (eg [[ShelveLogger.html]])
     #B5 Recode plain text output to a user-specified charset (make sure the file uses that charset)
     #B5 The footer should be added when the progress listener gets the signal that the download was finished
     #C5 Dialogs: Add drop-down menu for easier insertion of place holders
-    #E8 Log to sqlite db (or use places/save as bookmark?)
+    #C5 Handle mime/save-format types as object/hash map so that they are easier to maintain
+    #E8 Log to sqlite db (or use places/save as bookmark?): But nothing is as easy to post-process as a plain text file
     #E9 Also support UnMHT?
     #E9 Option to select more than one shelf?
 
 
-% 2008-07-28; @Last Change: 2010-02-08.
+% 2008-07-28; @Last Change: 2010-02-14.
 % vi: ft=viki:tw=0:ts=4
 % Local Variables:
 % End:
