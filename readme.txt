@@ -5,7 +5,7 @@
 There are two options: Build the extension and install it:
 
     #Code syntax=sh <<--
-    make
+    ./build.sh
     --
 
 Use the extension in place:
