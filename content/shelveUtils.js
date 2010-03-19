@@ -234,13 +234,28 @@ var shelveUtils = {
     debug: function(text, value) {
         // var log_level = shelveStore.getBool(null, 'log_level', 1);
         // if (log_level >= 3) {
+            var sval;
             try {
-                shelveUtils.log("DEBUG: "+ text + uneval(value));
+                // sval = uneval(value);
+                sval = value.toSource();
+                shelveUtils.log('DEBUG: shelveUtils debug value.toSource()='+ sval);
             } catch(e) {
-                shelveUtils.log("DEBUG: "+ text + value);
+                try {
+                    sval = uneval(value);
+                    shelveUtils.log('DEBUG: shelveUtils debug uneval(value)='+ sval);
+                } catch(e) {
+                    try {
+                        sval = "" + value;
+                        // shelveUtils.log('DEBUG: shelveUtils debug value='+ sval);
+                    } catch(e) {
+                        sval = "???";
+                    }
+                }
             }
-        // }
-    },
+            sval += " (" + (typeof value) + ")";
+            shelveUtils.log("DEBUG: "+ text + sval);
+            // }
+        },
 
     log: function(text) {
         var aConsoleService = Components.classes["@mozilla.org/consoleservice;1"].
@@ -551,6 +566,9 @@ var shelveUtils = {
     getMafSaver: function(doc, file, format) {
         if (shelveUtils.isMafEnabled(true)) {
             return function(doc, file, dataPath, outputContentType, encodingFlags, wrapColumn) {
+                // shelveUtils.debug("shelveUtils.getMafSaver doc=", doc);
+                // shelveUtils.debug("shelveUtils.getMafSaver file=", file);
+                // shelveUtils.debug("shelveUtils.getMafSaver format=", format);
                 // var progressListener = shelveUtils.getProgressListener(file);
                 // var saveJob = new shelveUtils.mafObjects.SaveJob(progressListener);
                 // saveJob.addJobFromDocument(doc, file, format);
