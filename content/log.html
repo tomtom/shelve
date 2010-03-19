@@ -92,6 +92,10 @@ Use with this template:
             }
         </style>
 <script type="text/javascript">
+    
+function Init() {
+    document.getElementById('filter').focus();
+}
 
 function setSupDataVisibility() {
     var value = document.getElementById('checkSupDataVisibility').checked;
@@ -121,8 +125,6 @@ function filterRows(id) {
     if (filterScheduled > 0) {
         return;
     }
-    var value = document.getElementById(id).value;
-    var rx = new RegExp(value, 'i');
     var matchDate = document.getElementById('filterMatchDate').checked;
     var matchDesc = document.getElementById('filterMatchDesc').checked;
     var matchUrl = document.getElementById('filterMatchUrl').checked;
@@ -131,6 +133,13 @@ function filterRows(id) {
     var invalidFilter = document.getElementById("invalidFilter");
     if (invalidFilter.style.display != "none") {
         invalidFilter.style.display = "none";
+    }
+    var value = document.getElementById(id).value;
+    try {
+        var rx = new RegExp(value, 'i');
+    } catch (e) {
+        invalidFilter.style.display = "inline";
+        return;
     }
     for (var tri = 0; tri < trs.length; tri++) {
         var tr = trs[tri];
@@ -180,7 +189,7 @@ SetDisplay:
 </script>
 </head>
 
-<body>
+<body onload="Init();">
     <h2>Shelve Log</h2>
 
     <table id="controls">
