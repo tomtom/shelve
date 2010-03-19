@@ -141,6 +141,9 @@ var shelve = {
                     var params_fix = shelve.frozenParams(sp_params);
                     if (filename != '-') {
                         var doc = shelve.getDocument(sp_params);
+                        // shelveUtils.debug("shelve savePageWithParams: doc=", doc);
+                        // shelveUtils.debug("shelve savePageWithParams: doc is null =", doc === null);
+                        // shelveUtils.debug("shelve savePageWithParams: doc.contentType=", doc.contentType);
                         switch(doc.contentType) {
                             case 'text/html':
                             case 'application/xhtml+xml':
@@ -205,8 +208,9 @@ var shelve = {
     },
 
     saveDocument: function(doc, filename, sp_params) {
-        // shelveUtils.debug("shelve saveDocument: sp_params=", sp_params);
+        // shelveUtils.debug("shelve saveDocument: doc=", doc);
         // shelveUtils.debug("shelve saveDocument: filename=", filename);
+        // shelveUtils.debug("shelve saveDocument: sp_params=", sp_params);
         var file = shelveUtils.localFile(filename);
         if (file === null) {
             return false;
@@ -257,7 +261,8 @@ var shelve = {
             case 'html':
             mime = 'text/html';
             encode = wbp.ENCODE_FLAGS_RAW;
-            wbp.persistFlags |= wbp.PERSIST_FLAGS_IGNORE_IFRAMES | wbp.PERSIST_FLAGS_IGNORE_REDIRECTED_DATA;
+            // wbp.persistFlags |= wbp.PERSIST_FLAGS_IGNORE_IFRAMES | wbp.PERSIST_FLAGS_IGNORE_REDIRECTED_DATA;
+            wbp.persistFlags |= wbp.PERSIST_FLAGS_IGNORE_IFRAMES;
             break;
 
             case 'webpage_maf':
@@ -1659,6 +1664,7 @@ var shelve = {
     },
 
     getDocument: function(doc_params) {
+        // shelveUtils.debug("shelve getDocument doc_params=", doc_params);
         return doc_params.doc || window._content.document;
     },
 
