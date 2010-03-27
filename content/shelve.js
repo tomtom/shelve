@@ -1406,14 +1406,12 @@ var shelve = {
                     var outfile = shelveUtils.localFile(outfilename);
                     var relfile = outfile.getRelativeDescriptor(et_params.log_file.parent);
                     val = shelveUtils.convertToUnicode(relfile);
-                    alert(val);
                 }
             }
             break;
 
             case 'url':
             val = et_params.mode == 'log' ? shelve.getDocumentURL(et_params) : null;
-            alert(val);
             break;
             
             case 'content':

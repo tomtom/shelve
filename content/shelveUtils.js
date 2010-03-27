@@ -158,7 +158,7 @@ var shelveUtils = {
         var shelfSearch = true;
         for (var shelfId = 1; shelfId <= max; shelfId++) {
             var template = shelveStore.get(shelfId, 'dir', null);
-            shelveUtils.debug("shelveUtils.fillListbox ", shelfId +" "+ template);
+            // shelveUtils.debug("shelveUtils.fillListbox ", shelfId +" "+ template);
             if (template && template.match(/\S/)) {
                 listbox.appendItem(shelveStore.getDescription(shelfId), shelfId);
                 if (shelfSearch && shelfId != parseInt(selectedShelfId)) {
