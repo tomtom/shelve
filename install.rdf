@@ -4,7 +4,7 @@
   <Description about="urn:mozilla:install-manifest">
     <em:id>shelve@thomas.link</em:id>
     <em:name>Shelve</em:name>
-    <em:version>1.22</em:version>
+    <em:version>1.23</em:version>
     <em:creator>Thomas Link</em:creator>
     <em:translator>Jojaba - BabelZilla (fr)</em:translator>
     <em:translator>Marcelo Ghelman (ghelman.net) (pt-BR)</em:translator>
