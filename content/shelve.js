@@ -957,13 +957,13 @@ var shelve = {
         var shelf = sp_params.shelf;
         var log_file_template = shelve.log_param(shelf, 'file');
         if (shelveUtils.isSomeFilename(log_file_template)) {
-            var log_file = shelve.expandTemplateParams(sp_params, log_file_template);
-            var log = shelve.expandTemplate(log_file);
-            if (shelveUtils.isSomeFilename(log)) {
+            var log_filename_template = shelve.expandTemplateParams(sp_params, log_file_template);
+            var log_filename = shelve.expandTemplate(log_filename_template);
+            if (shelveUtils.isSomeFilename(log_filename)) {
                 var template = shelve.log_param(shelf, 'template');
                 if (template && template.match(/\S/)) {
                     // shelveUtils.debug("log template=", template);
-                    var log_file = shelveUtils.localFile(log);
+                    var log_file = shelveUtils.localFile(log_filename);
                     var et_params = shelve.expandTemplateParams(sp_params, template);
                     et_params.log_file = log_file;
                     var log_entry = shelve.expandTemplate(et_params);

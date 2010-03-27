@@ -226,7 +226,7 @@ var selectShelf = {
         // shelveUtils.debug("getListIndexForShelfNumber shelfNos=", shelfNos);
         for (var e in shelfNos) {
             if (shelfNos[e] === shelfId) {
-                e = parseInt(e);
+                e = parseInt(e, 10);
                 // shelveUtils.debug("getListIndexForShelfNumber e=", e);
                 return e;
             }

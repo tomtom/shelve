@@ -161,7 +161,7 @@ var shelveUtils = {
             // shelveUtils.debug("shelveUtils.fillListbox ", shelfId +" "+ template);
             if (template && template.match(/\S/)) {
                 listbox.appendItem(shelveStore.getDescription(shelfId), shelfId);
-                if (shelfSearch && shelfId != parseInt(selectedShelfId)) {
+                if (shelfSearch && shelfId != parseInt(selectedShelfId, 10)) {
                     shelfIndex++;
                     shelfSearch = false;
                 }
@@ -432,10 +432,10 @@ var shelveUtils = {
     readText: function(filename) {
         if (filename.match(/^chrome:/)) {
             // http://forums.mozillazine.org/viewtopic.php?p=921150#921150
-            var ioService = Components.classes["@mozilla.org/network/io-service;1"]
-            .getService(Components.interfaces.nsIIOService);
-            var scriptableStream = Components.classes["@mozilla.org/scriptableinputstream;1"]
-            .getService(Components.interfaces.nsIScriptableInputStream);
+            var ioService = Components.classes["@mozilla.org/network/io-service;1"].
+            getService(Components.interfaces.nsIIOService);
+            var scriptableStream = Components.classes["@mozilla.org/scriptableinputstream;1"].
+            getService(Components.interfaces.nsIScriptableInputStream);
             var channel = ioService.newChannel(filename, null, null);
             var input = channel.open();
             scriptableStream.init(input);
@@ -452,11 +452,11 @@ var shelveUtils = {
                 var cstream = Components.classes["@mozilla.org/intl/converter-input-stream;1"].
                 createInstance(Components.interfaces.nsIConverterInputStream);
                 fstream.init(file, -1, 0, 0);
-                cstream.init(fstream, "UTF-8", 0, 0); // you can use another encoding here if you wish
-                var str = {};
-                cstream.readString(-1, str); // read the whole file and put it in str.value
-                data = str.value;
-                cstream.close(); // this closes fstream
+                cstream.init(fstream, "UTF-8", 0, 0);
+                var strobj = {};
+                cstream.readString(-1, strobj);
+                data = strobj.value;
+                cstream.close();
                 return data;
             } else {
                 return "";
@@ -465,8 +465,8 @@ var shelveUtils = {
     },
 
     convertToUnicode: function(acstring) {
-        var converter = Components.classes["@mozilla.org/intl/scriptableunicodeconverter"]
-        .createInstance(Components.interfaces.nsIScriptableUnicodeConverter);
+        var converter = Components.classes["@mozilla.org/intl/scriptableunicodeconverter"].
+        createInstance(Components.interfaces.nsIScriptableUnicodeConverter);
         converter.charset = "UTF-8";
         var text = converter.ConvertToUnicode(acstring);
         return text;
