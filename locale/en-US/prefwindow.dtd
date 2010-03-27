@@ -95,3 +95,7 @@
 <!ENTITY hotkey.meta.accesskey "W">
 <!ENTITY shelve.save.format "Save format">
 <!ENTITY shelve.invocation "Invocation">
+<!ENTITY shelve.new.shelf "New">
+<!ENTITY shelve.new.shelf.accesskey "E">
+<!ENTITY shelve.clone.shelf "Clone">
+<!ENTITY shelve.clone.shelf.accesskey "C">
