@@ -143,6 +143,112 @@ var shelveUtils = {
         }
     },
 
+    emptyListbox: function(listbox) {
+        listbox.clearSelection();
+        while (listbox.getRowCount() > 0) {
+            listbox.removeItemAt(0);
+        }
+    },
+
+    fillListbox: function(listbox, selectedShelfId) {
+        // shelveUtils.debug("shelveUtils.fillListbox selectedShelfId=", selectedShelfId);
+        shelveUtils.emptyListbox(listbox);
+        var max = shelveStore.max();
+        var shelfIndex = -1;
+        var shelfSearch = true;
+        for (var shelfId = 1; shelfId <= max; shelfId++) {
+            var template = shelveStore.get(shelfId, 'dir', null);
+            shelveUtils.debug("shelveUtils.fillListbox ", shelfId +" "+ template);
+            if (template && template.match(/\S/)) {
+                listbox.appendItem(shelveStore.getDescription(shelfId), shelfId);
+                if (shelfSearch && shelfId != parseInt(selectedShelfId)) {
+                    shelfIndex++;
+                    shelfSearch = false;
+                }
+            }
+        }
+        // shelveUtils.debug("shelveUtils.fillListbox shelfIndex=", shelfIndex);
+        shelveUtils.selectListboxItem(listbox, shelfIndex);
+    },
+
+    getShelfListindex: function(listbox, shelfId) {
+        // shelveUtils.debug("shelveUtils.getShelfListindex shelfId=", shelfId);
+        for (var index = 0; index < listbox.getRowCount(); index++) {
+            var listitem = listbox.getItemAtIndex(index);
+            // shelveUtils.debug("shelveUtils.getShelfListindex value=", listitem);
+            if (listitem.value == shelfId) {
+                // shelveUtils.debug("shelveUtils.getShelfListindex index=", index);
+                return index;
+            }
+        }
+        return -1;
+    },
+
+    selectListboxItem: function(listbox, index) {
+        // shelveUtils.debug("shelveUtils.selectListboxItem index=", index);
+        if (index >= 0) {
+            var listitem = listbox.getItemAtIndex(index);
+            // shelveUtils.debug("shelveUtils.selectListboxItem shelf=", listitem.value);
+            // listbox.selectedItem = listitem;
+            listbox.ensureElementIsVisible(listitem);
+            listbox.selectedItem = listitem;
+            // listbox.selectedIndex = index;
+        }
+    },
+
+    createNewShelf: function(listbox) {
+        var newIndex = shelveStore.newIndex();
+        var ed_params = {
+            inn: {
+                item: newIndex
+            },
+            out: null
+        };
+        window.openDialog("chrome://shelve/content/editShelf.xul",
+        "", "chrome, dialog, modal, resizable=yes", ed_params).focus();
+        listbox.focus();
+        if (ed_params.out && ed_params.out.ok) {
+            shelveUtils.fillListbox(listbox, newIndex);
+            return true;
+        } else {
+            return false;
+        }
+    },
+
+    cloneSelected: function(listbox) {
+        var selectedIndex = listbox.selectedIndex;
+        // shelveUtils.debug("shelveUtils.cloneSelected selectedIndex=", selectedIndex);
+        if (selectedIndex >= 0) {
+            var selected = listbox.selectedItem;
+            // shelveUtils.debug("shelveUtils.cloneSelected selected=", selected);
+            var thisShelfId = selected.value;
+            // shelveUtils.debug("shelveUtils.cloneSelected thisShelfId=", thisShelfId);
+            var thatShelfId = shelveStore.newIndex();
+            // shelveUtils.debug("shelveUtils.cloneSelected thatShelfId=", thatShelfId);
+            shelveStore.copy(thisShelfId, thatShelfId);
+            var name = shelveStore.get(thatShelfId, 'name', thisShelfId) + ' copy';
+            shelveStore.setUnichar(thatShelfId, 'name', name);
+            var ed_params = {
+                inn: {
+                    item: thatShelfId
+                },
+                out: null
+            };
+            window.openDialog("chrome://shelve/content/editShelf.xul",
+            "", "chrome, dialog, modal, resizable=yes", ed_params).focus();
+            listbox.focus();
+            if (ed_params.out && ed_params.out.ok) {
+                // FIXME: find list index
+                shelveUtils.fillListbox(listbox, thatShelfId);
+                return true;
+            } else {
+                shelveStore.remove(thatShelfId);
+                return false;
+            }
+        }
+        return false;
+    },
+
     getExtension: function(content_type, mime, doc) {
         // shelveUtils.debug("shelveUtils getExtension content_type=", content_type);
         // shelveUtils.debug("shelveUtils getExtension mime=", mime);
@@ -236,13 +342,13 @@ var shelveUtils = {
         // if (log_level >= 3) {
             var sval;
             try {
+                sval = uneval(value);
+                // shelveUtils.log('DEBUG: shelveUtils debug uneval(value)='+ sval);
                 // sval = uneval(value);
-                sval = value.toSource();
-                shelveUtils.log('DEBUG: shelveUtils debug value.toSource()='+ sval);
             } catch(e) {
                 try {
-                    sval = uneval(value);
-                    shelveUtils.log('DEBUG: shelveUtils debug uneval(value)='+ sval);
+                    sval = value.toSource();
+                    // shelveUtils.log('DEBUG: shelveUtils debug value.toSource()='+ sval);
                 } catch(e) {
                     try {
                         sval = "" + value;
@@ -321,6 +427,49 @@ var shelveUtils = {
             shelveUtils.log('Error when writing text file:'+  ex +"; file="+ file +"; text="+ text);
         }
         return false;
+    },
+
+    readText: function(filename) {
+        if (filename.match(/^chrome:/)) {
+            // http://forums.mozillazine.org/viewtopic.php?p=921150#921150
+            var ioService = Components.classes["@mozilla.org/network/io-service;1"]
+            .getService(Components.interfaces.nsIIOService);
+            var scriptableStream = Components.classes["@mozilla.org/scriptableinputstream;1"]
+            .getService(Components.interfaces.nsIScriptableInputStream);
+            var channel = ioService.newChannel(filename, null, null);
+            var input = channel.open();
+            scriptableStream.init(input);
+            var str = scriptableStream.read(input.available());
+            scriptableStream.close();
+            input.close();
+            return str;
+        } else {
+            var file = shelveUtils.localFile(filename);
+            if (file.exists()) {
+                var data = "";
+                var fstream = Components.classes["@mozilla.org/network/file-input-stream;1"].
+                createInstance(Components.interfaces.nsIFileInputStream);
+                var cstream = Components.classes["@mozilla.org/intl/converter-input-stream;1"].
+                createInstance(Components.interfaces.nsIConverterInputStream);
+                fstream.init(file, -1, 0, 0);
+                cstream.init(fstream, "UTF-8", 0, 0); // you can use another encoding here if you wish
+                var str = {};
+                cstream.readString(-1, str); // read the whole file and put it in str.value
+                data = str.value;
+                cstream.close(); // this closes fstream
+                return data;
+            } else {
+                return "";
+            }
+        }        
+    },
+
+    convertToUnicode: function(acstring) {
+        var converter = Components.classes["@mozilla.org/intl/scriptableunicodeconverter"]
+        .createInstance(Components.interfaces.nsIScriptableUnicodeConverter);
+        converter.charset = "UTF-8";
+        var text = converter.ConvertToUnicode(acstring);
+        return text;
     },
 
     getProfDir: function() {
@@ -457,13 +606,13 @@ var shelveUtils = {
     },
 
     validPlaceholders: function(klass) {
-        var chars = "cCDeEfFhHBhiIklmMpPqstyY%";
-        var names = "clip|clip!|input|subdir|host|hostbasename|query|fullpath|path|filename|basename|ext|title|keywords|fullyear|year|month|day|hours|minutes|secs|msecs";
+        var chars = "cCDeEfFhHBhiIklmMpPqstyY%/";
+        var names = "clip|clip!|input|subdir|host|hostbasename|query|fullpath|path|filename|basename|ext|title|keywords|fullyear|year|month|day|hours|minutes|secs|msecs|shelvedir|separator";
         switch(klass) {
             case 'log':
             case 'footer':
             chars += "nouv";
-            names += "|note|outfile|url|shelf|content";
+            names += "|note|outfile|relativeoutfile|url|shelf|content";
             break;
 
             case 'filename':

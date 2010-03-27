@@ -84,6 +84,40 @@ var shelveStore = {
         return shelveStore.setInt(null, 'max', value);
     },
 
+    newIndex: function() {
+        var max = shelveStore.max();
+        var newIdx = null;
+        for (var shelfId = 1; shelfId <= max; shelfId++) {
+            if (!shelveStore.get(shelfId, 'dir', null) && !shelveStore.get(shelfId, 'name', null)) {
+                newIdx = shelfId;
+                break;
+            }
+        }
+        if (!newIdx) {
+            newIdx = max + 1;
+            shelveStore.setMax(newIdx);
+        }
+        return "" + newIdx;
+    },
+
+    copy: function(thisShelfId, thatShelfId) {
+        for (var name in shelveStore.fields) {
+            var cval = shelveStore.get(thisShelfId, name, null);
+            if (cval) {
+                var type = shelveStore.getType(thisShelfId, name);
+                shelveStore.set(thatShelfId, name, type, cval);
+            } else if (shelveStore.get(thatShelfId, name, null)) {
+                shelveStore.clear(thatShelfId, name);
+            }
+        }
+    },
+
+    remove: function(shelfId) {
+        for (var name in shelveStore.fields) {
+            shelveStore.clear(shelfId, name);
+        }
+    },
+
     getDefault: function(field) {
         // TODO: throw an exception if the field/key doesn't exist
         return shelveStore.fields[field];
@@ -192,8 +226,13 @@ var shelveStore = {
 
     get: function(shelfId, pname, defaultValue) {
         var name = shelveStore.prefName(shelfId, pname);
+        if (!shelveStore.data.prefHasUserValue(name) && shelveStore.data.getPrefType(name) != 0) {
+            // shelveUtils.debug("shelveStore.get name=", name);
+            // shelveUtils.debug("shelveStore.get preftype=", shelveStore.data.getPrefType(name));
+            alert("shelveStore.get "+ name +" type="+ shelveStore.data.getPrefType(name));
+        }
         try {
-            if (shelveStore.data.prefHasUserValue(name)) {
+            // if (shelveStore.data.prefHasUserValue(name)) {
                 switch(shelveStore.data.getPrefType(name)) {
 
                     case shelveStore.data.PREF_INVALID:
@@ -207,11 +246,14 @@ var shelveStore = {
 
                     case shelveStore.data.PREF_BOOL:
                     return shelveStore.getBool(shelfId, pname, defaultValue);
+                    
+                    case 0:
+                    return defaultValue;
 
                     default:
                     return shelveStore.getUnichar(shelfId, pname, defaultValue);
                 }
-            }
+            // }
         } catch(e) {
             shelveUtils.log('get("' + name +'", '+ String(defaultValue) +') :' + e);
         }

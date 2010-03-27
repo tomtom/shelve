@@ -65,7 +65,21 @@
             <tabpanel id="shelf" orient="vertical">
 
                 <vbox flex="1">
-                    <label accesskey="&shelve.shelves.accesskey1;" control="theShelves">&shelve.shelves;</label>
+                    <hbox flex="1">
+                        <label accesskey="&shelve.shelves.accesskey1;" control="theShelves">&shelve.shelves;</label>
+                        <spacer flex="1" />
+                        <hbox>
+                            <toolbarbutton id="shelve.new.shelf" 
+                                           label="&shelve.new.shelf;"
+                                           accesskey="&shelve.new.shelf.accesskey;"
+                                           oncommand="selectShelf.create(); return false;" />
+                            <toolbarbutton id="shelve.clone.shelf" 
+                                           label="&shelve.clone.shelf;"
+                                           accesskey="&shelve.clone.shelf.accesskey;"
+                                           oncommand="selectShelf.clone(); return false;" />
+                        </hbox>
+                    </hbox>
+
                     <listbox id="theShelves" width="450"
                              onselect="selectShelf.onSelect(false, true)"
                              ondblclick="selectShelf.onDblClick()"

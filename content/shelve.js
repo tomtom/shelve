@@ -963,16 +963,27 @@ var shelve = {
                 var template = shelve.log_param(shelf, 'template');
                 if (template && template.match(/\S/)) {
                     // shelveUtils.debug("log template=", template);
+                    var log_file = shelveUtils.localFile(log);
                     var et_params = shelve.expandTemplateParams(sp_params, template);
+                    et_params.log_file = log_file;
                     var log_entry = shelve.expandTemplate(et_params);
                     if (log_entry.match(/\S/)) {
 
                         // shelveUtils.debug("log log_entry=", log_entry);
                         log_entry = shelveUtils.osString(log_entry);
 
+                        if (!log_file.exists()) {
+                            var log_template = shelve.getUnicharPref(shelve.getPrefs('log.file.'), 'template');
+                            if (shelveUtils.isSomeFilename(log_template)) {
+                                var log_head = shelveUtils.readText(log_template);
+                                log_head = shelveUtils.osString(log_head);
+                                log_entry = log_head + log_entry;
+                            }
+                        }
+
                         var log_enc = shelve.getUnicharPref(shelve.getPrefs('log.'), 'encoding');
                         // shelveUtils.debug("log: log_enc=", log_enc);
-                        shelveUtils.writeTextFile(shelveUtils.localFile(log), log_entry, log_enc);
+                        shelveUtils.writeTextFile(log_file, log_entry, log_enc);
                     }
                 }
             }
@@ -1233,15 +1244,17 @@ var shelve = {
         'y': 'year',
         'n': 'note',
         'o': 'outfile',
-        // 'O': 'relativeoutfile',
+        'O': 'relativeoutfile',
         'u': 'url',
-        'v': 'shelf'
+        'v': 'shelf',
+        '/': 'separator'
     },
 
     expandVar: function(out, fail_state, ch, et_params, width) {
         var name = shelve.expandVarNames[ch] || ch;
         // shelveUtils.debug('shelve expandVar1: [ch, name, width]=', [ch, name, width]);
         var val = null;
+        var rawmode = (et_params.mode == 'log');
         switch(name) {
 
             case '[':
@@ -1362,6 +1375,17 @@ var shelve = {
             val = shelve.lpadString(yr.slice(yr.length - 2), "00");
             break;
 
+            case 'shelvedir':
+            val = shelveUtils.getShelveDir().path;
+            rawmode = true;
+            // shelveUtils.debug("shelve.expandVar val=", val);
+            break;
+
+            case 'separator':
+            val = shelveUtils.filenameSeparator();
+            rawmode = true;
+            break;
+
 
             // log mode
             case 'note':
@@ -1375,8 +1399,21 @@ var shelve = {
             }
             break;
 
+            case 'relativeoutfile':
+            if (et_params.log_file) {
+                var outfilename = et_params.mode == 'log' ? et_params.output : null;
+                if (shelveUtils.isSomeFilename(outfilename)) {
+                    var outfile = shelveUtils.localFile(outfilename);
+                    var relfile = outfile.getRelativeDescriptor(et_params.log_file.parent);
+                    val = shelveUtils.convertToUnicode(relfile);
+                    alert(val);
+                }
+            }
+            break;
+
             case 'url':
             val = et_params.mode == 'log' ? shelve.getDocumentURL(et_params) : null;
+            alert(val);
             break;
             
             case 'content':
@@ -1411,13 +1448,14 @@ var shelve = {
         if (val) {
             // shelveUtils.debug('shelve expandVar2: [val, length]=', [val, val.length]);
             val = shelveDb.rewrite(name, shelve.getDocumentURL(et_params), val);
-            if (et_params.mode != 'log') {
+            if (!rawmode) {
                 val = shelve.cleanValue(val);
             }
             if (typeof(width) == 'number' && val.length > width) {
                 val = val.substr(0, width);
             }
         }
+        // shelveUtils.debug("shelve.expandVar return val=", val);
 
         return [fail_state, val];
     },

@@ -55,6 +55,8 @@
 <!ENTITY shelve.edit.accesskey "E">
 <!ENTITY shelve.remove "Remove">
 <!ENTITY shelve.remove.accesskey "R">
+<!ENTITY log.file.template "Log file template for new log files">
+<!ENTITY log.file.template.accesskey "N">
 <!ENTITY log.file "Log file (append log entries to this file)">
 <!ENTITY log.file.accesskey "G">
 <!ENTITY log.template "Template for log entries">

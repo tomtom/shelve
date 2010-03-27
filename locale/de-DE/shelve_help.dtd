@@ -38,8 +38,11 @@
 <!ENTITY shelve.p.only.available.in.log.templates "Nur für spezielle Schablonen (z.B. Log) verfügbar:">
 <!ENTITY shelve.td.note "Notiz">
 <!ENTITY shelve.td.output.file "Ausgabedatei">
+<!ENTITY shelve.td.relative.output.file "Name der Ausgabedatei relativ zur Log-Datei">
 <!ENTITY shelve.td.url "URL">
 <!ENTITY shelve.td.shelf.name "Fachname">
+<!ENTITY shelve.td.separator "Dateinamentrennzeichen">
+<!ENTITY shelve.td.shelvedir "'shelve' Unterverzeichnis im Profilordner">
 <!ENTITY shelve.p.the.shelf.name.is.optional "Der Fachname ist optional. Wird er nicht angegeben, wird die Fachnummer verwendet.">
 <!ENTITY shelve.p.if.the.regular.expression "Falls der reguläre Ausdruck den aktuellen URL entspricht, wird das Dokument ohne weitere Nachfrage im entsprechenden Fach abgespeichert.">
 <!ENTITY shelve.h2.examples "Beispiele">

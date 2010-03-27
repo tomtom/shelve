@@ -62,33 +62,27 @@ var selectShelf = {
         selectShelf.dlgSetMime(selectShelf.mime);
         var autoPilot = window.arguments[0].inn.autoPilot;
         // shelveUtils.debug("selectShelf.onLoad: autoPilot=", autoPilot);
-        var selectThisShelf = -1;
+        var selectedIndex = 0;
         var list = window.arguments[0].inn.list;
         var shelfNos = window.arguments[0].inn.shelfNos;
         var listbox = document.getElementById("theShelves");
         // shelveUtils.debug("shelveUtils.onLoad: suppressonselect=", listbox.suppressonselect);
         // shelveUtils.debug("shelveUtils.onLoad: seltype=", listbox.seltype);
         for (var i = 0; i < list.length; i++) {
-            listbox.appendItem(list[i], i);
+            listbox.appendItem(list[i], shelfNos[i]);
             // shelveUtils.debug("selectShelf.onLoad: shelfNos["+ i +"]=", shelfNos[i]);
             if (autoPilot && shelfNos[i] === autoPilot) {
-                selectThisShelf = i;
+                selectedIndex = i;
             }
         }
-        // listbox.selectItem(listbox.getItemAtIndex(0));
-        // selectShelf.selectThisShelf(0, false, true);
-        // shelveUtils.debug("shelveUtils.onLoad: selectThisShelf=", selectThisShelf);
-        // if (selectThisShelf >= 0) {
-        //     listbox.selectItem(listbox.getItemAtIndex(selectThisShelf));
-        //     // var e = document.createEvent("Event");
-        //     // e.initEvent("change", true, false);
-        //     // listbox.dispatchEvent(e);
-        // shelveUtils.debug("shelveUtils.onLoad: selectedIndex=", listbox.selectedIndex);
-        // }
+        // shelveUtils.selectListboxItem(listbox, selectedIndex);
         if (autoPilot) {
             selectShelf.selectThisShelf(autoPilot, false, true);
-            document.getElementById("auto").checked = true;
+            // document.getElementById("auto").checked = true;
+        } else if (shelfNos.length > 0) {
+            selectShelf.selectThisShelf(""+ shelfNos[0], false, true);
         }
+        // shelveUtils.selectListboxItem(listbox, selectedIndex);
         selectShelf.finalized = false;
     },
 
@@ -100,7 +94,12 @@ var selectShelf = {
     onOK: function() {
         // shelveUtils.debug("onOK1 filename=", filename);
         // shelveUtils.debug("onOK1 ext=", selectShelf.getExtension());
-        if (selectShelf.finalized || selectShelf.onSelect(true, false)) {
+        var listbox = document.getElementById("theShelves");
+        var shelfIndex = listbox.selectedIndex;
+        if (shelfIndex < 0) {
+            alert(shelveUtils.localized("select.shelf"));
+            return false;
+        } else if (selectShelf.finalized || selectShelf.onSelect(true, false)) {
             var filename = document.getElementById("filename").value;
             // shelveUtils.debug("onOK2 filename=", filename);
             // shelveUtils.debug("onOK2 ext=", selectShelf.getExtension());
@@ -108,7 +107,7 @@ var selectShelf = {
                 doc: window.arguments[0].inn.doc,
                 filename: filename,
                 mime: selectShelf.getMime(),
-                shelf: selectShelf.getShelfIndex(),
+                shelf: selectShelf.getShelfId(),
                 template: selectShelf.getTemplate(),
                 extension: selectShelf.getExtension(),
                 title: document.getElementById("title").value,
@@ -126,8 +125,8 @@ var selectShelf = {
         window.arguments[0].sp_params = null;
     },
 
-    selectThisShelf: function(shelf, interactive, setmime) {
-        // shelveUtils.debug("selectThisShelf shelf=", shelf);
+    selectThisShelf: function(shelfId, interactive, setmime) {
+        // shelveUtils.debug("selectShelf.selectThisShelf shelfId=", shelfId);
         // shelveUtils.debug("selectThisShelf interactive=", interactive);
         // shelveUtils.debug("selectThisShelf setmime=", setmime);
         try {
@@ -135,33 +134,37 @@ var selectShelf = {
             var mime;
             // shelveUtils.debug("selectThisShelf mime0=", selectShelf.mime0);
             // if (setmime && (selectShelf.mime0 === null || selectShelf.mime0 === 'default')) {
-            if (!selectShelf.mime_fix) {
-                mime = shelveStore.get(shelf, 'mime', selectShelf.mime);
-                // shelveUtils.debug("selectThisShelf mime=", mime);
-                selectShelf.dlgSetMime(mime);
-            }
-            // shelveUtils.debug("selectShelf selectThisShelf: auto=", selectShelf.auto);
-            if (selectShelf.auto === null) {
-                // shelveUtils.debug("selectShelf selectThisShelf: shelf.auto=", shelveStore.get(shelf, 'auto', false));
-                document.getElementById("auto").checked = shelveStore.get(shelf, 'auto', false);
-            }
-            var template = selectShelf.getTemplate(shelf);
-            // shelveUtils.debug("selectThisShelf template=", template);
-            if (template) {
-                var et_params = {
-                    doc: window.arguments[0].inn.doc,
-                    template: template,
-                    interactive: interactive,
-                    title: document.getElementById("title").value,
-                    clip: document.getElementById("clip").value,
-                    mime: selectShelf.getMime(),
-                    extension: selectShelf.getExtension(),
-                    parentWindow: window
-                };
-                var filename = window.arguments[0].inn.shelve.expandTemplate(et_params);
-                // shelveUtils.debug("selectThisShelf filename=", filename);
-                document.getElementById("filename").value = filename;
-            }
+                if (!selectShelf.mime_fix) {
+                    mime = shelveStore.get(shelfId, 'mime', selectShelf.mime);
+                    // shelveUtils.debug("selectThisShelf mime=", mime);
+                    selectShelf.dlgSetMime(mime);
+                }
+                // shelveUtils.debug("selectShelf selectThisShelf: auto=", selectShelf.auto);
+                if (selectShelf.auto === null) {
+                    // shelveUtils.debug("selectShelf selectThisShelf: shelf.auto=", shelveStore.get(shelfId, 'auto', false));
+                    document.getElementById("auto").checked = shelveStore.get(shelfId, 'auto', false);
+                }
+                var template = selectShelf.getTemplate(shelfId);
+                // shelveUtils.debug("selectThisShelf template=", template);
+                if (template) {
+                    var et_params = {
+                        doc: window.arguments[0].inn.doc,
+                        template: template,
+                        interactive: interactive,
+                        title: document.getElementById("title").value,
+                        clip: document.getElementById("clip").value,
+                        mime: selectShelf.getMime(),
+                        extension: selectShelf.getExtension(),
+                        parentWindow: window
+                    };
+                    var filename = window.arguments[0].inn.shelve.expandTemplate(et_params);
+                    // shelveUtils.debug("selectThisShelf filename=", filename);
+                    document.getElementById("filename").value = filename;
+                }
+                // if (!interactive) {
+                //     var listbox = document.getElementById("theShelves");
+                //     shelveUtils.selectListboxItem(listbox, shelveUtils.getShelfListindex(listbox, shelfId));
+                // }
             return true;
         } catch(e) {
             // alert(e);
@@ -171,7 +174,7 @@ var selectShelf = {
     },
 
     onSelect: function(interactive, setmime) {
-        return selectShelf.selectThisShelf(selectShelf.getShelfIndex(), interactive, setmime);
+        return selectShelf.selectThisShelf(selectShelf.getShelfId(), interactive, setmime);
     },
 
     onSelectAuto: function() {
@@ -191,40 +194,58 @@ var selectShelf = {
         selectShelf.onSelect(false, false);
     },
 
-    getShelfIndex: function() {
+    create: function() {
         var listbox = document.getElementById("theShelves");
-        var shelfNo = listbox.selectedIndex;
-        // shelveUtils.debug("selectShelf getShelfIndex shelfNo Index=", shelfNo);
-        if (shelfNo >= 0) {
-            // shelveUtils.debug("selectShelf getShelfIndex shelf=", window.arguments[0].inn.shelfNos[shelfNo]);
-            return window.arguments[0].inn.shelfNos[shelfNo];
+        shelveUtils.createNewShelf(listbox);
+    },
+    
+    clone: function() {
+        var listbox = document.getElementById("theShelves");
+        shelveUtils.cloneSelected(listbox);
+    },
+
+
+    getShelfId: function() {
+        var listbox = document.getElementById("theShelves");
+        var shelfIndex = listbox.selectedIndex;
+        // shelveUtils.debug("selectShelf getShelfId shelfIndex Index=", shelfIndex);
+        if (shelfIndex >= 0) {
+            // var rv1 = window.arguments[0].inn.shelfNos[shelfIndex];
+            // shelveUtils.debug("selectShelf getShelfId rv1=", rv1);
+            var rv2 = listbox.selectedItem.value;
+            // shelveUtils.debug("selectShelf getShelfId rv2=", rv2);
+            return rv2;
         } else {
             return null;
         }
     },
 
-    getShelfIndexForShelfNumber: function(shelf) {
+    getListIndexForShelfNumber: function(shelfId) {
+        // shelveUtils.debug("getListIndexForShelfNumber shelfId=", shelfId);
         var shelfNos = window.arguments[0].inn.shelfNos;
+        // shelveUtils.debug("getListIndexForShelfNumber shelfNos=", shelfNos);
         for (var e in shelfNos) {
-            if (shelfNos[e] === shelf) {
+            if (shelfNos[e] === shelfId) {
+                e = parseInt(e);
+                // shelveUtils.debug("getListIndexForShelfNumber e=", e);
                 return e;
             }
         }
         return 0;
     },
 
-    getTemplate: function(shelf) {
-        // shelveUtils.debug("selectShelf: getTemplate: shelf=", shelf);
-        var shelfNo = 0;
-        if (shelf >= 0) {
-            shelfNo = selectShelf.getShelfIndexForShelfNumber(shelf);
-        } else {
+    getTemplate: function(shelfId) {
+        // shelveUtils.debug("selectShelf: getTemplate: shelfId=", shelfId);
+        var shelfIndex = 0;
+        if (shelfId) {
             var listbox = document.getElementById("theShelves");
-            shelfNo = listbox.selectedIndex;
+            shelfIndex = listbox.selectedIndex;
+        } else {
+            shelfIndex = selectShelf.getListIndexForShelfNumber(shelfId);
         }
-        // shelveUtils.debug("selectShelf: getTemplate: shelfNo=", shelfNo);
-        if (shelfNo >= 0) {
-            return window.arguments[0].inn.shelves[shelfNo];
+        // shelveUtils.debug("selectShelf: getTemplate: shelfIndex=", shelfIndex);
+        if (shelfIndex >= 0) {
+            return window.arguments[0].inn.shelves[shelfIndex];
         } else {
             return null;
         }

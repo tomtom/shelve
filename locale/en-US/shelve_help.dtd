@@ -38,8 +38,11 @@
 <!ENTITY shelve.p.only.available.in.log.templates "Only available in log templates:">
 <!ENTITY shelve.td.note "Note">
 <!ENTITY shelve.td.output.file "Output file">
+<!ENTITY shelve.td.relative.output.file "Output filename relative to the log file">
 <!ENTITY shelve.td.url "URL">
 <!ENTITY shelve.td.shelf.name "Shelf name">
+<!ENTITY shelve.td.separator "Filename separator">
+<!ENTITY shelve.td.shelvedir "'shelve' sub-directory located in the user profile directory">
 <!ENTITY shelve.p.the.shelf.name.is.optional "The shelf name is optional. If none is provided, the number will be used as name.">
 <!ENTITY shelve.p.if.the.regular.expression "If the regular expression matches the current URL, the template will be applied instantaneously.">
 <!ENTITY shelve.h2.examples "Examples">

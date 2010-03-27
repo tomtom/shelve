@@ -55,7 +55,9 @@
 <!ENTITY shelve.edit.accesskey "B">
 <!ENTITY shelve.remove "Entfernen">
 <!ENTITY shelve.remove.accesskey "R">
-<!ENTITY log.file "Log Datei (Logeinträge an diese Datei anhängen)">
+<!ENTITY log.file.template "Vorlage für neue Log-Dateien">
+<!ENTITY log.file.template.accesskey "N">
+<!ENTITY log.file "Log-Datei (Logeinträge an diese Datei anhängen)">
 <!ENTITY log.file.accesskey "L">
 <!ENTITY log.template "Schablone für Logeinträge">
 <!ENTITY log.template.accesskey "S">

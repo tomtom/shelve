@@ -43,39 +43,16 @@
 var shelveOptions = {
     
     onLoad: function() {
-        shelveOptions.fillListbox(0);
+        shelveOptions.fillListbox("1");
         shelveUtils.checkMafMimeItems(document);
         // var view = document.getElementById("bookmarksTree");
         // view.init(null);
         // view.appendController(PlacesController);
     },
 
-    emptyListbox: function() {
+    fillListbox: function(shelfId) {
         var listbox = document.getElementById("theShelves");
-        listbox.clearSelection();
-        while (listbox.getRowCount() > 0) {
-            listbox.removeItemAt(0);
-        }
-    },
-
-    fillListbox: function(selectedIndex) {
-        shelveOptions.emptyListbox();
-        var max = shelveStore.max();
-        var listbox = document.getElementById("theShelves");
-        for (var shelfId = 1; shelfId <= max; shelfId++) {
-            var template = shelveStore.get(shelfId, 'dir', null);
-            if (template && template.match(/\S/)) {
-                listbox.appendItem(shelveStore.getDescription(shelfId), shelfId);
-            }
-        }
-        if (selectedIndex >= listbox.getRowCount()) {
-            selectedIndex = listbox.getRowCount() - 1;
-        }
-        if (selectedIndex >= 0) {
-            var listitem = listbox.getItemAtIndex(selectedIndex);
-            listbox.ensureElementIsVisible(listitem);
-            listbox.selectedIndex = selectedIndex;
-        }
+        shelveUtils.fillListbox(listbox, shelfId);
         shelveOptions.fillAutoShelves();
     },
 
@@ -96,56 +73,17 @@ var shelveOptions = {
     },
 
     create: function() {
-        var newIndex = shelveOptions.newIndex();
-        var ed_params = {
-            inn: {
-                item: newIndex
-            },
-            out: null
-        };
-        window.openDialog("chrome://shelve/content/editShelf.xul",
-        "", "chrome, dialog, modal, resizable=yes", ed_params).focus();
-        if (ed_params.out && ed_params.out.ok) {
-            shelveOptions.fillListbox(newIndex);
+        var listbox = document.getElementById("theShelves");
+        if (shelveUtils.createNewShelf(listbox)) {
+            shelveOptions.fillAutoShelves();
         }
     },
 
     clone: function() {
         var listbox = document.getElementById("theShelves");
-        var selected = listbox.selectedItem;
-        if (selected) {
-            var selectedIndex = listbox.selectedIndex;
-            var thisShelfId = selected.value;
-            var thatShelfId = shelveOptions.newIndex();
-            shelveOptions.copy(thisShelfId, thatShelfId);
-            var name = shelveStore.get(thatShelfId, 'name', thisShelfId) + ' copy';
-            shelveStore.setUnichar(thatShelfId, 'name', name);
-            var ed_params = {
-                inn: {
-                    item: thatShelfId
-                },
-                out: null
-            };
-            window.openDialog("chrome://shelve/content/editShelf.xul",
-            "", "chrome, dialog, modal, resizable=yes", ed_params).focus();
-            shelveOptions.fillListbox(thatShelfId - 1);
+        if (shelveUtils.cloneSelected(listbox)) {
+            shelveOptions.fillAutoShelves();
         }
-    },
-
-    newIndex: function() {
-        var max = shelveStore.max();
-        var newIdx = null;
-        for (var shelfId = 1; shelfId <= max; shelfId++) {
-            if (!shelveStore.get(shelfId, 'dir', null) && !shelveStore.get(shelfId, 'name', null)) {
-                newIdx = shelfId;
-                break;
-            }
-        }
-        if (!newIdx) {
-            newIdx = max + 1;
-            shelveStore.setMax(newIdx);
-        }
-        return newIdx;
     },
 
     edit: function() {
@@ -161,7 +99,8 @@ var shelveOptions = {
             };
             window.openDialog("chrome://shelve/content/editShelf.xul",
             "", "chrome, dialog, modal, resizable=yes", ed_params).focus();
-            shelveOptions.fillListbox(selectedIndex);
+            listbox.focus();
+            shelveOptions.fillListbox(selected.value);
         }
     },
 
@@ -171,11 +110,10 @@ var shelveOptions = {
         var selectedIndex = listbox.selectedIndex;
         if (selected) {
             var shelfId = selected.value;
-            shelveStore.clear(shelfId, 'dir');
-            shelveStore.clear(shelfId, 'name');
-            shelveStore.clear(shelfId, 'rx');
+            shelveStore.remove(shelfId);
         }
-        shelveOptions.fillListbox(selectedIndex);
+        shelveOptions.fillListbox(selected.value);
+        listbox.focus();
     },
 
     moveUp: function() {
@@ -185,8 +123,9 @@ var shelveOptions = {
             var pred = listbox.getPreviousItem(item, 1);
             if (pred) {
                 shelveOptions.swap(item, pred);
-                var thatShelfId = listbox.getIndexOfItem(pred);
-                shelveOptions.fillListbox(thatShelfId);
+                // var thatShelfId = listbox.getIndexOfItem(pred);
+                shelveOptions.fillListbox(pred.value);
+                listbox.focus();
             }
         }
     },
@@ -198,8 +137,9 @@ var shelveOptions = {
             var succ = listbox.getNextItem(item, 1);
             if (succ) {
                 shelveOptions.swap(item, succ);
-                var thatShelfId = listbox.getIndexOfItem(succ);
-                shelveOptions.fillListbox(thatShelfId);
+                // var thatShelfId = listbox.getIndexOfItem(succ);
+                shelveOptions.fillListbox(succ.value);
+                listbox.focus();
             }
         }
     },
@@ -220,18 +160,6 @@ var shelveOptions = {
                 shelveStore.set(thisShelfId, name, type, oval);
             } else {
                 shelveStore.clear(thisShelfId, name);
-            }
-        }
-    },
-
-    copy: function(thisShelfId, thatShelfId) {
-        for (var name in shelveStore.fields) {
-            var cval = shelveStore.get(thisShelfId, name, null);
-            if (cval) {
-                var type = shelveStore.getType(thisShelfId, name);
-                shelveStore.set(thatShelfId, name, type, cval);
-            } else if (shelveStore.get(thatShelfId, name, null)) {
-                shelveStore.clear(thatShelfId, name);
             }
         }
     },

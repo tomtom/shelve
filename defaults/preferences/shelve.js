@@ -1,4 +1,4 @@
-pref("extensions.shelve.max", 0);
+pref("extensions.shelve.max", 1);
 pref("extensions.shelve.log_level", 1);
 pref("extensions.shelve.assertions", false);
 // pref("extensions.shelve.hotkey.keycode", 'F9');
@@ -14,3 +14,8 @@ pref("extensions.shelve.use_download_manager.binary", false);
 pref("extensions.shelve.use_download_manager.document", false);
 // See http://kb.mozillazine.org/Localize_extension_descriptions
 pref("extensions.shelve@thomas.link.description", "chrome://shelve/locale/shelve.properties");
+pref("extensions.shelve.log.file.template", "chrome://shelve/content/log.html");
+pref("extensions.shelve.name1", "Default Shelf");
+pref("extensions.shelve.dir1", "%{shelvedir}%/%B%/%Y%/%[ctF]%e");
+pref("extensions.shelve.log_file1", "%{shelvedir}%/shelveLog.html");
+pref("extensions.shelve.log_template1", "<tr>\n    <td class=\"date\" nowrap=\"nowrap\">%Y-%M-%D %h:%m</td>\n    <td class=\"description\">\n        <div class=\"title\">%[tcf]</div>\n        <div class=\"sup\">Keywords: %{keywords?}</pre>\n        <pre width=\"80\" class=\"sup\">%{clip?}</pre>\n        <pre width=\"80\" class=\"sup\">%{note?}</pre>\n    </td>\n    <td class=\"links\">\n        <a class=\"url\" href=\"%{url?}\">url</a>\n        <a class=\"local\" href=\"./%{outfile?}\">local</a>\n    </td>\n</tr>\n\n");

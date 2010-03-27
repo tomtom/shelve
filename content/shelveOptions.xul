@@ -63,6 +63,7 @@
             <preference id="notify_user" name="extensions.shelve.auto.notify_user" type="bool"/>
             <preference id="auto_stop_rx" name="extensions.shelve.auto.stop_rx" type="unichar"/>
             <preference id="autoshelf" name="extensions.shelve.auto.shelf" type="unichar"/>
+            <preference id="log_file_template" name="extensions.shelve.log.file.template" type="unichar"/>
             <preference id="log_file" name="extensions.shelve.log.file" type="unichar"/>
             <preference id="log_template" name="extensions.shelve.log.template" type="unichar"/>
             <preference id="footer_text" name="extensions.shelve.footer.text" type="unichar"/>
@@ -124,6 +125,18 @@
                 </tabpanel>
 
                 <tabpanel id="log" orient="vertical">
+                    <hbox>
+                        <label control="text_log_file_template">&log.file.template;:</label>
+                        <spacer flex="1" />
+                        <toolbarbutton id="browse" 
+                                       image="chrome://browser/skin/places/query.png"
+                                       oncommand="shelveUtils.pick('text_log_file_template', 'save'); return false;"/>
+                    </hbox>
+                    <hbox>
+                        <textbox id="text_log_file_template"
+                                 flex="1" 
+                                 preference="log_file_template"/>
+                    </hbox>
                     <hbox>
                         <label control="text_log_file">&log.file;:</label>
                         <spacer flex="1" />
