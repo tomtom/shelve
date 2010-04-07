@@ -226,6 +226,7 @@ var shelveStore = {
 
     get: function(shelfId, pname, defaultValue) {
         var name = shelveStore.prefName(shelfId, pname);
+        // TODO: Comment out before release
         if (!shelveStore.data.prefHasUserValue(name) && shelveStore.data.getPrefType(name) !== 0) {
             // shelveUtils.debug("shelveStore.get name=", name);
             // shelveUtils.debug("shelveStore.get preftype=", shelveStore.data.getPrefType(name));

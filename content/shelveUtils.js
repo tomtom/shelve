@@ -340,9 +340,12 @@ var shelveUtils = {
         }
     },
 
-    debug: function(text, value) {
-        // var log_level = shelveStore.getBool(null, 'log_level', 1);
-        // if (log_level >= 3) {
+    shouldDebug: function(log_level) {
+        return log_level == null ? shelveStore.getBool(null, 'debug', false) : shelveUtils.shouldLog(log_level);
+    },
+
+    debug: function(text, value, log_level) {
+        if (shelveUtils.shouldDebug()) {
             var sval;
             try {
                 sval = uneval(value);
@@ -363,13 +366,19 @@ var shelveUtils = {
             }
             sval += " (" + (typeof value) + ")";
             shelveUtils.log("DEBUG: "+ text + sval);
-            // }
-        },
+        }
+    },
 
-    log: function(text) {
-        var aConsoleService = Components.classes["@mozilla.org/consoleservice;1"].
-        getService(Components.interfaces.nsIConsoleService);
-        aConsoleService.logStringMessage('Shelve: ' + text);
+    shouldLog: function(level) {
+        return typeof(level) !== "number" || level <= shelveStore.getBool(null, 'log_level', 2);
+    },
+
+    log: function(text, log_level) {
+        if (shelveUtils.shouldLog(log_level)) {
+            var aConsoleService = Components.classes["@mozilla.org/consoleservice;1"].
+            getService(Components.interfaces.nsIConsoleService);
+            aConsoleService.logStringMessage('Shelve: ' + text);
+        }
     },
 
     localFile: function(path) {

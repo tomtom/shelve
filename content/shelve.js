@@ -942,6 +942,7 @@ var shelve = {
                 // var text = shelveUtils.asISupportsString(shelve.expandTemplate(et_params)).toString();
 
                 // FIXME: Use the document's encoding
+                shelveUtils.log("Appended footer to " + sp_params.filename, 1);
                 shelveUtils.writeTextFile(file, text);
                 // shelveUtils.writeTextFile(file, text, 'UTF-8');
             }
@@ -972,9 +973,12 @@ var shelve = {
                         // shelveUtils.debug("log log_entry=", log_entry);
                         log_entry = shelveUtils.osString(log_entry);
 
+                        // shelveUtils.debug("log log file=", log_file.path);
+                        // shelveUtils.debug("log log file exists=", log_file.exists());
                         if (!log_file.exists()) {
                             var log_template = shelve.getUnicharPref(shelve.getPrefs('log.file.'), 'template');
                             if (shelveUtils.isSomeFilename(log_template)) {
+                                // shelveUtils.debug("log log file template=", log_template);
                                 var log_head = shelveUtils.readText(log_template);
                                 log_head = shelveUtils.osString(log_head);
                                 log_entry = log_head + log_entry;
@@ -983,6 +987,7 @@ var shelve = {
 
                         var log_enc = shelve.getUnicharPref(shelve.getPrefs('log.'), 'encoding');
                         // shelveUtils.debug("log: log_enc=", log_enc);
+                        shelveUtils.log("Wrote log entry to " + log_filename, 2);
                         shelveUtils.writeTextFile(log_file, log_entry, log_enc);
                     }
                 }
