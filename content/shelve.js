@@ -1463,7 +1463,8 @@ var shelve = {
             return value;
         } else {
             // alert("IN: "+ value);
-            value = String(value).replace(/[*|<>?:&\/"]/g, '_');
+            value = String(value).replace(/[*|<>?:&\\\/"]/g, '_');
+            // value = value.replace(/^\\.+/g, '_');
             value = value.replace(/[\r\n\t]+/g, ' ');
             value = value.replace(/^\s+/g, '');
             value = value.replace(/\s+$/g, '');
