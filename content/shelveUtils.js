@@ -153,6 +153,7 @@ var shelveUtils = {
     fillListbox: function(listbox, selectedShelfId) {
         // shelveUtils.debug("shelveUtils.fillListbox selectedShelfId=", selectedShelfId);
         shelveUtils.emptyListbox(listbox);
+        var selectedShelfIdNr = parseInt(selectedShelfId, 10);
         var max = shelveStore.max();
         var shelfIndex = -1;
         var shelfSearch = true;
@@ -161,9 +162,11 @@ var shelveUtils = {
             // shelveUtils.debug("shelveUtils.fillListbox ", shelfId +" "+ template);
             if (template && template.match(/\S/)) {
                 listbox.appendItem(shelveStore.getDescription(shelfId), shelfId);
-                if (shelfSearch && shelfId != parseInt(selectedShelfId, 10)) {
+                if (shelfSearch) {
                     shelfIndex++;
-                    shelfSearch = false;
+                    if (shelfId == selectedShelfIdNr) {
+                        shelfSearch = false;
+                    }
                 }
             }
         }
