@@ -788,6 +788,7 @@ var shelve = {
                 doc: shelve.getDocument(doc_params),
                 clip: shelve.getDocumentClip(doc_params),
                 title: shelve.getDocumentTitle(doc_params),
+                keywords: shelve.getDocumentKeywords(doc_params),
                 mime: shelve.getDocumentMime(doc_params),
                 mime_fix: doc_params.mime_fix || false,
                 content_type: doc_params.content_type,
@@ -1052,6 +1053,7 @@ var shelve = {
             shelve_name: shelveStore.get(sp_params.shelfNo, 'name'),
             template: template,
             title: sp_params.title,
+            keywords: sp_params.keywords,
             shelve_content: sp_params.shelve_content,
             url: shelve.getDocumentURL(sp_params)
         };

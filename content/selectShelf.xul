@@ -147,8 +147,10 @@
             </tabpanel>
 
             <tabpanel id="note" orient="vertical">
-                <textbox id="text_note"  flex="1"
-                         multiline="true" rows="18" />
+                <label accesskey="&shelve.keywords.accesskey;" control="text_keywords">&shelve.keywords;</label>
+                <textbox id="text_keywords" multiline="true" rows="2" />
+                <label accesskey="&shelve.note_text.accesskey;" control="text_note">&shelve.note;</label>
+                <textbox id="text_note"  flex="1" multiline="true" rows="18" />
             </tabpanel>
 
         </tabpanels>

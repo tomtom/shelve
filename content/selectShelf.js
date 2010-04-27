@@ -52,6 +52,7 @@ var selectShelf = {
     onLoad: function() {
         document.getElementById("clip").value = window.arguments[0].inn.clip;
         document.getElementById("title").value = window.arguments[0].inn.title;
+        document.getElementById("text_keywords").value = window.arguments[0].inn.keywords;
         shelveUtils.checkMafMimeItems(document);
         selectShelf.mime0 = window.arguments[0].inn.mime;
         selectShelf.mime_fix = window.arguments[0].inn.mime_fix;
@@ -113,7 +114,8 @@ var selectShelf = {
                 title: document.getElementById("title").value,
                 clip: document.getElementById("clip").value,
                 auto: document.getElementById("auto").checked,
-                note: document.getElementById("text_note").value
+                note: document.getElementById("text_note").value,
+                keywords: document.getElementById("text_keywords").value
             };
             return true;
         } else {
