@@ -1329,10 +1329,12 @@ var shelve = {
             break;
 
             case 'input':
+            // rawmode = true;
             val = et_params.interactive ? shelve.queryUser(et_params, "Input", "") : '%i';
             break;
 
             case 'subdir':
+            rawmode = true;
             val = et_params.interactive ? shelve.queryDirectory(et_params, out) : '%I';
             break;
 
