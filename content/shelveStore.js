@@ -227,11 +227,11 @@ var shelveStore = {
     get: function(shelfId, pname, defaultValue) {
         var name = shelveStore.prefName(shelfId, pname);
         // TODO: Comment out before release
-        if (!shelveStore.data.prefHasUserValue(name) && shelveStore.data.getPrefType(name) !== 0) {
-            // shelveUtils.debug("shelveStore.get name=", name);
-            // shelveUtils.debug("shelveStore.get preftype=", shelveStore.data.getPrefType(name));
-            alert("shelveStore.get "+ name +" type="+ shelveStore.data.getPrefType(name));
-        }
+        // if (!shelveStore.data.prefHasUserValue(name) && shelveStore.data.getPrefType(name) !== 0) {
+        //     // shelveUtils.debug("shelveStore.get name=", name);
+        //     // shelveUtils.debug("shelveStore.get preftype=", shelveStore.data.getPrefType(name));
+        //     alert("shelveStore.get "+ name +" type="+ shelveStore.data.getPrefType(name));
+        // }
         try {
             // if (shelveStore.data.prefHasUserValue(name)) {
                 switch(shelveStore.data.getPrefType(name)) {
