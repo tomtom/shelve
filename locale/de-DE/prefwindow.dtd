@@ -71,6 +71,9 @@
 <!ENTITY shelve.shelf.accesskey "F">
 <!ENTITY shelve.note "Notiz">
 <!ENTITY shelve.note.accesskey "N">
+<!ENTITY shelve.note_text.accesskey "T">
+<!ENTITY shelve.keywords "Schlüsselwörter">
+<!ENTITY shelve.keywords.accesskey "S">
 <!ENTITY shelve.rx "Seiten in diesem Fach abspeichern, wenn die URL dieser RegExp entspricht">
 <!ENTITY shelve.rx.accesskey "R">
 <!ENTITY shelve.automode "Bei der Auswahl dieses Fachs, das automatische Speichern einschalten">

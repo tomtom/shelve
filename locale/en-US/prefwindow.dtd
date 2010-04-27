@@ -71,6 +71,9 @@
 <!ENTITY shelve.shelf.accesskey "S">
 <!ENTITY shelve.note "Note">
 <!ENTITY shelve.note.accesskey "N">
+<!ENTITY shelve.note_text.accesskey "T">
+<!ENTITY shelve.keywords "Keywords">
+<!ENTITY shelve.keywords.accesskey "K">
 <!ENTITY shelve.rx "Save a document to this shelf if the URL matches this RegExp">
 <!ENTITY shelve.rx.accesskey "R">
 <!ENTITY shelve.automode "When selecting this shelf, switch to auto-shelve mode">
