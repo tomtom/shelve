@@ -1497,7 +1497,7 @@ var shelve = {
                 return et_params.note;
                 break;
                 default:
-                return "<pre>"+ shelveUtils.escapeHTML(et_params.note) +"</pre>";
+                return shelveUtils.escapeHTML(et_params.note);
             }
         } else {
             return null;
