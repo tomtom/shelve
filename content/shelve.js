@@ -1524,13 +1524,15 @@ var shelve = {
                 alert(shelveUtils.localized('dir.not') + ': ' + cd);
             } else {
                 try {
-                    var directoryEntries = initDir.directoryEntries;
-                    while (directoryEntries.hasMoreElements()) {
-                        var firstEntry = directoryEntries.getNext();
-                        firstFile = firstEntry.QueryInterface(Components.interfaces.nsILocalFile);
-                        if (firstEntry.isDirectory()) {
-                            initDir = firstFile;
-                            break;
+                    if (shelveUtils.getOS() == "WINNT") {
+                        var directoryEntries = initDir.directoryEntries;
+                        while (directoryEntries.hasMoreElements()) {
+                            var firstEntry = directoryEntries.getNext();
+                            firstFile = firstEntry.QueryInterface(Components.interfaces.nsILocalFile);
+                            if (firstEntry.isDirectory()) {
+                                initDir = firstFile;
+                                break;
+                            }
                         }
                     }
                     fp.displayDirectory = initDir;
