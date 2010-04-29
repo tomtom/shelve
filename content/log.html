@@ -17,7 +17,7 @@ Use with this template:
     </td>
     <td class="links">
         <a class="url" href="%{url?}">url</a>
-        <a class="local" href="./%{outfile?}">local</a>
+        <a class="local" href="%{relativeoutfile?}">local</a>
     </td>
 </tr>
 
@@ -29,6 +29,7 @@ Use with this template:
                 margin: 0;
             }
             table {
+                width: 100%;
                 background-color: black;
                 margin-top: 1em;
             }
