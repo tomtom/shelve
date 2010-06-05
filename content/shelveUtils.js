@@ -341,7 +341,7 @@ var shelveUtils = {
     },
 
     shouldDebug: function(log_level) {
-        return log_level == null ? shelveStore.getBool(null, 'debug', false) : shelveUtils.shouldLog(log_level);
+        return log_level === null ? shelveStore.getBool(null, 'debug', false) : shelveUtils.shouldLog(log_level);
     },
 
     debug: function(text, value, log_level) {
