@@ -241,7 +241,6 @@ var shelveUtils = {
             "", "chrome, dialog, modal, resizable=yes", ed_params).focus();
             listbox.focus();
             if (ed_params.out && ed_params.out.ok) {
-                // FIXME: find list index
                 shelveUtils.fillListbox(listbox, thatShelfId);
                 return true;
             } else {
@@ -386,8 +385,8 @@ var shelveUtils = {
             if (path != '-') {
                 var localFile = Components.classes["@mozilla.org/file/local;1"];
                 var file = localFile.createInstance(Components.interfaces.nsILocalFile);
+                // FIXME: initWithPath if path == ""?
                 if (path !== "") {
-                    // FIXME
                     file.initWithPath(path);
                 }
                 return file;

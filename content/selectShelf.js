@@ -55,8 +55,9 @@ var selectShelf = {
         document.getElementById("text_keywords").value = window.arguments[0].inn.keywords;
         shelveUtils.checkMafMimeItems(document);
         selectShelf.mime0 = window.arguments[0].inn.mime;
-        selectShelf.mime_fix = window.arguments[0].inn.mime_fix;
         // shelveUtils.debug("selectShelf.onLoad mime0=", selectShelf.mime0);
+        selectShelf.mime_fix = window.arguments[0].inn.mime_fix;
+        // shelveUtils.debug("selectShelf.onLoad mime_fix=", selectShelf.mime_fix);
         // selectShelf.mime = selectShelf.mime0 || 'default';
         selectShelf.mime = 'default';
         // shelveUtils.debug("selectShelf.onLoad mime=", selectShelf.mime);
