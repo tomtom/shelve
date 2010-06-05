@@ -192,8 +192,7 @@ var shelve = {
                 if (overwrite === 2) {
                     var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"].
                     getService(Components.interfaces.nsIPromptService);
-                    // TODO: Localization
-                    var result = prompts.confirm(window, "File already exists", "Overwrite file?");
+                    var result = prompts.confirm(window, shelveUtils.localized("file.exists"), shelveUtils.localized("file.overwrite"));
                     // shelveUtils.debug("shelve.shouldWriteFile result=", result);
                     if (result) {
                         overwrite = 1;
