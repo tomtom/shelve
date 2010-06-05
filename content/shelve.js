@@ -1343,7 +1343,7 @@ var shelve = {
             break;
 
             case 'msecs':
-            val = new Date().getMilliseconds();
+            val = shelve.lpadString(new Date().getMilliseconds(), "000");
             break;
 
             case 'minutes':
