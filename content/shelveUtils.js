@@ -267,7 +267,7 @@ var shelveUtils = {
                 // shelveUtils.debug("shelveUtils getExtension ext=", ext);
                 return ext[0];
             } else {
-                if (content_type !== null && content_type.match(/^image/)) {
+                if (content_type && content_type.match(/^image/)) {
                     var img_type = content_type.match(/^image\/(.*)$/);
                     return img_type ? ('.' + img_type[1]) : '.gif';
                 } else {

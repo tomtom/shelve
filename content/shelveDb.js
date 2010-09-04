@@ -5,7 +5,7 @@
  * 1.1 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
  * http://www.mozilla.org/MPL/
- * 
+ *
  * Software distributed under the License is distributed on an "AS IS" basis,
  * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
  * for the specific language governing rights and limitations under the
@@ -31,13 +31,13 @@
  * and other provisions required by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
- * 
+ *
  * ***** END LICENSE BLOCK ***** */
 
-/*jsl:option explicit*/ 
-/*jsl:declare document*/ 
-/*jsl:declare window*/ 
-/*jsl:declare alert*/ 
+/*jsl:option explicit*/
+/*jsl:declare document*/
+/*jsl:declare window*/
+/*jsl:declare alert*/
 /*jsl:import shelve.js*/
 /*jsl:import shelveStore.js*/
 /*jsl:import shelveUtils.js*/
@@ -48,28 +48,29 @@ var shelveDb = {
         // var dbdir = shelveUtils.getShelveDir();
         var dbdir = shelveUtils.getProfDir();
         var db = dbdir.clone();
-        db.append("shelve.sqlite");
+        db.append('shelve.sqlite');
         // shelveUtils.debug("shelveDb getDB: db=", db.path);
         var create = !db.exists();
-        var storageService = Components.classes["@mozilla.org/storage/service;1"].
+        var storageService = Components.
+        classes['@mozilla.org/storage/service;1'].
         getService(Components.interfaces.mozIStorageService);
         var con = storageService.openDatabase(db);
         if (create) {
             con.executeSimpleSQL(
-                'CREATE TABLE IF NOT EXISTS meta ( '+
-                '  var VARCHAR(20) NOT NULL, '+
-                '  value VARCHAR(255) '+
-                ');'+
-                'INSERT INTO meta VALUES("schema", "1");'+
-                'CREATE TABLE IF NOT EXISTS replacements ( '+
-                '  url VARCHAR(255) NOT NULL DEFAULT "%", '+
-                '  klass VARCHAR(20) NOT NULL DEFAULT "title", '+
-                '  rx VARCHAR(255) NOT NULL, '+
-                '  subst VARCHAR(255), '+
-                '  priority INTEGER NOT NULL DEFAULT 50, '+
-                '  stop INTEGER DEFAULT 0'+
+                'CREATE TABLE IF NOT EXISTS meta ( ' +
+                '  var VARCHAR(20) NOT NULL, ' +
+                '  value VARCHAR(255) ' +
+                ');' +
+                'INSERT INTO meta VALUES("schema", "1");' +
+                'CREATE TABLE IF NOT EXISTS replacements ( ' +
+                '  url VARCHAR(255) NOT NULL DEFAULT "%", ' +
+                '  klass VARCHAR(20) NOT NULL DEFAULT "title", ' +
+                '  rx VARCHAR(255) NOT NULL, ' +
+                '  subst VARCHAR(255), ' +
+                '  priority INTEGER NOT NULL DEFAULT 50, ' +
+                '  stop INTEGER DEFAULT 0' +
                 ');');
-            shelveUtils.log("Create shelve.sqlite tables");
+            shelveUtils.log('Create shelve.sqlite tables');
         }
         return con;
     },
@@ -79,16 +80,17 @@ var shelveDb = {
         if (con) {
             try {
                 var statement = con.createStatement(
-                    "SELECT r.rx, coalesce(r.subst, ''), r.stop "+
-                    "FROM replacements r "+
-                    "WHERE ?1 LIKE r.klass ESCAPE '^' AND ?2 LIKE r.url ESCAPE '^' "+
-                    "ORDER BY r.priority ASC;");
+                    'SELECT r.rx, coalesce(r.subst, ""), r.stop ' +
+                    'FROM replacements r ' +
+                    'WHERE ?1 LIKE r.klass ESCAPE '^' AND ' +
+                    '?2 LIKE r.url ESCAPE '^' ' +
+                    'ORDER BY r.priority ASC;');
                 try {
                     statement.bindUTF8StringParameter(0, type);
                     statement.bindUTF8StringParameter(1, url);
                     var values = [];
                     while (statement.executeStep()) {
-                       // shelveUtils.debug('shelveDb selectSubstitutions: ', [statement.getUTF8String(0), statement.getUTF8String(1)].join("; "));
+                        // shelveUtils.debug('shelveDb selectSubstitutions: ', [statement.getUTF8String(0), statement.getUTF8String(1)].join("; "));
                        values.push({
                            rx: statement.getUTF8String(0),
                            subst: statement.getUTF8String(1),
@@ -99,8 +101,8 @@ var shelveDb = {
                 } finally {
                     statement.finalize();
                 }
-            } catch(exception) {
-                shelveUtils.log("Error when running sql query: "+ [exception, con.lastError]);
+            } catch (exception) {
+                shelveUtils.log('Error when running sql query: ' + [exception, con.lastError]);
             } finally {
                 con.close();
             }
