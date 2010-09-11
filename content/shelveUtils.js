@@ -5,7 +5,7 @@
  * 1.1 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
  * http://www.mozilla.org/MPL/
- * 
+ *
  * Software distributed under the License is distributed on an "AS IS" basis,
  * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
  * for the specific language governing rights and limitations under the
@@ -31,13 +31,13 @@
  * and other provisions required by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
- * 
+ *
  * ***** END LICENSE BLOCK ***** */
 
-/*jsl:option explicit*/ 
-/*jsl:declare document*/ 
-/*jsl:declare window*/ 
-/*jsl:declare alert*/ 
+/*jsl:option explicit*/
+/*jsl:declare document*/
+/*jsl:declare window*/
+/*jsl:declare alert*/
 /*jsl:import shelveStore.js*/
 
 
@@ -51,27 +51,27 @@ var shelveUtils = {
         // shelveUtils.debug("shelveUtils pick: cid=", cid);
         // shelveUtils.debug("shelveUtils pick: mode=", mode);
         const nsIFilePicker = Components.interfaces.nsIFilePicker;
-        var fp = Components.classes["@mozilla.org/filepicker;1"].
+        var fp = Components.classes['@mozilla.org/filepicker;1'].
         createInstance(nsIFilePicker);
         // shelveUtils.debug("shelveUtils pick: fp=", fp);
 
         var textbox = document.getElementById(cid);
         // shelveUtils.debug("shelveUtils pick: textbox=", textbox);
         var val = textbox.value;
-        if (val === "") {
-            var prefs = Components.classes["@mozilla.org/preferences-service;1"].
-            getService(Components.interfaces.nsIPrefService).getBranch("");
+        if (val === '') {
+            var prefs = Components.classes['@mozilla.org/preferences-service;1'].
+            getService(Components.interfaces.nsIPrefService).getBranch('');
             try {
-                val = prefs.getCharPref("browser.download.lastDir");
+                val = prefs.getCharPref('browser.download.lastDir');
             } catch (e) {
-                val = "";
+                val = '';
             }
         }
         // shelveUtils.debug("shelveUtils pick: val=", val);
         var init = shelveUtils.localFile(val);
         var fpMode;
 
-        switch(mode) {
+        switch (mode) {
             case 'directory':
             case 'template':
             fpMode = nsIFilePicker.modeGetFolder;
@@ -101,13 +101,13 @@ var shelveUtils = {
 
         fp.appendFilters(nsIFilePicker.filterAll | nsIFilePicker.filterText |
         nsIFilePicker.filterHTML | nsIFilePicker.filterXML);
-        fp.init(window, "Select " + name, fpMode);
+        fp.init(window, 'Select ' + name, fpMode);
         var rv = fp.show();
         // shelveUtils.debug("shelveUtils pick: rv=", rv);
         if (rv == nsIFilePicker.returnOK || rv == nsIFilePicker.returnReplace) {
             // shelveUtils.debug("shelveUtils pick: rv=", fp.file.path);
             textbox.value = fp.file.path;
-            switch(mode) {
+            switch (mode) {
                 case 'template':
                 var tpl = shelveStore.getString(null, 'default_template', '');
                 textbox.value = shelveUtils.filenameJoin([textbox.value, tpl]);
@@ -126,7 +126,7 @@ var shelveUtils = {
     },
 
     mainWindow: function() {
-        var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"].
+        var wm = Components.classes['@mozilla.org/appshell/window-mediator;1'].
         getService(Components.interfaces.nsIWindowMediator);
         var win = wm.getMostRecentWindow('navigator:browser');
         // return win.content;
@@ -134,10 +134,10 @@ var shelveUtils = {
     },
 
     withBrowserWindows: function(fn) {
-        var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"].
+        var wm = Components.classes['@mozilla.org/appshell/window-mediator;1'].
         getService(Components.interfaces.nsIWindowMediator);
         var enumerator = wm.getEnumerator('navigator:browser');
-        while(enumerator.hasMoreElements()) {
+        while (enumerator.hasMoreElements()) {
             var win = enumerator.getNext();
             fn(win);
         }
@@ -207,8 +207,8 @@ var shelveUtils = {
             },
             out: null
         };
-        window.openDialog("chrome://shelve/content/editShelf.xul",
-        "", "chrome, dialog, modal, resizable=yes", ed_params).focus();
+        window.openDialog('chrome://shelve/content/editShelf.xul',
+        '', 'chrome, dialog, modal, resizable=yes', ed_params).focus();
         listbox.focus();
         if (ed_params.out && ed_params.out.ok) {
             shelveUtils.fillListbox(listbox, newIndex);
@@ -237,8 +237,8 @@ var shelveUtils = {
                 },
                 out: null
             };
-            window.openDialog("chrome://shelve/content/editShelf.xul",
-            "", "chrome, dialog, modal, resizable=yes", ed_params).focus();
+            window.openDialog('chrome://shelve/content/editShelf.xul',
+            '', 'chrome, dialog, modal, resizable=yes', ed_params).focus();
             listbox.focus();
             if (ed_params.out && ed_params.out.ok) {
                 shelveUtils.fillListbox(listbox, thatShelfId);
@@ -255,7 +255,7 @@ var shelveUtils = {
         // shelveUtils.debug("shelveUtils getExtension content_type=", content_type);
         // shelveUtils.debug("shelveUtils getExtension mime=", mime);
         // alert("DBG getExtension: "+ content_type +": "+ mime);
-        switch(mime) {
+        switch (mime) {
             case 'binary':
             var ios = Components.classes['@mozilla.org/network/io-service;1'].
             getService(Components.interfaces.nsIIOService);
@@ -296,17 +296,17 @@ var shelveUtils = {
 
     getClipboard: function() {
         // https://developer.mozilla.org/en/Using_the_Clipboard
-        var clip = Components.classes["@mozilla.org/widget/clipboard;1"].
+        var clip = Components.classes['@mozilla.org/widget/clipboard;1'].
         getService(Components.interfaces.nsIClipboard);
         if (clip) {
-            var trans = Components.classes["@mozilla.org/widget/transferable;1"].
+            var trans = Components.classes['@mozilla.org/widget/transferable;1'].
             createInstance(Components.interfaces.nsITransferable);
             if (trans) {
-                trans.addDataFlavor("text/unicode");
+                trans.addDataFlavor('text/unicode');
                 clip.getData(trans, clip.kGlobalClipboard);
-                var str       = new Object();
+                var str = new Object();
                 var strLength = new Object();
-                trans.getTransferData("text/unicode", str, strLength);
+                trans.getTransferData('text/unicode', str, strLength);
                 if (str) {
                     str = str.value.QueryInterface(Components.interfaces.nsISupportsString);
                     if (str) {
@@ -315,7 +315,7 @@ var shelveUtils = {
                 }
             }
         }
-        return "";
+        return '';
     },
 
     // getContentType: function(url) {
@@ -326,14 +326,14 @@ var shelveUtils = {
 
     assert: function(value, expected, text) {
         if (value !== expected) {
-            var t = "";
+            var t = '';
             if (text) {
-                t += text +": ";
+                t += text + ': ';
             }
             try {
-                t += "expected "+ uneval(expected) +" but got "+ uneval(value);
-            } catch(e) {
-                t += "expected "+ expected + " but got "+ value;
+                t += 'expected '+ uneval(expected) + ' but got '+ uneval(value);
+            } catch (e) {
+                t += 'expected '+ expected + ' but got '+ value;
             }
             alert(t);
         }
@@ -350,31 +350,31 @@ var shelveUtils = {
                 sval = uneval(value);
                 // shelveUtils.log('DEBUG: shelveUtils debug uneval(value)='+ sval);
                 // sval = uneval(value);
-            } catch(e) {
+            } catch (e) {
                 try {
                     sval = value.toSource();
                     // shelveUtils.log('DEBUG: shelveUtils debug value.toSource()='+ sval);
-                } catch(e) {
+                } catch (e) {
                     try {
-                        sval = "" + value;
+                        sval = '' + value;
                         // shelveUtils.log('DEBUG: shelveUtils debug value='+ sval);
-                    } catch(e) {
-                        sval = "???";
+                    } catch (e) {
+                        sval = '???';
                     }
                 }
             }
-            sval += " (" + (typeof value) + ")";
-            shelveUtils.log("DEBUG: "+ text + sval);
+            sval += ' (' + (typeof value) + ')';
+            shelveUtils.log('DEBUG: '+ text + sval);
         }
     },
 
     shouldLog: function(level) {
-        return typeof(level) !== "number" || level <= shelveStore.getBool(null, 'log_level', 2);
+        return typeof(level) !== 'number' || level <= shelveStore.getBool(null, 'log_level', 2);
     },
 
     log: function(text, log_level) {
         if (shelveUtils.shouldLog(log_level)) {
-            var aConsoleService = Components.classes["@mozilla.org/consoleservice;1"].
+            var aConsoleService = Components.classes['@mozilla.org/consoleservice;1'].
             getService(Components.interfaces.nsIConsoleService);
             aConsoleService.logStringMessage('Shelve: ' + text);
         }
@@ -383,16 +383,16 @@ var shelveUtils = {
     localFile: function(path) {
         try {
             if (path != '-') {
-                var localFile = Components.classes["@mozilla.org/file/local;1"];
+                var localFile = Components.classes['@mozilla.org/file/local;1'];
                 var file = localFile.createInstance(Components.interfaces.nsILocalFile);
                 // FIXME: initWithPath if path == ""?
-                if (path !== "") {
+                if (path !== '') {
                     file.initWithPath(path);
                 }
                 return file;
             }
             return null;
-        } catch(e) {
+        } catch (e) {
             shelveUtils.log('Malformed path: ' + String(path));
         }
         return null;
@@ -412,20 +412,20 @@ var shelveUtils = {
         var init_flags = init_flags0 === undefined ? 0x02 | 0x10 | 0x08 : init_flags0;
         // shelveUtils.debug('shelveUtils writeTextFile enc=', enc);
         // shelveUtils.debug('shelveUtils writeTextFile init_flags=', init_flags);
-        
+
         try {
-            if(!file.exists()) {
-                file.create(0x00,0644);
+            if (!file.exists()) {
+                file.create(0x00, 0644);
             }
 
-            var fos = Components.classes["@mozilla.org/network/file-output-stream;1"].
+            var fos = Components.classes['@mozilla.org/network/file-output-stream;1'].
             createInstance(Components.interfaces.nsIFileOutputStream);
-            fos.init(file, init_flags, -1, 0); 
+            fos.init(file, init_flags, -1, 0);
 
             if (enc) {
-                var os = Components.classes["@mozilla.org/intl/converter-output-stream;1"].
+                var os = Components.classes['@mozilla.org/intl/converter-output-stream;1'].
                 createInstance(Components.interfaces.nsIConverterOutputStream);
-                os.init(fos, enc, 0, "_".charCodeAt(0));
+                os.init(fos, enc, 0, '_'.charCodeAt(0));
                 os.writeString(text);
                 os.close();
             } else {
@@ -435,7 +435,7 @@ var shelveUtils = {
             // shelveUtils.debug('shelveUtils writeTextFile ok=', true);
             return true;
         } catch (ex) {
-            shelveUtils.log('Error when writing text file:'+  ex +"; file="+ file +"; text="+ text);
+            shelveUtils.log('Error when writing text file:' + ex + '; file='+ file + '; text='+ text);
         }
         return false;
     },
@@ -443,9 +443,9 @@ var shelveUtils = {
     readText: function(filename) {
         if (filename.match(/^chrome:/)) {
             // http://forums.mozillazine.org/viewtopic.php?p=921150#921150
-            var ioService = Components.classes["@mozilla.org/network/io-service;1"].
+            var ioService = Components.classes['@mozilla.org/network/io-service;1'].
             getService(Components.interfaces.nsIIOService);
-            var scriptableStream = Components.classes["@mozilla.org/scriptableinputstream;1"].
+            var scriptableStream = Components.classes['@mozilla.org/scriptableinputstream;1'].
             getService(Components.interfaces.nsIScriptableInputStream);
             var channel = ioService.newChannel(filename, null, null);
             var input = channel.open();
@@ -457,45 +457,45 @@ var shelveUtils = {
         } else {
             var file = shelveUtils.localFile(filename);
             if (file.exists()) {
-                var data = "";
-                var fstream = Components.classes["@mozilla.org/network/file-input-stream;1"].
+                var data = '';
+                var fstream = Components.classes['@mozilla.org/network/file-input-stream;1'].
                 createInstance(Components.interfaces.nsIFileInputStream);
-                var cstream = Components.classes["@mozilla.org/intl/converter-input-stream;1"].
+                var cstream = Components.classes['@mozilla.org/intl/converter-input-stream;1'].
                 createInstance(Components.interfaces.nsIConverterInputStream);
                 fstream.init(file, -1, 0, 0);
-                cstream.init(fstream, "UTF-8", 0, 0);
+                cstream.init(fstream, 'UTF-8', 0, 0);
                 var strobj = {};
                 cstream.readString(-1, strobj);
                 data = strobj.value;
                 cstream.close();
                 return data;
             } else {
-                return "";
+                return '';
             }
-        }        
+        }
     },
 
     convertToUnicode: function(acstring) {
-        var converter = Components.classes["@mozilla.org/intl/scriptableunicodeconverter"].
+        var converter = Components.classes['@mozilla.org/intl/scriptableunicodeconverter'].
         createInstance(Components.interfaces.nsIScriptableUnicodeConverter);
-        converter.charset = "UTF-8";
+        converter.charset = 'UTF-8';
         var text = converter.ConvertToUnicode(acstring);
         return text;
     },
 
     getProfDir: function() {
-        var dir = Components.classes["@mozilla.org/file/directory_service;1"].
+        var dir = Components.classes['@mozilla.org/file/directory_service;1'].
         getService(Components.interfaces.nsIProperties).
-        get("ProfD", Components.interfaces.nsIFile);
+        get('ProfD', Components.interfaces.nsIFile);
         return dir.clone();
     },
 
     getShelveDir: function() {
         var shelveDir = shelveUtils.getProfDir();
-        shelveDir.append("shelve");
+        shelveDir.append('shelve');
         if (!shelveDir.exists()) {
             /*jsl:ignore*/
-            shelveDir.create(0x01,0755);
+            shelveDir.create(0x01, 0755);
             /*jsl:end*/
         }
         return shelveDir;
@@ -510,12 +510,12 @@ var shelveUtils = {
     newFileURI: function(file) {
         var ios = Components.classes['@mozilla.org/network/io-service;1'].
         getService(Components.interfaces.nsIIOService);
-        return ios.newFileURI(file); 
+        return ios.newFileURI(file);
     },
 
     json: function() {
         // http://developer.mozilla.org/en/JSON
-        return Components.classes["@mozilla.org/dom/json;1"].
+        return Components.classes['@mozilla.org/dom/json;1'].
         createInstance(Components.interfaces.nsIJSON);
     },
 
@@ -523,29 +523,29 @@ var shelveUtils = {
         // http://developer.mozilla.org/en/docs/Code_snippets:Miscellaneous
         // Returns "WINNT" on Windows Vista, XP, 2000, and NT systems;
         // "Linux" on GNU/Linux; and "Darwin" on Mac OS X.
-        var osString = Components.classes["@mozilla.org/xre/app-info;1"].
+        var osString = Components.classes['@mozilla.org/xre/app-info;1'].
         getService(Components.interfaces.nsIXULRuntime).OS;
         return osString;
     },
 
     osString: function(str) {
-        if (shelveUtils.getOS() == "WINNT") {
-            return str.replace(/\n/g, "\r\n");
+        if (shelveUtils.getOS() == 'WINNT') {
+            return str.replace(/\n/g, '\r\n');
         } else {
             return str;
         }
     },
 
     unixString: function(str) {
-        return str.replace(/\r/g, "");
+        return str.replace(/\r/g, '');
     },
 
     asISupportsString: function(str) {
-        var sstr  = Components.classes['@mozilla.org/supports-string;1'].createInstance(Components.interfaces.nsISupportsString);
-        sstr.data = str; 
+        var sstr = Components.classes['@mozilla.org/supports-string;1'].createInstance(Components.interfaces.nsISupportsString);
+        sstr.data = str;
         return sstr;
     },
-    
+
     encode: function(something) {
         return shelveUtils.json.encode(something);
     },
@@ -555,7 +555,7 @@ var shelveUtils = {
     },
 
     escapeChar: function(text, chars) {
-        return text.replace(new RegExp('(['+ chars +'])', 'g'), '\\$1');
+        return text.replace(new RegExp('([' + chars + '])', 'g'), '\\$1');
     },
 
     escapeHTML: function(html) {
@@ -572,7 +572,7 @@ var shelveUtils = {
 
     validateTemplate: function(templateBox, optional, klass) {
         var template = templateBox.value;
-        if ((optional && template === "") || shelveUtils.validTemplate(template, klass) > 0) {
+        if ((optional && template === '') || shelveUtils.validTemplate(template, klass) > 0) {
             templateBox.setAttribute('style', '');
             templateBox.setAttribute('tooltiptext', '');
         } else {
@@ -582,16 +582,16 @@ var shelveUtils = {
     },
 
     validTemplate: function(template, klass) {
-        if (template == "-") {
+        if (template == '-') {
             return true;
         } else {
             var phn = 0;
             var phs = shelveUtils.validPlaceholders(klass);
-            var good_rx = new RegExp('^\\d*('+ phs +'|\\['+ phs +'+\\])');
+            var good_rx = new RegExp('^\\d*(' + phs + '|\\[' + phs + '+\\])');
             var text = template;
             var malformed = false;
             while (true) {
-                var i = text.indexOf("%");
+                var i = text.indexOf('%');
                 if (i == -1) {
                     break;
                 } else {
@@ -608,7 +608,7 @@ var shelveUtils = {
                     }
                 }
             }
-            if (phn === 0 && klass == "logfilename") {
+            if (phn === 0 && klass == 'logfilename') {
                 phn = 1;
             }
             var rv = malformed ? -phn : phn;
@@ -617,13 +617,13 @@ var shelveUtils = {
     },
 
     validPlaceholders: function(klass) {
-        var chars = "cCDeEfFhHBhiIklmMpPqstyY%/";
-        var names = "clip|clip!|date|input|subdir|host|hostbasename|query|fullpath|path|filename|basename|ext|title|keywords|fullyear|year|month|day|hours|minutes|secs|msecs|shelvedir|separator";
-        switch(klass) {
+        var chars = 'cCDeEfFhHBhiIklmMpPqstyY%/';
+        var names = 'clip|clip!|date|input|subdir|host|hostbasename|query|fullpath|path|filename|basename|ext|title|keywords|fullyear|year|month|day|hours|minutes|secs|msecs|shelvedir|separator';
+        switch (klass) {
             case 'log':
             case 'footer':
-            chars += "nouv";
-            names += "|note|outfile|relativeoutfile|url|shelf|content";
+            chars += 'nouv';
+            names += '|note|outfile|relativeoutfile|url|shelf|content';
             break;
 
             case 'filename':
@@ -631,13 +631,13 @@ var shelveUtils = {
             default:
             break;
         }
-        return '(['+ chars +']|\\{(\\$\\w+|'+ names +')[!?]?\\})';
+        return '([' + chars + ']|\\{(\\$\\w+|' + names + ')[!?]?\\})';
     },
 
     filenameJoin: function(parts) {
-        var sep  = shelveUtils.filenameSeparator();
+        var sep = shelveUtils.filenameSeparator();
         // return parts.join(sep);
-        var acc  = [];
+        var acc = [];
         var last = parts.length - 1;
         for (var i in parts) {
             var p = parts[i];
@@ -646,11 +646,11 @@ var shelveUtils = {
             }
             acc.push(p);
         }
-        return acc.join("");
+        return acc.join('');
     },
 
     filenameSeparator: function() {
-        if (shelveUtils.getOS() == "WINNT") {
+        if (shelveUtils.getOS() == 'WINNT') {
             return '\\';
         } else {
             return '/';
@@ -658,15 +658,15 @@ var shelveUtils = {
     },
 
     localized: function(name) {
-        var bundles = Components.classes["@mozilla.org/intl/stringbundle;1"].
-        getService(Components.interfaces.nsIStringBundleService);  
-        var bundle = bundles.createBundle("chrome://shelve/locale/shelve.properties");
+        var bundles = Components.classes['@mozilla.org/intl/stringbundle;1'].
+        getService(Components.interfaces.nsIStringBundleService);
+        var bundle = bundles.createBundle('chrome://shelve/locale/shelve.properties');
         return bundle.GetStringFromName('extensions.shelve.' + name);
     },
 
-    appInfo: function () {
-        var info = Components.classes["@mozilla.org/xre/app-info;1"].
-        getService(Components.interfaces.nsIXULAppInfo);  
+    appInfo: function() {
+        var info = Components.classes['@mozilla.org/xre/app-info;1'].
+        getService(Components.interfaces.nsIXULAppInfo);
         return info.name + info.version;
     },
 
@@ -698,15 +698,15 @@ var shelveUtils = {
             try {
                 var MafObjects = {};
                 /*jsl:ignore*/
-                Components.utils.import("resource://maf/modules/mafObjects.jsm", MafObjects);
+                Components.utils.import('resource://maf/modules/mafObjects.jsm', MafObjects);
                 /*jsl:end*/
                 shelveUtils.mafObjects = MafObjects;
                 return true;
             } catch (e) {
                 if (doAlert) {
                     shelveUtils.log('Error when creating MAF object: ' + e);
-                    shelveUtils.log(shelveUtils.localized("require.maf"));
-                    alert(shelveUtils.localized("require.maf"));
+                    shelveUtils.log(shelveUtils.localized('require.maf'));
+                    alert(shelveUtils.localized('require.maf'));
                 }
                 shelveUtils.mafObjects = false;
                 return false;
@@ -718,8 +718,8 @@ var shelveUtils = {
 
     checkMafMimeItems: function(doc) {
         if (!shelveUtils.isMafEnabled(false)) {
-            doc.getElementById("mimewebpage_mht").hidden = true;
-            doc.getElementById("mimewebpage_maf").hidden = true;
+            doc.getElementById('mimewebpage_mht').hidden = true;
+            doc.getElementById('mimewebpage_maf').hidden = true;
         }
     },
 

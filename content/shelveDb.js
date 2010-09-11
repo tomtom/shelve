@@ -82,8 +82,8 @@ var shelveDb = {
                 var statement = con.createStatement(
                     'SELECT r.rx, coalesce(r.subst, ""), r.stop ' +
                     'FROM replacements r ' +
-                    'WHERE ?1 LIKE r.klass ESCAPE '^' AND ' +
-                    '?2 LIKE r.url ESCAPE '^' ' +
+                    'WHERE ?1 LIKE r.klass ESCAPE "^" AND ' +
+                    '?2 LIKE r.url ESCAPE "^" ' +
                     'ORDER BY r.priority ASC;');
                 try {
                     statement.bindUTF8StringParameter(0, type);
