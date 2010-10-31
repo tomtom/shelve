@@ -670,7 +670,8 @@ var shelve = {
                         afp.url   = doc.URL;
                         afp.clip  = '';
                         afp.parentWindow = window;
-                        afp.extension = shelveUtils.getExtension(null, afp.mime, doc);
+                        var doc_params_ext = {type: null, doc: doc};
+                        afp.extension = shelveUtils.getExtension(doc_params_ext, afp.mime);
                         // shelveUtils.debug('afp1: ', afp);
                         var filename = shelve.expandTemplate(afp);
                         // shelveUtils.debug('filename: ', filename);
@@ -725,7 +726,7 @@ var shelve = {
                 mime: mime,
                 shelf: shelfId,
                 template: template,
-                extension: shelveUtils.getExtension(doc_params.type, mime, shelve.getDocument(doc_params)),
+                extension: shelveUtils.getExtension(doc_params, mime),
                 title: shelve.getDocumentTitle(doc_params),
                 clip: shelve.getDocumentClip(doc_params),
                 content_type: doc_params.content_type,
@@ -1070,7 +1071,7 @@ var shelve = {
             clip: shelve.getDocumentClip(doc_params),
             url: shelveUtils.getDocumentURL(doc_params),
             shelve_content: doc_params.shelve_content,
-            extension: shelveUtils.getExtension(doc_params.type, mime, shelve.getDocument(doc_params)),
+            extension: shelveUtils.getExtension(doc_params, mime),
             parentWindow: window
         };
         // shelveUtils.debug('expandTemplateNow: et_params=', et_params);

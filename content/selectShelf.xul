@@ -51,6 +51,7 @@
 
     <script src="shelveStore.js"/>
     <script src="shelveUtils.js"/>
+    <script src="shelveDb.js"/>
     <script src="selectShelf.js"/>
 
     <tabbox flex="1" >

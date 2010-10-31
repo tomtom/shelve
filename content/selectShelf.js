@@ -286,7 +286,8 @@ var selectShelf = {
         var type = window.arguments[0].inn.content_type;
         var mime = selectShelf.mime0 === 'binary' ? 'binary' : selectShelf.getMime();
         var doc = window.arguments[0].inn.doc;
-        return shelveUtils.getExtension(type, mime, doc);
+        var doc_params_ext = {type: type, doc: doc};
+        return shelveUtils.getExtension(doc_params_ext, mime);
     },
 
     alertMime: function(prefix) {
