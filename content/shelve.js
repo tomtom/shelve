@@ -140,7 +140,7 @@ var shelve = {
                 try {
                     var params_fix = shelve.frozenParams(sp_params);
                     if (filename != '-') {
-                        var doc = shelve.getDocument(sp_params);
+                        var doc = shelveUtils.getDocument(sp_params);
                         // shelveUtils.debug('shelve savePageWithParams: doc=', doc);
                         // shelveUtils.debug('shelve savePageWithParams: doc is null =', doc === null);
                         // shelveUtils.debug('shelve savePageWithParams: doc.contentType=', doc.contentType);
@@ -621,7 +621,7 @@ var shelve = {
     autoSelectShelve: function(dclevent) {
         // shelveUtils.debug('autoSelectShelve dclevent=', dclevent);
         var doc_params = {doc: dclevent.originalTarget};
-        var url = shelve.getDocumentURL(doc_params);
+        var url = shelveUtils.getDocumentURL(doc_params);
         // shelveUtils.debug('autoSelectShelve url=', url);
         if (!shelve.matchStopRx(url, 'blacklist')) {
             // shelveUtils.debug('autoSelectShelve match stop_rx=', false);
@@ -754,7 +754,7 @@ var shelve = {
         var shelfNos = [];
         var template;
         var max = shelveStore.max();
-        var url = shelve.getDocumentURL(doc_params);
+        var url = shelveUtils.getDocumentURL(doc_params);
         for (var i = 1; i <= max; i++) {
             // shelveUtils.debug('shelve.getSavePageParams i=', i);
             template = shelveStore.get(i, 'dir', null);
@@ -784,7 +784,7 @@ var shelve = {
         var select_params = {
             inn: {
                 list: list,
-                doc: shelve.getDocument(doc_params),
+                doc: shelveUtils.getDocument(doc_params),
                 clip: shelve.getDocumentClip(doc_params),
                 title: shelve.getDocumentTitle(doc_params),
                 keywords: shelve.getDocumentKeywords(doc_params),
@@ -1034,7 +1034,7 @@ var shelve = {
 
     frozenParams: function(sp_params) {
         if (!sp_params.url) {
-            sp_params.url = shelve.getDocumentURL(sp_params);
+            sp_params.url = shelveUtils.getDocumentURL(sp_params);
         }
         return sp_params;
     },
@@ -1054,7 +1054,7 @@ var shelve = {
             title: sp_params.title,
             keywords: sp_params.keywords,
             shelve_content: sp_params.shelve_content,
-            url: shelve.getDocumentURL(sp_params)
+            url: shelveUtils.getDocumentURL(sp_params)
         };
         return et_params;
     },
@@ -1068,7 +1068,7 @@ var shelve = {
             interactive: true,
             title: shelve.getDocumentTitle(doc_params),
             clip: shelve.getDocumentClip(doc_params),
-            url: shelve.getDocumentURL(doc_params),
+            url: shelveUtils.getDocumentURL(doc_params),
             shelve_content: doc_params.shelve_content,
             extension: shelveUtils.getExtension(doc_params.type, mime, shelve.getDocument(doc_params)),
             parentWindow: window
@@ -1419,7 +1419,7 @@ var shelve = {
             break;
 
             case 'url':
-            val = et_params.mode == 'log' ? shelve.getDocumentURL(et_params) : null;
+            val = et_params.mode == 'log' ? shelveUtils.getDocumentURL(et_params) : null;
             break;
             
             case 'content':
@@ -1453,7 +1453,7 @@ var shelve = {
 
         if (val) {
             // shelveUtils.debug('shelve expandVar2: [val, length]=', [val, val.length]);
-            val = shelveDb.rewrite(name, shelve.getDocumentURL(et_params), val);
+            val = shelveDb.rewrite(name, shelveUtils.getDocumentURL(et_params), val);
             if (!rawmode) {
                 val = shelve.cleanValue(val);
             }
@@ -1629,8 +1629,7 @@ var shelve = {
         if (doc_params.mime != null) {
             return doc_params.mime;
         } else {
-            var doc = shelve.getDocument(doc_params);
-            switch (doc.contentType) {
+            switch (shelveUtils.getDocumentType(doc_params)) {
                 case 'text/html':
                 case 'application/xhtml+xml':
                 var prefs = shelve.getPrefs('');
@@ -1643,7 +1642,7 @@ var shelve = {
     },
 
     getDocumentTitle: function(doc_params) {
-        return doc_params.title || shelve.getDocument(doc_params).title;
+        return doc_params.title || shelveUtils.getDocument(doc_params).title;
     },
 
     getDocumentKeywords: function(doc_params) {
@@ -1651,7 +1650,7 @@ var shelve = {
             return doc_params.keywords;
         } else {
             var keywords = [];
-            var doc = shelve.getDocument(doc_params);
+            var doc = shelveUtils.getDocument(doc_params);
             if (!doc.mockup) {
                 var tags = doc.getElementsByName('keywords');
                 for (var i in tags) {
@@ -1674,7 +1673,7 @@ var shelve = {
     },
 
     getDocumentFilename: function(et_params, filenametype) {
-        var url = shelve.getDocumentURL(et_params);
+        var url = shelveUtils.getDocumentURL(et_params);
         var path = url.replace(/^(\w+:\/\/)?[^\/]*\/?/, '');
         var tail = path.replace(/^([^\/]*\/)*/, '');
         var file;
@@ -1714,22 +1713,8 @@ var shelve = {
         }
     },
 
-    getDocument: function(doc_params) {
-        // shelveUtils.debug('shelve getDocument doc_params=', doc_params);
-        return doc_params.doc || window._content.document;
-    },
-
-    getDocumentURL: function(doc_params) {
-        var url = doc_params.url;
-        if (url == null) {
-            var doc = shelve.getDocument(doc_params);
-            url = doc && doc.URL;
-        }
-        return url;
-    },
-
     getDocumentHost: function(et_params, mode) {
-        var host = shelve.getDocumentURL(et_params).match(/^\w+:\/\/([^?\/]+)/);
+        var host = shelveUtils.getDocumentURL(et_params).match(/^\w+:\/\/([^?\/]+)/);
         if (host) {
             host = host[1];
             switch (mode) {
@@ -1745,7 +1730,7 @@ var shelve = {
     },
 
     getDocumentUrlQuery: function(et_params) {
-        var url = shelve.getDocumentURL(et_params);
+        var url = shelveUtils.getDocumentURL(et_params);
         var rest = url.match(/\?(.*)$/);
         return rest ? rest[1] : rest;
     }

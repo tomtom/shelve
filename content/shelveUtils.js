@@ -251,6 +251,25 @@ var shelveUtils = {
         return false;
     },
 
+    getDocument: function(doc_params) {
+        // shelveUtils.debug('shelveUtils.getDocument doc_params=', doc_params);
+        return doc_params.doc || window._content.document;
+    },
+
+    getDocumentURL: function(doc_params) {
+        var url = doc_params.url;
+        if (url == null) {
+            var doc = shelveUtils.getDocument(doc_params);
+            url = doc && doc.URL;
+        }
+        return url;
+    },
+
+    getDocumentType: function(doc_params) {
+        var doc = shelveUtils.getDocument(doc_params);
+        return doc.contentType;
+    },
+
     getExtension: function(content_type, mime, doc) {
         // shelveUtils.debug("shelveUtils getExtension content_type=", content_type);
         // shelveUtils.debug("shelveUtils getExtension mime=", mime);
