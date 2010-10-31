@@ -700,25 +700,6 @@ var shelveUtils = {
         return info.name + info.version;
     },
 
-    getProgressListener: function(file) {
-        var pl = {
-            onJobComplete: function(aJob, aResult) {
-                if (!Components.isSuccessCode(aResult)) {
-                    shelveUtils.log('Error when saving file: ' + file.path);
-                    shelveUtils.log('Error when saving file: ' + uneval(aResult));
-                    // An error occurred
-                // } else {
-                    // The save operation completed successfully
-                }
-            },
-            onJobProgressChange: function(aJob, aWebProgress, aRequest, aCurSelfProgress, aMaxSelfProgress, aCurTotalProgress, aMaxTotalProgress) {
-            },
-            onStatusChange: function(aWebProgress, aRequest, aStatus, aMessage) {
-            }
-        };
-        return pl;
-    },
-
     mafObjects: null,
 
     isMafEnabled: function(doAlert) {
@@ -753,18 +734,15 @@ var shelveUtils = {
         }
     },
 
-    getMafSaver: function(doc, file, format) {
+    getMafSaver: function(sp_params, doc, file, format, enable_dlm) {
         if (shelveUtils.isMafEnabled(true)) {
             return function(doc, file, dataPath, outputContentType, encodingFlags, wrapColumn) {
-                // shelveUtils.debug("shelveUtils.getMafSaver doc=", doc);
-                // shelveUtils.debug("shelveUtils.getMafSaver file=", file);
-                // shelveUtils.debug("shelveUtils.getMafSaver format=", format);
-                // var progressListener = shelveUtils.getProgressListener(file);
-                // var saveJob = new shelveUtils.mafObjects.SaveJob(progressListener);
-                // saveJob.addJobFromDocument(doc, file, format);
-                // saveJob.start();
                 var fileUri = shelveUtils.newFileURI(file);
                 var persistObject = new shelveUtils.mafObjects.MafArchivePersist(null, format);
+                if (enable_dlm) {
+                    var uri = shelveUtils.newURI(sp_params.url);
+                    shelve.registerDownload(persistObject, uri, fileUri)
+                }
                 persistObject.saveDocument(doc, fileUri);
             };
         } else {

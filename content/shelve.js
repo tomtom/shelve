@@ -238,6 +238,7 @@ var shelve = {
             wbp.saveDocument(doc, file, dataPath, outputContentType, encodingFlags, wrapColumn);
         };
 
+        var enable_dlm = shelve.useDownloadManager(sp_params, 'document');
         var wbp = Components.classes['@mozilla.org/embedding/browser/nsWebBrowserPersist;1'].
         createInstance(Components.interfaces.nsIWebBrowserPersist);
         // wbp.persistFlags |= wbp.PERSIST_FLAGS_FROM_CACHE;
@@ -267,13 +268,15 @@ var shelve = {
             case 'webpage_maf':
             mime = 'text/html';
             allow_footer = false;
-            saver = shelveUtils.getMafSaver(doc, file, 'TypeMAFF') || saver;
+            saver = shelveUtils.getMafSaver(sp_params, doc, file, 'TypeMAFF', enable_dlm) || saver;
+            enable_dlm = false;
             break;
 
             case 'webpage_mht':
             mime = 'text/html';
             allow_footer = false;
-            saver = shelveUtils.getMafSaver(doc, file, 'TypeMHTML') || saver;
+            saver = shelveUtils.getMafSaver(sp_params, doc, file, 'TypeMHTML', enable_dlm) || saver;
+            enable_dlm = false;
             break;
 
             case 'webpage':
@@ -290,7 +293,9 @@ var shelve = {
         // shelveUtils.debug('shelve saveDocument: encode=', encode);
         var uri = shelveUtils.newURI(sp_params.url);
         var file_uri = shelveUtils.newFileURI(file);
-        shelve.registerDownload('document', sp_params, wbp, uri, file_uri);
+        if (enable_dlm) {
+            shelve.registerDownload(wbp, uri, file_uri);
+        }
         try {
             saver(doc, file, data, mime, encode, null);
             if (allow_footer) {
@@ -323,7 +328,9 @@ var shelve = {
         createInstance(Components.interfaces.nsIWebBrowserPersist);
         wbp.persistFlags |= wbp.PERSIST_FLAGS_FROM_CACHE;
         wbp.persistFlags &= ~wbp.PERSIST_FLAGS_NO_CONVERSION;
-        shelve.registerDownload('binary', sp_params, wbp, uri, file_uri);
+        if (shelve.useDownloadManager(sp_params, 'binary')) {
+            shelve.registerDownload(wbp, uri, file_uri);
+        }
         wbp.saveURI(uri, null, null, null, null, file_uri);
         // cachekey = shelveUtils.asISupportsString(sp_params.url);
         // wbp.saveURI(uri, cachekey, null, null, null, file);
@@ -348,19 +355,24 @@ var shelve = {
         return true;
     },
 
-    registerDownload: function(mode, sp_params, persist, uri, file_uri) {
-         var prefs_dlm = shelve.getPrefs('use_download_manager.');
-         if (!sp_params.noAlertNotification && shelve.getBoolPref(prefs_dlm, mode) && !shelveUtils.appInfo().match(/^Firefox2/)) {
-             // var dm = Components.classes['@mozilla.org/download-manager;1'].
-             // getService(Components.interfaces.nsIDownloadManager);
-             // var dl = dm.addDownload(0, uri, file_uri, '', null, null, null, persist);
-             // persist.progressListener = dl;
-            var tr = Components.classes['@mozilla.org/transfer;1'].
-            createInstance(Components.interfaces.nsITransfer);
-            tr.init(uri, file_uri, '', null, null, null, persist);
-            persist.progressListener = new DownloadListener(window, tr);
-            // dm.addListener(dl);
-        }
+    useDownloadManager: function(sp_params, mode) {
+        var prefs_dlm = shelve.getPrefs('use_download_manager.');
+        return !sp_params.noAlertNotification && !shelveUtils.appInfo().match(/^Firefox2/) && shelve.getBoolPref(prefs_dlm, mode);
+    },
+
+    registerDownload: function(persist, uri, file_uri) {
+        // shelveUtils.debug('registerDownload: uri=', uri);
+        // shelveUtils.debug('registerDownload: file_uri=', file_uri);
+        // shelveUtils.debug('registerDownload: window=', window);
+        // var dm = Components.classes['@mozilla.org/download-manager;1'].
+        // getService(Components.interfaces.nsIDownloadManager);
+        // var dl = dm.addDownload(0, uri, file_uri, '', null, null, null, persist);
+        // persist.progressListener = dl;
+        var tr = Components.classes['@mozilla.org/transfer;1'].
+        createInstance(Components.interfaces.nsITransfer);
+        tr.init(uri, file_uri, '', null, null, null, persist);
+        persist.progressListener = new DownloadListener(window, tr);
+        // dm.addListener(dl);
     },
 
     hotkeys: {},
