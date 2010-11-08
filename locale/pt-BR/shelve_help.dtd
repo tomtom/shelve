@@ -18,7 +18,7 @@
 <!ENTITY shelve.td.pick.directory "Escolha um diretório">
 <!ENTITY shelve.td.host "Servidor">
 <!ENTITY shelve.td.base.hostname "Nome de servidor base">
-<!ENTITY shelve.td.query "Pergunta (a parte da URL após o ponto de interrogação)">
+<!ENTITY shelve.td.query "Consulta (a parte da URL após o ponto de interrogação)">
 <!ENTITY shelve.td.path "Caminho">
 <!ENTITY shelve.td.path.no.ext "Caminho (sem extensão)">
 <!ENTITY shelve.td.filename "Nome do arquivo">
@@ -35,11 +35,14 @@
 <!ENTITY shelve.td.seconds "Segundos">
 <!ENTITY shelve.td.milliseconds "Milissegundos">
 <!ENTITY shelve.td.clipboard "Área de transferência">
-<!ENTITY shelve.p.only.available.in.log.templates "Disponível apenas em modelos de log">
+<!ENTITY shelve.p.only.available.in.log.templates "Disponível apenas em modelos de log:">
 <!ENTITY shelve.td.note "Nota">
 <!ENTITY shelve.td.output.file "Arquivo de saída">
+<!ENTITY shelve.td.relative.output.file "Nome do arquivo de saída relativo ao arquivo de log">
 <!ENTITY shelve.td.url "URL">
 <!ENTITY shelve.td.shelf.name "Nome do shelf">
+<!ENTITY shelve.td.separator "Separador de nome de arquivo">
+<!ENTITY shelve.td.shelvedir "subdiretório 'shelve' localizado no diretório do perfil do usuário">
 <!ENTITY shelve.p.the.shelf.name.is.optional "O nome do shelf é opcional. Se não for informado, o número será usado como nome.">
 <!ENTITY shelve.p.if.the.regular.expression "Se a expressão regular coincidir com a URL atual, o modelo será aplicado instantaneamente.">
 <!ENTITY shelve.h2.examples "Exemplos">

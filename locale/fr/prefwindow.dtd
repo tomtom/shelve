@@ -55,6 +55,8 @@
 <!ENTITY shelve.edit.accesskey "E">
 <!ENTITY shelve.remove "Supprimer">
 <!ENTITY shelve.remove.accesskey "S">
+<!ENTITY log.file.template "Modèle de fichier journal pour nouveaux fichiers journaux">
+<!ENTITY log.file.template.accesskey "N">
 <!ENTITY log.file "Fichier journal (ajouter les entrées de journalisation à ce fichier)">
 <!ENTITY log.file.accesskey "j">
 <!ENTITY log.template "Modèle pour les entrées de journalisation">
@@ -69,6 +71,9 @@
 <!ENTITY shelve.shelf.accesskey "S">
 <!ENTITY shelve.note "Remarque">
 <!ENTITY shelve.note.accesskey "R">
+<!ENTITY shelve.note_text.accesskey "T">
+<!ENTITY shelve.keywords "Mots-clés">
+<!ENTITY shelve.keywords.accesskey "c">
 <!ENTITY shelve.rx "Enregistrer automatiquement un document vers ce shelf si l'URL correspond à cette ExpReg">
 <!ENTITY shelve.rx.accesskey "t">
 <!ENTITY shelve.automode "Lors de la sélection de ce shelf, basculer en mode auto-shelve">
@@ -95,3 +100,7 @@
 <!ENTITY hotkey.meta.accesskey "W">
 <!ENTITY shelve.save.format "Enregistrer le format">
 <!ENTITY shelve.invocation "Invocation">
+<!ENTITY shelve.new.shelf "Nouveau">
+<!ENTITY shelve.new.shelf.accesskey "e">
+<!ENTITY shelve.clone.shelf "Cloner">
+<!ENTITY shelve.clone.shelf.accesskey "n">

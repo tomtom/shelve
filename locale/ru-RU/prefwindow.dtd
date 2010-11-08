@@ -55,6 +55,8 @@
 <!ENTITY shelve.edit.accesskey "E">
 <!ENTITY shelve.remove "Удалить">
 <!ENTITY shelve.remove.accesskey "R">
+<!ENTITY log.file.template "Шаблон для новых файлов лога">
+<!ENTITY log.file.template.accesskey "N">
 <!ENTITY log.file "Файл лога (запись в лог происходит в этот файл)">
 <!ENTITY log.file.accesskey "G">
 <!ENTITY log.template "Шаблон для записи в лог">
@@ -69,6 +71,9 @@
 <!ENTITY shelve.shelf.accesskey "S">
 <!ENTITY shelve.note "Заметка">
 <!ENTITY shelve.note.accesskey "N">
+<!ENTITY shelve.note_text.accesskey "T">
+<!ENTITY shelve.keywords "Ключевые слова">
+<!ENTITY shelve.keywords.accesskey "K">
 <!ENTITY shelve.rx "Автоматически сохранять в эту папку документ, URL которого соответствует регулярному выражению:">
 <!ENTITY shelve.rx.accesskey "R">
 <!ENTITY shelve.automode "При выборе этой папки переключитесь в авторежим">
@@ -95,3 +100,7 @@
 <!ENTITY hotkey.meta.accesskey "W">
 <!ENTITY shelve.save.format "Формат">
 <!ENTITY shelve.invocation "Выбор">
+<!ENTITY shelve.new.shelf "Новое">
+<!ENTITY shelve.new.shelf.accesskey "E">
+<!ENTITY shelve.clone.shelf "Клон">
+<!ENTITY shelve.clone.shelf.accesskey "C">

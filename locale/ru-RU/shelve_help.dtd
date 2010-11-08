@@ -38,8 +38,11 @@
 <!ENTITY shelve.p.only.available.in.log.templates "Используются только для шаблонов записей в лог:">
 <!ENTITY shelve.td.note "Заметка">
 <!ENTITY shelve.td.output.file "Вывод">
+<!ENTITY shelve.td.relative.output.file "Имя файла вывода (относительно файла лога)">
 <!ENTITY shelve.td.url "URL">
 <!ENTITY shelve.td.shelf.name "Имя папки">
+<!ENTITY shelve.td.separator "Разделитель имён">
+<!ENTITY shelve.td.shelvedir "Поддиректория Shelve находится в директории профиля пользователя">
 <!ENTITY shelve.p.the.shelf.name.is.optional "Имя папки может быть опущено. В этом случае будут использованы цифры.">
 <!ENTITY shelve.p.if.the.regular.expression "Если регулярное выражение соответствует данному URL, шаблон будет применён немедленно.">
 <!ENTITY shelve.h2.examples "Примеры">

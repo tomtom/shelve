@@ -34,7 +34,7 @@
 <!ENTITY shelve.mime.html "Apenas HTML">
 <!ENTITY shelve.mime.text "Texto">
 <!ENTITY shelve.mime.text_latin1 "Texto (Latin-1)">
-<!ENTITY shelve.auto "Salvar Automaticamente">
+<!ENTITY shelve.auto "Salvar automaticamente">
 <!ENTITY shelve.auto.accesskey "A">
 <!ENTITY shelve.auto.tab.accesskey "O">
 <!ENTITY shelve.auto.rx "Não salvar documentos automaticamente para as URLs que combinem com esta Expressão Regular">
@@ -55,7 +55,9 @@
 <!ENTITY shelve.edit.accesskey "E">
 <!ENTITY shelve.remove "Apagar">
 <!ENTITY shelve.remove.accesskey "A">
-<!ENTITY log.file "Arquivo de Log (adiciona registros de log a este arquivo)">
+<!ENTITY log.file.template "Modelo para novos arquivos de log">
+<!ENTITY log.file.template.accesskey "N">
+<!ENTITY log.file "Arquivo de log (adicionar registros de log a este arquivo)">
 <!ENTITY log.file.accesskey "G">
 <!ENTITY log.template "Modelo para registros de log">
 <!ENTITY log.template.accesskey "M">
@@ -69,18 +71,21 @@
 <!ENTITY shelve.shelf.accesskey "S">
 <!ENTITY shelve.note "Nota">
 <!ENTITY shelve.note.accesskey "N">
-<!ENTITY shelve.rx "Salvar um documento neste shelf automaticamente se a URL coincidir com esta RegExp">
+<!ENTITY shelve.note_text.accesskey "T">
+<!ENTITY shelve.keywords "Palavras-chave">
+<!ENTITY shelve.keywords.accesskey "P">
+<!ENTITY shelve.rx "Salvar um documento neste shelf se a URL coincidir com esta RegExp">
 <!ENTITY shelve.rx.accesskey "R">
 <!ENTITY shelve.automode "Ao selecionar este shelf, mudar para modo auto-shelve">
 <!ENTITY shelve.automode.accesskey "L">
 <!ENTITY shelve.noautosave "Não marcar essa Expressão Regular em invocações manuais">
 <!ENTITY shelve.noautosave.accesskey "M">
-<!ENTITY shelve.autoselect "Salvar automaticamente todas as páginas que coincidirem">
+<!ENTITY shelve.autoselect "Verificar esta Expressão Regular durante a navegação">
 <!ENTITY shelve.autoselect.accesskey "U">
 <!ENTITY shelve.autocontinue "Após salvar uma página automaticamente, continuar com outros shelves">
 <!ENTITY shelve.autocontinue.accesskey "C">
-<!ENTITY selectShelf.title "Selecionar Shelf">
-<!ENTITY editShelf.title "Editar Shelf">
+<!ENTITY selectShelf.title "Selecionar shelf">
+<!ENTITY editShelf.title "Editar shelf">
 <!ENTITY shelve.hotkey "Atalho">
 <!ENTITY shelve.hotkey.accesskey "l">
 <!ENTITY hotkey.hotkey "Atalho">
@@ -95,3 +100,7 @@
 <!ENTITY hotkey.meta.accesskey "W">
 <!ENTITY shelve.save.format "Salvar formato">
 <!ENTITY shelve.invocation "Invocação">
+<!ENTITY shelve.new.shelf "Nova">
+<!ENTITY shelve.new.shelf.accesskey "N">
+<!ENTITY shelve.clone.shelf "Duplicar">
+<!ENTITY shelve.clone.shelf.accesskey "D">

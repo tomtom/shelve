@@ -55,6 +55,8 @@
 <!ENTITY shelve.edit.accesskey "E">
 <!ENTITY shelve.remove "删除">
 <!ENTITY shelve.remove.accesskey "R">
+<!ENTITY log.file.template "日志文件模版适用于新的日志文件">
+<!ENTITY log.file.template.accesskey "N">
 <!ENTITY log.file "日志文件（追加日志条目到这个文件）">
 <!ENTITY log.file.accesskey "G">
 <!ENTITY log.template "模版用于日志条目">
@@ -69,6 +71,9 @@
 <!ENTITY shelve.shelf.accesskey "S">
 <!ENTITY shelve.note "笔记">
 <!ENTITY shelve.note.accesskey "N">
+<!ENTITY shelve.note_text.accesskey "T">
+<!ENTITY shelve.keywords "关键词">
+<!ENTITY shelve.keywords.accesskey "K">
 <!ENTITY shelve.rx "如果 URL 符合此 RegExp 保存文件到">
 <!ENTITY shelve.rx.accesskey "R">
 <!ENTITY shelve.automode "当选择此架子时，切换到自动搁置模式">
@@ -95,3 +100,7 @@
 <!ENTITY hotkey.meta.accesskey "W">
 <!ENTITY shelve.save.format "保存格式">
 <!ENTITY shelve.invocation "祈求">
+<!ENTITY shelve.new.shelf "新建">
+<!ENTITY shelve.new.shelf.accesskey "E">
+<!ENTITY shelve.clone.shelf "克隆">
+<!ENTITY shelve.clone.shelf.accesskey "C">

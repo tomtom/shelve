@@ -38,8 +38,11 @@
 <!ENTITY shelve.p.only.available.in.log.templates "仅提供在日志模版：">
 <!ENTITY shelve.td.note "笔记">
 <!ENTITY shelve.td.output.file "输出文件">
+<!ENTITY shelve.td.relative.output.file "输出文件名相对于日志文件">
 <!ENTITY shelve.td.url "URL">
 <!ENTITY shelve.td.shelf.name "架子名称">
+<!ENTITY shelve.td.separator "文件名分离器">
+<!ENTITY shelve.td.shelvedir "'放置' 子目录位置在用户配置文件目录">
 <!ENTITY shelve.p.the.shelf.name.is.optional "货架名称是可选的。如果没有提供，这一数字将作为名称。">
 <!ENTITY shelve.p.if.the.regular.expression "如果正则表达式匹配当前 URL，模版将瞬间被应用。">
 <!ENTITY shelve.h2.examples "例子">

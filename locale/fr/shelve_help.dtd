@@ -38,8 +38,11 @@
 <!ENTITY shelve.p.only.available.in.log.templates "Uniquement disponible dans les modèles de journaux :">
 <!ENTITY shelve.td.note "Remarque">
 <!ENTITY shelve.td.output.file "Fichier sortant">
+<!ENTITY shelve.td.relative.output.file "Nom de fichier affiché relatif au fichier journal">
 <!ENTITY shelve.td.url "URL">
 <!ENTITY shelve.td.shelf.name "nom Shelf">
+<!ENTITY shelve.td.separator "Séparateur de fichier">
+<!ENTITY shelve.td.shelvedir "Sous-dossier shelve situé dans le dossier du profil utilisateur">
 <!ENTITY shelve.p.the.shelf.name.is.optional "Le nom du Shelf est facultatif. S'il n'est pas fourni, le nombre sera utilisé comme nom.">
 <!ENTITY shelve.p.if.the.regular.expression "Si l'expression régulière correspond à l'URL courante, le modèle sera appliqué instantanément.">
 <!ENTITY shelve.h2.examples "Exemples">
