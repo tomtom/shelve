@@ -310,10 +310,14 @@ var shelveUtils = {
             return '.txt';
 
             case 'webpage_maf':
-            return '.maff';
+            if (shelveUtils.isMafEnabled(false)) {
+                return '.maff';
+            }
 
             case 'webpage_mht':
-            return '.mhtml';
+            if (shelveUtils.isMafEnabled(false)) {
+                return '.mhtml';
+            }
 
             case 'webpage':
             /*jsl:fallthru*/

@@ -266,18 +266,22 @@ var shelve = {
             break;
 
             case 'webpage_maf':
-            mime = 'text/html';
-            allow_footer = false;
-            saver = shelveUtils.getMafSaver(sp_params, doc, file, 'TypeMAFF', enable_dlm) || saver;
-            enable_dlm = false;
-            break;
+            if (shelveUtils.isMafEnabled(false)) {
+                mime = 'text/html';
+                allow_footer = false;
+                saver = shelveUtils.getMafSaver(sp_params, doc, file, 'TypeMAFF', enable_dlm) || saver;
+                enable_dlm = false;
+                break;
+            }
 
             case 'webpage_mht':
-            mime = 'text/html';
-            allow_footer = false;
-            saver = shelveUtils.getMafSaver(sp_params, doc, file, 'TypeMHTML', enable_dlm) || saver;
-            enable_dlm = false;
-            break;
+            if (shelveUtils.isMafEnabled(false)) {
+                mime = 'text/html';
+                allow_footer = false;
+                saver = shelveUtils.getMafSaver(sp_params, doc, file, 'TypeMHTML', enable_dlm) || saver;
+                enable_dlm = false;
+                break;
+            }
 
             case 'webpage':
             /*jsl:fallthru*/
