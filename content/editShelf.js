@@ -47,11 +47,11 @@ var editShelf = {
     strings: null,
 
     onLoad: function() {
-        editShelf.strings = document.getElementById("shelve-strings");
+        editShelf.strings = document.getElementById('shelve-strings');
         var shelfId = window.arguments[0].inn.item;
         for (var field in shelveStore.fields) {
-            // shelveUtils.debug("editShelf: onLoad: field=", field);
-            // shelveUtils.debug("editShelf: onLoad: value=", shelveStore.fields[field]);
+            // shelveUtils.debug('editShelf: onLoad: field=', field);
+            // shelveUtils.debug('editShelf: onLoad: value=', shelveStore.fields[field]);
             try {
                 var value = shelveStore.get(shelfId, field, shelveStore.fields[field]);
                 var elt = document.getElementById(field);
@@ -62,26 +62,26 @@ var editShelf = {
                         elt.value = value;
                     }
                 }
-            } catch(exception) {
-                shelveUtils.log("Error when filling in "+ field +": " + exception);
+            } catch (exception) {
+                shelveUtils.log('Error when filling in ' + field + ': ' + exception);
             }
         }
         shelveUtils.checkMafMimeItems(document);
         var mime     = shelveStore.get(shelfId, 'mime', 'default');
-        var mimelist = document.getElementById("mime");
-        var mimeitem = document.getElementById("mime" + mime);
+        var mimelist = document.getElementById('mime');
+        var mimeitem = document.getElementById('mime' + mime);
         mimelist.selectedItem = mimeitem;
-        shelveUtils.validateTemplate(document.getElementById("dir"), false, "filename");
+        shelveUtils.validateTemplate(document.getElementById('dir'), false, 'filename');
     },
 
     onOK: function() {
         var shelfId = window.arguments[0].inn.item;
-        // shelveUtils.debug("editShelf onOK: shelfId=", shelfId);
-        var template = document.getElementById("dir").value;
-        // shelveUtils.debug("editShelf onOK: template=", template);
+        // shelveUtils.debug('editShelf onOK: shelfId=', shelfId);
+        var template = document.getElementById('dir').value;
+        // shelveUtils.debug('editShelf onOK: template=', template);
         if (template.match(/\S/)) {
-            var name = document.getElementById("name").value || shelfId;
-            // shelveUtils.debug("editShelf onOK: name=", name);
+            var name = document.getElementById('name').value || shelfId;
+            // shelveUtils.debug('editShelf onOK: name=', name);
             var valid = shelveUtils.validTemplate(template, 'filename');
             if (valid <= 0) {
                 alert(shelveUtils.localized('malformed_template'));
@@ -91,37 +91,37 @@ var editShelf = {
             }
             shelveStore.setUnichar(shelfId, 'dir', template);
             shelveStore.setUnichar(shelfId, 'name', name);
-            shelveStore.setUnichar(shelfId, 'rx', document.getElementById("rx").value);
-            shelveStore.setUnichar(shelfId, 'footer_text', document.getElementById("footer_text").value);
-            shelveStore.setUnichar(shelfId, 'footer_html', document.getElementById("footer_html").value);
-            shelveStore.setUnichar(shelfId, 'log_file', document.getElementById("log_file").value);
-            shelveStore.setUnichar(shelfId, 'log_template', document.getElementById("log_template").value);
+            shelveStore.setUnichar(shelfId, 'rx', document.getElementById('rx').value);
+            shelveStore.setUnichar(shelfId, 'footer_text', document.getElementById('footer_text').value);
+            shelveStore.setUnichar(shelfId, 'footer_html', document.getElementById('footer_html').value);
+            shelveStore.setUnichar(shelfId, 'log_file', document.getElementById('log_file').value);
+            shelveStore.setUnichar(shelfId, 'log_template', document.getElementById('log_template').value);
 
-            var auto = document.getElementById("auto").checked;
-            // shelveUtils.debug("editShelf onOK: auto=", auto);
+            var auto = document.getElementById('auto').checked;
+            // shelveUtils.debug('editShelf onOK: auto=', auto);
             shelveStore.setBool(shelfId, 'auto', auto);
-            var autoselect = document.getElementById("autoselect").checked;
-            // shelveUtils.debug("editShelf onOK: autoselect=", autoselect);
+            var autoselect = document.getElementById('autoselect').checked;
+            // shelveUtils.debug('editShelf onOK: autoselect=', autoselect);
             shelveStore.setBool(shelfId, 'autoselect', autoselect);
             if (autoselect) {
                 shelve.setupAutoSelect();
             }
 
-            var autocontinue = document.getElementById("autocontinue").checked;
-            // shelveUtils.debug("editShelf onOK: autocontinue=", autocontinue);
+            var autocontinue = document.getElementById('autocontinue').checked;
+            // shelveUtils.debug('editShelf onOK: autocontinue=', autocontinue);
             shelveStore.setBool(shelfId, 'autocontinue', autocontinue);
 
-            var noautosave = document.getElementById("noautosave").checked;
-            // shelveUtils.debug("editShelf onOK: noautosave=", noautosave);
+            var noautosave = document.getElementById('noautosave').checked;
+            // shelveUtils.debug('editShelf onOK: noautosave=', noautosave);
             shelveStore.setBool(shelfId, 'noautosave', noautosave);
 
-            var hkk = document.getElementById("hotkey").value;
-            var hkc = document.getElementById("hotkey_ctrl").checked;
-            var hks = document.getElementById("hotkey_shift").checked;
-            var hka = document.getElementById("hotkey_alt").checked;
-            var hkm = document.getElementById("hotkey_meta").checked;
+            var hkk = document.getElementById('hotkey').value;
+            var hkc = document.getElementById('hotkey_ctrl').checked;
+            var hks = document.getElementById('hotkey_shift').checked;
+            var hka = document.getElementById('hotkey_alt').checked;
+            var hkm = document.getElementById('hotkey_meta').checked;
             var hk0 = shelveStore.get(shelfId, 'hotkey', null);
-            // shelveUtils.debug("editShelf onOK: hkk=", hkk);
+            // shelveUtils.debug('editShelf onOK: hkk=', hkk);
             if (hkk && hkk.match(/\S/)) {
                 if (hkk != hk0 || 
                 hka != shelveStore.get(shelfId, 'hotkey_alt', false) || 
@@ -174,7 +174,7 @@ var editShelf = {
                 shelveStore.clear(shelfId, 'hotkey_shift');
                 shelveStore.clear(shelfId, 'hotkey_meta');
             }
-            var mimetype = document.getElementById("mime").selectedItem;
+            var mimetype = document.getElementById('mime').selectedItem;
             if (mimetype) {
                 var mime = mimetype.value;
                 if (mime != 'default') {
@@ -183,7 +183,7 @@ var editShelf = {
                     shelveStore.clear(shelfId, 'mime');
                 }
             }
-            // shelveUtils.debug("editShelf onOK: ok=", true);
+            // shelveUtils.debug('editShelf onOK: ok=', true);
             window.arguments[0].out = {ok: true};
         }
     }

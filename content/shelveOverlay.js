@@ -50,7 +50,7 @@ var shelveOverlay = {
         // initialization code
         // shelveUtils.debug('shelveOverlay.onLoad');
         shelveOverlay.initialized = true;
-        shelveOverlay.strings = document.getElementById("shelve-strings");
+        shelveOverlay.strings = document.getElementById('shelve-strings');
         shelve.setupHotkeys();
         shelve.setupAutoshelf();
         shelve.setupAutoSelect();
@@ -80,7 +80,7 @@ var shelveOverlay = {
             title = shelveOverlay.imageTitle(gContextMenu.target);
         }
         if (title == gContextMenu.linkURL) {
-            title = "";
+            title = '';
         }
         shelve.saveURL(null, gContextMenu.linkURL, title);
     },
@@ -88,15 +88,15 @@ var shelveOverlay = {
     onPopupImage: function(ev) {
         // shelveUtils.debug('shelveOverlay.onPopupImage ev=', ev);
         var contentType = 'image';
-        var imageCache = Components.classes["@mozilla.org/image/cache;1"].
+        var imageCache = Components.classes['@mozilla.org/image/cache;1'].
         getService(Components.interfaces.imgICache);
-        var ioService = Components.classes["@mozilla.org/network/io-service;1"].
+        var ioService = Components.classes['@mozilla.org/network/io-service;1'].
         getService(Components.interfaces.nsIIOService);
         var url = gContextMenu.target.src;
         var uri = ioService.newURI(url, null, null);
         var props = imageCache.findEntryProperties(uri);
         if (props) {
-            contentType = props.get("type", Components.interfaces.nsISupportsCString).toString();
+            contentType = props.get('type', Components.interfaces.nsISupportsCString).toString();
         }
         var title = shelveOverlay.imageTitle(gContextMenu.target, url);
         shelve.saveURL(contentType, gContextMenu.target.src, title);
@@ -113,10 +113,10 @@ var shelveOverlay = {
         } else if (image.alt && image.alt != url) {
             return image.alt;
         } else {
-            return "";
+            return '';
         }
     }
 
 };
 
-window.addEventListener("load", function(e) { shelveOverlay.onLoad(e); }, false);
+window.addEventListener('load', function(e) { shelveOverlay.onLoad(e); }, false);

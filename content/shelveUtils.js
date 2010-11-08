@@ -283,9 +283,9 @@ var shelveUtils = {
                 // alert("DBG getExtension: "+ content_type_match);
                 if (content_type_match) {
                     if (content_type_match[2]) {
-                        var ctype = shelveDb.rewrite('extension', shelveUtils.getDocumentURL(doc_params_ext), content_type_match[2])
+                        var ctype = shelveDb.rewrite('extension', shelveUtils.getDocumentURL(doc_params_ext), content_type_match[2]);
                     } else if (content_type_match[3]) {
-                        var ctype = shelveDb.rewrite('extension', shelveUtils.getDocumentURL(doc_params_ext), content_type_match[3])
+                        var ctype = shelveDb.rewrite('extension', shelveUtils.getDocumentURL(doc_params_ext), content_type_match[3]);
                     }
                     if (ctype !== '') {
                         return '.' + ctype;
@@ -365,9 +365,9 @@ var shelveUtils = {
                 t += text + ': ';
             }
             try {
-                t += 'expected '+ uneval(expected) + ' but got '+ uneval(value);
+                t += 'expected ' + uneval(expected) + ' but got ' + uneval(value);
             } catch (e) {
-                t += 'expected '+ expected + ' but got '+ value;
+                t += 'expected ' + expected + ' but got ' + value;
             }
             alert(t);
         }
@@ -398,7 +398,7 @@ var shelveUtils = {
                 }
             }
             sval += ' (' + (typeof value) + ')';
-            shelveUtils.log('DEBUG: '+ text + sval);
+            shelveUtils.log('DEBUG: ' + text + sval);
         }
     },
 
@@ -469,7 +469,7 @@ var shelveUtils = {
             // shelveUtils.debug('shelveUtils writeTextFile ok=', true);
             return true;
         } catch (ex) {
-            shelveUtils.log('Error when writing text file:' + ex + '; file='+ file + '; text='+ text);
+            shelveUtils.log('Error when writing text file:' + ex + '; file=' + file + '; text=' + text);
         }
         return false;
     },
@@ -745,7 +745,7 @@ var shelveUtils = {
                 var persistObject = new shelveUtils.mafObjects.MafArchivePersist(null, format);
                 if (enable_dlm) {
                     var uri = shelveUtils.newURI(sp_params.url);
-                    shelve.registerDownload(persistObject, uri, fileUri)
+                    shelve.registerDownload(persistObject, uri, fileUri);
                 }
                 persistObject.saveDocument(doc, fileUri);
             };

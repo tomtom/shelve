@@ -43,23 +43,23 @@
 var shelveOptions = {
     
     onLoad: function() {
-        shelveOptions.fillListbox("1");
+        shelveOptions.fillListbox('1');
         shelveUtils.checkMafMimeItems(document);
-        // var view = document.getElementById("bookmarksTree");
+        // var view = document.getElementById('bookmarksTree');
         // view.init(null);
         // view.appendController(PlacesController);
     },
 
     fillListbox: function(shelfId) {
-        var listbox = document.getElementById("theShelves");
+        var listbox = document.getElementById('theShelves');
         shelveUtils.fillListbox(listbox, shelfId);
         shelveOptions.fillAutoShelves();
     },
 
     fillAutoShelves: function() {
-        var menulist = document.getElementById("menuautoshelf");
+        var menulist = document.getElementById('menuautoshelf');
         menulist.removeAllItems();
-        menulist.appendItem("--" , "--", null);
+        menulist.appendItem('--' , '--', null);
         var max = shelveStore.max();
         var autoshelf = shelve.getAutoshelfPref();
         menulist.selectedIndex = 1;
@@ -73,21 +73,21 @@ var shelveOptions = {
     },
 
     create: function() {
-        var listbox = document.getElementById("theShelves");
+        var listbox = document.getElementById('theShelves');
         if (shelveUtils.createNewShelf(listbox)) {
             shelveOptions.fillAutoShelves();
         }
     },
 
     clone: function() {
-        var listbox = document.getElementById("theShelves");
+        var listbox = document.getElementById('theShelves');
         if (shelveUtils.cloneSelected(listbox)) {
             shelveOptions.fillAutoShelves();
         }
     },
 
     edit: function() {
-        var listbox = document.getElementById("theShelves");
+        var listbox = document.getElementById('theShelves');
         var selected = listbox.selectedItem;
         if (selected) {
             var selectedIndex = listbox.selectedIndex;
@@ -97,15 +97,15 @@ var shelveOptions = {
                 },
                 out: null
             };
-            window.openDialog("chrome://shelve/content/editShelf.xul",
-            "", "chrome, dialog, modal, resizable=yes", ed_params).focus();
+            window.openDialog('chrome://shelve/content/editShelf.xul',
+            '', 'chrome, dialog, modal, resizable=yes', ed_params).focus();
             listbox.focus();
             shelveOptions.fillListbox(selected.value);
         }
     },
 
     remove: function() {
-        var listbox = document.getElementById("theShelves");
+        var listbox = document.getElementById('theShelves');
         var selected = listbox.selectedItem;
         var selectedIndex = listbox.selectedIndex;
         if (selected) {
@@ -117,7 +117,7 @@ var shelveOptions = {
     },
 
     moveUp: function() {
-        var listbox = document.getElementById("theShelves");
+        var listbox = document.getElementById('theShelves');
         var item = listbox.selectedItem;
         if (item) {
             var pred = listbox.getPreviousItem(item, 1);
@@ -131,7 +131,7 @@ var shelveOptions = {
     },
 
     moveDown: function() {
-        var listbox = document.getElementById("theShelves");
+        var listbox = document.getElementById('theShelves');
         var item = listbox.selectedItem;
         if (item) {
             var succ = listbox.getNextItem(item, 1);

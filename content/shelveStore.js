@@ -71,8 +71,8 @@ var shelveStore = {
 
     init: function() {
         if (!shelveStore.data) {
-            shelveStore.data = Components.classes["@mozilla.org/preferences-service;1"].
-            getService(Components.interfaces.nsIPrefService).getBranch("extensions.shelve.");
+            shelveStore.data = Components.classes['@mozilla.org/preferences-service;1'].
+            getService(Components.interfaces.nsIPrefService).getBranch('extensions.shelve.');
         }
     },
 
@@ -97,7 +97,7 @@ var shelveStore = {
             newIdx = max + 1;
             shelveStore.setMax(newIdx);
         }
-        return "" + newIdx;
+        return '' + newIdx;
     },
 
     copy: function(thisShelfId, thatShelfId) {
@@ -165,9 +165,9 @@ var shelveStore = {
 
     setUnichar: function(shelfId, pname, value) {
         var name = shelveStore.prefName(shelfId, pname);
-        // alert(name +": "+ value)
+        // alert(name +': '+ value)
         if (value) {
-            var str = Components.classes["@mozilla.org/supports-string;1"].
+            var str = Components.classes['@mozilla.org/supports-string;1'].
             createInstance(Components.interfaces.nsISupportsString);
             str.data = value;
             shelveStore.data.setComplexValue(name, Components.interfaces.nsISupportsString, str);
@@ -212,9 +212,9 @@ var shelveStore = {
                     return val.data;
                 }
             }
-        } catch(e) {
+        } catch (e) {
             // throw('Shelve: getUnichar("' + name +'", '+ String(defaultValue) +') :' + e);
-            shelveUtils.log('getUnichar("' + name +'", '+ String(defaultValue) +') :' + e);
+            shelveUtils.log('getUnichar("' + name + '", ' + String(defaultValue) + ') :' + e);
         }
         return defaultValue;
     },
@@ -229,12 +229,12 @@ var shelveStore = {
         // TODO: Comment out before release
         // if (!shelveStore.data.prefHasUserValue(name) && shelveStore.data.getPrefType(name) !== 0) {
         //     // shelveUtils.debug("shelveStore.get name=", name);
-        //     // shelveUtils.debug("shelveStore.get preftype=", shelveStore.data.getPrefType(name));
-        //     alert("shelveStore.get "+ name +" type="+ shelveStore.data.getPrefType(name));
+        //     // shelveUtils.debug('shelveStore.get preftype=', shelveStore.data.getPrefType(name));
+        //     alert('shelveStore.get '+ name +' type='+ shelveStore.data.getPrefType(name));
         // }
         try {
             // if (shelveStore.data.prefHasUserValue(name)) {
-                switch(shelveStore.data.getPrefType(name)) {
+                switch (shelveStore.data.getPrefType(name)) {
 
                     case shelveStore.data.PREF_INVALID:
                     return defaultValue;
@@ -255,8 +255,8 @@ var shelveStore = {
                     return shelveStore.getUnichar(shelfId, pname, defaultValue);
                 }
             // }
-        } catch(e) {
-            shelveUtils.log('get("' + name +'", '+ String(defaultValue) +') :' + e);
+        } catch (e) {
+            shelveUtils.log('get("' + name + '", ' + String(defaultValue) + ') :' + e);
         }
         return defaultValue;
     },
@@ -292,7 +292,7 @@ var shelveStore = {
     set: function(shelfId, pname, type, value) {
         var name = shelveStore.prefName(shelfId, pname);
         try {
-            switch(type) {
+            switch (type) {
                 case shelveStore.data.PREF_INVALID:
                 return null;
 
@@ -308,8 +308,8 @@ var shelveStore = {
                 default:
                 return shelveStore.setUnichar(shelfId, pname, value);
             }
-        } catch(e) {
-            shelveUtils.log('set("' + name +'", '+ String(value) +'/'+ type +') :' + e);
+        } catch (e) {
+            shelveUtils.log('set("' + name + '", ' + String(value) + '/' + type + ') :' + e);
         }
         return null;
     }
