@@ -267,6 +267,7 @@ var shelveUtils = {
 
     getDocumentType: function(doc_params) {
         var doc = shelveUtils.getDocument(doc_params);
+        // shelveUtils.debug("shelveUtils.getDocumentType", doc.contentType);
         return doc.contentType;
     },
 

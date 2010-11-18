@@ -1646,11 +1646,16 @@ var shelve = {
         if (doc_params.mime != null) {
             return doc_params.mime;
         } else {
-            switch (shelveUtils.getDocumentType(doc_params)) {
+            var doctype = shelveUtils.getDocumentType(doc_params);
+            // shelveUtils.debug("shelve.getDocumentMime doctype=", doctype);
+            switch (doctype) {
                 case 'text/html':
                 case 'application/xhtml+xml':
                 var prefs = shelve.getPrefs('');
                 return shelve.getUnicharPref(prefs, 'mime') || 'default';
+                
+                case 'text/plain':
+                return 'text';
 
                 default:
                 return 'binary';
