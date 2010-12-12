@@ -49,7 +49,7 @@ var shelve = {
             return null;
         }
     },
-    
+
     withShelfNumber: function(shelfId, doc_params) {
         // shelveUtils.debug('withShelfNumber shelfId=', shelfId);
         var sp_params = shelve.getSavePageToShelveParams(shelfId, doc_params || {});
@@ -67,19 +67,19 @@ var shelve = {
         //         shelve.notifyUser('Auto-save', 'off', {});
         //     }
         // } else {
-            try {
-                var sp_params = shelve.getSavePageParams({});
-                if (sp_params && sp_params.filename) {
-                    shelve.savePageWithParams(sp_params);
-                    if (sp_params.auto) {
-                        // shelveUtils.debug('savePage: sp_params.interactive=', sp_params.interactive);
-                        shelve.installAutoShelve(sp_params);
-                    }
+        try {
+            var sp_params = shelve.getSavePageParams({});
+            if (sp_params && sp_params.filename) {
+                shelve.savePageWithParams(sp_params);
+                if (sp_params.auto) {
+                    // shelveUtils.debug('savePage: sp_params.interactive=', sp_params.interactive);
+                    shelve.installAutoShelve(sp_params);
                 }
-            } catch (e) {
-                // alert(e);
-                throw ('Shelve page: ' + e);
             }
+        } catch (e) {
+            // alert(e);
+            throw ('Shelve page: ' + e);
+        }
         // }
     },
 
@@ -247,14 +247,14 @@ var shelve = {
             case 'text':
             mime = 'text/plain';
             encode = wbp.ENCODE_FLAGS_FORMATTED |
-            wbp.ENCODE_FLAGS_ABSOLUTE_LINKS |
-            wbp.ENCODE_FLAGS_NOFRAMES_CONTENT;
+                     wbp.ENCODE_FLAGS_ABSOLUTE_LINKS |
+                     wbp.ENCODE_FLAGS_NOFRAMES_CONTENT;
             break;
 
             case 'text_latin1':
             mime = 'text/plain';
             encode = wbp.ENCODE_FLAGS_FORMATTED |
-            wbp.ENCODE_FLAGS_ABSOLUTE_LINKS;
+                     wbp.ENCODE_FLAGS_ABSOLUTE_LINKS;
             // | wbp.ENCODE_FLAGS_NOFRAMES_CONTENT;
             break;
 
@@ -354,7 +354,7 @@ var shelve = {
         var text_enc = shelve.getUnicharPref(shelve.getPrefs('text.'), 'encoding');
         // shelveUtils.debug('shelve saveText: text_enc=', text_enc);
         shelveUtils.writeTextFile(file, text, text_enc, 0x02 | 0x08 | 0x20);
-        
+
         shelve.addFooter(sp_params);
         return true;
     },
@@ -554,10 +554,10 @@ var shelve = {
             // + String(ev.shiftKey == hkd.shift)
             // + String(ev.metaKey == hkd.meta));
             if (ev.keyCode == ev['DOM_VK_' + hkd.hotkey] && 
-            ev.altKey == hkd.alt && 
-            ev.ctrlKey == hkd.ctrl && 
-            ev.shiftKey == hkd.shift && 
-            ev.metaKey == hkd.meta) {
+                ev.altKey == hkd.alt && 
+                ev.ctrlKey == hkd.ctrl && 
+                ev.shiftKey == hkd.shift && 
+                ev.metaKey == hkd.meta) {
                 if (shelve.withShelfName(hk)) {
                     ev.preventDefault();
                     ev.stopPropagation();
@@ -571,9 +571,9 @@ var shelve = {
     },
 
     autoPageParams: null,
-    
+
     autoFileParams: null,
-    
+
     autoPilot: null,
 
     onAutoPilot: function() {
@@ -808,9 +808,7 @@ var shelve = {
                 mime: shelve.getDocumentMime(doc_params),
                 mime_fix: doc_params.mime_fix || false,
                 content_type: doc_params.content_type,
-
                 autoPilot: shelve.autoPilot,
-
                 shelves: shelves,
                 shelfNos: shelfNos,
                 shelve: this
@@ -818,7 +816,7 @@ var shelve = {
             sp_params: null
         };
         window.openDialog('chrome://shelve/content/selectShelf.xul', '',
-        'chrome, dialog, modal, resizable=yes', select_params).focus();
+            'chrome, dialog, modal, resizable=yes', select_params).focus();
         // shelveUtils.debug('getSavePageParams: select_params.sp_params=', select_params.sp_params);
         // shelveUtils.debug('getSavePageParams: onAutoPilot=', shelve.onAutoPilot());
         if (select_params.sp_params) {
@@ -908,7 +906,7 @@ var shelve = {
     },
 
     footers: {},
-    
+
     count: 0,
 
     addFooter: function(sp_params) {
@@ -1438,7 +1436,7 @@ var shelve = {
             case 'url':
             val = et_params.mode == 'log' ? shelveUtils.getDocumentURL(et_params) : null;
             break;
-            
+
             case 'content':
             val = et_params.mode == 'log' ? shelveUtils.unixString(et_params.shelve_content || '') : null;
             break;
@@ -1457,8 +1455,8 @@ var shelve = {
                 // shelveUtils.debug('shelve.expandVar', env.exists(vname))
                 if (env.exists(vname)) {
                     val = env.get(vname);
-                // } else {
-                //     val = null;
+                    // } else {
+                    //     val = null;
                 }
             } else {
                 // val = null;
@@ -1613,7 +1611,7 @@ var shelve = {
             return null;
         }
     },
-    
+
     getDocumentClip: function(doc_params) {
         return doc_params.clip != null ? doc_params.clip : shelve.getDocumentClipInWindow(getBrowser().contentWindow);
     },
@@ -1653,7 +1651,7 @@ var shelve = {
                 case 'application/xhtml+xml':
                 var prefs = shelve.getPrefs('');
                 return shelve.getUnicharPref(prefs, 'mime') || 'default';
-                
+
                 case 'text/plain':
                 return 'text';
 
