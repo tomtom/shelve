@@ -64,11 +64,16 @@ var shelveUtils = {
             try {
                 val = prefs.getCharPref('browser.download.lastDir');
             } catch (e) {
-                val = '';
+                try {
+                    val = prefs.getCharPref('browser.download.dir');
+                } catch(exception) {
+                    val = '';
+                }
             }
         }
         // shelveUtils.debug("shelveUtils pick: val=", val);
         var init = shelveUtils.localFile(val);
+        // shelveUtils.debug("shelveUtils pick: init=", init);
         var fpMode;
 
         switch (mode) {
