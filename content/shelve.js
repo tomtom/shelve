@@ -439,47 +439,36 @@ var shelve = {
         }
     },
 
+    events: ['DOMContentLoaded', 'DOMFrameContentLoaded', 'TabSelect'],
+
     addEventListener: function(listener, useCapture) {
         var prefs_events = shelve.getPrefs('events.');
-        var use_DOMContentLoaded = shelve.getBoolPref(prefs_events, 'DOMContentLoaded');
-        if (use_DOMContentLoaded) {
-            // shelveUtils.debug('addEventListener DOMContentLoaded:', listener);
-            shelveUtils.withBrowserWindows(
-                function(win) {
-                    win.addEventListener('DOMContentLoaded', listener, useCapture);
-                }
-            );
-        }
-        var use_TabSelect = shelve.getBoolPref(prefs_events, 'TabSelect');
-        if (use_TabSelect) {
-            // shelveUtils.debug('addEventListener TabSelect:', listener);
-            shelveUtils.withBrowserWindows(
-                function(win) {
-                    win.addEventListener('TabSelect', listener, useCapture);
-                }
-            );
+        for (var ev in shelve.events) {
+            var use = shelve.getBoolPref(prefs_events, shelve.events[ev]);
+            shelveUtils.debug('addEventListener use ' + shelve.events[ev] +':', use);
+            if (use) {
+                shelveUtils.debug('addEventListener ' + shelve.events[ev] +':', listener);
+                shelveUtils.withBrowserWindows(
+                    function(win) {
+                        win.addEventListener(shelve.events[ev], listener, useCapture);
+                    }
+                );
+            }
         }
     },
 
     removeEventListener: function(listener, useCapture) {
         var prefs_events = shelve.getPrefs('events.');
-        var use_DOMContentLoaded = shelve.getBoolPref(prefs_events, 'DOMContentLoaded');
-        if (use_DOMContentLoaded) {
-            // shelveUtils.debug('removeEventListener DOMContentLoaded:', listener);
-            shelveUtils.withBrowserWindows(
-                function(win) {
-                    win.removeEventListener('DOMContentLoaded', listener, useCapture);
-                }
-            );
-        }
-        var use_TabSelect = shelve.getBoolPref(prefs_events, 'TabSelect');
-        if (use_TabSelect) {
-            // shelveUtils.debug('removeEventListener TabSelect:', listener);
-            shelveUtils.withBrowserWindows(
-                function(win) {
-                    win.removeEventListener('TabSelect', listener, useCapture);
-                }
-            );
+        for (var ev in shelve.events) {
+            var use = shelve.getBoolPref(prefs_events, shelve.events[ev]);
+            if (use) {
+                // shelveUtils.debug('removeEventListener ' + shelve.events[ev] +':', listener);
+                shelveUtils.withBrowserWindows(
+                    function(win) {
+                        win.removeEventListener(shelve.events[ev], listener, useCapture);
+                    }
+                );
+            }
         }
     },
 
@@ -679,7 +668,7 @@ var shelve = {
     },
 
     autoSelectShelve: function(dclevent) {
-        // shelveUtils.debug('autoSelectShelve dclevent=', dclevent);
+        shelveUtils.debug('autoSelectShelve dclevent=', dclevent);
         // shelveUtils.debug('autoSelectShelve dclevent.originalTarget=', dclevent.originalTarget);
         // shelveUtils.debug('autoSelectShelve dclevent.originalTarget.url=', dclevent.originalTarget.url);
         var doc_params = {};

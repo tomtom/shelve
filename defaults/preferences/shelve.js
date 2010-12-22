@@ -3,6 +3,7 @@ pref("extensions.shelve.log_level", 2);
 pref("extensions.shelve.assertions", false);
 pref("extensions.shelve.debug", false);
 pref("extensions.shelve.events.DOMContentLoaded", true);
+pref("extensions.shelve.events.DOMFrameContentLoaded", false);
 pref("extensions.shelve.events.TabSelect", false);
 // pref("extensions.shelve.hotkey.keycode", 'F9');
 pref("extensions.shelve.mime", 'webpage');
