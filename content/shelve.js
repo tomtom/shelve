@@ -430,12 +430,56 @@ var shelve = {
             for (var i = 1; i <= max; i++) {
                 var autoselect = shelveStore.get(i, 'autoselect', null);
                 if (autoselect) {
-                    window.addEventListener('DOMContentLoaded', shelve.autoSelectShelve, true);
+                    shelve.addEventListener(shelve.autoSelectShelve, true);
                     shelve.autoselect = true;
                     // shelveUtils.debug('setupAutoSelect autoselect=', shelveUtils.autoselect);
                     break;
                 }
             }
+        }
+    },
+
+    addEventListener: function(listener, useCapture) {
+        var prefs_events = shelve.getPrefs('events.');
+        var use_DOMContentLoaded = shelve.getBoolPref(prefs_events, 'DOMContentLoaded');
+        if (use_DOMContentLoaded) {
+            // shelveUtils.debug('addEventListener DOMContentLoaded:', listener);
+            shelveUtils.withBrowserWindows(
+                function(win) {
+                    win.addEventListener('DOMContentLoaded', listener, useCapture);
+                }
+            );
+        }
+        var use_TabSelect = shelve.getBoolPref(prefs_events, 'TabSelect');
+        if (use_TabSelect) {
+            // shelveUtils.debug('addEventListener TabSelect:', listener);
+            shelveUtils.withBrowserWindows(
+                function(win) {
+                    win.addEventListener('TabSelect', listener, useCapture);
+                }
+            );
+        }
+    },
+
+    removeEventListener: function(listener, useCapture) {
+        var prefs_events = shelve.getPrefs('events.');
+        var use_DOMContentLoaded = shelve.getBoolPref(prefs_events, 'DOMContentLoaded');
+        if (use_DOMContentLoaded) {
+            // shelveUtils.debug('removeEventListener DOMContentLoaded:', listener);
+            shelveUtils.withBrowserWindows(
+                function(win) {
+                    win.removeEventListener('DOMContentLoaded', listener, useCapture);
+                }
+            );
+        }
+        var use_TabSelect = shelve.getBoolPref(prefs_events, 'TabSelect');
+        if (use_TabSelect) {
+            // shelveUtils.debug('removeEventListener TabSelect:', listener);
+            shelveUtils.withBrowserWindows(
+                function(win) {
+                    win.removeEventListener('TabSelect', listener, useCapture);
+                }
+            );
         }
     },
 
@@ -604,7 +648,7 @@ var shelve = {
                 userDirectory: shelve.userDirectory
             };
             shelve.setToolbarButton(true);
-            window.addEventListener('DOMContentLoaded', shelve.autoShelve, true);
+            shelve.addEventListener(shelve.autoShelve, true);
         }
     },
 
@@ -615,7 +659,7 @@ var shelve = {
             shelve.autoFileParams = null;
             shelve.autoPageParams = null;
             shelve.setToolbarButton(false);
-            window.removeEventListener('DOMContentLoaded', shelve.autoShelve, true);
+            shelve.removeEventListener(shelve.autoShelve, true);
             if (!stop && shelve.getAutoshelf) {
                 shelve.setupAutoshelf();
                 return false;
@@ -636,7 +680,13 @@ var shelve = {
 
     autoSelectShelve: function(dclevent) {
         // shelveUtils.debug('autoSelectShelve dclevent=', dclevent);
-        var doc_params = {doc: dclevent.originalTarget};
+        // shelveUtils.debug('autoSelectShelve dclevent.originalTarget=', dclevent.originalTarget);
+        // shelveUtils.debug('autoSelectShelve dclevent.originalTarget.url=', dclevent.originalTarget.url);
+        var doc_params = {};
+        if (dclevent.originalTarget.url != null) {
+            doc_params.doc = dclevent.originalTarget;
+        }
+        // shelveUtils.debug('autoSelectShelve doc=', doc_params);
         var url = shelveUtils.getDocumentURL(doc_params);
         // shelveUtils.debug('autoSelectShelve url=', url);
         if (!shelve.matchStopRx(url, 'blacklist')) {

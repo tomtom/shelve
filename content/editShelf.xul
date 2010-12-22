@@ -78,7 +78,7 @@
                                    label="&shelve.help;"
                                    accesskey="&shelve.help.accesskey;"
                                    oncommand="shelveUtils.openDoc('chrome://shelve/content/help.xhtml'); return false;" />
-                    <toolbarbutton id="browse" 
+                    <toolbarbutton id="browse_dir" 
                                    image="chrome://browser/skin/places/query.png"
                                    oncommand="shelveUtils.pick('dir', 'template'); return false;"/>
                 </hbox>
@@ -262,7 +262,7 @@
                 <hbox>
                     <label control="log_file">&log.file;:</label>
                     <spacer flex="1" />
-                    <toolbarbutton id="browse" 
+                    <toolbarbutton id="browse_log_file" 
                                    image="chrome://browser/skin/places/query.png"
                                    oncommand="shelveUtils.pick('log_file', 'save'); return false;"/>
                 </hbox>

@@ -1,7 +1,9 @@
 pref("extensions.shelve.max", 1);
 pref("extensions.shelve.log_level", 2);
-pref("extensions.shelve.debug", false);
 pref("extensions.shelve.assertions", false);
+pref("extensions.shelve.debug", false);
+pref("extensions.shelve.events.DOMContentLoaded", true);
+pref("extensions.shelve.events.TabSelect", false);
 // pref("extensions.shelve.hotkey.keycode", 'F9');
 pref("extensions.shelve.mime", 'webpage');
 pref("extensions.shelve.auto.stop_rx", "^(about|chrome|mailto|https):");
