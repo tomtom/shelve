@@ -89,7 +89,7 @@ var shelveUtils = {
             case 'save':
             fpMode = nsIFilePicker.modeSave | nsIFilePicker.filterAll;
             name = 'file';
-            if (init) {
+            if (init && val !== '') {
                 fp.displayDirectory = init.parent;
             }
             break;
