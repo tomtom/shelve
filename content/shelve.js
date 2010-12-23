@@ -724,10 +724,11 @@ var shelve = {
                         afp.extension = shelveUtils.getExtension(doc_params_ext, afp.mime);
                         // shelveUtils.debug('afp1: ', afp);
                         var filename = shelve.expandTemplate(afp);
-                        // shelveUtils.debug('filename: ', filename);
+                        // shelveUtils.debug('autoShelve filename: ', filename);
                         if (filename) {
                             var file = shelveUtils.localFile(filename);
-                            if (filename == '-' || (file && !file.exists())) {
+                            // if (filename == '-' || (file && !file.exists())) {
+                            if (filename == '-' || file) {
                                 // shelveUtils.debug('autoPageParams: ', shelve.autoPageParams);
                                 var app = shelveUtils.clone(shelve.autoPageParams);
                                 // shelveUtils.debug('app0: ', app);
@@ -737,9 +738,6 @@ var shelve = {
                                 app.url = doc.URL;
                                 // shelveUtils.debug('app1: ', app);
                                 shelve.savePageWithParams(app);
-                                // if (shelve.savePageWithParams(app)) {
-                                //     shelve.notifyUser('Auto-saved as', filename, app);
-                                // }
                             }
                         }
                     }
