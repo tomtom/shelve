@@ -434,18 +434,25 @@ var shelve = {
         }
     },
 
-    events: ['DOMContentLoaded', 'DOMFrameContentLoaded', 'TabSelect'],
+    events: [
+        'load',
+        'DOMContentLoaded',
+        'DOMFrameContentLoaded',
+        'TabSelect'
+    ],
 
     addEventListener: function(listener, useCapture) {
         var prefs_events = shelve.getPrefs('events.');
         for (var ev in shelve.events) {
-            var use = shelve.getBoolPref(prefs_events, shelve.events[ev]);
-            shelveUtils.debug('addEventListener use ' + shelve.events[ev] +':', use);
+            var event = shelve.events[ev];
+            var use = shelve.getBoolPref(prefs_events, event);
+            // shelveUtils.debug('addEventListener use ' + event + ':', use);
             if (use) {
-                shelveUtils.debug('addEventListener ' + shelve.events[ev] +':', listener);
+                // shelveUtils.debug('addEventListener ' + event + ':', listener);
                 shelveUtils.withBrowserWindows(
                     function(win) {
-                        win.addEventListener(shelve.events[ev], listener, useCapture);
+                        var target = win;
+                        target.addEventListener(event, listener, useCapture);
                     }
                 );
             }
