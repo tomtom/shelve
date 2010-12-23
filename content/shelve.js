@@ -54,19 +54,12 @@ var shelve = {
         // shelveUtils.debug('withShelfNumber shelfId=', shelfId);
         var sp_params = shelve.getSavePageToShelveParams(shelfId, doc_params || {});
         if (sp_params && shelve.savePageWithParams(sp_params)) {
-            // shelve.notifyUser('Shelved:', sp_params.filename);
-            // shelve.notifyUser('', sp_params.filename, sp_params);
             return true;
         }
         return null;
     },
 
     savePage: function() {
-        // if (shelve.onAutoPilot() == 1) {
-        //     if (shelve.uninstallAutoShelve(false)) {
-        //         shelve.notifyUser('Auto-save', 'off', {});
-        //     }
-        // } else {
         try {
             var sp_params = shelve.getSavePageParams({});
             if (sp_params && sp_params.filename) {
@@ -80,7 +73,6 @@ var shelve = {
             // alert(e);
             throw ('Shelve page: ' + e);
         }
-        // }
     },
 
     saveSelection: function(doc) {
@@ -133,9 +125,9 @@ var shelve = {
 
     savePageWithParams: function(sp_params) {
         var filename = sp_params.filename;
+        // shelveUtils.debug('savePageWithParams filename=', filename);
         if (filename === '-' || shelve.shouldWriteFile(sp_params)) {
             if (filename) {
-                // shelveUtils.debug('savePageWithParams filename=', filename);
                 // http://developer.mozilla.org/en/docs/Code_snippets:Miscellaneous
                 try {
                     var params_fix = shelve.frozenParams(sp_params);
@@ -179,6 +171,7 @@ var shelve = {
         var filename = sp_params.filename;
         // shelveUtils.debug('shouldWriteFile: filename=', filename);
         var file = shelveUtils.localFile(filename);
+        // shelveUtils.debug('shouldWriteFile: file=', file);
         // shelveUtils.debug('shouldWriteFile: file.exists=', file.exists());
         if (file === null) {
             return false;
@@ -198,6 +191,7 @@ var shelve = {
                         overwrite = 1;
                     }
                 }
+                // shelveUtils.debug('shelve.shouldWriteFile overwrite=', overwrite);
                 return overwrite === 1;
             } else {
                 shelveUtils.log('shouldWriteFile: Unknown shelfNo: Please report');
@@ -235,6 +229,7 @@ var shelve = {
             // char* outputContentType, 
             // PRUint32 encodingFlags, 
             // PRUint32 wrapColumn 
+            // shelveUtils.debug('shelve saveDocument.saver: file=', file);
             wbp.saveDocument(doc, file, dataPath, outputContentType, encodingFlags, wrapColumn);
         };
 
@@ -668,7 +663,7 @@ var shelve = {
     },
 
     autoSelectShelve: function(dclevent) {
-        shelveUtils.debug('autoSelectShelve dclevent=', dclevent);
+        // shelveUtils.debug('autoSelectShelve dclevent=', dclevent);
         // shelveUtils.debug('autoSelectShelve dclevent.originalTarget=', dclevent.originalTarget);
         // shelveUtils.debug('autoSelectShelve dclevent.originalTarget.url=', dclevent.originalTarget.url);
         var doc_params = {};
@@ -717,7 +712,7 @@ var shelve = {
 
                 try {
                     if (!shelve.matchStopRx(doc.URL)) {
-                        // shelveUtils.debug('autoFileParams: ', shelve.autoFileParams);
+                        // shelveUtils.debug('autoShelve autoFileParams: ', shelve.autoFileParams);
                         var afp   = shelveUtils.clone(shelve.autoFileParams);
                         // shelveUtils.debug('afp0: ', afp);
                         afp.doc   = doc;
@@ -826,7 +821,6 @@ var shelve = {
                     // shelveUtils.debug('shelve.getSavePageParams !noautosave=', !noautosave);
                     if (!noautosave) {
                         var spp = shelve.getSavePageToShelveParams(i, doc_params);
-                        // shelve.notifyUser(shelveUtils.localized('saved.as') + ':', spp.filename, spp);
                         return spp;
                     }
                 }

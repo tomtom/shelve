@@ -66,7 +66,7 @@ var shelveUtils = {
             } catch (e) {
                 try {
                     val = prefs.getCharPref('browser.download.dir');
-                } catch(exception) {
+                } catch (exception) {
                     val = '';
                 }
             }
@@ -385,25 +385,24 @@ var shelveUtils = {
 
     debug: function(text, value, log_level) {
         if (shelveUtils.shouldDebug()) {
-            var sval;
+            var sval = (typeof value) + ':';
             try {
-                sval = uneval(value);
-                // shelveUtils.log('DEBUG: shelveUtils debug uneval(value)='+ sval);
+                sval += uneval(value);
+                // shelveUtils.log('DEBUG: shelveUtils debug uneval(value)=' + sval);
                 // sval = uneval(value);
             } catch (e) {
                 try {
-                    sval = value.toSource();
-                    // shelveUtils.log('DEBUG: shelveUtils debug value.toSource()='+ sval);
+                    sval += value.toSource();
+                    // shelveUtils.log('DEBUG: shelveUtils debug value.toSource()=' + sval);
                 } catch (e) {
                     try {
-                        sval = '' + value;
+                        sval += value;
                         // shelveUtils.log('DEBUG: shelveUtils debug value='+ sval);
                     } catch (e) {
-                        sval = '???';
+                        sval += '???';
                     }
                 }
             }
-            sval += ' (' + (typeof value) + ')';
             shelveUtils.log('DEBUG: ' + text + sval);
         }
     },
