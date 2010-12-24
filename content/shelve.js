@@ -452,12 +452,10 @@ var shelve = {
             // shelveUtils.debug('addEventListener use ' + event + ':', use);
             if (use) {
                 // shelveUtils.debug('addEventListener ' + event + ':', listener);
-                shelveUtils.withBrowserWindows(
-                    function(win) {
-                        var target = win;
-                        target.addEventListener(event, listener, useCapture);
-                    }
-                );
+                // var target = window;
+                var target = document.getElementById("appcontent")
+                // var target = window.;
+                target.addEventListener(event, listener, useCapture);
             }
         }
     },
@@ -468,11 +466,9 @@ var shelve = {
             var use = shelve.getBoolPref(prefs_events, shelve.events[ev]);
             if (use) {
                 // shelveUtils.debug('removeEventListener ' + shelve.events[ev] +':', listener);
-                shelveUtils.withBrowserWindows(
-                    function(win) {
-                        win.removeEventListener(shelve.events[ev], listener, useCapture);
-                    }
-                );
+                // var target = window;
+                var target = document.getElementById("appcontent")
+                target.removeEventListener(shelve.events[ev], listener, useCapture);
             }
         }
     },
