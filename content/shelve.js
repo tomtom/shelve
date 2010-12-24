@@ -52,6 +52,7 @@ var shelve = {
 
     withShelfNumber: function(shelfId, doc_params) {
         // shelveUtils.debug('withShelfNumber shelfId=', shelfId);
+        // shelveUtils.debug('withShelfNumber doc_params=', doc_params);
         var sp_params = shelve.getSavePageToShelveParams(shelfId, doc_params || {});
         if (sp_params && shelve.savePageWithParams(sp_params)) {
             return true;
@@ -131,6 +132,7 @@ var shelve = {
                 // http://developer.mozilla.org/en/docs/Code_snippets:Miscellaneous
                 try {
                     var params_fix = shelve.frozenParams(sp_params);
+                    // shelveUtils.debug('savePageWithParams params_fix:', params_fix);
                     if (filename != '-') {
                         var doc = shelveUtils.getDocument(sp_params);
                         // shelveUtils.debug('shelve savePageWithParams: doc=', doc);
@@ -401,6 +403,7 @@ var shelve = {
         if (autoshelf) {
             // shelveUtils.debug('setupAutoshelf: autoshelf=', autoshelf);
             var shelfId = shelve.getShelfNumberByName(autoshelf);
+            // shelveUtils.debug('setupAutoshelf: shelfId=', shelfId);
             if (shelfId) {
                 var sp_params = shelve.getSavePageToShelveParams(shelfId, {});
                 // shelveUtils.debug('setupAutoshelf: sp_params=', sp_params);
@@ -623,11 +626,14 @@ var shelve = {
         // shelveUtils.debug('installAutoShelve: sp_params=', sp_params);
         // http://developer.mozilla.org/en/docs/Code_snippets:Tabbed_browser#Detecting_page_load
         // http://developer.mozilla.org/en/docs/Code_snippets:On_page_load
+        // shelveUtils.debug('installAutoShelve: sp_params:', sp_params);
         if (sp_params) {
             sp_params.doc = null;
             shelve.autoPageParams = shelveUtils.clone(sp_params);
         }
         if (shelve.autoPageParams) {
+            // shelveUtils.debug('installAutoShelve: autoPageParams:', shelve.autoPageParams);
+            // shelveUtils.debug('installAutoShelve: autoPageParams.template:', shelve.autoPageParams.template);
             // shelveUtils.assert(!sp_params.shelf, false, 'sp_params.shelf is not empty');
             shelve.autoPilot = sp_params.shelf;
             shelve.autoFileParams = {
@@ -638,6 +644,7 @@ var shelve = {
                 userInput: shelve.userInput,
                 userDirectory: shelve.userDirectory
             };
+            // shelveUtils.debug('installAutoShelve: autoFileParams:', shelve.autoFileParams);
             shelve.setToolbarButton(true);
             shelve.addEventListener(shelve.autoShelve, true);
         }
@@ -706,6 +713,8 @@ var shelve = {
         if (shelve.autoPageParams) {
             if (shelve.autoPilot && dclevent.originalTarget instanceof HTMLDocument) {
                 var doc = dclevent.originalTarget;
+            // shelveUtils.debug('shelve.autoShelve doc=', doc);
+            // shelveUtils.debug('shelve.autoShelve docurl=', docurl);
                 // if (event.originalTarget.defaultView.frameElement) {
                 //     // Frame within a tab was loaded. doc should be the root document of
                 //     // the frameset. If you don't want do anything when frames/iframes
@@ -729,7 +738,7 @@ var shelve = {
                         afp.parentWindow = window;
                         var doc_params_ext = {type: null, doc: doc};
                         afp.extension = shelveUtils.getExtension(doc_params_ext, afp.mime);
-                        // shelveUtils.debug('afp1: ', afp);
+                        // shelveUtils.debug('autoShelve afp1: ', afp);
                         var filename = shelve.expandTemplate(afp);
                         // shelveUtils.debug('autoShelve filename: ', filename);
                         if (filename) {
@@ -771,8 +780,10 @@ var shelve = {
     },
 
     getSavePageToShelveParams: function(shelfId, doc_params) {
+        // shelveUtils.debug('getSavePageToShelveParams: shelfId=', shelfId);
         // shelveUtils.debug('getSavePageToShelveParams: doc_params=', doc_params);
         var template = shelveStore.get(shelfId, 'dir');
+        // shelveUtils.debug('getSavePageToShelveParams template: ', template);
         var mime = shelve.getShelfMime(shelfId, doc_params);
         var filename = shelve.expandTemplateNow(shelfId, template, doc_params);
         if (filename) {
@@ -796,6 +807,7 @@ var shelve = {
             if (doc_params.url) {
                 sp_params.url = doc_params.url;
             }
+            // shelveUtils.debug('getSavePageToShelveParams sp_params:', sp_params);
             return sp_params;
         }
         return null;
@@ -814,6 +826,7 @@ var shelve = {
         for (var i = 1; i <= max; i++) {
             // shelveUtils.debug('shelve.getSavePageParams i=', i);
             template = shelveStore.get(i, 'dir', null);
+            // shelveUtils.debug('shelve.getSavePageParams template=', template);
             if (template && template.match(/\S/)) {
                 if (template.match(/[*|<>&?"]/)) {
                     alert(shelveUtils.localized('malformed_template') + ': ' + template);
@@ -1093,6 +1106,8 @@ var shelve = {
     },
 
     expandTemplateParams: function(sp_params, template) {
+        // shelveUtils.debug('expandTemplateParams sp_params:', sp_params);
+        // shelveUtils.debug('expandTemplateParams template:', template);
         var et_params = {
             clip: sp_params.clip,
             extension: sp_params.extension,
@@ -1113,6 +1128,9 @@ var shelve = {
     },
 
     expandTemplateNow: function(shelfId, template, doc_params) {
+        // shelveUtils.debug('expandTemplateNow shelfId:', shelfId);
+        // shelveUtils.debug('expandTemplateNow template:', template);
+        // shelveUtils.debug('expandTemplateNow doc_params:', doc_params);
         var mime = shelve.getShelfMime(shelfId, doc_params);
         var et_params = {
             template: template,
