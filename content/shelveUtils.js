@@ -386,24 +386,32 @@ var shelveUtils = {
     debug: function(text, value, log_level) {
         if (shelveUtils.shouldDebug()) {
             var sval = (typeof value) + ':';
+            var done = false;
             try {
                 sval += uneval(value);
-                // shelveUtils.log('DEBUG: shelveUtils debug uneval(value)=' + sval);
+                done = true;
                 // sval = uneval(value);
             } catch (e) {
+                // shelveUtils.log('DEBUG: shelveUtils debug uneval(value) error=' + e);
+            }
+            if (!done) {
                 try {
                     sval += value.toSource();
-                    // shelveUtils.log('DEBUG: shelveUtils debug value.toSource()=' + sval);
+                    done = true;
                 } catch (e) {
-                    try {
-                        sval += value;
-                        // shelveUtils.log('DEBUG: shelveUtils debug value='+ sval);
-                    } catch (e) {
-                        sval += '???';
-                    }
+                    // shelveUtils.log('DEBUG: shelveUtils debug value.toSource() error=' + e);
                 }
             }
-            shelveUtils.log('DEBUG: ' + text + sval);
+            if (!done) {
+                try {
+                    sval += value;
+                    shelveUtils.log('DEBUG: shelveUtils debug value='+ sval);
+                } catch (e) {
+                    // shelveUtils.log('DEBUG: shelveUtils debug value error=' + e);
+                    sval += '???';
+                }
+            }
+            shelveUtils.log('DEBUG: ' + text + ' ' + sval);
         }
     },
 
