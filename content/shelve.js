@@ -438,9 +438,9 @@ var shelve = {
     },
 
     events: [
-        'load',
+        // 'load',
         'DOMContentLoaded',
-        'DOMFrameContentLoaded',
+        // 'DOMFrameContentLoaded',
         'TabSelect'
     ],
 
