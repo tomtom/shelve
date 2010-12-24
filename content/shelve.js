@@ -707,10 +707,11 @@ var shelve = {
     autoShelve: function(dclevent) {
         // shelveUtils.debug('shelve.autoShelve dclevent=', dclevent);
         if (shelve.autoPageParams) {
-            if (shelve.autoPilot && dclevent.originalTarget instanceof HTMLDocument) {
-                var doc = dclevent.originalTarget;
+            var doc = dclevent.originalTarget;
+            var docurl = doc.URL;
             // shelveUtils.debug('shelve.autoShelve doc=', doc);
             // shelveUtils.debug('shelve.autoShelve docurl=', docurl);
+            if (shelve.autoPilot && doc instanceof HTMLDocument) {
                 // if (event.originalTarget.defaultView.frameElement) {
                 //     // Frame within a tab was loaded. doc should be the root document of
                 //     // the frameset. If you don't want do anything when frames/iframes
@@ -723,13 +724,13 @@ var shelve = {
                 // }
 
                 try {
-                    if (!shelve.matchStopRx(doc.URL)) {
+                    if (!shelve.matchStopRx(docurl)) {
                         // shelveUtils.debug('autoShelve autoFileParams: ', shelve.autoFileParams);
                         var afp   = shelveUtils.clone(shelve.autoFileParams);
                         // shelveUtils.debug('afp0: ', afp);
                         afp.doc   = doc;
                         afp.title = doc.title;
-                        afp.url   = doc.URL;
+                        afp.url   = docurl;
                         afp.clip  = '';
                         afp.parentWindow = window;
                         var doc_params_ext = {type: null, doc: doc};
@@ -747,7 +748,7 @@ var shelve = {
                                 app.filename = filename;
                                 app.doc = doc;
                                 app.title = doc.title;
-                                app.url = doc.URL;
+                                app.url = docurl;
                                 // shelveUtils.debug('app1: ', app);
                                 shelve.savePageWithParams(app);
                             }
