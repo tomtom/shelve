@@ -709,20 +709,16 @@ var shelve = {
         if (shelve.autoPageParams) {
             var doc = dclevent.originalTarget;
             var docurl = doc.URL;
+            // shelveUtils.debug('shelve.autoShelve docurl=', docurl);
+            if (docurl === undefined) {
+                // shelveUtils.debug('shelve.autoShelve', gBrowser.selectedBrowser.currentURI.spec);
+                // shelveUtils.debug('shelve.autoShelve', shelveUtils.getDocumentURL({}));
+                doc = shelveUtils.getDocument({});
+                docurl = doc.URL;
+            }
             // shelveUtils.debug('shelve.autoShelve doc=', doc);
             // shelveUtils.debug('shelve.autoShelve docurl=', docurl);
             if (shelve.autoPilot && doc instanceof HTMLDocument) {
-                // if (event.originalTarget.defaultView.frameElement) {
-                //     // Frame within a tab was loaded. doc should be the root document of
-                //     // the frameset. If you don't want do anything when frames/iframes
-                //     // are loaded in this web page, uncomment the following line:
-                //     // return;
-                //     // Find the root document:
-                //     while (doc.defaultView.frameElement) {
-                //         doc = doc.defaultView.frameElement.ownerDocument;
-                //     }
-                // }
-
                 try {
                     if (!shelve.matchStopRx(docurl)) {
                         // shelveUtils.debug('autoShelve autoFileParams: ', shelve.autoFileParams);
