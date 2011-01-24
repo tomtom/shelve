@@ -452,8 +452,8 @@ var shelve = {
             // shelveUtils.debug('addEventListener use ' + event + ':', use);
             if (use) {
                 // shelveUtils.debug('addEventListener ' + event + ':', listener);
-                // var target = window;
-                var target = document.getElementById("appcontent")
+                var target = window;
+                // var target = document.getElementById("appcontent")
                 // var target = window.;
                 target.addEventListener(event, listener, useCapture);
             }
