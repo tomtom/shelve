@@ -111,6 +111,7 @@ var selectShelf = {
                 filename: filename,
                 mime: selectShelf.getMime(),
                 shelf: shelfId,
+                interactive: true,
                 template: selectShelf.getTemplate(shelfId),
                 extension: selectShelf.getExtension(),
                 title: document.getElementById('title').value,
