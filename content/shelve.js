@@ -674,11 +674,19 @@ var shelve = {
 
     autoSelectShelve: function(dclevent) {
         // shelveUtils.debug('autoSelectShelve dclevent=', dclevent);
+        // shelveUtils.debug('autoSelectShelve dclevent.type=', dclevent.type);
         // shelveUtils.debug('autoSelectShelve dclevent.originalTarget=', dclevent.originalTarget);
         // shelveUtils.debug('autoSelectShelve dclevent.originalTarget.url=', dclevent.originalTarget.url);
         var doc_params = {};
-        if (dclevent.originalTarget.url != null) {
+        if (dclevent.type == "DOMContentLoaded") {
             doc_params.doc = dclevent.originalTarget;
+            // shelveUtils.debug('shelve.autoShelve DOMContentLoaded doc=', doc_params.doc);
+        } else if (dclevent.type == "TabSelect") {
+            doc_params.doc = dclevent.originalTarget.linkedBrowser.contentDocument;
+            // shelveUtils.debug('shelve.autoShelve TabSelect doc=', doc_params.doc);
+        } else {
+            doc_params.doc = shelveUtils.getDocument({});
+            // shelveUtils.debug('shelve.autoShelve getDocument() doc=', doc_params.doc);
         }
         // shelveUtils.debug('autoSelectShelve doc=', doc_params);
         var url = shelveUtils.getDocumentURL(doc_params);
@@ -707,17 +715,23 @@ var shelve = {
     autoShelve: function(dclevent) {
         // shelveUtils.debug('shelve.autoShelve dclevent=', dclevent);
         if (shelve.autoPageParams) {
-            var doc = dclevent.originalTarget;
+            var doc;
+            // shelveUtils.debug('shelve.autoShelve dclevent.type=', dclevent.type);
+            if (dclevent.type == "DOMContentLoaded") {
+                doc = dclevent.originalTarget;
+                // shelveUtils.debug('shelve.autoShelve DOMContentLoaded doc=', doc);
+            } else if (dclevent.type == "TabSelect") {
+                doc = dclevent.originalTarget.linkedBrowser.contentDocument;
+                // shelveUtils.debug('shelve.autoShelve TabSelect doc=', doc);
+            } else {
+                doc = shelveUtils.getDocument({});
+                // shelveUtils.debug('shelve.autoShelve getDocument() doc=', doc);
+            }
             var docurl = doc.URL;
             // shelveUtils.debug('shelve.autoShelve docurl=', docurl);
-            if (docurl === undefined) {
-                // shelveUtils.debug('shelve.autoShelve', gBrowser.selectedBrowser.currentURI.spec);
-                // shelveUtils.debug('shelve.autoShelve', shelveUtils.getDocumentURL({}));
-                doc = shelveUtils.getDocument({});
-                docurl = doc.URL;
+            if (!docurl) {
+                shelveUtils.log('shelve.autoShelve: no doc url', 2);
             }
-            // shelveUtils.debug('shelve.autoShelve doc=', doc);
-            // shelveUtils.debug('shelve.autoShelve docurl=', docurl);
             if (shelve.autoPilot && doc instanceof HTMLDocument) {
                 try {
                     if (!shelve.matchStopRx(docurl)) {
