@@ -83,6 +83,7 @@ var shelve = {
             var doc_params = {
                 mime: 'text',
                 mime_fix: true,
+                mockup: true,
                 clip: ''
             };
             var sp_params = shelve.getSavePageParams(doc_params);
