@@ -405,7 +405,7 @@ var shelveUtils = {
             if (!done) {
                 try {
                     sval += value;
-                    shelveUtils.log('DEBUG: shelveUtils debug value='+ sval);
+                    shelveUtils.log('DEBUG: shelveUtils debug value=' + sval);
                 } catch (e) {
                     // shelveUtils.log('DEBUG: shelveUtils debug value error=' + e);
                     sval += '???';

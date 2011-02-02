@@ -468,7 +468,7 @@ var shelve = {
             if (use) {
                 // shelveUtils.debug('removeEventListener ' + shelve.events[ev] +':', listener);
                 // var target = window;
-                var target = document.getElementById("appcontent")
+                var target = document.getElementById('appcontent');
                 target.removeEventListener(shelve.events[ev], listener, useCapture);
             }
         }
@@ -679,10 +679,10 @@ var shelve = {
         // shelveUtils.debug('autoSelectShelve dclevent.originalTarget=', dclevent.originalTarget);
         // shelveUtils.debug('autoSelectShelve dclevent.originalTarget.url=', dclevent.originalTarget.url);
         var doc_params = {};
-        if (dclevent.type == "DOMContentLoaded") {
+        if (dclevent.type == 'DOMContentLoaded') {
             doc_params.doc = dclevent.originalTarget;
             // shelveUtils.debug('shelve.autoShelve DOMContentLoaded doc=', doc_params.doc);
-        } else if (dclevent.type == "TabSelect") {
+        } else if (dclevent.type == 'TabSelect') {
             doc_params.doc = dclevent.originalTarget.linkedBrowser.contentDocument;
             // shelveUtils.debug('shelve.autoShelve TabSelect doc=', doc_params.doc);
         } else {
@@ -718,10 +718,10 @@ var shelve = {
         if (shelve.autoPageParams) {
             var doc;
             // shelveUtils.debug('shelve.autoShelve dclevent.type=', dclevent.type);
-            if (dclevent.type == "DOMContentLoaded") {
+            if (dclevent.type == 'DOMContentLoaded') {
                 doc = dclevent.originalTarget;
                 // shelveUtils.debug('shelve.autoShelve DOMContentLoaded doc=', doc);
-            } else if (dclevent.type == "TabSelect") {
+            } else if (dclevent.type == 'TabSelect') {
                 doc = dclevent.originalTarget.linkedBrowser.contentDocument;
                 // shelveUtils.debug('shelve.autoShelve TabSelect doc=', doc);
             } else {
