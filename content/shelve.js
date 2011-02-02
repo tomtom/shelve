@@ -1737,8 +1737,11 @@ var shelve = {
             var doc = shelveUtils.getDocument(doc_params);
             if (!doc.mockup) {
                 var tags = doc.getElementsByName('keywords');
-                for (var i in tags) {
+                // shelveUtils.debug('getDocumentKeywords tags:', tags);
+                for (var i = 0, len = tags.length; i < len; i++) {
+                    // shelveUtils.debug('getDocumentKeywords tags i:', i);
                     var content = tags[i].content;
+                    // shelveUtils.debug('getDocumentKeywords tags content:', content);
                     if (content) {
                         // Canonic separator
                         if (content.indexOf(';') == -1) {
