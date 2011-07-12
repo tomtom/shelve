@@ -1,0 +1,12 @@
+<!ENTITY shelve.label "Ställ in i hylla">
+<!ENTITY shelveMenu.accesskey "t">
+<!ENTITY shelveContextUrl.label "Ställ in länk i hylla&amp;#8230;">
+<!ENTITY shelveContextUrl.accesskey "t">
+<!ENTITY shelveContextImage.label "Ställ in bild i hylla&amp;#8230;">
+<!ENTITY shelveContextImage.accesskey "t">
+<!ENTITY shelveContextSelection.label "Ställ in markering i hylla som text&amp;#8230;">
+<!ENTITY shelveContextSelection.accesskey "t">
+<!ENTITY shelveContextUrlsInSelection.label "Ställ in URL:er i markering i hylla&amp;#8230;">
+<!ENTITY shelveContextUrlsInSelection.accesskey "t">
+<!ENTITY shelveToolbar.label "Ställ in i hylla">
+<!ENTITY shelveToolbar.tooltip "Ställ in det i hyllan - spara den aktuella sidan till en fördefinierad mapp">

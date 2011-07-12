@@ -1,0 +1,106 @@
+<!ENTITY prefwindow.title "Inställningar för Shelve">
+<!ENTITY shelve.shelves "Hyllor">
+<!ENTITY shelve.shelves.accesskey0 "y">
+<!ENTITY shelve.shelves.accesskey1 "l">
+<!ENTITY shelve.help "Hjälp">
+<!ENTITY shelve.help.accesskey "H">
+<!ENTITY shelve.title "Rubrik">
+<!ENTITY shelve.title.accesskey "u">
+<!ENTITY shelve.clip "Klipp">
+<!ENTITY shelve.clip.accesskey "K">
+<!ENTITY shelve.file "Fil">
+<!ENTITY shelve.file.accesskey "F">
+<!ENTITY shelve.name "Namn (inledande tecken skall vara unika)">
+<!ENTITY shelve.name.accesskey "N">
+<!ENTITY shelve.template "Filnamnsmall">
+<!ENTITY shelve.template.accesskey "n">
+<!ENTITY shelve.log "Logg">
+<!ENTITY shelve.log.accesskey "L">
+<!ENTITY shelve.footer "Sidfot">
+<!ENTITY shelve.footer.accesskey "f">
+<!ENTITY shelve.bookmarks "Bokmärken">
+<!ENTITY shelve.bookmarks.accesskey "B">
+<!ENTITY shelve.options "Inställningar">
+<!ENTITY shelve.options.accesskey "I">
+<!ENTITY shelve.parameters "Parametrar">
+<!ENTITY shelve.overwrite_files "Ersätt filer">
+<!ENTITY shelve.overwrite_files.accesskey "E">
+<!ENTITY shelve.startup "Programstart">
+<!ENTITY shelve.startup.accesskey "P">
+<!ENTITY shelve.mime "MIME">
+<!ENTITY shelve.mime.accesskey "M">
+<!ENTITY shelve.mime.default "standard">
+<!ENTITY shelve.mime.webpage "Webbsida, komplett">
+<!ENTITY shelve.mime.html "Endast HTML">
+<!ENTITY shelve.mime.text "Text">
+<!ENTITY shelve.mime.text_latin1 "Text (Latin-1)">
+<!ENTITY shelve.auto "Spara automatiskt">
+<!ENTITY shelve.auto.accesskey "a">
+<!ENTITY shelve.auto.tab.accesskey "o">
+<!ENTITY shelve.auto.rx "Spara inte dokument automatiskt om dess URL matchar detta RegExp">
+<!ENTITY shelve.auto.rx.accesskey "R">
+<!ENTITY shelve.auto.notify "Meddela användaren när något görs automatiskt">
+<!ENTITY shelve.auto.notify.accesskey "M">
+<!ENTITY shelve.auto.shelf "Spara dokument automatiskt efter programstart">
+<!ENTITY shelve.auto.shelf.accesskey "u">
+<!ENTITY shelve.up "Uppåt">
+<!ENTITY shelve.up.accesskey "U">
+<!ENTITY shelve.down "Nedåt">
+<!ENTITY shelve.down.accesskey "d">
+<!ENTITY shelve.new "Nytt">
+<!ENTITY shelve.new.accesskey "N">
+<!ENTITY shelve.clone "Klona">
+<!ENTITY shelve.clone.accesskey "K">
+<!ENTITY shelve.edit "Redigera">
+<!ENTITY shelve.edit.accesskey "R">
+<!ENTITY shelve.remove "Ta bort">
+<!ENTITY shelve.remove.accesskey "b">
+<!ENTITY log.file.template "Loggfilsmall för nya loggfiler">
+<!ENTITY log.file.template.accesskey "n">
+<!ENTITY log.file "Loggfil (bifoga loggposter till denna fil)">
+<!ENTITY log.file.accesskey "g">
+<!ENTITY log.template "Mall för loggposter">
+<!ENTITY log.template.accesskey "M">
+<!ENTITY footer.text "Sidfot för filer sparade som text">
+<!ENTITY footer.text.accesskey "x">
+<!ENTITY footer.html "Sidfot för filer sparade som HTML">
+<!ENTITY footer.html.accesskey "H">
+<!ENTITY pane1.title "Filnamnsmallar">
+<!ENTITY pane1.description "Filnamnsmallar">
+<!ENTITY shelve.shelf "Hylla">
+<!ENTITY shelve.shelf.accesskey "S">
+<!ENTITY shelve.note "Anteckning">
+<!ENTITY shelve.note.accesskey "A">
+<!ENTITY shelve.note_text.accesskey "t">
+<!ENTITY shelve.keywords "Nyckelord">
+<!ENTITY shelve.keywords.accesskey "k">
+<!ENTITY shelve.rx "Spara ett dokument till denna hylla om URL:en matchar detta RegExp">
+<!ENTITY shelve.rx.accesskey "r">
+<!ENTITY shelve.automode "När denna hylla väljs, byt till läget &quot;Ställ in i hylla automatiskt&quot;">
+<!ENTITY shelve.automode.accesskey "l">
+<!ENTITY shelve.noautosave "Använd inte detta RegExp vid manuella anrop">
+<!ENTITY shelve.noautosave.accesskey "m">
+<!ENTITY shelve.autoselect "Använd detta RegExp under webbsurfning">
+<!ENTITY shelve.autoselect.accesskey "b">
+<!ENTITY shelve.autocontinue "När en sida har sparats automatiskt, fortsätt med andra hyllor">
+<!ENTITY shelve.autocontinue.accesskey "ä">
+<!ENTITY selectShelf.title "Välj hylla">
+<!ENTITY editShelf.title "Redigera hylla">
+<!ENTITY shelve.hotkey "Snabbtangent">
+<!ENTITY shelve.hotkey.accesskey "n">
+<!ENTITY hotkey.hotkey "Snabbtangent">
+<!ENTITY hotkey.hotkey.accesskey "b">
+<!ENTITY hotkey.ctrl "Ctrl">
+<!ENTITY hotkey.ctrl.accesskey "C">
+<!ENTITY hotkey.shift "Skift">
+<!ENTITY hotkey.shift.accesskey "i">
+<!ENTITY hotkey.alt "Alt">
+<!ENTITY hotkey.alt.accesskey "A">
+<!ENTITY hotkey.meta "Meta/Win/Cmd">
+<!ENTITY hotkey.meta.accesskey "W">
+<!ENTITY shelve.save.format "Sparformat">
+<!ENTITY shelve.invocation "Anrop">
+<!ENTITY shelve.new.shelf "Nytt">
+<!ENTITY shelve.new.shelf.accesskey "y">
+<!ENTITY shelve.clone.shelf "Klona">
+<!ENTITY shelve.clone.shelf.accesskey "K">

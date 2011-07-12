@@ -1,0 +1,52 @@
+<!ENTITY shelve.title.shelve.help "Shelve: Hjälp">
+<!ENTITY shelve.a.shelve "Shelve">
+<!ENTITY shelve.a.more.help "Mer hjälp">
+<!ENTITY sheve.help.on.regex "Hjälp om reguljära uttryck (RegExp):">
+<!ENTITY shelve.regexp.hlp.moz "https://developer.mozilla.org/En/Core_JavaScript_1.5_Guide:Regular_Expressions">
+<!ENTITY shelve.regexp.hlp.wik "http://sv.wikipedia.org/wiki/Regulj&#37;C3&#37;A4ra_uttryck">
+<!ENTITY shelve.h2.place.holders "Platshållare">
+<!ENTITY shelve.p.please.define.a.set.of.templates "Var vänlig definiera en uppsättning mallar. Dessa kommer att användas för att identifiera platsen dit dokumentet skall sparas.">
+<!ENTITY shelve.p.the.following.place.holders.can.be.used "Följande platshållare kan användas:">
+<!ENTITY shelve.p.modifier.mandatory "Om ett långt namn avslutas med &quot;!&quot;, så måste informationen tillhandahållas.">
+<!ENTITY shelve.p.modifier.optional.line "Om ett långt namn avslutas med &quot;?&quot;, så kommer raden att undantas från utdatan om dess värde är tomt.">
+<!ENTITY shelve.long.var.names "Långa namn på platshållare:">
+<!ENTITY shelve.td.alternatives.example.ctf "Alternativ (Exempel: &#37;[ctF])">
+<!ENTITY shelve.td.clip "Klipp">
+<!ENTITY shelve.td.clip.non.empty "Klipp (icke-tomt)">
+<!ENTITY shelve.td.content "Innehåll (vid loggning av markerad text)">
+<!ENTITY shelve.td.user.input "Användarindata">
+<!ENTITY shelve.td.pick.directory "Välj mapp">
+<!ENTITY shelve.td.host "Värd">
+<!ENTITY shelve.td.base.hostname "Basvärdnamn">
+<!ENTITY shelve.td.query "Fråga (delen av URL:en efter frågetecknet)">
+<!ENTITY shelve.td.path "Sökväg">
+<!ENTITY shelve.td.path.no.ext "Sökväg (inget filtillägg)">
+<!ENTITY shelve.td.filename "Filnamn">
+<!ENTITY shelve.td.filename.no.ext "Filnamn (inget filtillägg)">
+<!ENTITY shelve.td.extension "Filtillägg">
+<!ENTITY shelve.td.title "Rubrik">
+<!ENTITY shelve.td.keywords "Nyckelord">
+<!ENTITY shelve.td.full.year "Fullständigt år">
+<!ENTITY shelve.td.year "År">
+<!ENTITY shelve.td.month "Månad">
+<!ENTITY shelve.td.day "Dag">
+<!ENTITY shelve.td.hours "Timmar">
+<!ENTITY shelve.td.minutes "Minuter">
+<!ENTITY shelve.td.seconds "Sekunder">
+<!ENTITY shelve.td.milliseconds "Millisekunder">
+<!ENTITY shelve.td.clipboard "Urklipp">
+<!ENTITY shelve.p.only.available.in.log.templates "Endast tillgängligt i loggmallar:">
+<!ENTITY shelve.td.note "Anteckning">
+<!ENTITY shelve.td.output.file "Utdatafil">
+<!ENTITY shelve.td.relative.output.file "Utdatafilnamn relativt till loggfilen">
+<!ENTITY shelve.td.url "URL">
+<!ENTITY shelve.td.shelf.name "Hyllnamn">
+<!ENTITY shelve.td.separator "Filnamnsavgränsare">
+<!ENTITY shelve.td.shelvedir "Undermappen &quot;shelve&quot; som finns i användarprofilmappen">
+<!ENTITY shelve.p.the.shelf.name.is.optional "Namnet &quot;shelf&quot; är valfritt. Om inget annat anges, så kommer ett tal att användas som namn.">
+<!ENTITY shelve.p.if.the.regular.expression "Om det reguljära uttrycket matchar den aktuella URL:en, så kommer mallen omedelbart att tillämpas.">
+<!ENTITY shelve.h2.examples "Exempel">
+<!ENTITY shelve.dd.save.in.the.directory.host.year "Spara i mappen VÄRD/ÅR, använd antingen markerad text eller rubriken som filnamn.">
+<!ENTITY shelve.dd.save.as.host.year.month.day.filename "Spara som VÄRD/ÅR-MÅNAD-DAG/FILNAMN (originalfiltillägget kommer att tas bort)">
+<!ENTITY shelve.dd.rebuild.the.original.file.system "Återskapa originalfilsystemet">
+<!ENTITY shelve.dd.save.under.topics.but.query.the.user "Spara under .../ämnen men fråga användaren efter en undermapp. Använd antingen markerad text, rubriken eller basfilnamnet plus &quot;.html&quot; som filnamn.">
