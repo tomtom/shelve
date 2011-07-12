@@ -1229,7 +1229,7 @@ var shelve = {
         /*jsl:ignore*/
         [pos, name, mode] = shelve.varName(et_params.template, pos, ch);
         // shelveUtils.debug('shelve processCharacter1: [pos, name, mode]=', [pos, name, mode]);
-        [fail_state, val] = shelve.expandVar(out, fail_state, name, et_params, width);
+        [fail_state, val] = shelve.expandVar(out, fail_state, name, et_params, pos, width);
         // shelveUtils.debug('shelve processCharacter2: [fail_state, val]=', [fail_state, val]);
         [next_state, out, skip_sep] = shelve.processValue(success_state, fail_state, name, mode, val, out, line_start);
         // shelveUtils.debug('shelve processCharacter3: [next_state, out, skip_sep]=', [next_state, out, skip_sep]);
@@ -1335,10 +1335,12 @@ var shelve = {
         '/': 'separator'
     },
 
-    expandVar: function(out, fail_state, ch, et_params, width) {
+    expandVar: function(out, fail_state, ch, et_params, pos, width) {
         var name = shelve.expandVarNames[ch] || ch;
         // shelveUtils.debug('shelve expandVar1: [ch, name, width]=', [ch, name, width]);
         var val = null;
+        var is_not_last = pos < et_params.template.length - 1;
+        // shelveUtils.debug('shelve expandVar1a: [pos, length, is_not_last]=', [pos, et_params.template.length, is_not_last]);
         var rawmode = (et_params.mode == 'log');
         switch (name) {
 
@@ -1387,11 +1389,11 @@ var shelve = {
             break;
 
             case 'filename':
-            val = shelve.getDocumentFilename(et_params, 2);
+            val = shelve.getDocumentFilename(et_params, 2, is_not_last);
             break;
 
             case 'basename':
-            val = shelve.getDocumentFilename(et_params, 1);
+            val = shelve.getDocumentFilename(et_params, 1, is_not_last);
             break;
 
             case 'host':
@@ -1433,11 +1435,13 @@ var shelve = {
             break;
 
             case 'fullpath':
-            val = shelve.getDocumentFilename(et_params, 3);
+            rawmode = true;
+            val = shelve.getDocumentFilename(et_params, 3, is_not_last);
             break;
 
             case 'path':
-            val = shelve.getDocumentFilename(et_params, 4);
+            rawmode = true;
+            val = shelve.getDocumentFilename(et_params, 4, is_not_last);
             break;
 
             case 'query':
@@ -1759,7 +1763,7 @@ var shelve = {
         }
     },
 
-    getDocumentFilename: function(et_params, filenametype) {
+    getDocumentFilename: function(et_params, filenametype, is_not_last) {
         var url = shelveUtils.getDocumentURL(et_params);
         var path = url.replace(/^(\w+:\/\/)?[^\/]*\/?/, '');
         var tail = path.replace(/^([^\/]*\/)*/, '');
@@ -1775,11 +1779,15 @@ var shelve = {
             file = path.replace(/[#?&].*$/, '');
             file = file.replace(/[*|<>?:"]/g, '_');
             if (file.match(/[\/\\]$/)) {
-                file += 'index.html';
+                if (is_not_last) {
+                    file = file.replace(/[\/\\]$/, '');
+                } else {
+                    file += 'index' + et_params.extension;
+                }
             }
             break;
             case 4:
-            file = shelve.getDocumentFilename(et_params, 3);
+            file = shelve.getDocumentFilename(et_params, 3, is_not_last);
             file = file.replace(/\.\w+$/, '');
             break;
         }
@@ -1787,7 +1795,8 @@ var shelve = {
         if (shelveUtils.getOS() == 'WINNT') {
             file = file.replace(/\//g, '\\');
         }
-        if (file.match(/\S/)) {
+        // shelveUtils.debug('shelve getDocumentFilename: [file, filenametype, is_not_last]=', [file, filenametype, is_not_last]);
+        if (file.match(/\S/) || is_not_last) {
             return file;
         } else {
             switch (filenametype) {
@@ -1795,7 +1804,7 @@ var shelve = {
                 return 'index';
                 break;
                 default:
-                return 'index.html';
+                return 'index' + et_params.extension;
             }
         }
     },
