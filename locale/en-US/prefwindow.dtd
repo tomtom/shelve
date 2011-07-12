@@ -50,7 +50,7 @@
 <!ENTITY shelve.new "New">
 <!ENTITY shelve.new.accesskey "N">
 <!ENTITY shelve.clone "Clone">
-<!ENTITY shelve.clone.accesskey "C">
+<!ENTITY shelve.clone.accesskey "L">
 <!ENTITY shelve.edit "Edit">
 <!ENTITY shelve.edit.accesskey "E">
 <!ENTITY shelve.remove "Remove">
