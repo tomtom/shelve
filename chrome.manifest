@@ -4,6 +4,7 @@ locale	shelve	de-DE	locale/de-DE/
 locale	shelve	fr	locale/fr/
 locale	shelve	pt-BR	locale/pt-BR/
 locale	shelve	ru-RU	locale/ru-RU/
+locale	shelve	sv-SE	locale/sv-SE/
 locale	shelve	zh-CN	locale/zh-CN/
 skin	shelve	classic/1.0	skin/
 overlay	chrome://browser/content/browser.xul	chrome://shelve/content/shelveOverlay.xul
