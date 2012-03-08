@@ -1769,13 +1769,16 @@ var shelve = {
         var tail = path.replace(/^([^\/]*\/)*/, '');
         var file;
         switch (filenametype) {
-            case 1:
-            file = tail.match(/^[^#?&.]*/) || '';
+            case 1: // basename
+            matches = tail.match(/^[^#?&]*/);
+            file = matches ? matches[0] : '';
+            file = file.replace(/\.[^.]*$/, '');
             break;
-            case 2:
-            file = tail.match(/^[^#?&]*/) || '';
+            case 2: // filename
+            matches = tail.match(/^[^#?&]*/);
+            file = matches ? matches[0] : '';
             break;
-            case 3:
+            case 3: // fullpath
             file = path.replace(/[#?&].*$/, '');
             file = file.replace(/[*|<>?:"]/g, '_');
             if (file.match(/[\/\\]$/)) {
@@ -1786,7 +1789,7 @@ var shelve = {
                 }
             }
             break;
-            case 4:
+            case 4: // path
             file = shelve.getDocumentFilename(et_params, 3, is_not_last);
             file = file.replace(/\.\w+$/, '');
             break;
