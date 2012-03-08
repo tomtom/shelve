@@ -669,7 +669,7 @@ var shelveUtils = {
         switch (klass) {
             case 'log':
             case 'footer':
-            chars += 'nouv';
+            chars += 'noOuv';
             names += '|note|outfile|relativeoutfile|url|shelf|content';
             break;
 
