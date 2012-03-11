@@ -322,7 +322,7 @@ var shelveUtils = {
 
             case 'webpage_mht':
             if (shelveUtils.isMafEnabled(false)) {
-                return '.mhtml';
+                return '.mht';
             }
 
             case 'webpage':
