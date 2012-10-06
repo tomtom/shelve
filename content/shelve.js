@@ -625,8 +625,8 @@ var shelve = {
         // http://developer.mozilla.org/en/docs/Code_snippets:On_page_load
         // shelveUtils.debug('installAutoShelve: sp_params:', sp_params);
         if (sp_params) {
-            sp_params.doc = null;
             shelve.autoPageParams = shelveUtils.clone(sp_params);
+            shelve.autoPageParams.doc = null;
         }
         if (shelve.autoPageParams) {
             // shelveUtils.debug('installAutoShelve: autoPageParams:', shelve.autoPageParams);
