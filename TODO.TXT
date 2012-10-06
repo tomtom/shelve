@@ -1,6 +1,7 @@
 * TODO
 
-    #A1 2012-03-15 Performance issues: https://groups.google.com/d/topic/shelve-firefox-addon/SygXHIe5OyE/discussion
+    #A1 2012-10-24 Performance issues: https://groups.google.com/d/topic/shelve-firefox-addon/SygXHIe5OyE/discussion
+    #B1 Erweiterung für Firefox Mobile anpassen 
     #B1 Notification per shelf ein-/ausschalten 
     #B1 Shelve.Sqlite via Internet synchronisieren @dev +Firefox
     #B5 Als PDF speichern
@@ -19,7 +20,19 @@
     #E9 Option to select more than one shelf?
 
 
-% 2008-07-28; @Last Change: 2012-03-08.
+
+** Addons
+*** https://addons.mozilla.org/en-US/firefox/addon/shelve/reviews/359955/
+хотелось бы увидеть в будущих версиях
+1. добавление функционала Saved From Url
+2. возможность one-click-save (отдельной кнопкой, и определения, каким именно профилем будет обрабатываться это действие)
+
+I would like to see in future versions
+1. adding functionality Saved From Url
+2. the possibility of one-click-save (single-click, and determine exactly how the profile will be processed that action)
+
+
+% 2008-07-28; @Last Change: 2012-07-02.
 % vi: ft=viki:tw=0:ts=4
 % Local Variables:
 % End:

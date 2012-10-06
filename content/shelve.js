@@ -34,9 +34,9 @@
  * 
  * ***** END LICENSE BLOCK ***** */
 
-/*jsl:option explicit*/ 
-/*jsl:declare document*/ 
-/*jsl:declare window*/ 
+/*jsl:option explicit*/
+/*jsl:declare document*/
+/*jsl:declare window*/
 
 
 var shelve = {
