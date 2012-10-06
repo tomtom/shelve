@@ -342,6 +342,9 @@ var shelveUtils = {
             var trans = Components.classes['@mozilla.org/widget/transferable;1'].
             createInstance(Components.interfaces.nsITransferable);
             if (trans) {
+                if (shelveUtils.appVersion() >= '16') {
+                    trans.init(null);
+                }
                 trans.addDataFlavor('text/unicode');
                 clip.getData(trans, clip.kGlobalClipboard);
                 var str = new Object();
@@ -709,6 +712,12 @@ var shelveUtils = {
         getService(Components.interfaces.nsIStringBundleService);
         var bundle = bundles.createBundle('chrome://shelve/locale/shelve.properties');
         return bundle.GetStringFromName('extensions.shelve.' + name);
+    },
+
+    appVersion: function() {
+        var info = Components.classes['@mozilla.org/xre/app-info;1'].
+        getService(Components.interfaces.nsIXULAppInfo);
+        return info.version;
     },
 
     appInfo: function() {
