@@ -337,12 +337,12 @@ var shelveUtils = {
     getClipboard: function() {
         // https://developer.mozilla.org/en/Using_the_Clipboard
         var clip = Components.classes['@mozilla.org/widget/clipboard;1'].
-        getService(Components.interfaces.nsIClipboard);
+            getService(Components.interfaces.nsIClipboard);
         if (clip) {
             var trans = Components.classes['@mozilla.org/widget/transferable;1'].
-            createInstance(Components.interfaces.nsITransferable);
+                createInstance(Components.interfaces.nsITransferable);
             if (trans) {
-                if (shelveUtils.appVersion() >= '16') {
+                if ('init' in trans) {
                     trans.init(null);
                 }
                 trans.addDataFlavor('text/unicode');
