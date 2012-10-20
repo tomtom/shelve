@@ -73,7 +73,7 @@
                             <toolbarbutton id="shelve.options" 
                                            label="&shelve.options;"
                                            accesskey="&shelve.select.shelf.options.accesskey;"
-                                           oncommand="window.close();opener.openDialog('chrome://shelve/content/shelveOptions.xul','','chrome,modal,resizable');return false;" />
+                                           oncommand="window.close();opener.openDialog('chrome://shelve/content/shelveOptions.xul','','chrome');return false;" />
                             <toolbarbutton id="shelve.new.shelf" 
                                            label="&shelve.new.shelf;"
                                            accesskey="&shelve.new.shelf.accesskey;"
