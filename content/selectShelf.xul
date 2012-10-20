@@ -70,6 +70,10 @@
                         <label accesskey="&shelve.shelves.accesskey1;" control="theShelves">&shelve.shelves;</label>
                         <spacer flex="1" />
                         <hbox>
+                            <toolbarbutton id="shelve.options" 
+                                           label="&shelve.options;"
+                                           accesskey="&shelve.select.shelf.options.accesskey;"
+                                           oncommand="window.close();opener.openDialog('chrome://shelve/content/shelveOptions.xul','','chrome,modal,resizable');return false;" />
                             <toolbarbutton id="shelve.new.shelf" 
                                            label="&shelve.new.shelf;"
                                            accesskey="&shelve.new.shelf.accesskey;"

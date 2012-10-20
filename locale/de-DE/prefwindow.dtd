@@ -22,6 +22,7 @@
 <!ENTITY shelve.bookmarks.accesskey "I">
 <!ENTITY shelve.options "Einstellungen">
 <!ENTITY shelve.options.accesskey "E">
+<!ENTITY shelve.select.shelf.options.accesskey "I">
 <!ENTITY shelve.parameters "Parameter">
 <!ENTITY shelve.overwrite_files "Dateien überschreiben">
 <!ENTITY shelve.overwrite_files.accesskey "C">
