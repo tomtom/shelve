@@ -341,20 +341,18 @@ var shelveUtils = {
         if (clip) {
             var trans = Components.classes['@mozilla.org/widget/transferable;1'].
                 createInstance(Components.interfaces.nsITransferable);
-            if (trans) {
-                if ('init' in trans) {
-                    trans.init(null);
-                }
-                trans.addDataFlavor('text/unicode');
-                clip.getData(trans, clip.kGlobalClipboard);
-                var str = new Object();
-                var strLength = new Object();
-                trans.getTransferData('text/unicode', str, strLength);
+            if (!trans) return '';
+            if ('init' in trans)
+                trans.init(null);
+            trans.addDataFlavor('text/unicode');
+            clip.getData(trans, clip.kGlobalClipboard);
+            var str = new Object();
+            var strLength = new Object();
+            trans.getTransferData('text/unicode', str, strLength);
+            if (str) {
+                str = str.value.QueryInterface(Components.interfaces.nsISupportsString);
                 if (str) {
-                    str = str.value.QueryInterface(Components.interfaces.nsISupportsString);
-                    if (str) {
-                        return str.data.substring(0, strLength.value / 2);
-                    }
+                    return str.data.substring(0, strLength.value / 2);
                 }
             }
         }
