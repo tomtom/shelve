@@ -266,6 +266,9 @@ var shelveUtils = {
         if (url == null) {
             var doc = shelveUtils.getDocument(doc_params);
             url = doc && doc.URL;
+            if (url && url.match(/\/ReadItLater\/RIL_pages\/.*?\/text\.html$/)) {
+                url = doc.links[0].href;
+            }
         }
         return url;
     },
