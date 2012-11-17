@@ -1000,7 +1000,7 @@ var shelve = {
             if (template && template.match(/\S/)) {
                 shelve.count++;
                 var id = shelve.count;
-                shelve.footers[id] = sp_params;
+                shelve.footers[id] = {params: sp_params};
                 shelve.delayedFooter(id);
             }
         } catch (ex) {
@@ -1009,7 +1009,22 @@ var shelve = {
     },
 
     delayedFooter: function(id) {
-        setTimeout(function() {shelve.footer(id);}, 1000);
+        shelveUtils.debug('DelayedFooter:', id);
+        if (id) {
+            shelve.clearDelayedFooter(id);
+            shelve.footers[id].timeoutID = setTimeout(shelve.footer, 1000, id);
+        }
+    },
+
+    clearDelayedFooter: function(id) {
+        if (id) {
+            var tid = shelve.footers[id].timeoutID;
+            if (tid) {
+                shelveUtils.debug('clearDelayedFooter:', id);
+                clearTimeout(tid);
+                shelve.footers[id].timeoutID = null;
+            }
+        }
     },
 
     getFooterTemplate: function(sp_params) {
@@ -1028,7 +1043,7 @@ var shelve = {
     },
 
     footer: function(id) {
-        var sp_params = shelve.footers[id];
+        var sp_params = shelve.footers[id].params;
         // shelveUtils.debug('footer ' + id + ': sp_params=', sp_params);
         var file = shelveUtils.localFile(sp_params.filename);
         if (file === null) {
@@ -1046,6 +1061,8 @@ var shelve = {
                 shelveUtils.writeTextFile(file, text);
                 // shelveUtils.writeTextFile(file, text, 'UTF-8');
             }
+            // shelveUtils.debug('delete footer', id);
+            shelve.clearDelayedFooter(id);
             delete shelve.footers[id];
         } else {
             shelve.delayedFooter(id);
