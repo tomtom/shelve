@@ -236,6 +236,7 @@ var shelve = {
             wbp.saveDocument(doc, file, dataPath, outputContentType, encodingFlags, wrapColumn);
         };
 
+        var footer_sp_params = null;
         var enable_dlm = shelve.useDownloadManager(sp_params, 'document');
         var wbp = Components.classes['@mozilla.org/embedding/browser/nsWebBrowserPersist;1'].
         createInstance(Components.interfaces.nsIWebBrowserPersist);
@@ -261,6 +262,9 @@ var shelve = {
             encode = wbp.ENCODE_FLAGS_RAW;
             // wbp.persistFlags |= wbp.PERSIST_FLAGS_IGNORE_IFRAMES | wbp.PERSIST_FLAGS_IGNORE_REDIRECTED_DATA;
             wbp.persistFlags |= wbp.PERSIST_FLAGS_IGNORE_IFRAMES;
+            if (allow_footer) {
+                footer_sp_params = sp_params;
+            }
             break;
 
             case 'webpage_maf':
@@ -289,6 +293,9 @@ var shelve = {
             data = shelveUtils.localFile(dataname);
             // shelveUtils.debug('shelve saveDocument: data=', data);
             // shelveUtils.debug('shelve saveDocument: dataname=', dataname);
+            if (allow_footer) {
+                footer_sp_params = sp_params;
+            }
             break;
         }
         // shelveUtils.debug('shelve saveDocument: mime=', mime);
@@ -296,13 +303,10 @@ var shelve = {
         var uri = shelveUtils.newURI(sp_params.url);
         var file_uri = shelveUtils.newFileURI(file);
         if (enable_dlm) {
-            shelve.registerDownload(wbp, uri, file_uri);
+            shelve.registerDownload(wbp, uri, file_uri, footer_sp_params);
         }
         try {
             saver(doc, file, data, mime, encode, null);
-            if (allow_footer) {
-                shelve.addFooter(sp_params);
-            }
             return true;
         } catch (exception) {
             // alert(shelveUtils.localized('error.saving')+ ': ' + filename);
@@ -331,7 +335,7 @@ var shelve = {
         wbp.persistFlags |= wbp.PERSIST_FLAGS_FROM_CACHE;
         wbp.persistFlags &= ~wbp.PERSIST_FLAGS_NO_CONVERSION;
         if (shelve.useDownloadManager(sp_params, 'binary')) {
-            shelve.registerDownload(wbp, uri, file_uri);
+            shelve.registerDownload(wbp, uri, file_uri, null);
         }
         wbp.saveURI(uri, null, null, null, null, file_uri);
         // cachekey = shelveUtils.asISupportsString(sp_params.url);
@@ -362,7 +366,7 @@ var shelve = {
         return !sp_params.noAlertNotification && !shelveUtils.appInfo().match(/^Firefox2/) && shelve.getBoolPref(prefs_dlm, mode);
     },
 
-    registerDownload: function(persist, uri, file_uri) {
+    registerDownload: function(persist, uri, file_uri, footer_sp_params) {
         // shelveUtils.debug('registerDownload: uri=', uri);
         // shelveUtils.debug('registerDownload: file_uri=', file_uri);
         // shelveUtils.debug('registerDownload: window=', window);
@@ -371,9 +375,31 @@ var shelve = {
         // var dl = dm.addDownload(0, uri, file_uri, '', null, null, null, persist);
         // persist.progressListener = dl;
         var tr = Components.classes['@mozilla.org/transfer;1'].
-        createInstance(Components.interfaces.nsITransfer);
+            createInstance(Components.interfaces.nsITransfer);
         tr.init(uri, file_uri, '', null, null, null, persist);
-        persist.progressListener = new DownloadListener(window, tr);
+        var dll = new DownloadListener(window, tr);
+        const STATE_STOP = Components.interfaces.nsIWebProgressListener.STATE_STOP;
+        // shelveUtils.debug("registerDownload: footer_sp_params=", footer_sp_params !== null);
+        if (footer_sp_params) {
+            var dlm = Components.classes["@mozilla.org/download-manager;1"]
+                .getService(Components.interfaces.nsIDownloadManager);
+            persist.progressListener = {
+                addedFooter: false,
+                onProgressChange: dll.onProgressChange,
+                onStateChange: function(aWebProgress, aRequest, aStateFlags, aStatus) {
+                    // shelveUtils.debug("registerDownload: stop=", aStateFlags & STATE_STOP);
+                    if (!this.addedFooter && (aStateFlags & STATE_STOP)) {
+                        shelveUtils.debug("Download finished:", uri);
+                        shelve.addFooter(footer_sp_params);
+                        this.addedFooter = true;
+                    }
+                    return dll.onStateChange(aWebProgress, aRequest, aStateFlags, aStatus);
+                }
+            }
+            // shelveUtils.debug("registerDownload: 2 onStateChange=", persist.progressListener.onStateChange);
+        } else {
+            persist.progressListener = dll;
+        }
         // dm.addListener(dl);
     },
 
