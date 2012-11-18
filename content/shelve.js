@@ -469,9 +469,9 @@ var shelve = {
     },
 
     events: [
-        // 'load',
+        'load',
         'DOMContentLoaded',
-        // 'DOMFrameContentLoaded',
+        'DOMFrameContentLoaded',
         'TabSelect'
     ],
 
@@ -483,7 +483,15 @@ var shelve = {
             // shelveUtils.debug('addEventListener use ' + event + ':', use);
             if (use) {
                 // shelveUtils.debug('addEventListener ' + event + ':', listener);
-                var target = window;
+                var target;
+                switch (event) {
+                    case 'load':
+                        target = gBrowser;
+                        break;
+
+                    default:
+                        target = window;
+                }
                 // var target = document.getElementById("appcontent")
                 // var target = window.;
                 target.addEventListener(event, listener, useCapture);
@@ -746,6 +754,7 @@ var shelve = {
     autoShelve: function(dclevent) {
         // shelveUtils.debug('shelve.autoShelve dclevent=', dclevent);
         if (shelve.autoPageParams) {
+            // shelveUtils.debug('shelve.autoShelve dclevent.originalTarget=', dclevent.originalTarge);
             var doc;
             // shelveUtils.debug('shelve.autoShelve dclevent.type=', dclevent.type);
             if (dclevent.type == 'DOMContentLoaded') {
@@ -754,17 +763,24 @@ var shelve = {
             } else if (dclevent.type == 'TabSelect') {
                 doc = dclevent.originalTarget.linkedBrowser.contentDocument;
                 // shelveUtils.debug('shelve.autoShelve TabSelect doc=', doc);
+            } else if (dclevent.type == 'load') {
+                doc = dclevent.target;
+                // shelveUtils.debug('shelve.autoShelve load doc=', doc);
             } else {
                 doc = shelveUtils.getDocument({});
                 // shelveUtils.debug('shelve.autoShelve getDocument() doc=', doc);
             }
             var docurl = doc.URL;
-            // shelveUtils.debug('shelve.autoShelve docurl=', docurl);
             if (!docurl) {
                 shelveUtils.log('shelve.autoShelve: no doc url', 2);
             }
+            // shelveUtils.debug('shelve.autoShelve doc=', doc);
+            // shelveUtils.debug('shelve.autoShelve autoPilot=', shelve.autoPilot);
+            // shelveUtils.debug('shelve.autoShelve doc instanceof HTMLDocument=', doc instanceof HTMLDocument);
+            // shelveUtils.debug('shelve.autoShelve if', shelve.autoPilot && doc instanceof HTMLDocument);
             if (shelve.autoPilot && doc instanceof HTMLDocument) {
                 try {
+                    // shelveUtils.debug('shelve.autoShelve docurl=', docurl);
                     if (!shelve.matchStopRx(docurl)) {
                         // shelveUtils.debug('autoShelve autoFileParams: ', shelve.autoFileParams);
                         var afp   = shelveUtils.clone(shelve.autoFileParams);
@@ -935,7 +951,9 @@ var shelve = {
             // shelveUtils.debug('shelve matchStopRx: klass=', klass);
             // shelveUtils.debug('shelve matchStopRx: stop=', stop);
             // shelveUtils.debug('shelve matchStopRx: match=', stop.match(/\S/) && url.match(new RegExp(stop)));
-            return stop.match(/\S/) && url.match(new RegExp(stop));
+            var rv = stop.match(/\S/) && url.match(new RegExp(stop));
+            // shelveUtils.debug('shelve matchStopRx: rv=', rv);
+            return rv;
         } else {
             return false;
         }
@@ -1013,7 +1031,7 @@ var shelve = {
     },
 
     delayedFooter: function(id) {
-        shelveUtils.debug('DelayedFooter:', id);
+        // shelveUtils.debug('DelayedFooter:', id);
         if (id) {
             shelve.clearDelayedFooter(id);
             shelve.footers[id].timeoutID = setTimeout(shelve.footer, 1000, id);
@@ -1024,7 +1042,7 @@ var shelve = {
         if (id) {
             var tid = shelve.footers[id].timeoutID;
             if (tid) {
-                shelveUtils.debug('clearDelayedFooter:', id);
+                // shelveUtils.debug('clearDelayedFooter:', id);
                 clearTimeout(tid);
                 shelve.footers[id].timeoutID = null;
             }

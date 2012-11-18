@@ -416,6 +416,7 @@ var shelveUtils = {
                 }
             }
             shelveUtils.log('DEBUG: ' + text + ' ' + sval);
+            // alert('DEBUG: ' + text + ' ' + sval);
         }
     },
 
