@@ -78,7 +78,7 @@ var shelve = {
 
     saveSelection: function (doc) {
         try {
-            var content = shelve.getDocumentClip({doc: doc});
+            var content = shelve.getDocumentClip({});
             // shelveUtils.debug('shelve saveSelection: content=', content);
             var doc_params = {
                 mime: 'text',
@@ -1749,7 +1749,16 @@ var shelve = {
     },
 
     getDocumentClip: function (doc_params) {
-        return doc_params.clip !== null ? doc_params.clip : shelve.getDocumentClipInWindow(getBrowser().contentWindow);
+        if ('clip' in doc_params && doc_params.clip !== null) {
+            return doc_params.clip;
+        } else {
+            var rv = shelve.getDocumentClipInWindow(getBrowser().contentWindow);
+            if (rv === null || rv === undefined) {
+                return null;
+            } else {
+                return rv;
+            }
+        }
     },
 
     getDocumentClipInWindow: function (win) {
