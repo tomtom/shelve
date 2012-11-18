@@ -389,10 +389,11 @@ var shelve = {
             persist.progressListener = {
                 addedFooter: false,
                 onProgressChange: dll.onProgressChange,
+                onStatusChange: dll.onStatusChange,
                 onStateChange: function(aWebProgress, aRequest, aStateFlags, aStatus) {
                     // shelveUtils.debug("registerDownload: stop=", aStateFlags & STATE_STOP);
                     if (!this.addedFooter && (aStateFlags & STATE_STOP)) {
-                        shelveUtils.debug("Download finished:", uri);
+                        // shelveUtils.debug("Download finished:", uri);
                         shelve.addFooter(footer_sp_params);
                         this.addedFooter = true;
                     }
