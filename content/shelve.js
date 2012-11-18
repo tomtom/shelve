@@ -307,6 +307,9 @@ var shelve = {
         }
         try {
             saver(doc, file, data, mime, encode, null);
+            if (!enable_dlm && footer_sp_params) {
+                shelve.addFooter(sp_params);
+            }
             return true;
         } catch (exception) {
             // alert(shelveUtils.localized('error.saving')+ ': ' + filename);
