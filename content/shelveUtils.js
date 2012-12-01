@@ -283,24 +283,24 @@ var shelveUtils = {
         // shelveUtils.debug("shelveUtils getExtension content_type=", content_type);
         // shelveUtils.debug("shelveUtils getExtension mime=", mime);
         var content_type = doc_params_ext.type || shelveUtils.getDocumentType(doc_params_ext);
-        // alert("DBG getExtension: "+ content_type +": "+ mime);
+        // shelveUtils.debug("shelveUtils getExtension content_type=", content_type);
         var doc = shelveUtils.getDocument(doc_params_ext);
-        switch (mime) {
-            case 'binary':
-            if (content_type) {
-                var content_type_match = content_type.match(/^(image\/(.*)|application\/(pdf))$/);
-                // alert("DBG getExtension: "+ content_type_match);
-                if (content_type_match) {
-                    if (content_type_match[2]) {
-                        var ctype = shelveDb.rewrite('extension', shelveUtils.getDocumentURL(doc_params_ext), content_type_match[2]);
-                    } else if (content_type_match[3]) {
-                        var ctype = shelveDb.rewrite('extension', shelveUtils.getDocumentURL(doc_params_ext), content_type_match[3]);
-                    }
-                    if (ctype !== '') {
-                        return '.' + ctype;
-                    }
+        if (content_type) {
+            var content_type_match = content_type.match(/^(image\/(.*)|application\/(pdf))$/);
+            // shelveUtils.debug("shelveUtils getExtension content_type_match=", content_type_match);
+            if (content_type_match) {
+                if (content_type_match[2]) {
+                    var ctype = shelveDb.rewrite('extension', shelveUtils.getDocumentURL(doc_params_ext), content_type_match[2]);
+                } else if (content_type_match[3]) {
+                    var ctype = shelveDb.rewrite('extension', shelveUtils.getDocumentURL(doc_params_ext), content_type_match[3]);
+                }
+                if (ctype !== '') {
+                    return '.' + ctype;
                 }
             }
+        }
+        switch (mime) {
+            case 'binary':
             var ios = Components.classes['@mozilla.org/network/io-service;1'].
             getService(Components.interfaces.nsIIOService);
             var uri = ios.newURI(doc.documentURI, null, null);
