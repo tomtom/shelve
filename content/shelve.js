@@ -1678,7 +1678,7 @@ var shelve = {
                         var directoryEntries = initDir.directoryEntries;
                         while (directoryEntries.hasMoreElements()) {
                             var firstEntry = directoryEntries.getNext();
-                            firstFile = firstEntry.QueryInterface(Components.interfaces.nsILocalFile);
+                            firstFile = firstEntry.QueryInterface(Components.interfaces.nsIFile);
                             if (firstEntry.isDirectory()) {
                                 initDir = firstFile;
                                 break;
