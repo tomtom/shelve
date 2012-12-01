@@ -1036,7 +1036,7 @@ var shelve = {
         // shelveUtils.debug('DelayedFooter:', id);
         if (id) {
             shelve.clearDelayedFooter(id);
-            shelve.footers[id].timeoutID = setTimeout(shelve.footer, 1000, id);
+            shelve.footers[id].timeoutID = setTimeout(function() {shelve.footer(id);}, 1000);
         }
     },
 
