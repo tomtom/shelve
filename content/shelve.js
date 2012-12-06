@@ -63,6 +63,7 @@ var shelve = {
     savePage: function () {
         try {
             var sp_params = shelve.getSavePageParams({});
+            // shelveUtils.debug("shelve.savePage sp_params=", sp_params);
             if (sp_params && sp_params.filename) {
                 shelve.savePageWithParams(sp_params);
                 if (sp_params.auto) {
@@ -1786,7 +1787,8 @@ var shelve = {
     },
 
     getDocumentMime: function (doc_params) {
-        if (doc_params.mime !== null) {
+        // shelveUtils.debug("shelve.getDocumentMime doc_params.mime=", doc_params.mime);
+        if (doc_params.mime !== null && doc_params.mime !== undefined) {
             return doc_params.mime;
         } else {
             var doctype = shelveUtils.getDocumentType(doc_params);
@@ -1795,7 +1797,9 @@ var shelve = {
                 case 'text/html':
                 case 'application/xhtml+xml':
                 var prefs = shelve.getPrefs('');
-                return shelve.getUnicharPref(prefs, 'mime') || 'default';
+                var mime = shelve.getUnicharPref(prefs, 'mime') || 'default';
+                // shelveUtils.debug("shelve.getDocumentMime mime=", mime);
+                return mime;
 
                 case 'text/plain':
                 return 'text';

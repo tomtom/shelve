@@ -288,6 +288,7 @@ var selectShelf = {
             // shelveUtils.debug('selectShelf.getMime mimetype=', mimetype);
             var mime = mimetype ? mimetype.value : (selectShelf.mime || 'default');
             // shelveUtils.debug('selectShelf.getMime mime=', mime);
+            // shelveUtils.debug('selectShelf.getMime mime0=', selectShelf.mime0);
             return mime == 'default' ? selectShelf.mime0 : mime;
         }
     },
