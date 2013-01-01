@@ -436,7 +436,7 @@ var shelveUtils = {
         try {
             if (path != '-') {
                 var localFile = Components.classes['@mozilla.org/file/local;1'];
-                var file = localFile.createInstance(Components.interfaces.nsILocalFile);
+                var file = localFile.createInstance(Components.interfaces.nsIFile);
                 // FIXME: initWithPath if path == ""?
                 if (path !== '') {
                     file.initWithPath(path);
