@@ -1,6 +1,5 @@
 * TODO
 
-    #A1 2012-10-24 Performance issues: https://groups.google.com/d/topic/shelve-firefox-addon/SygXHIe5OyE/discussion
     #B1 Erweiterung für Firefox Mobile anpassen 
     #B1 Notification per shelf ein-/ausschalten 
     #B1 Shelve.Sqlite via Internet synchronisieren @dev +Firefox
@@ -18,6 +17,7 @@
     #E8 Log to sqlite db (or use places/save as bookmark?): But nothing is as easy to post-process as a plain text file
     #E9 Also support UnMHT?
     #E9 Option to select more than one shelf?
+    #X1 2012-10-24 :done:2012-12-07 Performance issues: https://groups.google.com/d/topic/shelve-firefox-addon/SygXHIe5OyE/discussion
 
 
 
