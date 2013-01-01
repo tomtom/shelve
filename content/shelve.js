@@ -1815,7 +1815,7 @@ var shelve = {
     },
 
     getDocumentKeywords: function (doc_params) {
-        if (doc_params.keywords !== null) {
+        if (doc_params.keywords !== null && doc_params.keywords !== undefined) {
             return doc_params.keywords;
         } else {
             var keywords = [];
