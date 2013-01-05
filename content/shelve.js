@@ -416,7 +416,7 @@ var shelve = {
 
     installHotkeyListener: function () {
         if (!shelve.hotkeysInstalled) {
-            window.addEventListener('keypress', shelve.onKeypressListener, true);
+            gBrowser.addEventListener('keypress', shelve.onKeypressListener, true);
             shelve.hotkeysInstalled = true;
             // shelveUtils.log('Installed hotkey handler');
         }
