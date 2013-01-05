@@ -909,6 +909,7 @@ var shelve = {
         var select_params = {
             inn: {
                 list: list,
+                window: shelveUtils.getWindow(doc_params),
                 doc: shelveUtils.getDocument(doc_params),
                 clip: shelve.getDocumentClip(doc_params),
                 title: shelve.getDocumentTitle(doc_params),

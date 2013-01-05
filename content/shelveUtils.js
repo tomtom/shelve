@@ -256,6 +256,11 @@ var shelveUtils = {
         return false;
     },
 
+    getWindow: function(doc_params) {
+        // shelveUtils.debug('shelveUtils.getDocument doc_params=', doc_params);
+        return doc_params.window || window;
+    },
+
     getDocument: function(doc_params) {
         // shelveUtils.debug('shelveUtils.getDocument doc_params=', doc_params);
         return doc_params.doc || window._content.document;
