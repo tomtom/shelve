@@ -82,7 +82,7 @@ var shelveOverlay = {
         if (title == gContextMenu.linkURL) {
             title = '';
         }
-        shelve.saveURL(null, gContextMenu.linkURL, title);
+        shelve.shelveURL(null, gContextMenu.linkURL, title);
     },
 
     onPopupImage: function(ev) {
@@ -99,7 +99,7 @@ var shelveOverlay = {
             contentType = props.get('type', Components.interfaces.nsISupportsCString).toString();
         }
         var title = shelveOverlay.imageTitle(gContextMenu.target, url);
-        shelve.saveURL(contentType, gContextMenu.target.src, title);
+        shelve.shelveURL(contentType, gContextMenu.target.src, title);
     },
 
     onHotKey: function() {

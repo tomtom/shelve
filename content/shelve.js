@@ -97,7 +97,7 @@ var shelve = {
         }
     },
 
-    saveURL: function (type, url, title) {
+    shelveURL: function (type, url, title) {
         var doc_params = {
             url: url,
             content_type: type,
