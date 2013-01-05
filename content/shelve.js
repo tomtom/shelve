@@ -342,9 +342,16 @@ var shelve = {
         if (shelve.useDownloadManager(sp_params, 'binary')) {
             shelve.registerDownload(wbp, uri, file_uri, null);
         }
-        wbp.saveURI(uri, null, null, null, null, file_uri);
-        // cachekey = shelveUtils.asISupportsString(sp_params.url);
-        // wbp.saveURI(uri, cachekey, null, null, null, file);
+
+        if (shelveUtils.appVersion() >= '18') {
+            var sourceWindow = shelveUtils.getWindow(sp_params);
+            var privacyContext = sourceWindow.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+                .getInterface(Components.interfaces.nsIWebNavigation)
+                .QueryInterface(nsILoadContext);
+            wbp.saveURI(uri, null, null, null, null, file_uri, privacyContext);
+        } else {
+            wbp.saveURI(uri, null, null, null, null, file_uri);
+        }
         return true;
     },
 
@@ -374,13 +381,6 @@ var shelve = {
     STATE_STOP: Components.interfaces.nsIWebProgressListener.STATE_STOP,
 
     registerDownload: function (persist, uri, file_uri, footer_sp_params) {
-        // shelveUtils.debug('registerDownload: uri=', uri);
-        // shelveUtils.debug('registerDownload: file_uri=', file_uri);
-        // shelveUtils.debug('registerDownload: window=', window);
-        // var dm = Components.classes['@mozilla.org/download-manager;1'].
-        // getService(Components.interfaces.nsIDownloadManager);
-        // var dl = dm.addDownload(0, uri, file_uri, '', null, null, null, persist);
-        // persist.progressListener = dl;
         var tr = Components.classes['@mozilla.org/transfer;1'].
             createInstance(Components.interfaces.nsITransfer);
         tr.init(uri, file_uri, '', null, null, null, persist);
