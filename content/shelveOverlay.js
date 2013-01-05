@@ -87,11 +87,18 @@ var shelveOverlay = {
 
     onPopupImage: function(ev) {
         // shelveUtils.debug('shelveOverlay.onPopupImage ev=', ev);
+        shelveUtils.debug('shelveOverlay.onPopupImage appVersion=', shelveUtils.appVersion());
         var contentType = 'image';
-        var imageCache = Components.classes['@mozilla.org/image/cache;1'].
-        getService(Components.interfaces.imgICache);
+        if (shelveUtils.appVersion() >= '18') {
+            var tools = Components.classes["@mozilla.org/image/tools;1"].
+                getService(Components.interfaces.imgITools);
+            var imageCache = tools.getImgCacheForDocument(gContextMenu.target);
+        } else {
+            var imageCache = Components.classes['@mozilla.org/image/cache;1'].
+                getService(Components.interfaces.imgICache);
+        }
         var ioService = Components.classes['@mozilla.org/network/io-service;1'].
-        getService(Components.interfaces.nsIIOService);
+            getService(Components.interfaces.nsIIOService);
         var url = gContextMenu.target.src;
         var uri = ioService.newURI(url, null, null);
         var props = imageCache.findEntryProperties(uri);
