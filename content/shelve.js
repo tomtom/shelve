@@ -554,11 +554,12 @@ var shelve = {
         var prefs_hotkey = shelve.getPrefs('hotkey.');
         var kc = shelve.getUnicharPref(prefs_hotkey, 'keycode');
         if (kc && kc.match(/\S/)) {
+            // shelveUtils.debug('setupHotkeys Keycode: ', kc);
             document.getElementById('key_shelve').setAttribute('keycode', 'VK_' + kc);
-            var kt = shelve.getUnicharPref(prefs_hotkey, 'keytext');
-            if (kt) {
-                document.getElementById('key_shelve').setAttribute('keytext', kt);
-            }
+            // var kt = shelve.getUnicharPref(prefs_hotkey, 'keytext');
+            // if (kt) {
+            //     document.getElementById('key_shelve').setAttribute('keytext', kt);
+            // }
             var mod = [];
             if (shelve.getBoolPref(prefs_hotkey, 'alt')) {
                 mod.push('alt');
@@ -574,6 +575,7 @@ var shelve = {
             }
             if (mod.length > 0) {
                 mod = mod.join(' ');
+                // shelveUtils.debug('setupHotkeys mod: ', mod);
                 document.getElementById('key_shelve').setAttribute('modifiers', mod);
             }
         }
@@ -632,6 +634,12 @@ var shelve = {
     },
 
     onKeypressListener: function (ev) {
+        // shelveUtils.debug('shelve.onKeypressListener: ', ev);
+        // shelveUtils.debug('shelve.onKeypressListener: keyCode:', ev.keyCode);
+        // shelveUtils.debug('shelve.onKeypressListener: altKey:', ev.altKey);
+        // shelveUtils.debug('shelve.onKeypressListener: ctrlKey:', ev.ctrlKey);
+        // shelveUtils.debug('shelve.onKeypressListener: shiftKey:', ev.shiftKey);
+        // shelveUtils.debug('shelve.onKeypressListener: metaKey:', ev.metaKey);
         var hkn = 0;
         for (var hk in shelve.hotkeys) {
             hkn++;
@@ -1037,6 +1045,7 @@ var shelve = {
     count: 0,
 
     addFooter: function (sp_params) {
+        // shelveUtils.debug('shelve.addFooter: sp_params=', sp_params);
         try {
             var template = shelve.getFooterTemplate(sp_params);
             if (template && template.match(/\S/)) {
