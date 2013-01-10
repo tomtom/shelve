@@ -87,12 +87,12 @@ var shelveOverlay = {
 
     onPopupImage: function(ev) {
         // shelveUtils.debug('shelveOverlay.onPopupImage ev=', ev);
-        shelveUtils.debug('shelveOverlay.onPopupImage appVersion=', shelveUtils.appVersion());
+        // shelveUtils.debug('shelveOverlay.onPopupImage appVersion=', shelveUtils.appVersion());
         var contentType = 'image';
         if (shelveUtils.appVersion() >= '18') {
             var tools = Components.classes["@mozilla.org/image/tools;1"].
                 getService(Components.interfaces.imgITools);
-            var imageCache = tools.getImgCacheForDocument(gContextMenu.target);
+            var imageCache = tools.getImgCacheForDocument(document);
         } else {
             var imageCache = Components.classes['@mozilla.org/image/cache;1'].
                 getService(Components.interfaces.imgICache);
