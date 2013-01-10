@@ -38,6 +38,8 @@
 /*jsl:declare document*/
 /*jsl:declare window*/
 
+Components.utils.import("resource://gre/modules/PrivateBrowsingUtils.jsm");
+
 
 var shelve = {
 
@@ -304,12 +306,14 @@ var shelve = {
         // shelveUtils.debug('shelve saveDocument: encode=', encode);
         var uri = shelveUtils.newURI(sp_params.url);
         var file_uri = shelveUtils.newFileURI(file);
+        // shelveUtils.debug('shelve saveDocument: enable_dlm=', enable_dlm);
+        // shelveUtils.debug('shelve saveDocument: footer_sp_params=', footer_sp_params);
         if (enable_dlm) {
-            shelve.registerDownload(wbp, uri, file_uri, footer_sp_params);
+            shelve.registerDownload(wbp, uri, file_uri, sp_params, footer_sp_params);
         }
         try {
             saver(doc, file, data, mime, encode, null);
-            if (!enable_dlm && footer_sp_params) {
+            if (!enable_dlm && footer_sp_params !== null) {
                 shelve.addFooter(sp_params);
             }
             return true;
@@ -319,6 +323,11 @@ var shelve = {
             shelveUtils.log(exception);
         }
         return false;
+    },
+
+    isPrivate: function(sp_params) {
+        var win = shelveUtils.getWindow(sp_params);
+        return PrivateBrowsingUtils.isWindowPrivate(win);
     },
 
     saveBinary: function (doc, filename, sp_params) {
@@ -340,7 +349,7 @@ var shelve = {
         wbp.persistFlags |= wbp.PERSIST_FLAGS_FROM_CACHE;
         wbp.persistFlags &= ~wbp.PERSIST_FLAGS_NO_CONVERSION;
         if (shelve.useDownloadManager(sp_params, 'binary')) {
-            shelve.registerDownload(wbp, uri, file_uri, null);
+            shelve.registerDownload(wbp, uri, file_uri, sp_params, null);
         }
 
         if (shelveUtils.appVersion() >= '18') {
@@ -380,10 +389,20 @@ var shelve = {
 
     STATE_STOP: Components.interfaces.nsIWebProgressListener.STATE_STOP,
 
-    registerDownload: function (persist, uri, file_uri, footer_sp_params) {
+    registerDownload: function (persist, uri, file_uri, sp_params, footer_sp_params) {
+        // shelveUtils.debug("registerDownload persist=", persist);
+        // shelveUtils.debug("registerDownload uri=", uri);
+        // shelveUtils.debug("registerDownload file_uri=", file_uri);
+        // shelveUtils.debug("registerDownload footer_sp_params=", footer_sp_params);
         var tr = Components.classes['@mozilla.org/transfer;1'].
             createInstance(Components.interfaces.nsITransfer);
-        tr.init(uri, file_uri, '', null, null, null, persist);
+        if (shelveUtils.appVersion() >= '18') {
+            var isPrivate = shelve.isPrivate(sp_params);
+            // shelveUtils.debug("registerDownload isPrivate=", isPrivate);
+            tr.init(uri, file_uri, '', null, null, null, persist, isPrivate);
+        } else {
+            tr.init(uri, file_uri, '', null, null, null, persist);
+        }
         var dll = new DownloadListener(window, tr);
         // shelveUtils.debug("registerDownload: footer_sp_params=", footer_sp_params !== null);
         if (footer_sp_params) {

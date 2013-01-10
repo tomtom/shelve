@@ -774,7 +774,7 @@ var shelveUtils = {
                 var persistObject = new shelveUtils.mafObjects.MafArchivePersist(null, format);
                 if (enable_dlm) {
                     var uri = shelveUtils.newURI(sp_params.url);
-                    shelve.registerDownload(persistObject, uri, fileUri);
+                    shelve.registerDownload(persistObject, uri, fileUri, sp_params, null);
                 }
                 persistObject.saveDocument(doc, fileUri);
             };
