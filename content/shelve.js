@@ -252,6 +252,7 @@ var shelve = {
             encode = wbp.ENCODE_FLAGS_FORMATTED |
                      wbp.ENCODE_FLAGS_ABSOLUTE_LINKS |
                      wbp.ENCODE_FLAGS_NOFRAMES_CONTENT;
+            footer_sp_params = sp_params;
             break;
 
             case 'text_latin1':
@@ -259,6 +260,7 @@ var shelve = {
             encode = wbp.ENCODE_FLAGS_FORMATTED |
                      wbp.ENCODE_FLAGS_ABSOLUTE_LINKS;
             // | wbp.ENCODE_FLAGS_NOFRAMES_CONTENT;
+            footer_sp_params = sp_params;
             break;
 
             case 'html':
@@ -266,9 +268,7 @@ var shelve = {
             encode = wbp.ENCODE_FLAGS_RAW;
             // wbp.persistFlags |= wbp.PERSIST_FLAGS_IGNORE_IFRAMES | wbp.PERSIST_FLAGS_IGNORE_REDIRECTED_DATA;
             wbp.persistFlags |= wbp.PERSIST_FLAGS_IGNORE_IFRAMES;
-            if (allow_footer) {
-                footer_sp_params = sp_params;
-            }
+            footer_sp_params = sp_params;
             break;
 
             case 'webpage_maf':
@@ -297,6 +297,7 @@ var shelve = {
             data = shelveUtils.localFile(dataname);
             // shelveUtils.debug('shelve saveDocument: data=', data);
             // shelveUtils.debug('shelve saveDocument: dataname=', dataname);
+            // shelveUtils.debug('shelve saveDocument: allow_footer=', allow_footer);
             if (allow_footer) {
                 footer_sp_params = sp_params;
             }
