@@ -566,7 +566,7 @@ var shelve = {
                 mod.push('alt');
             }
             if (shelve.getBoolPref(prefs_hotkey, 'ctrl')) {
-                mod.push('control');
+                mod.push('accel');
             }
             if (shelve.getBoolPref(prefs_hotkey, 'shift')) {
                 mod.push('shift');
@@ -575,7 +575,7 @@ var shelve = {
                 mod.push('meta');
             }
             if (mod.length > 0) {
-                mod = mod.join(' ');
+                mod = mod.join(',');
                 // shelveUtils.debug('setupHotkeys mod: ', mod);
                 document.getElementById('key_shelve').setAttribute('modifiers', mod);
             }
