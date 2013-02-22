@@ -139,10 +139,12 @@ var shelve = {
                     // shelveUtils.debug('savePageWithParams params_fix:', params_fix);
                     if (filename !== '-') {
                         var doc = shelveUtils.getDocument(sp_params);
+                        var doc_type = shelveUtils.getDocumentType(sp_params);
                         // shelveUtils.debug('shelve savePageWithParams: doc=', doc);
                         // shelveUtils.debug('shelve savePageWithParams: doc is null =', doc === null);
                         // shelveUtils.debug('shelve savePageWithParams: doc.contentType=', doc.contentType);
-                        switch (doc.contentType) {
+                        // shelveUtils.debug('shelve savePageWithParams: doc_type=', doc_type);
+                        switch (doc_type) {
                             case 'text/html':
                             case 'application/xhtml+xml':
                             if (sp_params.shelve_content) {
@@ -332,6 +334,7 @@ var shelve = {
     },
 
     saveBinary: function (doc, filename, sp_params) {
+        // shelveUtils.debug('shelve saveBinary: filename=', filename);
         var uri = shelveUtils.newURI(sp_params.url);
 
         // filename = filename.replace(/\\\\+/g, '\\');
@@ -1800,6 +1803,7 @@ var shelve = {
                 sel = shelve.getSelectionString(frame) || shelve.getDocumentClipInWindow(frame);
                 fi++;
             }
+            // shelveUtils.debug("shelve.getDocumentClipInWindow sel=", sel);
         }
         return sel;
     },

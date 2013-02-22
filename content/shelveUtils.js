@@ -43,8 +43,17 @@
 
 var shelveUtils = {
 
-    clone: function(obj) {
-        return eval(uneval(obj));
+    // // Based on http://stackoverflow.com/questions/3774008/cloning-a-javascript-object
+    // clone: (function(){ 
+    //     return function (obj) {
+    //         Clone.prototype=obj;
+    //         return new Clone()
+    //     };
+    //     function Clone(){}
+    // }()),
+    
+    clone: function(obj) { 
+        return JSON.parse(JSON.stringify(obj));
     },
 
     pick: function(cid, mode) {
@@ -280,8 +289,14 @@ var shelveUtils = {
 
     getDocumentType: function(doc_params) {
         var doc = shelveUtils.getDocument(doc_params);
-        // shelveUtils.debug("shelveUtils.getDocumentType", doc.contentType);
-        return doc.contentType;
+        var doc_type;
+        if (doc.baseURI && doc.baseURI.match(/^resource:\/\/pdf\.js\//)) {
+            doc_type = 'application/pdf';
+        } else {
+            // shelveUtils.debug("shelveUtils.getDocumentType", doc.contentType);
+            doc_type = doc.contentType;
+        }
+        return doc_type;
     },
 
     getExtension: function(doc_params_ext, mime) {
