@@ -291,7 +291,11 @@ var shelveUtils = {
         var doc = shelveUtils.getDocument(doc_params);
         var doc_type;
         if (doc.baseURI && doc.baseURI.match(/^resource:\/\/pdf\.js\//)) {
-            doc_type = 'application/pdf';
+            if (doc_params.shelve_content) {
+                doc_type = 'text/html';
+            } else {
+                doc_type = 'application/pdf';
+            }
         } else {
             // shelveUtils.debug("shelveUtils.getDocumentType", doc.contentType);
             doc_type = doc.contentType;
@@ -299,51 +303,58 @@ var shelveUtils = {
         return doc_type;
     },
 
-    getExtension: function(doc_params_ext, mime) {
-        // shelveUtils.debug("shelveUtils getExtension content_type=", content_type);
+    getExtension: function(doc_params_ext, mime, mime_fix) {
+        // shelveUtils.debug("shelveUtils getExtension doc_params_ext=", doc_params_ext);
         // shelveUtils.debug("shelveUtils getExtension mime=", mime);
-        var content_type = doc_params_ext.type || shelveUtils.getDocumentType(doc_params_ext);
-        // shelveUtils.debug("shelveUtils getExtension content_type=", content_type);
+        // shelveUtils.debug("shelveUtils getExtension mime_fix=", mime_fix);
         var doc = shelveUtils.getDocument(doc_params_ext);
-        if (content_type) {
-            var content_type_match = content_type.match(/^(image\/(.*)|application\/(pdf))$/);
-            // shelveUtils.debug("shelveUtils getExtension content_type_match=", content_type_match);
-            if (content_type_match) {
-                if (content_type_match[2]) {
-                    var ctype = shelveDb.rewrite('extension', shelveUtils.getDocumentURL(doc_params_ext), content_type_match[2]);
-                } else if (content_type_match[3]) {
-                    var ctype = shelveDb.rewrite('extension', shelveUtils.getDocumentURL(doc_params_ext), content_type_match[3]);
-                }
-                if (ctype !== '') {
-                    return '.' + ctype;
+        if (!mime_fix) {
+            var content_type = doc_params_ext.type || shelveUtils.getDocumentType(doc_params_ext);
+            // shelveUtils.debug("shelveUtils getExtension content_type=", content_type);
+            if (content_type && !doc_params_ext.shelve_content) {
+                var content_type_match = content_type.match(/^(image\/(.*)|application\/(pdf))$/);
+                // shelveUtils.debug("shelveUtils getExtension content_type_match=", content_type_match);
+                if (content_type_match) {
+                    if (content_type_match[2]) {
+                        var ctype = shelveDb.rewrite('extension', shelveUtils.getDocumentURL(doc_params_ext), content_type_match[2]);
+                    } else if (content_type_match[3]) {
+                        var ctype = shelveDb.rewrite('extension', shelveUtils.getDocumentURL(doc_params_ext), content_type_match[3]);
+                    }
+                    if (ctype !== '') {
+                        return '.' + ctype;
+                    }
                 }
             }
         }
         switch (mime) {
             case 'binary':
-            var ios = Components.classes['@mozilla.org/network/io-service;1'].
-            getService(Components.interfaces.nsIIOService);
-            var uri = ios.newURI(doc.documentURI, null, null);
-            var path = uri.path;
-            path = path.replace(/[#?].*$/, '');
-            var ext = path.match(/\.\w+$/);
-            if (ext) {
-                // shelveUtils.debug("shelveUtils getExtension ext=", ext);
-                return ext[0];
-            } else {
-                return '.html';
-            }
+                var ios = Components.classes['@mozilla.org/network/io-service;1'].
+                    getService(Components.interfaces.nsIIOService);
+                var uri = ios.newURI(doc.documentURI, null, null);
+                var path = uri.path;
+                path = path.replace(/[#?].*$/, '');
+                var ext = path.match(/\.\w+$/);
+                if (ext) {
+                    // shelveUtils.debug("shelveUtils getExtension ext=", ext);
+                    return ext[0];
+                } else {
+                    // shelveUtils.debug("shelveUtils getExtension", ".html");
+                    return '.html';
+                }
 
             case 'text':
             case 'text_latin1':
+            // shelveUtils.debug("shelveUtils getExtension", "txt");
             return '.txt';
 
             case 'webpage_maf':
+            // shelveUtils.debug("shelveUtils getExtension", "webpage_maf");
             if (shelveUtils.isMafEnabled(false)) {
                 return '.maff';
             }
 
             case 'webpage_mht':
+            // shelveUtils.debug("shelveUtils getExtension", "webpage_mht");
             if (shelveUtils.isMafEnabled(false)) {
                 return '.mht';
             }
@@ -353,6 +364,7 @@ var shelveUtils = {
             case 'html':
             case 'default':
             default:
+            // shelveUtils.debug("shelveUtils getExtension", "default");
             return '.html';
         }
     },

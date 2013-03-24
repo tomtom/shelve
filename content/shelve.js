@@ -1819,6 +1819,7 @@ var shelve = {
 
     getDocumentMime: function (doc_params) {
         // shelveUtils.debug("shelve.getDocumentMime doc_params.mime=", doc_params.mime);
+        // shelveUtils.debug("shelve.getDocumentMime doc_params.mime_fix=", doc_params.mime_fix);
         if (doc_params.mime !== null && doc_params.mime !== undefined) {
             return doc_params.mime;
         } else {

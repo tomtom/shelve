@@ -281,7 +281,7 @@ var selectShelf = {
     },
 
     getMime: function() {
-        if (selectShelf.mime0 == 'binary') {
+        if (selectShelf.mime0 == 'binary' || selectShelf.mime_fix) {
             return selectShelf.mime0;
         } else {
             var mimetype = document.getElementById('mime').selectedItem;
@@ -295,10 +295,14 @@ var selectShelf = {
 
     getExtension: function() {
         var type = window.arguments[0].inn.content_type;
-        var mime = selectShelf.mime0 === 'binary' ? 'binary' : selectShelf.getMime();
         var doc = window.arguments[0].inn.doc;
         var doc_params_ext = {type: type, doc: doc};
-        return shelveUtils.getExtension(doc_params_ext, mime);
+        if (selectShelf.mime_fix) {
+            return shelveUtils.getExtension(doc_params_ext, selectShelf.mime0, true);
+        } else {
+            var mime = selectShelf.mime0 === 'binary' ? 'binary' : selectShelf.getMime();
+            return shelveUtils.getExtension(doc_params_ext, mime);
+        }
     },
 
     alertMime: function(prefix) {
