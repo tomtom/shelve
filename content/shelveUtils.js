@@ -787,8 +787,15 @@ var shelveUtils = {
         }
     },
 
-    checkMafMimeItems: function(doc) {
-        if (!shelveUtils.isMafEnabled(false)) {
+    checkMimeItems: function(doc, mime) {
+        if (mime === 'binary') {
+            doc.getElementById('mimewebpage').hidden = true;
+            doc.getElementById('mimewebpage_mht').hidden = true;
+            doc.getElementById('mimewebpage_maf').hidden = true;
+            doc.getElementById('mimehtml').hidden = true;
+            doc.getElementById('mimetext').hidden = true;
+            doc.getElementById('mimetext_latin1').hidden = true;
+        } else if (!shelveUtils.isMafEnabled(false)) {
             doc.getElementById('mimewebpage_mht').hidden = true;
             doc.getElementById('mimewebpage_maf').hidden = true;
         }

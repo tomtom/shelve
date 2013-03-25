@@ -53,10 +53,10 @@ var selectShelf = {
         document.getElementById('clip').value = window.arguments[0].inn.clip;
         document.getElementById('title').value = window.arguments[0].inn.title;
         document.getElementById('text_keywords').value = window.arguments[0].inn.keywords;
-        shelveUtils.checkMafMimeItems(document);
         selectShelf.mime0 = window.arguments[0].inn.mime;
         // shelveUtils.debug('selectShelf.onLoad mime0=', selectShelf.mime0);
         selectShelf.mime_fix = window.arguments[0].inn.mime_fix;
+        shelveUtils.checkMimeItems(document, selectShelf.mime0);
         // shelveUtils.debug('selectShelf.onLoad mime_fix=', selectShelf.mime_fix);
         // selectShelf.mime = selectShelf.mime0 || 'default';
         selectShelf.mime = 'default';
@@ -274,7 +274,9 @@ var selectShelf = {
                 mimelist.disabled = true;
             } else {
                 var mimeitem = document.getElementById('mime' + mime);
-                mimelist.selectedItem = mimeitem;
+                if (!mimeitem.hidden) {
+                    mimelist.selectedItem = mimeitem;
+                }
             }
             // selectShelf.alertMime('dlgSetMime2');
         }

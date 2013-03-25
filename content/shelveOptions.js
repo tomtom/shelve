@@ -44,7 +44,7 @@ var shelveOptions = {
     
     onLoad: function() {
         shelveOptions.fillListbox('1');
-        shelveUtils.checkMafMimeItems(document);
+        shelveUtils.checkMimeItems(document);
         // var view = document.getElementById('bookmarksTree');
         // view.init(null);
         // view.appendController(PlacesController);

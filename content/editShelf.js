@@ -66,7 +66,7 @@ var editShelf = {
                 shelveUtils.log('Error when filling in ' + field + ': ' + exception);
             }
         }
-        shelveUtils.checkMafMimeItems(document);
+        shelveUtils.checkMimeItems(document);
         var mime     = shelveStore.get(shelfId, 'mime', 'default');
         var mimelist = document.getElementById('mime');
         var mimeitem = document.getElementById('mime' + mime);
