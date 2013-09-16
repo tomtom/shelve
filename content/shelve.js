@@ -747,7 +747,8 @@ var shelve = {
         // shelveUtils.debug('autoSelectShelve dclevent.type=', dclevent.type);
         // shelveUtils.debug('autoSelectShelve dclevent.originalTarget=', dclevent.originalTarget);
         // shelveUtils.debug('autoSelectShelve dclevent.originalTarget.url=', dclevent.originalTarget.url);
-        var doc_params = {};
+        // Note: gBrowser should be available anytime after the 'load' event
+        var doc_params = {browser: gBrowser};
         if (dclevent.type == 'DOMContentLoaded') {
             doc_params.doc = dclevent.originalTarget;
             // shelveUtils.debug('shelve.autoShelve DOMContentLoaded doc=', doc_params.doc);
@@ -833,6 +834,8 @@ var shelve = {
                                 // shelveUtils.debug('autoPageParams: ', shelve.autoPageParams);
                                 var app = shelveUtils.clone(shelve.autoPageParams);
                                 // shelveUtils.debug('app0: ', app);
+                                // Note: gBrowser should be available anytime after the 'load' event
+                                app.browser = gBrowser;
                                 app.filename = filename;
                                 app.doc = doc;
                                 app.title = doc.title;
@@ -883,6 +886,9 @@ var shelve = {
                 content_type: doc_params.content_type,
                 auto: false
             };
+            if (doc_params.browser) {
+                sp_params.browser = doc_params.browser;
+            }
             if (doc_params.doc) {
                 sp_params.doc = doc_params.doc;
             }

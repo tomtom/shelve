@@ -812,7 +812,13 @@ var shelveUtils = {
         if (shelveUtils.isMafEnabled(true)) {
             return function(doc, file, dataPath, outputContentType, encodingFlags, wrapColumn) {
                 var fileUri = shelveUtils.newFileURI(file);
-                var persistObject = new shelveUtils.mafObjects.MafArchivePersist(null, format);
+                var browsers = sp_params.browser;
+                if (!browsers)
+                    browsers = null;
+                else if (!browsers.map) {
+                    browsers = [browsers];
+                }
+                var persistObject = new shelveUtils.mafObjects.MafArchivePersist(browsers, format);
                 if (enable_dlm) {
                     var uri = shelveUtils.newURI(sp_params.url);
                     shelve.registerDownload(persistObject, uri, fileUri, sp_params, null);
