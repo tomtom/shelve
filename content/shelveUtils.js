@@ -157,6 +157,31 @@ var shelveUtils = {
         }
     },
 
+    // Determine if document is a document and not a frame
+    isTopLevelDoc: function(doc, browser) {
+        if (doc.nodeName != '#document') {
+            shelveUtils.debug('shelveUtils.isTopLevelDoc doc not document or is frame: ', doc.location && doc.location.href);
+            return false;
+        // If there is a defaultView (window) ...
+        } else if (doc.defaultView) {
+            // ... and its location url is not the same as the current browser, skip
+            // probably this is some kind of frame
+            if (browser && doc.defaultView.location &&
+                (doc.defaultView.location.href != browser.currentURI.spec)) {
+                shelveUtils.debug('shelveUtils.isTopLevelDoc doc\'s url not same as browser\'s: ('+browser.currentURI.spec+'): ', doc.defaultView.location.href);
+                return false;
+            }
+            // ... and it has a parent (window) that is not itself, skip
+            // probably this is some kind of frame
+            else if (doc.defaultView != doc.defaultView.parent) {
+                shelveUtils.debug('shelveUtils.isTopLevelDoc doc not parent document: ', doc.location && doc.location.href);
+                return false;
+            }
+        }
+        
+        return true;
+    },
+
     emptyListbox: function(listbox) {
         listbox.clearSelection();
         while (listbox.getRowCount() > 0) {
