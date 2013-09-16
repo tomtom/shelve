@@ -441,11 +441,12 @@ var shelveUtils = {
     },
 
     shouldDebug: function(log_level) {
-        return log_level === null ? shelveStore.getBool(null, 'debug', false) : shelveUtils.shouldLog(log_level);
+        var rv = log_level == null ? shelveStore.getBool(null, 'debug', false) : shelveUtils.shouldLog(log_level);
+        return rv;
     },
 
     debug: function(text, value, log_level) {
-        if (shelveUtils.shouldDebug()) {
+        if (shelveUtils.shouldDebug(log_level)) {
             var sval = (typeof value) + ':';
             var done = false;
             try {
@@ -478,7 +479,8 @@ var shelveUtils = {
     },
 
     shouldLog: function(level) {
-        return typeof(level) !== 'number' || level <= shelveStore.getBool(null, 'log_level', 2);
+        var rv = typeof(level) !== 'number' || level <= shelveStore.getBool(null, 'log_level', 2);
+        return rv;
     },
 
     log: function(text, log_level) {
@@ -486,6 +488,10 @@ var shelveUtils = {
             var logval = shelveStore.getString(null, 'logger', 'none');
             if (logval == 'none') {
                 // do nothing
+            // } else if (logval == 'js') {
+            //     if (window.console !== undefined) {
+            //         window.console.error("Shelve: %d", text);
+            //     }
             } else if (logval == 'console') {
                 var aConsoleService = Components.classes['@mozilla.org/consoleservice;1'].
                 getService(Components.interfaces.nsIConsoleService);

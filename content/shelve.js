@@ -74,7 +74,6 @@ var shelve = {
                 }
             }
         } catch (e) {
-            // alert(e);
             throw ('Shelve page: ' + e);
         }
     },
