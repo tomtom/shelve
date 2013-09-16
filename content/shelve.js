@@ -754,9 +754,17 @@ var shelve = {
         } else if (dclevent.type == 'TabSelect') {
             doc_params.doc = dclevent.originalTarget.linkedBrowser.contentDocument;
             // shelveUtils.debug('shelve.autoShelve TabSelect doc=', doc_params.doc);
+        } else if (dclevent.type == 'load') {
+            doc_params.doc = dclevent.target;
         } else {
             doc_params.doc = shelveUtils.getDocument({});
             // shelveUtils.debug('shelve.autoShelve getDocument() doc=', doc_params.doc);
+        }
+        // We want to skip frames because they're mostly garbage
+        if (shelve.getBoolPref(shelve.getPrefs('auto.'), 'no_frames', false) &&
+            !shelveUtils.isTopLevelDoc(doc_params.doc, gBrowser)) {
+            shelveUtils.debug('shelve.autoShelve doc not top level document: ', doc_params.doc.location && doc_params.doc.location.href);
+            return;
         }
         // shelveUtils.debug('autoSelectShelve doc=', doc_params);
         var url = shelveUtils.getDocumentURL(doc_params);
@@ -800,6 +808,12 @@ var shelve = {
             } else {
                 doc = shelveUtils.getDocument({});
                 // shelveUtils.debug('shelve.autoShelve getDocument() doc=', doc);
+            }
+            // We want to skip frames because they're mostly garbage
+            if (shelve.getBoolPref(shelve.getPrefs('auto.'), 'no_frames', false) &&
+                !shelveUtils.isTopLevelDoc(doc, gBrowser)) {
+                shelveUtils.debug('shelve.autoShelve doc not top level document: ', doc.location && doc.location.href);
+                return;
             }
             var docurl = doc.URL;
             if (!docurl) {
