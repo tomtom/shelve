@@ -1,5 +1,6 @@
 pref("extensions.shelve.max", 1);
 pref("extensions.shelve.log_level", 2);
+pref("extensions.shelve.logger", "none");
 pref("extensions.shelve.assertions", false);
 pref("extensions.shelve.debug", false);
 pref("extensions.shelve.events.load", true);
