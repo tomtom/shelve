@@ -458,9 +458,16 @@ var shelveUtils = {
 
     log: function(text, log_level) {
         if (shelveUtils.shouldLog(log_level)) {
-            var aConsoleService = Components.classes['@mozilla.org/consoleservice;1'].
-            getService(Components.interfaces.nsIConsoleService);
-            aConsoleService.logStringMessage('Shelve: ' + text);
+            var logval = shelveStore.getString(null, 'logger', 'none');
+            if (logval == 'none') {
+                // do nothing
+            } else if (logval == 'console') {
+                var aConsoleService = Components.classes['@mozilla.org/consoleservice;1'].
+                getService(Components.interfaces.nsIConsoleService);
+                aConsoleService.logStringMessage('Shelve: ' + text);
+            } else if (logval == 'stdout') {
+                dump('Shelve: ' + text + "\n");
+            }
         }
     },
 
