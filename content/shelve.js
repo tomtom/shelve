@@ -473,25 +473,33 @@ var shelve = {
         }
     },
 
-    autoselect: false,
-
     setupAutoSelect: function (win) {
-        shelveUtils.log("setupAutoSelect: "+shelve.autoselect);
-        shelveUtils.debug('setupAutoSelect autoselect=', shelve.autoselect);
         win = win || window;
-        if (!shelve.autoselect) {
-            var max = shelveStore.max();
-            shelveUtils.log("setupAutoSelect: max = "+max);
-            for (var i = 1; i <= max; i++) {
-                var autoselect = shelveStore.get(i, 'autoselect', null);
-                shelveUtils.log("setupAutoSelect: "+i+": autoselect = "+autoselect);
-                if (autoselect) {
+        shelveUtils.debug('setupAutoSelect: win.__shelve_autoselect=', win.__shelve_autoselect);
+        
+        var max = shelveStore.max();
+        shelveUtils.log("setupAutoSelect: max = "+max);
+        for (var i = 1; i <= max; i++) {
+            var autoselect = shelveStore.get(i, 'autoselect', null);
+            shelveUtils.log("setupAutoSelect: "+i+": autoselect = "+autoselect);
+            if (autoselect) {
+                // Only install the listener if it hasn't been installed on this
+                // window yet.
+                if (!win.__shelve_autoselect) {
                     shelve.addEventListener.apply(win, [shelve.autoSelectShelve, true]);
-                    shelve.autoselect = true;
-                    shelveUtils.debug('setupAutoSelect autoselect=', shelve.autoselect);
-                    break;
+                    win.__shelve_autoselect = true;
+                    shelveUtils.debug('setupAutoSelect win.__shelve_autoselect=', win.__shelve_autoselect);
                 }
+                return;
             }
+        }
+        
+        // If we get here, none of the shelves had autoselect checked, so
+        // uninstall the listener if it was installed.
+        if (win.__shelve_autoselect) {
+            shelveUtils.log("setupAutoSelect: Uninstalling autoselect for window");
+            shelve.removeEventListener.apply(win, [shelve.autoSelectShelve, true]);
+            delete win.__shelve_autoselect;
         }
     },
 
@@ -529,12 +537,13 @@ var shelve = {
 
     removeEventListener: function (listener, useCapture) {
         var prefs_events = shelve.getPrefs('events.');
+        var win = this.window || window;
         for (var ev in shelve.events) {
             var use = shelve.getBoolPref(prefs_events, shelve.events[ev]);
             if (use) {
                 // shelveUtils.debug('removeEventListener ' + shelve.events[ev] +':', listener);
-                // var target = window;
-                var target = document.getElementById('appcontent');
+                // var target = document.getElementById("appcontent")
+                var target = win;
                 target.removeEventListener(shelve.events[ev], listener, useCapture);
             }
         }
