@@ -475,15 +475,20 @@ var shelve = {
 
     autoselect: false,
 
-    setupAutoSelect: function () {
+    setupAutoSelect: function (win) {
+        shelveUtils.log("setupAutoSelect: "+shelve.autoselect);
+        shelveUtils.debug('setupAutoSelect autoselect=', shelve.autoselect);
+        win = win || window;
         if (!shelve.autoselect) {
             var max = shelveStore.max();
+            shelveUtils.log("setupAutoSelect: max = "+max);
             for (var i = 1; i <= max; i++) {
                 var autoselect = shelveStore.get(i, 'autoselect', null);
+                shelveUtils.log("setupAutoSelect: "+i+": autoselect = "+autoselect);
                 if (autoselect) {
-                    shelve.addEventListener(shelve.autoSelectShelve, true);
+                    shelve.addEventListener.apply(win, [shelve.autoSelectShelve, true]);
                     shelve.autoselect = true;
-                    // shelveUtils.debug('setupAutoSelect autoselect=', shelveUtils.autoselect);
+                    shelveUtils.debug('setupAutoSelect autoselect=', shelve.autoselect);
                     break;
                 }
             }
@@ -499,6 +504,7 @@ var shelve = {
 
     addEventListener: function (listener, useCapture) {
         var prefs_events = shelve.getPrefs('events.');
+        var win = this.window || window;
         for (var ev in shelve.events) {
             var event = shelve.events[ev];
             var use = shelve.getBoolPref(prefs_events, event);
@@ -508,11 +514,11 @@ var shelve = {
                 var target;
                 switch (event) {
                     case 'load':
-                        target = gBrowser;
+                        target = win.gBrowser;
                         break;
 
                     default:
-                        target = window;
+                        target = win;
                 }
                 // var target = document.getElementById("appcontent")
                 // var target = window.;

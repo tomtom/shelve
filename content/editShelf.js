@@ -104,7 +104,16 @@ var editShelf = {
             // shelveUtils.debug('editShelf onOK: autoselect=', autoselect);
             shelveStore.setBool(shelfId, 'autoselect', autoselect);
             if (autoselect) {
-                shelve.setupAutoSelect();
+                try {
+                    // We are not running in a browser window right now and we
+                    // want to setup auto-select for all browser windows.
+                    shelveUtils.withBrowserWindows(function (win) {
+                        shelve.setupAutoSelect(win);
+                    });
+                } catch(e) {
+                    shelveUtils.log("shelve.setupAutoSelect failed: "+e);
+                    shelveUtils.log(e.stack);
+                }
             }
 
             var autocontinue = document.getElementById('autocontinue').checked;
