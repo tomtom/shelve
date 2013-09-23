@@ -440,6 +440,24 @@ var shelveUtils = {
         }
     },
 
+    exceptionWrap: function(func) {
+        // This wrapper does not look exactly like func, namely the length
+        // parameter (indicating the number of arguments).  If this turns out
+        // to be a problem, then use eval to create a wrapper with the same
+        // number of args.
+        return function() {
+            try {
+                return func.apply(this, arguments);
+            } catch(e) {
+                let fname = func.name || "<anonymous function>";
+                shelveUtils.log(fname+": Exception: "+e);
+                if (e.stack)
+                    shelveUtils.log(fname+": Stack Trace\n"+e.stack);
+                throw e;
+            }
+        };
+    },
+
     shouldDebug: function(log_level) {
         var rv = log_level == null ? shelveStore.getBool(null, 'debug', false) : shelveUtils.shouldLog(log_level);
         return rv;
