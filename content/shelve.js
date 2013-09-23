@@ -164,7 +164,9 @@ var shelve = {
                     return true;
                 } catch (e) {
                     // alert(e);
-                    throw ('Shelve: Error when saving document: ' + e + ' ' + filename);
+                    shelveUtils.log("Error when saving document to "+filename+": "+e);
+                    shelveUtils.log("Stack Trace:\n"+e.stack);
+                    throw e;
                 }
             }
         } else {
@@ -1351,6 +1353,7 @@ var shelve = {
 
             }
         }
+        // shelveUtils.log('expandTemplate: "'+et_params.template+'" = "'+out+'"');
         return out;
     },
 
