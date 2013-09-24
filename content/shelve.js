@@ -164,7 +164,9 @@ var shelve = {
                     return true;
                 } catch (e) {
                     // alert(e);
-                    throw ('Shelve: Error when saving document: ' + e + ' ' + filename);
+                    shelveUtils.log("Error when saving document to "+filename+": "+e);
+                    shelveUtils.log("Stack Trace:\n"+e.stack);
+                    throw e;
                 }
             }
         } else {
@@ -510,9 +512,16 @@ var shelve = {
         'TabSelect'
     ],
 
+    _listeners: {},
     addEventListener: function (listener, useCapture) {
         var prefs_events = shelve.getPrefs('events.');
-        var win = this.window || window;
+        
+        if (shelve._listeners[listener]) {
+            // already have a listener for this, don't add another one
+            return;
+        }
+        shelve._listeners[listener] = shelveUtils.exceptionWrap(listener);
+        
         for (var ev in shelve.events) {
             var event = shelve.events[ev];
             var use = shelve.getBoolPref(prefs_events, event);
@@ -530,14 +539,17 @@ var shelve = {
                 }
                 // var target = document.getElementById("appcontent")
                 // var target = window.;
-                target.addEventListener(event, listener, useCapture);
+                target.addEventListener(event, shelve._listeners[listener], useCapture);
             }
         }
     },
 
     removeEventListener: function (listener, useCapture) {
         var prefs_events = shelve.getPrefs('events.');
-        var win = this.window || window;
+        if (shelve._listeners[listener]) {
+            listener = shelve._listeners[listener];
+            delete shelve._listeners[listener];
+        }
         for (var ev in shelve.events) {
             var use = shelve.getBoolPref(prefs_events, shelve.events[ev]);
             if (use) {
@@ -1354,6 +1366,7 @@ var shelve = {
 
             }
         }
+        // shelveUtils.log('expandTemplate: "'+et_params.template+'" = "'+out+'"');
         return out;
     },
 
