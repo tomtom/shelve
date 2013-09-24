@@ -1594,6 +1594,23 @@ var shelve = {
             val = shelve.getDocumentFilename(et_params, 5, true);
             break;
 
+            // Shorten directory components that are too long, while keeping them unique
+            case 'dirnameshorten':
+            rawmode = true;
+            val = shelve.getDocumentFilename(et_params, 5, true);
+            var dirsep = shelveUtils.filenameSeparator();
+            var dircomps = val.split(dirsep);
+            var dirdepth = dircomps.length;
+            for (var i=0; i < dirdepth; i++) {
+                var d = dircomps[i];
+                if (d.length > shelveUtils.MAXNAMELEN) {
+                    var h = '_' + shelveUtils.hashstring(d, true).replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
+                    dircomps[i] = d.substring(0, shelveUtils.MAXNAMELEN - h.length) + h;
+                }
+            }
+            val = dircomps.join(dirsep);
+            break;
+
             case 'fullpath':
             rawmode = true;
             val = shelve.getDocumentFilename(et_params, 3, is_not_last);
