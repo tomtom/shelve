@@ -785,7 +785,7 @@ var shelveUtils = {
 
     validPlaceholders: function(klass) {
         var chars = 'cCDeEfFhHBhiIklmMpPqstxyY%/';
-        var names = 'clip|clip!|clipboard|date|input|subdir|host|hostbasename|query|queryhash|queryq|queryhashq|fullpath|path|filename|basename|ext|title|keywords|fullyear|year|month|day|hours|minutes|secs|msecs|shelvedir|separator';
+        var names = 'clip|clip!|clipboard|date|input|subdir|host|hostbasename|query|queryhash|queryq|queryhashq|fullpath|path|filename|basename|fullpathi|pathi|filenamei|basenamei|ext|title|keywords|fullyear|year|month|day|hours|minutes|secs|msecs|shelvedir|separator';
         switch (klass) {
             case 'log':
             case 'footer':
