@@ -476,7 +476,7 @@ var shelve = {
     },
 
     setupAutoSelect: function (win) {
-        win = win || window;
+        var win = win || window;
         shelveUtils.debug('setupAutoSelect: win.__shelve_autoselect=', win.__shelve_autoselect);
         
         var max = shelveStore.max();
@@ -513,8 +513,10 @@ var shelve = {
     ],
 
     _listeners: {},
+
     addEventListener: function (listener, useCapture) {
         var prefs_events = shelve.getPrefs('events.');
+        var win = this.window || window;
         
         if (shelve._listeners[listener]) {
             // already have a listener for this, don't add another one
