@@ -1968,54 +1968,47 @@ var shelve = {
 
     getDocumentFilename: function (et_params, filenametype, is_not_last) {
         var url = shelveUtils.getDocumentURL(et_params);
-        var path = url.replace(/^(\w+:\/\/)?[^\/]*\/?/, '');
-        var tail = path.replace(/^([^\/]*\/)*/, '');
-        var file;
+        // remove protocol and domain at the beginning of the url
+        var url_no_proto = url.replace(/^(\w+:\/\/)?[^\/]*\/?/, '');
+        // remove hash or querystring
+        var path = url_no_proto.replace(/[#?&].*$/, '');
+        var pathcomps = path.split('/');
+        // filename is the last path component
+        var filename = pathcomps.pop();
+        if (filename == "" && !is_not_last)
+            filename = 'index';
+        
+        var fileext_rx = RegExp(/\.[^/.]*$/);
         switch (filenametype) {
             case 1: // basename
-            matches = tail.match(/^[^#?&]*/);
-            file = matches ? matches[0] : '';
-            file = file.replace(/\.[^.]*$/, '');
+            file = filename.replace(fileext_rx, '');
             break;
+            
             case 2: // filename
-            matches = tail.match(/^[^#?&]*/);
-            file = matches ? matches[0] : '';
+            file = filename;
             break;
+            
             case 3: // fullpath
-            file = path.replace(/[#?&].*$/, '');
-            file = file.replace(/[*|<>?:"]/g, '_');
-            if (file.match(/[\/\\]$/)) {
-                if (is_not_last) {
-                    file = file.replace(/[\/\\]$/, '');
-                } else {
-                    file += 'index' + et_params.extension;
-                }
-            }
+            pathcomps.push(filename);
+            file = pathcomps.join('/');
             break;
-            case 4: // path
-            file = shelve.getDocumentFilename(et_params, 3, is_not_last);
-            file = file.replace(/\.\w+$/, '');
+            
+            case 4: // fullpath excluding the extension
+            file = shelve.getDocumentFilename(et_params, 3, is_not_last) + et_params.extension;
+            file = file.replace(fileext_rx, '');
             break;
-            case 5: // dirname
-            file = path.substring(0, path.length - tail.length - 1);
+            
+            case 5: // path of only directory components
+            file = pathcomps.join('/');
             break;
         }
         file = String(file);
         if (shelveUtils.getOS() == 'WINNT') {
             file = file.replace(/\//g, '\\');
+            file = file.replace(/[<>:"/|?*]/g, '_');
         }
         // shelveUtils.debug('shelve getDocumentFilename: [file, filenametype, is_not_last]=', [file, filenametype, is_not_last]);
-        if (file.match(/\S/) || is_not_last) {
-            return file;
-        } else {
-            switch (filenametype) {
-                case 1:
-                return 'index';
-                break;
-                default:
-                return 'index' + et_params.extension;
-            }
-        }
+        return file;
     },
 
     getDocumentHost: function (et_params, mode) {
