@@ -1449,6 +1449,7 @@ var shelve = {
     expandVarNames: {
         'c': 'clip',
         'C': 'Clip',
+        'd': 'dirname',
         'D': 'date',
         'e': 'ext',
         'E': 'ext',
@@ -1586,6 +1587,11 @@ var shelve = {
 
             case 'month':
             val = shelve.lpadString(new Date().getMonth() + 1, '00');
+            break;
+
+            case 'dirname':
+            rawmode = true;
+            val = shelve.getDocumentFilename(et_params, 5, true);
             break;
 
             case 'fullpath':
@@ -1989,6 +1995,9 @@ var shelve = {
             case 4: // path
             file = shelve.getDocumentFilename(et_params, 3, is_not_last);
             file = file.replace(/\.\w+$/, '');
+            break;
+            case 5: // dirname
+            file = path.substring(0, path.length - tail.length - 1);
             break;
         }
         file = String(file);
