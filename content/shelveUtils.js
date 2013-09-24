@@ -694,6 +694,33 @@ var shelveUtils = {
         return shelveUtils.json.decode(json);
     },
 
+    hashstring: function(str, b64encode, method) {
+        var converter =
+          Components.classes["@mozilla.org/intl/scriptableunicodeconverter"].
+            createInstance(Components.interfaces.nsIScriptableUnicodeConverter);
+
+        // we use UTF-8 here, you can choose other encodings.
+        converter.charset = "UTF-8";
+        // result is an out parameter,
+        // result.value will contain the array length
+        var result = {};
+        // data is an array of bytes
+        var data = converter.convertToByteArray(val, result);
+        var ch = Components.classes["@mozilla.org/security/hash;1"]
+                           .createInstance(Components.interfaces.nsICryptoHash);
+
+        if (!method)
+            method = ch.MD5;
+        else if (ch[method])
+            method = ch[method];
+        else
+            throw new Error("Undefined crypto hash method: "+method);
+
+        ch.init(method);
+        ch.update(data, data.length);
+        return ch.finish(b64encode);
+    },
+
     escapeChar: function(text, chars) {
         return text.replace(new RegExp('([' + chars + '])', 'g'), '\\$1');
     },
@@ -758,7 +785,7 @@ var shelveUtils = {
 
     validPlaceholders: function(klass) {
         var chars = 'cCDeEfFhHBhiIklmMpPqstxyY%/';
-        var names = 'clip|clip!|clipboard|date|input|subdir|host|hostbasename|query|fullpath|path|filename|basename|ext|title|keywords|fullyear|year|month|day|hours|minutes|secs|msecs|shelvedir|separator';
+        var names = 'clip|clip!|clipboard|date|input|subdir|host|hostbasename|query|queryhash|queryq|queryhashq|fullpath|path|filename|basename|ext|title|keywords|fullyear|year|month|day|hours|minutes|secs|msecs|shelvedir|separator';
         switch (klass) {
             case 'log':
             case 'footer':

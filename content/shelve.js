@@ -1592,6 +1592,24 @@ var shelve = {
             val = shelve.getDocumentUrlQuery(et_params);
             break;
 
+            case 'queryq':
+            rawmode = true;
+            val = shelve.getDocumentUrlQuery(et_params);
+            val = val ? '?' + val : val;
+            break;
+
+            case 'queryhash':
+            val = shelve.getDocumentUrlQuery(et_params);
+            val = (val) ? shelveUtils.hashstring(val, true).replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '') : val;
+            break;
+
+            case 'queryhashq':
+            rawmode = true;
+            val = shelve.getDocumentUrlQuery(et_params);
+            val = (val) ? shelveUtils.hashstring(val, true).replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '') : val;
+            val = val ? '?' + val : val;
+            break;
+
             case 'secs':
             val = shelve.lpadString(new Date().getSeconds(), '00');
             break;
