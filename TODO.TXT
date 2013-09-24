@@ -1,23 +1,22 @@
 * TODO
 
-    #B1 Erweiterung für Firefox Mobile anpassen 
-    #B1 Notification per shelf ein-/ausschalten 
-    #B1 Shelve.Sqlite via Internet synchronisieren @dev +Firefox
-    #B5 Als PDF speichern
-    #B5 NEW place-holder: sequence number %N: (1) create pattern; (2) get a list of the files on disk; (3) determine the sequence number; special cases: more than one %N, %N in directory name etc.
-    #B5 outfile/relativeoutfile: If the output format is HTML, escape % in the filename.
+    #A1 2013-11-01 Adapt for download.jsm: https://developer.mozilla.org/en-US/docs/Mozilla/JavaScript_code_modules/Downloads.jsm https://developer.mozilla.org/en-US/docs/Mozilla/JavaScript_code_modules/Downloads.jsm/Download
+    #B1 :sync Synchronize Shelve.Sqlite via Internet
+    #B1 Enable/disable notification per shelf
+    #B5 :images Save screenshots
+    #B5 :pdf :printer Save "to a printer" (e.g. use the PDF printer)
+    #B5 :pdf Save as PDF
+    #B5 :placeholders NEW place-holder: sequence number %N: (1) create pattern; (2) get a list of the files on disk; (3) determine the sequence number; special cases: more than one %N, %N in directory name etc.
+    #B5 :placeholders outfile/relativeoutfile: If the output format is HTML, escape % in the filename.
     #B5 Recode plain text output to a user-specified charset (make sure the file uses that charset)
-    #B5 Save "to a printer" (e.g. use the PDF printer)
-    #B5 Screenshots
-    #B5 The footer should be added when the progress listener gets the signal that the download was finished
-    #B5 xpath per shelf: Save only part of a page
+    #B5 xpath per shelf: Save only part of a page (Shelve option to save specific HTML element)
+    #C1 Adapt for Firefox Mobile
     #C5 Chain shelves (if A was activated, activate B next)
     #C5 Dialogs: Add drop-down menu for easier insertion of place holders
     #C5 Handle mime/save-format types as object/hash map so that they are easier to maintain
     #E8 Log to sqlite db (or use places/save as bookmark?): But nothing is as easy to post-process as a plain text file
     #E9 Also support UnMHT?
     #E9 Option to select more than one shelf?
-    #X1 2012-10-24 :done:2012-12-07 Performance issues: https://groups.google.com/d/topic/shelve-firefox-addon/SygXHIe5OyE/discussion
 
 
 
