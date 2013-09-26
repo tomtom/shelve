@@ -19,10 +19,19 @@
 <!ENTITY shelve.td.host "Host">
 <!ENTITY shelve.td.base.hostname "Base Hostname">
 <!ENTITY shelve.td.query "Query (the part in the URL after the questionmark)">
+<!ENTITY shelve.td.queryq "Same as &apos;query&apos; but prepending a &apos;?&apos;">
+<!ENTITY shelve.td.queryhash "A unique hash of &apos;query&apos; where the characters are only a-z, 0-9, _, and -">
+<!ENTITY shelve.td.queryhashq "Same as &apos;queryhash&apos; but prepending a &apos;?&apos;">
+<!ENTITY shelve.td.dirname "Path without the filename">
+<!ENTITY shelve.td.dirnameshorten "Same as dirname except each directory component will be shortened and made unique if it is longer than the maximum allowed length for the filesystem.">
 <!ENTITY shelve.td.path "Path">
+<!ENTITY shelve.td.pathi "Path (append &apos;index&apos; if ends with &apos;/&apos;)">
 <!ENTITY shelve.td.path.no.ext "Path (no ext)">
+<!ENTITY shelve.td.pathi.no.ext "Path (no ext, append &apos;index&apos; if ends with &apos;/&apos;)">
 <!ENTITY shelve.td.filename "Filename">
+<!ENTITY shelve.td.filenamei "Filename (append &apos;index&apos; if ends with &apos;/&apos;)">
 <!ENTITY shelve.td.filename.no.ext "Filename (no ext)">
+<!ENTITY shelve.td.filenamei.no.ext "Filename (no ext, append &apos;index&apos; if ends with &apos;/&apos;)">
 <!ENTITY shelve.td.extension "Extension">
 <!ENTITY shelve.td.title "Title">
 <!ENTITY shelve.td.keywords "Keywords">
@@ -40,6 +49,7 @@
 <!ENTITY shelve.td.output.file "Output file">
 <!ENTITY shelve.td.relative.output.file "Output filename relative to the log file">
 <!ENTITY shelve.td.url "URL">
+<!ENTITY shelve.td.archivefilename "A filename that can be used for archival purposes. It will be unique across GET requests and ensures that the length of the filename does not exceed the filesystem max.">
 <!ENTITY shelve.td.shelf.name "Shelf name">
 <!ENTITY shelve.td.separator "Filename separator">
 <!ENTITY shelve.td.shelvedir "'shelve' sub-directory located in the user profile directory">
