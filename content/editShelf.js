@@ -107,7 +107,7 @@ var editShelf = {
                 // We are not running in a browser window right now and we
                 // want to setup auto-select for all browser windows.
                 shelveUtils.withBrowserWindows(function (win) {
-                    shelve.setupAutoSelect(win);
+                    win.shelve.setupAutoSelect();
                 });
             } catch(e) {
                 shelveUtils.log("shelve.setupAutoSelect failed: "+e);
