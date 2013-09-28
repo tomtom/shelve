@@ -1799,6 +1799,28 @@ var shelve = {
         }
     },
 
+    cleanPathRx: /(^\.+$|[<>|&\/\\])/,
+
+    cleanPath: function (path) {
+        var dirsep = shelveUtils.filenameSeparator();
+        var dircomps = path.split(dirsep);
+        var dirdepth = dircomps.length;
+        var changed = false;
+        var comp;
+        for (var i = 0; i < dirdepth; i++) {
+            comp = dircomps[i];
+            if (comp.match(shelve.cleanPathRx)) {
+                dircomps[i] = comp.replace(shelve.cleanPathRx, '_');
+                changed = true;
+            }
+        }
+        if (changed) {
+            return dircomps.join(dirsep);
+        } else {
+            return path;
+        }
+    },
+
     lpadString: function (str, fill) {
         str = String(str);
         var pad = fill.slice(0, fill.length - str.length);
