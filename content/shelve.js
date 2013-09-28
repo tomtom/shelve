@@ -1615,11 +1615,10 @@ var shelve = {
             var dirsep = shelveUtils.filenameSeparator();
             var dircomps = val.split(dirsep);
             var dirdepth = dircomps.length;
-            for (var i=0; i < dirdepth; i++) {
+            for (var i = 0; i < dirdepth; i++) {
                 var d = dircomps[i];
                 if (d.length > shelveUtils.MAXNAMELEN) {
-                    var h = '_' + shelveUtils.hashstring(d, true).replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
-                    dircomps[i] = d.substring(0, shelveUtils.MAXNAMELEN - h.length) + h;
+                    dircomps[i] = shelveUtils.shortenWithHash(d, 0);
                 }
             }
             val = dircomps.join(dirsep);
