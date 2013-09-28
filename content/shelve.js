@@ -1662,13 +1662,13 @@ var shelve = {
 
             case 'queryhash':
             val = shelve.getDocumentUrlQuery(et_params);
-            val = (val) ? shelveUtils.hashstring(val, true).replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '') : val;
+            val = (val) ? shelveUtils.cleanhashstring(val, true) : val;
             break;
 
             case 'queryhashq':
             rawmode = true;
             val = shelve.getDocumentUrlQuery(et_params);
-            val = (val) ? shelveUtils.hashstring(val, true).replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '') : val;
+            val = (val) ? shelveUtils.cleanhashstring(val, true) : val;
             val = val ? querysep + shelve.cleanValue(val) : val;
             break;
 
