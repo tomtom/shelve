@@ -9,6 +9,7 @@
 <!ENTITY shelve.p.the.following.place.holders.can.be.used "Folgende Platzhalter können verwendet werden:">
 <!ENTITY shelve.p.modifier.mandatory "Wenn ein langer Name mit &apos;!&apos; endet, darf das Feld nicht leer sein.">
 <!ENTITY shelve.p.modifier.optional.line "Wenn ein lange Name mit &apos;?&apos; endet, wird die Zeile nicht ausgegeben, falls der Wert leer ist.">
+<!ENTITY shelve.p.width.limit "Die Länge eines Platzhalters kann auf eine Maximallänge beschränkt werden. Bspw. mit &apos;&#37;10&#123;filename&#125;&apos; wird der Dateiname auf 10 Zeichen beschränkt.">
 <!ENTITY shelve.long.var.names "Lange Namen für Platzhalter:">
 <!ENTITY shelve.td.alternatives.example.ctf "Alternativen (Beispiel: &#37;[ctF])">
 <!ENTITY shelve.td.clip "Auswahl">
@@ -19,10 +20,19 @@
 <!ENTITY shelve.td.host "Host">
 <!ENTITY shelve.td.base.hostname "Basisname des Host">
 <!ENTITY shelve.td.query "Query (der Teil der URL nach dem Fragezeichen)`">
+<!ENTITY shelve.td.queryq "Wie &apos;&#37;&#123;query&#125;&apos; jedoch mit vorangestelltem &apos;?&apos; oder &apos;&#64;&apos; (Windows)">
+<!ENTITY shelve.td.queryhash "Ein eindeutiger Hash für &apos;&#37;&#123;query&#125;&apos; der nur folgende Zeichen beinhaltet: a-z, 0-9, _ und -">
+<!ENTITY shelve.td.queryhashq "Wie &apos;&#37;&#123;queryhash&#125;&apos; jedoch mit vorangestelltem &apos;?&apos; oder &apos;&#64;&apos; (Windows)">
+<!ENTITY shelve.td.dirname "Pfad ohne Dateiname">
+<!ENTITY shelve.td.dirnameshorten "Wie &apos;&#37;&#123;dirname&#125;&apos;, wobei sichergestellt ist, dass der Name eindeutig und nicht zu lange ist">
 <!ENTITY shelve.td.path "Pfad">
-<!ENTITY shelve.td.path.no.ext "Pfad (ohne Erweiterung)">
+<!ENTITY shelve.td.pathi "Pfad - falls nicht vorhanden wird &apos;index&apos; als Dateiname angefügt">
+<!ENTITY shelve.td.path.no.ext "Pfad - ohne Erweiterung">
+<!ENTITY shelve.td.pathi.no.ext "Pfad - ohne Erweiterung; falls nicht vorhanden wird &apos;index&apos; als Dateiname angefügt">
 <!ENTITY shelve.td.filename "Dateiname">
-<!ENTITY shelve.td.filename.no.ext "Dateiname (ohne Erweiterung)">
+<!ENTITY shelve.td.filenamei "Dateiname - falls nicht vorhanden wird &apos;index&apos; verwendet">
+<!ENTITY shelve.td.filename.no.ext "Dateiname - ohne Erweiterung">
+<!ENTITY shelve.td.filenamei.no.ext "Dateiname - ohne Erweiterung; falls nicht vorhanden wird &apos;index&apos; verwendet">
 <!ENTITY shelve.td.extension "Erweiterung">
 <!ENTITY shelve.td.title "Titel">
 <!ENTITY shelve.td.keywords "Schlüsselwörter">
@@ -40,11 +50,12 @@
 <!ENTITY shelve.td.output.file "Ausgabedatei">
 <!ENTITY shelve.td.relative.output.file "Name der Ausgabedatei relativ zur Log-Datei">
 <!ENTITY shelve.td.url "URL">
+<!ENTITY shelve.td.archivefilename "Ein eindeutiger Dateiname unter Berücksichtigung von &apos;&#37;&#123;query&#125;&apos;, der zum Archivieren verwendet werden kann und nicht zu lang ist">
 <!ENTITY shelve.td.shelf.name "Fachname">
 <!ENTITY shelve.td.separator "Dateinamentrennzeichen">
 <!ENTITY shelve.td.shelvedir "'shelve' Unterverzeichnis im Profilordner">
 <!ENTITY shelve.p.the.shelf.name.is.optional "Der Fachname ist optional. Wird er nicht angegeben, wird die Fachnummer verwendet.">
-<!ENTITY shelve.p.if.the.regular.expression "Falls der reguläre Ausdruck den aktuellen URL entspricht, wird das Dokument ohne weitere Nachfrage im entsprechenden Fach abgespeichert.">
+<!ENTITY shelve.p.if.the.regular.expression "Falls der reguläre Ausdruck der aktuellen URL entspricht, wird das Dokument ohne weitere Nachfrage im entsprechenden Fach abgespeichert.">
 <!ENTITY shelve.h2.examples "Beispiele">
 <!ENTITY shelve.dd.save.in.the.directory.host.year "Speichere das Dokument im Verzeichnis HOST/JAHR. Verwende entweder den aktuell ausgewählten Text oder sonst den Dokumenttitel als Dateiname.">
 <!ENTITY shelve.dd.save.as.host.year.month.day.filename "Speichere das Dokument als HOST/JAHR-MONAT-TAG/DATEINAME -- die ursprüngliche Erweiterung wird durch .html ersetzt.">

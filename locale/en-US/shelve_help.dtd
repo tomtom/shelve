@@ -9,6 +9,7 @@
 <!ENTITY shelve.p.the.following.place.holders.can.be.used "The following place-holders can be used:">
 <!ENTITY shelve.p.modifier.mandatory "If a long name ends with &apos;!&apos;, the information must be provided.">
 <!ENTITY shelve.p.modifier.optional.line "If a long name ends with &apos;?&apos;, the line will be suppressed from output if its value is empty.">
+<!ENTITY shelve.p.width.limit "The width of a place holder can be limited. E.g., &apos;&#37;10&#123;filename&#125;&apos; limits the width of the filename inserted in the template to 10 characters.">
 <!ENTITY shelve.long.var.names "Long names for place-holders:">
 <!ENTITY shelve.td.alternatives.example.ctf "Alternatives (Example: &#37;[ctF])">
 <!ENTITY shelve.td.clip "Clip">
