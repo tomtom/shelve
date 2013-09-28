@@ -1497,6 +1497,7 @@ var shelve = {
         var is_not_last = pos < et_params.template.length - 1;
         // shelveUtils.debug('shelve expandVar1a: [pos, length, is_not_last]=', [pos, et_params.template.length, is_not_last]);
         var rawmode = (et_params.mode == 'log');
+        var querysep = shelveUtils.isWindows() ? '@' : '?';
         switch (name) {
 
             case '[':
@@ -1863,7 +1864,7 @@ var shelve = {
                 alert(shelveUtils.localized('dir.not') + ': ' + cd);
             } else {
                 try {
-                    if (shelveUtils.getOS() == 'WINNT') {
+                    if (shelveUtils.isWindows()) {
                         var directoryEntries = initDir.directoryEntries;
                         while (directoryEntries.hasMoreElements()) {
                             var firstEntry = directoryEntries.getNext();
@@ -2071,7 +2072,7 @@ var shelve = {
             break;
         }
         file = String(file);
-        if (shelveUtils.getOS() == 'WINNT') {
+        if (shelveUtils.isWindows()) {
             file = file.replace(/\//g, '\\');
             file = file.replace(/[<>:"/|?*]/g, '_');
         }
