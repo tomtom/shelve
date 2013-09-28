@@ -1702,23 +1702,17 @@ var shelve = {
             break;
 
             case 'archivefilename':
-            var orig_tmpl = et_params.template;
-            
-            et_params.template = "%{queryhashq}:%e:%{filenamei}";
-            var vars = shelve.expandTemplate(et_params).split(':');
-            var qhash = vars[0], ext = vars[1], fname = vars.slice(2).join(':');
-            
-            val = qhash + ext;
-            if ((fname + val).length > shelveUtils.MAXNAMELEN) {
+            rawmode = true;
+            var fname = shelve.expandTemplateWithParams('%{filenamei}', et_params);
+            var hashext = shelve.expandTemplateWithParams('%{queryhashq}%e', et_params);
+            val = fname + hashext;
+            if (val.length > shelveUtils.MAXNAMELEN) {
                 // chop filename to make it fit in MAXNAMELEN with having the qhash
                 // and extension intact.
-                var h = '_' + shelveUtils.hashstring(fname, true).replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
-                fname = fname.substring(0, shelveUtils.MAXNAMELEN - h.length - val.length) + h;
+                fname = shelveUtils.shortenWithHash(fname, hashext.length);
+                val = fname + hashext;
             }
             val = shelve.cleanPath(val);
-            val = fname + val;
-            et_params.template = orig_tmpl;
-            rawmode = true;
             break;
 
 
