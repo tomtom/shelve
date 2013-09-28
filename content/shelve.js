@@ -480,7 +480,7 @@ var shelve = {
     setupAutoSelect: function (win) {
         var win = win || window;
         shelveUtils.log("setupAutoSelect: "+ win.shelve.autoselect);
-        shelveUtils.debug('setupAutoSelect autoselect=', win.shelve.autoselect);
+        // shelveUtils.debug('setupAutoSelect autoselect=', win.shelve.autoselect);
         
         var max = shelveStore.max();
         shelveUtils.log("setupAutoSelect: max = "+max);
@@ -488,9 +488,9 @@ var shelve = {
             var autoselect = shelveStore.get(i, 'autoselect', null);
             shelveUtils.log("setupAutoSelect: "+i+": autoselect = "+autoselect);
             if (autoselect && !win.shelve.autoselect) {
-                win.shelve.addEventListener(shelve.autoSelectShelve, true);
+                win.shelve.shelveEventListener(shelve.autoSelectShelve, true);
                 win.shelve.autoselect = true;
-                shelveUtils.debug('setupAutoSelect '+i+': set autoselect=', win.shelve.autoselect); 
+                // shelveUtils.debug('setupAutoSelect '+i+': set autoselect=', win.shelve.autoselect); 
                 return;
             }
         }
@@ -512,9 +512,12 @@ var shelve = {
 
     _listeners: {},
 
-    addEventListener: function (listener, useCapture) {
+    shelveEventListener: function (listener, useCapture) {
+        // shelveUtils.debug('shelveEventListener listener:', listener);
+        // shelveUtils.debug('shelveEventListener useCapture:', useCapture);
         var prefs_events = shelve.getPrefs('events.');
         
+        // shelveUtils.debug('shelveEventListener cached listener:', shelve._listeners[listener]);
         if (shelve._listeners[listener]) {
             // already have a listener for this, don't add another one
             return;
@@ -524,9 +527,9 @@ var shelve = {
         for (var ev in shelve.events) {
             var event = shelve.events[ev];
             var use = shelve.getBoolPref(prefs_events, event);
-            // shelveUtils.debug('addEventListener use ' + event + ':', use);
+            // shelveUtils.debug('shelveEventListener use ' + event + ':', use);
             if (use) {
-                // shelveUtils.debug('addEventListener ' + event + ':', listener);
+                // shelveUtils.debug('shelveEventListener ' + event + ':', listener);
                 var target;
                 switch (event) {
                     case 'load':
@@ -714,10 +717,9 @@ var shelve = {
     },
 
     installAutoShelve: function (sp_params) {
-        // shelveUtils.debug('installAutoShelve: sp_params=', sp_params);
         // http://developer.mozilla.org/en/docs/Code_snippets:Tabbed_browser#Detecting_page_load
         // http://developer.mozilla.org/en/docs/Code_snippets:On_page_load
-        // shelveUtils.debug('installAutoShelve: sp_params:', sp_params);
+        // shelveUtils.debug('installAutoShelve: sp_params=', sp_params);
         if (sp_params) {
             shelve.autoPageParams = shelveUtils.clone(sp_params);
             shelve.autoPageParams.doc = null;
@@ -737,7 +739,7 @@ var shelve = {
             };
             // shelveUtils.debug('installAutoShelve: autoFileParams:', shelve.autoFileParams);
             shelve.setToolbarButton(true);
-            shelve.addEventListener(shelve.autoShelve, true);
+            shelve.shelveEventListener(shelve.autoShelve, true);
         }
     },
 
@@ -789,7 +791,7 @@ var shelve = {
         // We want to skip frames because they're mostly garbage
         if (shelve.getBoolPref(shelve.getPrefs('auto.'), 'no_frames', false) &&
             !shelveUtils.isTopLevelDoc(doc_params.doc, gBrowser)) {
-            shelveUtils.debug('shelve.autoShelve doc not top level document: ', doc_params.doc.location && doc_params.doc.location.href);
+            // shelveUtils.debug('shelve.autoShelve doc not top level document: ', doc_params.doc.location && doc_params.doc.location.href);
             return;
         }
         // shelveUtils.debug('autoSelectShelve doc=', doc_params);
@@ -838,7 +840,7 @@ var shelve = {
             // We want to skip frames because they're mostly garbage
             if (shelve.getBoolPref(shelve.getPrefs('auto.'), 'no_frames', false) &&
                 !shelveUtils.isTopLevelDoc(doc, gBrowser)) {
-                shelveUtils.debug('shelve.autoShelve doc not top level document: ', doc.location && doc.location.href);
+                // shelveUtils.debug('shelve.autoShelve doc not top level document: ', doc.location && doc.location.href);
                 return;
             }
             var docurl = doc.URL;
@@ -852,6 +854,7 @@ var shelve = {
             if (shelve.autoPilot && doc instanceof HTMLDocument) {
                 try {
                     // shelveUtils.debug('shelve.autoShelve docurl=', docurl);
+                    // shelveUtils.debug('shelve.autoShelve matches stoprx=', shelve.matchStopRx(docurl));
                     if (!shelve.matchStopRx(docurl)) {
                         // shelveUtils.debug('autoShelve autoFileParams: ', shelve.autoFileParams);
                         var afp   = shelveUtils.clone(shelve.autoFileParams);
