@@ -704,6 +704,23 @@ var shelveUtils = {
         return shelveUtils.json.decode(json);
     },
 
+    shortenWithHash: function (text, excesslen) {
+        var hash = shelveUtils.cleanhashstring(text, true);
+        var len = shelveUtils.MAXNAMELEN - hash.length - 1 - excesslen;
+        if (len > 0) {
+            text = text.substring(0, len) + '_' + hash;
+        } else {
+            text = hash;
+        }
+        return text;
+    },
+
+    cleanhashstring: function () {
+        var rv = shelveUtils.hashstring.apply(this, arguments);
+        rv = rv.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
+        return rv;
+    },
+
     hashstring: function(str, b64encode, method) {
         var converter =
           Components.classes["@mozilla.org/intl/scriptableunicodeconverter"].
