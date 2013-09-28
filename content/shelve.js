@@ -1558,8 +1558,9 @@ var shelve = {
             break;
 
             case 'basenamei':
-            val = shelve.getDocumentFilename(et_params, 1, false);
             rawmode = true;
+            val = shelve.getDocumentFilename(et_params, 1, false);
+            val = shelve.cleanPath(val);
             break;
 
             case 'host':
@@ -1582,6 +1583,7 @@ var shelve = {
             case 'subdir':
             rawmode = true;
             val = et_params.interactive ? shelve.queryDirectory(et_params, out) : '%I';
+            val = shelve.cleanPath(val);
             break;
 
             case 'keywords':
@@ -1603,6 +1605,7 @@ var shelve = {
             case 'dirname':
             rawmode = true;
             val = shelve.getDocumentFilename(et_params, 5, true);
+            val = shelve.cleanPath(val);
             break;
 
             // Shorten directory components that are too long, while keeping them unique
@@ -1620,26 +1623,31 @@ var shelve = {
                 }
             }
             val = dircomps.join(dirsep);
+            val = shelve.cleanPath(val);
             break;
 
             case 'fullpath':
             rawmode = true;
             val = shelve.getDocumentFilename(et_params, 3, is_not_last);
+            val = shelve.cleanPath(val);
             break;
 
             case 'fullpathi':
-            rawmode = true;
+            // rawmode = true;
             val = shelve.getDocumentFilename(et_params, 3, false);
+            val = shelve.cleanPath(val);
             break;
 
             case 'path':
             rawmode = true;
             val = shelve.getDocumentFilename(et_params, 4, is_not_last);
+            val = shelve.cleanPath(val);
             break;
 
             case 'pathi':
             rawmode = true;
             val = shelve.getDocumentFilename(et_params, 4, false);
+            val = shelve.cleanPath(val);
             break;
 
             case 'query':
@@ -1683,14 +1691,14 @@ var shelve = {
             break;
 
             case 'shelvedir':
-            val = shelveUtils.getShelveDir().path;
             rawmode = true;
+            val = shelveUtils.getShelveDir().path;
             // shelveUtils.debug('shelve.expandVar val=', val);
             break;
 
             case 'separator':
-            val = shelveUtils.filenameSeparator();
             rawmode = true;
+            val = shelveUtils.filenameSeparator();
             break;
 
             case 'archivefilename':
@@ -1707,6 +1715,7 @@ var shelve = {
                 var h = '_' + shelveUtils.hashstring(fname, true).replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
                 fname = fname.substring(0, shelveUtils.MAXNAMELEN - h.length - val.length) + h;
             }
+            val = shelve.cleanPath(val);
             val = fname + val;
             et_params.template = orig_tmpl;
             rawmode = true;
