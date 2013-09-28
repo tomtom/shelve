@@ -38,7 +38,7 @@
 /*jsl:declare document*/
 /*jsl:declare window*/
 
-Components.utils.import("resource://gre/modules/PrivateBrowsingUtils.jsm");
+Components.utils.import('resource://gre/modules/PrivateBrowsingUtils.jsm');
 
 
 var shelve = {
@@ -146,12 +146,12 @@ var shelve = {
                         switch (doc_type) {
                             case 'text/html':
                             case 'application/xhtml+xml':
-                            if (sp_params.shelve_content) {
-                                shelve.saveText(sp_params.shelve_content, filename, params_fix);
-                            } else {
-                                shelve.saveDocument(doc, filename, params_fix);
-                            }
-                            break;
+                                if (sp_params.shelve_content) {
+                                    shelve.saveText(sp_params.shelve_content, filename, params_fix);
+                                } else {
+                                    shelve.saveDocument(doc, filename, params_fix);
+                                }
+                                break;
 
                             default:
                             // binary
@@ -164,8 +164,8 @@ var shelve = {
                     return true;
                 } catch (e) {
                     // alert(e);
-                    shelveUtils.log("Error when saving document to "+filename+": "+e);
-                    shelveUtils.log("Stack Trace:\n"+e.stack);
+                    shelveUtils.log('Error when saving document to ' + filename + ': ' + e);
+                    shelveUtils.log('Stack Trace:\n' + e.stack);
                     throw e;
                 }
             }
@@ -193,7 +193,7 @@ var shelve = {
                 // shelveUtils.debug('shouldWriteFile: overwrite=', overwrite);
                 if (overwrite === 2) {
                     var prompts = Components.classes['@mozilla.org/embedcomp/prompt-service;1'].
-                    getService(Components.interfaces.nsIPromptService);
+                        getService(Components.interfaces.nsIPromptService);
                     var result = prompts.confirm(window, shelveUtils.localized('file.exists'), shelveUtils.localized('file.overwrite'));
                     // shelveUtils.debug('shelve.shouldWriteFile result=', result);
                     if (result) {
@@ -479,25 +479,25 @@ var shelve = {
 
     setupAutoSelect: function (win) {
         var win = win || window;
-        shelveUtils.log("setupAutoSelect: "+ win.shelve.autoselect);
+        shelveUtils.log('setupAutoSelect: ' + win.shelve.autoselect);
         shelveUtils.debug('setupAutoSelect autoselect=', win.shelve.autoselect);
         
         var max = shelveStore.max();
-        shelveUtils.log("setupAutoSelect: max = "+max);
+        shelveUtils.log('setupAutoSelect: max = ' + max);
         for (var i = 1; i <= max; i++) {
             var autoselect = shelveStore.get(i, 'autoselect', null);
-            shelveUtils.log("setupAutoSelect: "+i+": autoselect = "+autoselect);
+            shelveUtils.log('setupAutoSelect: ' + i + ': autoselect = ' + autoselect);
             if (autoselect && !win.shelve.autoselect) {
                 win.shelve.addEventListener(shelve.autoSelectShelve, true);
                 win.shelve.autoselect = true;
-                shelveUtils.debug('setupAutoSelect '+i+': set autoselect=', win.shelve.autoselect); 
+                shelveUtils.debug('setupAutoSelect ' + i + ': set autoselect=', win.shelve.autoselect); 
                 return;
             }
         }
         
         // If here, then no shelves wanted auto select, so remove the listener
         if (win.shelve.autoselect) { 
-            shelveUtils.log("setupAutoSelect: Uninstalling autoselect for window");
+            shelveUtils.log('setupAutoSelect: Uninstalling autoselect for window');
             shelve.removeEventListener(shelve.autoSelectShelve, true);
             win.shelve.autoselect = false;
         }
@@ -2043,7 +2043,7 @@ var shelve = {
         var pathcomps = path.split('/');
         // filename is the last path component
         var filename = pathcomps.pop();
-        if (filename == "" && !is_not_last)
+        if (filename === '' && !is_not_last)
             filename = 'index';
         
         var fileext_rx = RegExp(/\.[^/.]*$/);
