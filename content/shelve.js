@@ -1299,6 +1299,16 @@ var shelve = {
         return shelve.expandTemplate(et_params);
     },
 
+    expandTemplateWithParams: function (template, et_params) {
+        template0 = et_params.template;
+        et_params.template = template;
+        try {
+            return shelve.expandTemplate(et_params);
+        } finally {
+            et_params.template = template0;
+        }
+    },
+
     expandTemplate: function (et_params) {
         // shelveUtils.debug('expandTemplate: et_params=', et_params);
         var max = et_params.template.length;
