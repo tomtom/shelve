@@ -38,7 +38,7 @@
 /*jsl:declare document*/
 /*jsl:declare window*/
 
-Components.utils.import("resource://gre/modules/PrivateBrowsingUtils.jsm");
+Components.utils.import('resource://gre/modules/PrivateBrowsingUtils.jsm');
 
 
 var shelve = {
@@ -146,12 +146,12 @@ var shelve = {
                         switch (doc_type) {
                             case 'text/html':
                             case 'application/xhtml+xml':
-                            if (sp_params.shelve_content) {
-                                shelve.saveText(sp_params.shelve_content, filename, params_fix);
-                            } else {
-                                shelve.saveDocument(doc, filename, params_fix);
-                            }
-                            break;
+                                if (sp_params.shelve_content) {
+                                    shelve.saveText(sp_params.shelve_content, filename, params_fix);
+                                } else {
+                                    shelve.saveDocument(doc, filename, params_fix);
+                                }
+                                break;
 
                             default:
                             // binary
@@ -164,8 +164,8 @@ var shelve = {
                     return true;
                 } catch (e) {
                     // alert(e);
-                    shelveUtils.log("Error when saving document to "+filename+": "+e);
-                    shelveUtils.log("Stack Trace:\n"+e.stack);
+                    shelveUtils.log('Error when saving document to ' + filename + ': ' + e);
+                    shelveUtils.log('Stack Trace:\n' + e.stack);
                     throw e;
                 }
             }
@@ -193,7 +193,7 @@ var shelve = {
                 // shelveUtils.debug('shouldWriteFile: overwrite=', overwrite);
                 if (overwrite === 2) {
                     var prompts = Components.classes['@mozilla.org/embedcomp/prompt-service;1'].
-                    getService(Components.interfaces.nsIPromptService);
+                        getService(Components.interfaces.nsIPromptService);
                     var result = prompts.confirm(window, shelveUtils.localized('file.exists'), shelveUtils.localized('file.overwrite'));
                     // shelveUtils.debug('shelve.shouldWriteFile result=', result);
                     if (result) {
@@ -479,25 +479,24 @@ var shelve = {
 
     setupAutoSelect: function (win) {
         var win = win || window;
-        shelveUtils.log("setupAutoSelect: "+ win.shelve.autoselect);
         // shelveUtils.debug('setupAutoSelect autoselect=', win.shelve.autoselect);
         
         var max = shelveStore.max();
-        shelveUtils.log("setupAutoSelect: max = "+max);
+        // shelveUtils.debug('setupAutoSelect: max=', max);
         for (var i = 1; i <= max; i++) {
             var autoselect = shelveStore.get(i, 'autoselect', null);
-            shelveUtils.log("setupAutoSelect: "+i+": autoselect = "+autoselect);
+            // shelveUtils.debug('setupAutoSelect: ' + i + ': autoselect=', autoselect);
             if (autoselect && !win.shelve.autoselect) {
-                win.shelve.shelveEventListener(shelve.autoSelectShelve, true);
+                win.shelve.addEventListener(shelve.autoSelectShelve, true);
                 win.shelve.autoselect = true;
-                // shelveUtils.debug('setupAutoSelect '+i+': set autoselect=', win.shelve.autoselect); 
+                // shelveUtils.debug('setupAutoSelect ' + i + ': set autoselect=', win.shelve.autoselect); 
                 return;
             }
         }
         
         // If here, then no shelves wanted auto select, so remove the listener
         if (win.shelve.autoselect) { 
-            shelveUtils.log("setupAutoSelect: Uninstalling autoselect for window");
+            shelveUtils.log('setupAutoSelect: Uninstalling autoselect for window');
             shelve.removeEventListener(shelve.autoSelectShelve, true);
             win.shelve.autoselect = false;
         }
@@ -512,12 +511,9 @@ var shelve = {
 
     _listeners: {},
 
-    shelveEventListener: function (listener, useCapture) {
-        // shelveUtils.debug('shelveEventListener listener:', listener);
-        // shelveUtils.debug('shelveEventListener useCapture:', useCapture);
+    addEventListener: function (listener, useCapture) {
         var prefs_events = shelve.getPrefs('events.');
         
-        // shelveUtils.debug('shelveEventListener cached listener:', shelve._listeners[listener]);
         if (shelve._listeners[listener]) {
             // already have a listener for this, don't add another one
             return;
@@ -527,9 +523,9 @@ var shelve = {
         for (var ev in shelve.events) {
             var event = shelve.events[ev];
             var use = shelve.getBoolPref(prefs_events, event);
-            // shelveUtils.debug('shelveEventListener use ' + event + ':', use);
+            // shelveUtils.debug('addEventListener use ' + event + ':', use);
             if (use) {
-                // shelveUtils.debug('shelveEventListener ' + event + ':', listener);
+                // shelveUtils.debug('addEventListener ' + event + ':', listener);
                 var target;
                 switch (event) {
                     case 'load':
@@ -717,9 +713,10 @@ var shelve = {
     },
 
     installAutoShelve: function (sp_params) {
+        // shelveUtils.debug('installAutoShelve: sp_params=', sp_params);
         // http://developer.mozilla.org/en/docs/Code_snippets:Tabbed_browser#Detecting_page_load
         // http://developer.mozilla.org/en/docs/Code_snippets:On_page_load
-        // shelveUtils.debug('installAutoShelve: sp_params=', sp_params);
+        // shelveUtils.debug('installAutoShelve: sp_params:', sp_params);
         if (sp_params) {
             shelve.autoPageParams = shelveUtils.clone(sp_params);
             shelve.autoPageParams.doc = null;
@@ -739,7 +736,7 @@ var shelve = {
             };
             // shelveUtils.debug('installAutoShelve: autoFileParams:', shelve.autoFileParams);
             shelve.setToolbarButton(true);
-            shelve.shelveEventListener(shelve.autoShelve, true);
+            shelve.addEventListener(shelve.autoShelve, true);
         }
     },
 
@@ -854,7 +851,6 @@ var shelve = {
             if (shelve.autoPilot && doc instanceof HTMLDocument) {
                 try {
                     // shelveUtils.debug('shelve.autoShelve docurl=', docurl);
-                    // shelveUtils.debug('shelve.autoShelve matches stoprx=', shelve.matchStopRx(docurl));
                     if (!shelve.matchStopRx(docurl)) {
                         // shelveUtils.debug('autoShelve autoFileParams: ', shelve.autoFileParams);
                         var afp   = shelveUtils.clone(shelve.autoFileParams);
@@ -1302,6 +1298,16 @@ var shelve = {
         return shelve.expandTemplate(et_params);
     },
 
+    expandTemplateWithParams: function (template, et_params) {
+        template0 = et_params.template;
+        et_params.template = template;
+        try {
+            return shelve.expandTemplate(et_params);
+        } finally {
+            et_params.template = template0;
+        }
+    },
+
     expandTemplate: function (et_params) {
         // shelveUtils.debug('expandTemplate: et_params=', et_params);
         var max = et_params.template.length;
@@ -1452,6 +1458,7 @@ var shelve = {
     expandVarNames: {
         'c': 'clip',
         'C': 'Clip',
+        'd': 'dirname',
         'D': 'date',
         'e': 'ext',
         'E': 'ext',
@@ -1489,6 +1496,7 @@ var shelve = {
         var is_not_last = pos < et_params.template.length - 1;
         // shelveUtils.debug('shelve expandVar1a: [pos, length, is_not_last]=', [pos, et_params.template.length, is_not_last]);
         var rawmode = (et_params.mode == 'log');
+        var querysep = shelveUtils.isWindows() ? '@' : '?';
         switch (name) {
 
             case '[':
@@ -1539,8 +1547,18 @@ var shelve = {
             val = shelve.getDocumentFilename(et_params, 2, is_not_last);
             break;
 
+            case 'filenamei':
+            val = shelve.getDocumentFilename(et_params, 2, false);
+            break;
+
             case 'basename':
             val = shelve.getDocumentFilename(et_params, 1, is_not_last);
+            break;
+
+            case 'basenamei':
+            rawmode = true;
+            val = shelve.getDocumentFilename(et_params, 1, false);
+            val = shelve.cleanPath(val);
             break;
 
             case 'host':
@@ -1563,6 +1581,7 @@ var shelve = {
             case 'subdir':
             rawmode = true;
             val = et_params.interactive ? shelve.queryDirectory(et_params, out) : '%I';
+            val = shelve.cleanPath(val);
             break;
 
             case 'keywords':
@@ -1581,18 +1600,73 @@ var shelve = {
             val = shelve.lpadString(new Date().getMonth() + 1, '00');
             break;
 
+            case 'dirname':
+            rawmode = true;
+            val = shelve.getDocumentFilename(et_params, 5, true);
+            val = shelve.cleanPath(val);
+            break;
+
+            // Shorten directory components that are too long, while keeping them unique
+            case 'dirnameshorten':
+            rawmode = true;
+            val = shelve.getDocumentFilename(et_params, 5, true);
+            var dirsep = shelveUtils.filenameSeparator();
+            var dircomps = val.split(dirsep);
+            var dirdepth = dircomps.length;
+            for (var i = 0; i < dirdepth; i++) {
+                var d = dircomps[i];
+                if (d.length > shelveUtils.MAXNAMELEN) {
+                    dircomps[i] = shelveUtils.shortenWithHash(d, 0);
+                }
+            }
+            val = dircomps.join(dirsep);
+            val = shelve.cleanPath(val);
+            break;
+
             case 'fullpath':
             rawmode = true;
             val = shelve.getDocumentFilename(et_params, 3, is_not_last);
+            val = shelve.cleanPath(val);
+            break;
+
+            case 'fullpathi':
+            // rawmode = true;
+            val = shelve.getDocumentFilename(et_params, 3, false);
+            val = shelve.cleanPath(val);
             break;
 
             case 'path':
             rawmode = true;
             val = shelve.getDocumentFilename(et_params, 4, is_not_last);
+            val = shelve.cleanPath(val);
+            break;
+
+            case 'pathi':
+            rawmode = true;
+            val = shelve.getDocumentFilename(et_params, 4, false);
+            val = shelve.cleanPath(val);
             break;
 
             case 'query':
             val = shelve.getDocumentUrlQuery(et_params);
+            break;
+
+            case 'queryq':
+            rawmode = true;
+            val = shelve.getDocumentUrlQuery(et_params);
+            val = val ? querysep + shelve.cleanValue(val) : val;
+            break;
+
+            case 'queryhash':
+            val = shelve.getDocumentUrlQuery(et_params);
+            val = (val) ? shelveUtils.cleanhashstring(val, true) : val;
+            break;
+
+            case 'queryhashq':
+            rawmode = true;
+            val = shelve.getDocumentUrlQuery(et_params);
+            val = (val) ? shelveUtils.cleanhashstring(val, true) : val;
+            val = val ? querysep + shelve.cleanValue(val) : val;
             break;
 
             case 'secs':
@@ -1614,14 +1688,29 @@ var shelve = {
             break;
 
             case 'shelvedir':
+            rawmode = true;
             val = shelveUtils.getShelveDir().path;
             rawmode = true;
             // shelveUtils.debug('shelve.expandVar val=', val);
             break;
 
             case 'separator':
-            val = shelveUtils.filenameSeparator();
             rawmode = true;
+            val = shelveUtils.filenameSeparator();
+            break;
+
+            case 'archivefilename':
+            rawmode = true;
+            var fname = shelve.expandTemplateWithParams('%{filenamei}', et_params);
+            var hashext = shelve.expandTemplateWithParams('%{queryhashq}%e', et_params);
+            val = fname + hashext;
+            if (val.length > shelveUtils.MAXNAMELEN) {
+                // chop filename to make it fit in MAXNAMELEN with having the qhash
+                // and extension intact.
+                fname = shelveUtils.shortenWithHash(fname, hashext.length);
+                val = fname + hashext;
+            }
+            val = shelve.cleanPath(val);
             break;
 
 
@@ -1712,6 +1801,28 @@ var shelve = {
         }
     },
 
+    cleanPathRx: /(^\.+$|[<>|&\/\\])/,
+
+    cleanPath: function (path) {
+        var dirsep = shelveUtils.filenameSeparator();
+        var dircomps = path.split(dirsep);
+        var dirdepth = dircomps.length;
+        var changed = false;
+        var comp;
+        for (var i = 0; i < dirdepth; i++) {
+            comp = dircomps[i];
+            if (comp.match(shelve.cleanPathRx)) {
+                dircomps[i] = comp.replace(shelve.cleanPathRx, '_');
+                changed = true;
+            }
+        }
+        if (changed) {
+            return dircomps.join(dirsep);
+        } else {
+            return path;
+        }
+    },
+
     lpadString: function (str, fill) {
         str = String(str);
         var pad = fill.slice(0, fill.length - str.length);
@@ -1754,7 +1865,7 @@ var shelve = {
                 alert(shelveUtils.localized('dir.not') + ': ' + cd);
             } else {
                 try {
-                    if (shelveUtils.getOS() == 'WINNT') {
+                    if (shelveUtils.isWindows()) {
                         var directoryEntries = initDir.directoryEntries;
                         while (directoryEntries.hasMoreElements()) {
                             var firstEntry = directoryEntries.getNext();
@@ -1927,51 +2038,47 @@ var shelve = {
 
     getDocumentFilename: function (et_params, filenametype, is_not_last) {
         var url = shelveUtils.getDocumentURL(et_params);
-        var path = url.replace(/^(\w+:\/\/)?[^\/]*\/?/, '');
-        var tail = path.replace(/^([^\/]*\/)*/, '');
-        var file;
+        // remove protocol and domain at the beginning of the url
+        var url_no_proto = url.replace(/^(\w+:\/\/)?[^\/]*\/?/, '');
+        // remove hash or querystring
+        var path = url_no_proto.replace(/[#?&].*$/, '');
+        var pathcomps = path.split('/');
+        // filename is the last path component
+        var filename = pathcomps.pop();
+        if (filename === '' && !is_not_last)
+            filename = 'index';
+        
+        var fileext_rx = RegExp(/\.[^/.]*$/);
         switch (filenametype) {
             case 1: // basename
-            matches = tail.match(/^[^#?&]*/);
-            file = matches ? matches[0] : '';
-            file = file.replace(/\.[^.]*$/, '');
+            file = filename.replace(fileext_rx, '');
             break;
+            
             case 2: // filename
-            matches = tail.match(/^[^#?&]*/);
-            file = matches ? matches[0] : '';
+            file = filename;
             break;
+            
             case 3: // fullpath
-            file = path.replace(/[#?&].*$/, '');
-            file = file.replace(/[*|<>?:"]/g, '_');
-            if (file.match(/[\/\\]$/)) {
-                if (is_not_last) {
-                    file = file.replace(/[\/\\]$/, '');
-                } else {
-                    file += 'index' + et_params.extension;
-                }
-            }
+            pathcomps.push(filename);
+            file = pathcomps.join('/');
             break;
-            case 4: // path
-            file = shelve.getDocumentFilename(et_params, 3, is_not_last);
-            file = file.replace(/\.\w+$/, '');
+            
+            case 4: // fullpath excluding the extension
+            file = shelve.getDocumentFilename(et_params, 3, is_not_last) + et_params.extension;
+            file = file.replace(fileext_rx, '');
+            break;
+            
+            case 5: // path of only directory components
+            file = pathcomps.join('/');
             break;
         }
         file = String(file);
-        if (shelveUtils.getOS() == 'WINNT') {
+        if (shelveUtils.isWindows()) {
             file = file.replace(/\//g, '\\');
+            file = file.replace(/[<>:"/|?*]/g, '_');
         }
         // shelveUtils.debug('shelve getDocumentFilename: [file, filenametype, is_not_last]=', [file, filenametype, is_not_last]);
-        if (file.match(/\S/) || is_not_last) {
-            return file;
-        } else {
-            switch (filenametype) {
-                case 1:
-                return 'index';
-                break;
-                default:
-                return 'index' + et_params.extension;
-            }
-        }
+        return file;
     },
 
     getDocumentHost: function (et_params, mode) {
