@@ -812,7 +812,7 @@ var shelveUtils = {
 
     validPlaceholders: function(klass) {
         var chars = 'cCdDeEfFhHBhiIklmMpPqstxyY%/';
-        var names = 'clip|clip!|clipboard|date|input|subdir|host|hostbasename|query|queryhash|queryq|queryhashq|dirname|dirnameshorten|fullpath|path|filename|basename|fullpathi|pathi|filenamei|basenamei|archivefilename|ext|title|keywords|fullyear|year|month|day|hours|minutes|secs|msecs|shelvedir|separator';
+        var names = 'clip|clip!|clipboard|date|input|subdir|host|hostbasename|queryq|query|queryhashq|queryhash|dirname|dirnameshorten|fullpathi|fullpath|pathi|path|filenamei|filename|basenamei|basename|archivefilename|ext|title|keywords|fullyear|year|month|day|hours|minutes|secs|msecs|shelvedir|separator';
         switch (klass) {
             case 'log':
             case 'footer':
