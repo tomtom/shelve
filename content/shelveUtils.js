@@ -670,8 +670,16 @@ var shelveUtils = {
         return osString;
     },
 
-    osString: function(str) {
-        if (shelveUtils.getOS() == 'WINNT') {
+    isWindows: function () {
+        var isWindowsP = shelveUtils.getOS() == 'WINNT';
+        shelveUtils.isWindows = function () {
+            return isWindowsP;
+        }
+        return shelveUtils.isWindows();
+    },
+
+    osString: function (str) {
+        if (shelveUtils.isWindows()) {
             return str.replace(/\n/g, '\r\n');
         } else {
             return str;
