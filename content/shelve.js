@@ -1657,7 +1657,7 @@ var shelve = {
             case 'queryq':
             rawmode = true;
             val = shelve.getDocumentUrlQuery(et_params);
-            val = val ? '?' + val : val;
+            val = val ? querysep + shelve.cleanValue(val) : val;
             break;
 
             case 'queryhash':
@@ -1669,7 +1669,7 @@ var shelve = {
             rawmode = true;
             val = shelve.getDocumentUrlQuery(et_params);
             val = (val) ? shelveUtils.hashstring(val, true).replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '') : val;
-            val = val ? '?' + val : val;
+            val = val ? querysep + shelve.cleanValue(val) : val;
             break;
 
             case 'secs':
