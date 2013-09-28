@@ -1550,7 +1550,6 @@ var shelve = {
 
             case 'filenamei':
             val = shelve.getDocumentFilename(et_params, 2, false);
-            rawmode = true;
             break;
 
             case 'basename':
