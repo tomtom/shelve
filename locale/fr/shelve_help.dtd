@@ -9,6 +9,7 @@
 <!ENTITY shelve.p.the.following.place.holders.can.be.used "Les chaînes de substitution suivantes peuvent être utilisées :">
 <!ENTITY shelve.p.modifier.mandatory "Si un nom long se termine par « ! », cette information doit être fournie.">
 <!ENTITY shelve.p.modifier.optional.line "Si un nom long se termine par « ? », la ligne ne sera pas affichée si sa valeur est nulle.">
+<!ENTITY shelve.p.width.limit "La largeur d'un substitut peut être limitée.Ex. : « &#37;10{filename} » limite la longueur du nom de fichier inséré dan le modèle à 10 caractères.">
 <!ENTITY shelve.long.var.names "Noms longs pour chaînes de substitution :">
 <!ENTITY shelve.td.alternatives.example.ctf "Alternatives (exemple : &#37;[ctF])">
 <!ENTITY shelve.td.clip "Clip">
@@ -19,10 +20,19 @@
 <!ENTITY shelve.td.host "Hôte">
 <!ENTITY shelve.td.base.hostname "Nom d'hôte d'origine">
 <!ENTITY shelve.td.query "Requête (La partie située après le point d'interrogation dans l'URL)">
+<!ENTITY shelve.td.queryq "Pareil que « query » mais avec le suffixe « ? »">
+<!ENTITY shelve.td.queryhash "Une combinaison unique de « query » où les caractères sont uniquement a-z, 0-9, _ et -">
+<!ENTITY shelve.td.queryhashq "Pareil que « queryhash » mais précédant un « ? »">
+<!ENTITY shelve.td.dirname "Chemin sans le nom de fichier">
+<!ENTITY shelve.td.dirnameshorten "Comme le nom de dossier excepté chaque composant de dossier sera raccourci et rendu unique s'il est plus long que la longueur maximale acceptée par le système de fichier.">
 <!ENTITY shelve.td.path "Chemin">
+<!ENTITY shelve.td.pathi "Chemin (ajouter « index » s'ils se termine par « / »)">
 <!ENTITY shelve.td.path.no.ext "Chemin (sans ext.)">
+<!ENTITY shelve.td.pathi.no.ext "Chemin (pas d'ext., ajouter « index » s'ils se termine par « / »)">
 <!ENTITY shelve.td.filename "Nom de fichier">
+<!ENTITY shelve.td.filenamei "Nom de fichier (ajouter « index » s'ils se termine par « / »)">
 <!ENTITY shelve.td.filename.no.ext "Nom de fichier (sans ext.)">
+<!ENTITY shelve.td.filenamei.no.ext "Nom de fichier (pas d'ext., ajouter « index » s'ils se termine par « / »)">
 <!ENTITY shelve.td.extension "Extension">
 <!ENTITY shelve.td.title "Titre">
 <!ENTITY shelve.td.keywords "Mots-clés">
@@ -40,6 +50,7 @@
 <!ENTITY shelve.td.output.file "Fichier sortant">
 <!ENTITY shelve.td.relative.output.file "Nom de fichier affiché relatif au fichier journal">
 <!ENTITY shelve.td.url "URL">
+<!ENTITY shelve.td.archivefilename "Un fichier qui peut être utiliser pour archiver. Il sera unique lors de requêtes GET et assure le fait que la longueur du nom de fichier ne dépassera pas le maximum autorisé par le système de fichier.">
 <!ENTITY shelve.td.shelf.name "nom Shelf">
 <!ENTITY shelve.td.separator "Séparateur de fichier">
 <!ENTITY shelve.td.shelvedir "Sous-dossier shelve situé dans le dossier du profil utilisateur">

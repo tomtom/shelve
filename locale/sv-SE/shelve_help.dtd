@@ -1,14 +1,15 @@
-<!ENTITY shelve.title.shelve.help "Shelve: Hjälp">
+<!ENTITY shelve.title.shelve.help "Hjälp om Shelve">
 <!ENTITY shelve.a.shelve "Shelve">
 <!ENTITY shelve.a.more.help "Mer hjälp">
 <!ENTITY sheve.help.on.regex "Hjälp om reguljära uttryck (RegExp):">
-<!ENTITY shelve.regexp.hlp.moz "https://developer.mozilla.org/En/Core_JavaScript_1.5_Guide:Regular_Expressions">
+<!ENTITY shelve.regexp.hlp.moz "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions">
 <!ENTITY shelve.regexp.hlp.wik "http://sv.wikipedia.org/wiki/Regulj&#37;C3&#37;A4ra_uttryck">
 <!ENTITY shelve.h2.place.holders "Platshållare">
 <!ENTITY shelve.p.please.define.a.set.of.templates "Var vänlig definiera en uppsättning mallar. Dessa kommer att användas för att identifiera platsen dit dokumentet skall sparas.">
 <!ENTITY shelve.p.the.following.place.holders.can.be.used "Följande platshållare kan användas:">
 <!ENTITY shelve.p.modifier.mandatory "Om ett långt namn avslutas med &quot;!&quot;, så måste informationen tillhandahållas.">
 <!ENTITY shelve.p.modifier.optional.line "Om ett långt namn avslutas med &quot;?&quot;, så kommer raden att undantas från utdatan om dess värde är tomt.">
+<!ENTITY shelve.p.width.limit "Bredden på en platshållare kan begränsas. Exempel: &quot;&#37;10{filnamn}&quot; begränsar bredden på filnamnet som infogas i mallen till 10 tecken.">
 <!ENTITY shelve.long.var.names "Långa namn på platshållare:">
 <!ENTITY shelve.td.alternatives.example.ctf "Alternativ (Exempel: &#37;[ctF])">
 <!ENTITY shelve.td.clip "Klipp">
@@ -19,10 +20,19 @@
 <!ENTITY shelve.td.host "Värd">
 <!ENTITY shelve.td.base.hostname "Basvärdnamn">
 <!ENTITY shelve.td.query "Fråga (delen av URL:en efter frågetecknet)">
+<!ENTITY shelve.td.queryq "Samma som &quot;query&quot;, men infogar ett &quot;?&quot; före frågan">
+<!ENTITY shelve.td.queryhash "Frågehashsumma. En unik hashsumma av &quot;query&quot;, som endast innehåller tecknen a-z, 0-9, _ och -">
+<!ENTITY shelve.td.queryhashq "Samma som &quot;queryhash&quot; men infogar ett &quot;?&quot; före frågan">
+<!ENTITY shelve.td.dirname "Sökväg utan filnamn">
+<!ENTITY shelve.td.dirnameshorten "Samma som &quot;dirname&quot;, förutom att varje mappkomponent som är längre än filsystemets största tillåtna namnlängd kommer att förkortas och göras unik.">
 <!ENTITY shelve.td.path "Sökväg">
+<!ENTITY shelve.td.pathi "Sökväg (lägger till &quot;index&quot; om sökvägen avslutas med &quot;/&quot;)">
 <!ENTITY shelve.td.path.no.ext "Sökväg (inget filtillägg)">
+<!ENTITY shelve.td.pathi.no.ext "Sökväg (inget filtillägg, lägger till &quot;index&quot; om sökvägen avslutas med &quot;/&quot;)">
 <!ENTITY shelve.td.filename "Filnamn">
+<!ENTITY shelve.td.filenamei "Filnamn (lägger till &quot;index&quot; om sökvägen avslutas med &quot;/&quot;)">
 <!ENTITY shelve.td.filename.no.ext "Filnamn (inget filtillägg)">
+<!ENTITY shelve.td.filenamei.no.ext "Filnamn (inget filtillägg, lägger till &quot;index&quot; om sökvägen avslutas med &quot;/&quot;)">
 <!ENTITY shelve.td.extension "Filtillägg">
 <!ENTITY shelve.td.title "Rubrik">
 <!ENTITY shelve.td.keywords "Nyckelord">
@@ -40,6 +50,7 @@
 <!ENTITY shelve.td.output.file "Utdatafil">
 <!ENTITY shelve.td.relative.output.file "Utdatafilnamn relativt till loggfilen">
 <!ENTITY shelve.td.url "URL">
+<!ENTITY shelve.td.archivefilename "Ett filnamn som kan användas i arkiveringssyfte. Det är unikt över GET-förfrågningar och säkerställer att längden på filnamnet inte överstiger filsystemets största tillåtna längd.">
 <!ENTITY shelve.td.shelf.name "Hyllnamn">
 <!ENTITY shelve.td.separator "Filnamnsavgränsare">
 <!ENTITY shelve.td.shelvedir "Undermappen &quot;shelve&quot; som finns i användarprofilmappen">
@@ -49,4 +60,4 @@
 <!ENTITY shelve.dd.save.in.the.directory.host.year "Spara i mappen VÄRD/ÅR, använd antingen markerad text eller rubriken som filnamn.">
 <!ENTITY shelve.dd.save.as.host.year.month.day.filename "Spara som VÄRD/ÅR-MÅNAD-DAG/FILNAMN (originalfiltillägget kommer att tas bort)">
 <!ENTITY shelve.dd.rebuild.the.original.file.system "Återskapa originalfilsystemet">
-<!ENTITY shelve.dd.save.under.topics.but.query.the.user "Spara under .../ämnen men fråga användaren efter en undermapp. Använd antingen markerad text, rubriken eller basfilnamnet plus &quot;.html&quot; som filnamn.">
+<!ENTITY shelve.dd.save.under.topics.but.query.the.user "Spara under …/ämnen men fråga användaren efter en undermapp. Använd antingen markerad text, rubriken eller basfilnamnet plus &quot;.html&quot; som filnamn.">

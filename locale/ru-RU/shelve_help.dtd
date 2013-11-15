@@ -9,6 +9,7 @@
 <!ENTITY shelve.p.the.following.place.holders.can.be.used "Следующие переменные могут быть использованы:">
 <!ENTITY shelve.p.modifier.mandatory "При наличии &quot;!&quot; в конце длинного имени необходима дополнительная информация.">
 <!ENTITY shelve.p.modifier.optional.line "При наличии &quot;?&quot; в конце длинного имени строка будет удалена из вывода, если её значение не определено.">
+<!ENTITY shelve.p.width.limit "Именование переменной может иметь ограничения. К примеру, '&#37;10{filename}' ограничивает имя файла в шаблоне 10-ю символами.">
 <!ENTITY shelve.long.var.names "Длинные имена для переменных:">
 <!ENTITY shelve.td.alternatives.example.ctf "Альтернативы (к примеру, &#37;[ctF])">
 <!ENTITY shelve.td.clip "Имя">
@@ -19,10 +20,19 @@
 <!ENTITY shelve.td.host "Хост">
 <!ENTITY shelve.td.base.hostname "Базовое имя хоста">
 <!ENTITY shelve.td.query "Запрос (часть URL после знака вопроса)">
+<!ENTITY shelve.td.queryq "То же что 'query', но с предваряющим '?'.">
+<!ENTITY shelve.td.queryhash "Уникальный хэш &apos;query&apos;, допустимые символы: a-z, 0-9, _ и -.">
+<!ENTITY shelve.td.queryhashq "То же что &apos;queryhash&apos;, но с предваряющим &apos;?&apos;.">
+<!ENTITY shelve.td.dirname "Путь (без имени)">
+<!ENTITY shelve.td.dirnameshorten "То же что путь (без имени), но при превышении допускаемой файловой системой длины каждый адрес путь будет заменён уникальным сокращением.">
 <!ENTITY shelve.td.path "Путь">
+<!ENTITY shelve.td.pathi "Путь (доб. 'index' если оканчивается '/')">
 <!ENTITY shelve.td.path.no.ext "Путь (без расширения)">
+<!ENTITY shelve.td.pathi.no.ext "Путь (без расширения, доб. 'index' если оканчивается '/')">
 <!ENTITY shelve.td.filename "Имя файла">
+<!ENTITY shelve.td.filenamei "Имя файла (доб. 'index' если оканчивается '/')">
 <!ENTITY shelve.td.filename.no.ext "Базовое имя файла (без расширения)">
+<!ENTITY shelve.td.filenamei.no.ext "Имя файла (без расширения, доб. 'index' если оканчивается '/')">
 <!ENTITY shelve.td.extension "Расширение">
 <!ENTITY shelve.td.title "Заголовок">
 <!ENTITY shelve.td.keywords "Ключевые слова">
@@ -40,6 +50,7 @@
 <!ENTITY shelve.td.output.file "Вывод">
 <!ENTITY shelve.td.relative.output.file "Имя файла вывода (относительно файла лога)">
 <!ENTITY shelve.td.url "URL">
+<!ENTITY shelve.td.archivefilename "Архивное имя файла. Уникальное имя, сокращаемое в случае превышения допустимой файловой системой длины и распознаваемое функцией GET.">
 <!ENTITY shelve.td.shelf.name "Имя папки">
 <!ENTITY shelve.td.separator "Разделитель имён">
 <!ENTITY shelve.td.shelvedir "Поддиректория Shelve находится в директории профиля пользователя">

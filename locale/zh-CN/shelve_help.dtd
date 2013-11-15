@@ -1,29 +1,39 @@
 <!ENTITY shelve.title.shelve.help "Shelve：帮助">
 <!ENTITY shelve.a.shelve "Shelve">
 <!ENTITY shelve.a.more.help "更多帮助">
-<!ENTITY sheve.help.on.regex "正则表达式帮助（RegExp）：">
-<!ENTITY shelve.regexp.hlp.moz "https://developer.mozilla.org/En/Core_JavaScript_1.5_Guide:Regular_Expressions">
-<!ENTITY shelve.regexp.hlp.wik "http://en.wikipedia.org/wiki/Regular_expression">
-<!ENTITY shelve.h2.place.holders "位置标识符">
-<!ENTITY shelve.p.please.define.a.set.of.templates "请定义一个模版。这些将用于确定该文件应保存到的位置。">
-<!ENTITY shelve.p.the.following.place.holders.can.be.used "下面的地方，持有人可以使用：">
-<!ENTITY shelve.p.modifier.mandatory "如果一个长名称结尾是 '!'，则资料必须提供。">
-<!ENTITY shelve.p.modifier.optional.line "如果一个长名称结尾是 '?', 如果它的输出值为空则该生产线将被抑制。">
-<!ENTITY shelve.long.var.names "地方负责人使用长文件名：">
-<!ENTITY shelve.td.alternatives.example.ctf "可选方案（例如：&#37;[ctF]）">
-<!ENTITY shelve.td.clip "夹">
-<!ENTITY shelve.td.clip.non.empty "夹（非空）">
-<!ENTITY shelve.td.content "内容（在登陆时选择的文本）">
+<!ENTITY sheve.help.on.regex "正则表达式帮助(RegExp)：">
+<!ENTITY shelve.regexp.hlp.moz "https://developer.mozilla.org/zh-CN/docs/JavaScript/Guide/Regular_Expressions">
+<!ENTITY shelve.regexp.hlp.wik "http://zh.wikipedia.org/wiki/正则表达式">
+<!ENTITY shelve.h2.place.holders "占位符">
+<!ENTITY shelve.p.please.define.a.set.of.templates "请定义一组模版。它们将被用来确定文档应保存到的位置。">
+<!ENTITY shelve.p.the.following.place.holders.can.be.used "可以使用下列占位符：">
+<!ENTITY shelve.p.modifier.mandatory "如果一个长名称以“!”结尾，此信息必须提供。">
+<!ENTITY shelve.p.modifier.optional.line "如果一个长名称以“?”结尾, 当它的值为空时，输出中将忽略此行。">
+<!ENTITY shelve.p.width.limit "可以限制占位符的宽度。例如，“&#37;10{filename}”限制在模板中插入的文件名宽度不超过 10 个字符。">
+<!ENTITY shelve.long.var.names "占位符的长名称：">
+<!ENTITY shelve.td.alternatives.example.ctf "值为空时的替代值(例如：&#37;[ctF])">
+<!ENTITY shelve.td.clip "片段">
+<!ENTITY shelve.td.clip.non.empty "片段(非空)">
+<!ENTITY shelve.td.content "内容(记录选中的文本时)">
 <!ENTITY shelve.td.user.input "用户输入">
 <!ENTITY shelve.td.pick.directory "选择目录">
 <!ENTITY shelve.td.host "主机">
-<!ENTITY shelve.td.base.hostname "基础主机名称">
-<!ENTITY shelve.td.query "询问（部分在 URL 之后的问题分数）">
+<!ENTITY shelve.td.base.hostname "基本主机名">
+<!ENTITY shelve.td.query "查询(URL 中问号之后的部分)">
+<!ENTITY shelve.td.queryq "与“query”相同，但是以“?”作前缀">
+<!ENTITY shelve.td.queryhash "“query”的唯一的 hash，只包含字符 a-z, 0-9, _ 和 -">
+<!ENTITY shelve.td.queryhashq "与“queryhash”相同，但是以“?”作前缀">
+<!ENTITY shelve.td.dirname "不带文件名的路径">
+<!ENTITY shelve.td.dirnameshorten "与路径的目录相同，但是如果一个目录成分超过了文件系统允许的最大长度时，它会被缩短表示，此表示唯一。">
 <!ENTITY shelve.td.path "路径">
-<!ENTITY shelve.td.path.no.ext "路径（no ext）">
-<!ENTITY shelve.td.filename "文件名称">
-<!ENTITY shelve.td.filename.no.ext "文件名称（no ext）">
-<!ENTITY shelve.td.extension "扩展">
+<!ENTITY shelve.td.pathi "路径(如果以“/”结尾，需要附加“index”)">
+<!ENTITY shelve.td.path.no.ext "路径(无扩展名)">
+<!ENTITY shelve.td.pathi.no.ext "路径(无扩展名，如果以“/”结尾，需要附加“index”)">
+<!ENTITY shelve.td.filename "文件名">
+<!ENTITY shelve.td.filenamei "文件名(如果以“/”结尾，需要附加“index”)">
+<!ENTITY shelve.td.filename.no.ext "文件名(无扩展名)">
+<!ENTITY shelve.td.filenamei.no.ext "文件名(无扩展名，如果以“/”结尾，需要附加“index”)">
+<!ENTITY shelve.td.extension "扩展名">
 <!ENTITY shelve.td.title "标题">
 <!ENTITY shelve.td.keywords "关键字">
 <!ENTITY shelve.td.full.year "全年">
@@ -35,18 +45,19 @@
 <!ENTITY shelve.td.seconds "秒">
 <!ENTITY shelve.td.milliseconds "毫秒">
 <!ENTITY shelve.td.clipboard "剪贴板">
-<!ENTITY shelve.p.only.available.in.log.templates "仅提供在日志模版：">
-<!ENTITY shelve.td.note "笔记">
+<!ENTITY shelve.p.only.available.in.log.templates "仅在日志模版中有效：">
+<!ENTITY shelve.td.note "注释">
 <!ENTITY shelve.td.output.file "输出文件">
-<!ENTITY shelve.td.relative.output.file "输出文件名相对于日志文件">
+<!ENTITY shelve.td.relative.output.file "相对于日志文件的输出文件名">
 <!ENTITY shelve.td.url "URL">
-<!ENTITY shelve.td.shelf.name "架子名称">
-<!ENTITY shelve.td.separator "文件名分离器">
-<!ENTITY shelve.td.shelvedir "'放置' 子目录位置在用户配置文件目录">
-<!ENTITY shelve.p.the.shelf.name.is.optional "货架名称是可选的。如果没有提供，这一数字将作为名称。">
-<!ENTITY shelve.p.if.the.regular.expression "如果正则表达式匹配当前 URL，模版将瞬间被应用。">
+<!ENTITY shelve.td.archivefilename "可以用作档案的文件名。它能够通过 GET 请求唯一获取，并且长度不超过文件系统允许的最大长度。">
+<!ENTITY shelve.td.shelf.name "书架名称">
+<!ENTITY shelve.td.separator "文件名分隔符">
+<!ENTITY shelve.td.shelvedir "用户配置文件目录中的“shelve”子目录">
+<!ENTITY shelve.p.the.shelf.name.is.optional "书架名称是可选的。如果没有提供，此数字将被用作名称。">
+<!ENTITY shelve.p.if.the.regular.expression "如果正则表达式匹配当前 URL，模版将被立即应用。">
 <!ENTITY shelve.h2.examples "例子">
-<!ENTITY shelve.dd.save.in.the.directory.host.year "保存在这个目录主机/年，文件名使用选中的文本或这个标题。">
-<!ENTITY shelve.dd.save.as.host.year.month.day.filename "保存为 主机/年-月-日/文件名称（原来的扩展将被剥夺）">
+<!ENTITY shelve.dd.save.in.the.directory.host.year "保存在 主机/年 目录中，使用选中的文本或标题作为文件名。">
+<!ENTITY shelve.dd.save.as.host.year.month.day.filename "保存为 主机/年-月-日/文件名(原扩展名将被丢弃)">
 <!ENTITY shelve.dd.rebuild.the.original.file.system "重建原始文件系统">
-<!ENTITY shelve.dd.save.under.topics.but.query.the.user "保存在 .../topics 但查询这个用户对一个子目录。使用任何选择的文本，这个标题或基本文件名增强 '.html' 作为文件名称。">
+<!ENTITY shelve.dd.save.under.topics.but.query.the.user "保存在 .../topics 下，为用户单独建立一个子目录。使用选择的文本、标题或原文件名加“.html”作为文件名。">

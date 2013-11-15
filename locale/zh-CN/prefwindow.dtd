@@ -1,18 +1,18 @@
-<!ENTITY prefwindow.title "Shelve 配置">
-<!ENTITY shelve.shelves "Shelves">
+<!ENTITY prefwindow.title "Shelve 首选项">
+<!ENTITY shelve.shelves "书架">
 <!ENTITY shelve.shelves.accesskey0 "V">
 <!ENTITY shelve.shelves.accesskey1 "S">
 <!ENTITY shelve.help "帮助">
 <!ENTITY shelve.help.accesskey "H">
 <!ENTITY shelve.title "标题">
 <!ENTITY shelve.title.accesskey "T">
-<!ENTITY shelve.clip "夹">
+<!ENTITY shelve.clip "片段">
 <!ENTITY shelve.clip.accesskey "C">
 <!ENTITY shelve.file "文件">
 <!ENTITY shelve.file.accesskey "F">
-<!ENTITY shelve.name "名称（主角应该是唯一的）">
+<!ENTITY shelve.name "名称(首字母必须唯一)">
 <!ENTITY shelve.name.accesskey "N">
-<!ENTITY shelve.template "文件名称模板">
+<!ENTITY shelve.template "文件名模板">
 <!ENTITY shelve.template.accesskey "T">
 <!ENTITY shelve.log "日志">
 <!ENTITY shelve.log.accesskey "L">
@@ -32,61 +32,61 @@
 <!ENTITY shelve.mime.accesskey "M">
 <!ENTITY shelve.mime.default "默认">
 <!ENTITY shelve.mime.webpage "网页，完整">
-<!ENTITY shelve.mime.html "只有 HTML">
+<!ENTITY shelve.mime.html "仅 HTML">
 <!ENTITY shelve.mime.text "文本">
-<!ENTITY shelve.mime.text_latin1 "文本（拉丁语-1）">
+<!ENTITY shelve.mime.text_latin1 "文本(Latin-1)">
 <!ENTITY shelve.auto "自动保存">
 <!ENTITY shelve.auto.accesskey "A">
 <!ENTITY shelve.auto.tab.accesskey "O">
-<!ENTITY shelve.auto.rx "不要自动保存文件，其中 URL 匹配此 RegExp">
+<!ENTITY shelve.auto.rx "不要自动保存 URL 匹配此正则表达式的文档">
 <!ENTITY shelve.auto.rx.accesskey "R">
-<!ENTITY shelve.auto.notify "通知用户在做一些事情时自动">
+<!ENTITY shelve.auto.notify "自动工作时通知用户">
 <!ENTITY shelve.auto.notify.accesskey "N">
-<!ENTITY shelve.auto.shelf "程序启动后自动保存文件">
+<!ENTITY shelve.auto.shelf "程序启动后自动保存文档">
 <!ENTITY shelve.auto.shelf.accesskey "U">
-<!ENTITY shelve.up "上">
+<!ENTITY shelve.up "上移">
 <!ENTITY shelve.up.accesskey "U">
-<!ENTITY shelve.down "下">
+<!ENTITY shelve.down "下移">
 <!ENTITY shelve.down.accesskey "D">
-<!ENTITY shelve.new "创建">
+<!ENTITY shelve.new "新建">
 <!ENTITY shelve.new.accesskey "N">
-<!ENTITY shelve.clone "复制品">
+<!ENTITY shelve.clone "克隆">
 <!ENTITY shelve.clone.accesskey "C">
 <!ENTITY shelve.edit "编辑">
 <!ENTITY shelve.edit.accesskey "E">
 <!ENTITY shelve.remove "删除">
 <!ENTITY shelve.remove.accesskey "R">
-<!ENTITY log.file.template "日志文件模版适用于新的日志文件">
+<!ENTITY log.file.template "新日志文件的模版">
 <!ENTITY log.file.template.accesskey "N">
-<!ENTITY log.file "日志文件（追加日志条目到这个文件）">
+<!ENTITY log.file "日志文件(追加日志条目到此文件)">
 <!ENTITY log.file.accesskey "G">
-<!ENTITY log.template "模版用于日志条目">
+<!ENTITY log.template "日志条目的模板">
 <!ENTITY log.template.accesskey "T">
-<!ENTITY footer.text "保存页脚文本到文件">
+<!ENTITY footer.text "保存为文本文件时的页脚">
 <!ENTITY footer.text.accesskey "X">
-<!ENTITY footer.html "保存页脚 HTML 到文件">
+<!ENTITY footer.html "保存为 HTML 时的页脚">
 <!ENTITY footer.html.accesskey "M">
-<!ENTITY pane1.title "文件名称模板">
-<!ENTITY pane1.description "文件名称模板">
-<!ENTITY shelve.shelf "Shelf">
+<!ENTITY pane1.title "文件名模板">
+<!ENTITY pane1.description "文件名模板">
+<!ENTITY shelve.shelf "书架">
 <!ENTITY shelve.shelf.accesskey "S">
-<!ENTITY shelve.note "笔记">
+<!ENTITY shelve.note "注释">
 <!ENTITY shelve.note.accesskey "N">
 <!ENTITY shelve.note_text.accesskey "T">
 <!ENTITY shelve.keywords "关键词">
 <!ENTITY shelve.keywords.accesskey "K">
-<!ENTITY shelve.rx "如果 URL 符合此 RegExp 保存文件到">
+<!ENTITY shelve.rx "保存 URL 匹配此正则表达式的文档到此书架中">
 <!ENTITY shelve.rx.accesskey "R">
-<!ENTITY shelve.automode "当选择此架子时，切换到自动搁置模式">
+<!ENTITY shelve.automode "选择此书架时，切换到自动保存书架模式">
 <!ENTITY shelve.automode.accesskey "L">
-<!ENTITY shelve.noautosave "在手动调用时不选中此 RegExp">
+<!ENTITY shelve.noautosave "在手动调用时不要检查此正则表达式">
 <!ENTITY shelve.noautosave.accesskey "M">
-<!ENTITY shelve.autoselect "自动保存所有匹配页">
+<!ENTITY shelve.autoselect "浏览网页时检查此正则表达式">
 <!ENTITY shelve.autoselect.accesskey "U">
-<!ENTITY shelve.autocontinue "在自动保存一个网页后，继续用其他架子">
+<!ENTITY shelve.autocontinue "自动保存一个网页后，继续保存其他书架">
 <!ENTITY shelve.autocontinue.accesskey "C">
-<!ENTITY selectShelf.title "选择 Shelf">
-<!ENTITY editShelf.title "编辑 Shelf">
+<!ENTITY selectShelf.title "选择书架">
+<!ENTITY editShelf.title "编辑书架">
 <!ENTITY shelve.hotkey "热键">
 <!ENTITY shelve.hotkey.accesskey "K">
 <!ENTITY hotkey.hotkey "热键">
@@ -100,8 +100,8 @@
 <!ENTITY hotkey.meta "Meta/Win/Cmd">
 <!ENTITY hotkey.meta.accesskey "W">
 <!ENTITY shelve.save.format "保存格式">
-<!ENTITY shelve.invocation "祈求">
+<!ENTITY shelve.invocation "调用">
 <!ENTITY shelve.new.shelf "新建">
 <!ENTITY shelve.new.shelf.accesskey "E">
-<!ENTITY shelve.clone.shelf "克隆">
-<!ENTITY shelve.clone.shelf.accesskey "C">
+<!ENTITY shelve.clone.shelf "复制">
+<!ENTITY shelve.clone.shelf.accesskey "L">

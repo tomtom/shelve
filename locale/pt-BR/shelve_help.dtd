@@ -9,6 +9,7 @@
 <!ENTITY shelve.p.the.following.place.holders.can.be.used "As seguintes variáveis podem ser usadas:">
 <!ENTITY shelve.p.modifier.mandatory "Se um nome longo terminar com '!', o dado precisa ser informado.">
 <!ENTITY shelve.p.modifier.optional.line "Se um nome longo terminar com '?', a linha será suprimida da saída se seu valor for vazio.">
+<!ENTITY shelve.p.width.limit "A largura de uma variável pode ser limitada. Por exemplo, &apos;&#37;10{nome de arquivo}&apos; limita a 10 caracteres a largura do nome de arquivo inserido no modelo.">
 <!ENTITY shelve.long.var.names "Nomes longos para variáveis:">
 <!ENTITY shelve.td.alternatives.example.ctf "Alternativas (Exemplo: &#37;[ctF])">
 <!ENTITY shelve.td.clip "Clip">
@@ -19,10 +20,19 @@
 <!ENTITY shelve.td.host "Servidor">
 <!ENTITY shelve.td.base.hostname "Nome de servidor base">
 <!ENTITY shelve.td.query "Consulta (a parte da URL após o ponto de interrogação)">
+<!ENTITY shelve.td.queryq "O mesmo que &apos;query&apos;, mas precedido de uma &apos;?&apos;">
+<!ENTITY shelve.td.queryhash "Um hash único da &apos;query&apos;, onde os caracteres são apenas a-z, 0-9, _, e -">
+<!ENTITY shelve.td.queryhashq "O mesmo que &apos;queryhash&apos;, mas precedido de uma &apos;?&apos;">
+<!ENTITY shelve.td.dirname "Caminho sem o nome de arquivo">
+<!ENTITY shelve.td.dirnameshorten "O mesmo que o nome de diretório, exceto que cada componente de diretório será encurtado e tornado único se for maior que a largura máxima permitida pelo sistema de arquivos.">
 <!ENTITY shelve.td.path "Caminho">
+<!ENTITY shelve.td.pathi "Caminho (adiciona &apos;index&apos; ao final se terminar com &apos;/&apos;)">
 <!ENTITY shelve.td.path.no.ext "Caminho (sem extensão)">
+<!ENTITY shelve.td.pathi.no.ext "Caminho (sem extensão; adiciona &apos;index&apos; ao final se terminar com &apos;/&apos;)">
 <!ENTITY shelve.td.filename "Nome do arquivo">
+<!ENTITY shelve.td.filenamei "Nome de arquivo (adiciona &apos;index&apos; ao final se terminar com &apos;/&apos;)">
 <!ENTITY shelve.td.filename.no.ext "Nome do arquivo (sem extensão)">
+<!ENTITY shelve.td.filenamei.no.ext "Nome de arquivo (sem extensão; adiciona &apos;index&apos; ao final se terminar com &apos;/&apos;)">
 <!ENTITY shelve.td.extension "Extensão">
 <!ENTITY shelve.td.title "Título">
 <!ENTITY shelve.td.keywords "Palavras-chave">
@@ -40,6 +50,7 @@
 <!ENTITY shelve.td.output.file "Arquivo de saída">
 <!ENTITY shelve.td.relative.output.file "Nome do arquivo de saída relativo ao arquivo de log">
 <!ENTITY shelve.td.url "URL">
+<!ENTITY shelve.td.archivefilename "Um nome de arquivo pode ser usado para arquivamento. Ele será único nas requisições GET. O tamanho do nome do arquivo não excederá o máximo permitido pelo sistema de arquivos.">
 <!ENTITY shelve.td.shelf.name "Nome do shelf">
 <!ENTITY shelve.td.separator "Separador de nome de arquivo">
 <!ENTITY shelve.td.shelvedir "subdiretório 'shelve' localizado no diretório do perfil do usuário">
