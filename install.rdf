@@ -11,7 +11,7 @@
     <em:translator>Marcelo Ghelman (ghelman.net) (pt-BR)</em:translator>
     <em:translator>Владимир Герасимов (ru-RU)</em:translator>
     <em:translator>Lakrits (sv-SE)</em:translator>
-    <em:translator>yfdyh000 (zh-CN)</em:translator>
+    <em:translator>whknnn, yfdyh000 (zh-CN)</em:translator>
     <em:description>Quickly save the current document in a pre-defined folder</em:description>
     <em:homepageURL>http://shelve.sourceforge.net</em:homepageURL>
     <em:optionsURL>chrome://shelve/content/shelveOptions.xul</em:optionsURL>
@@ -21,7 +21,7 @@
       <Description>
         <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id> <!-- firefox -->
         <em:minVersion>14.0</em:minVersion>
-        <em:maxVersion>19.*</em:maxVersion>
+        <em:maxVersion>25.*</em:maxVersion>
       </Description>
     </em:targetApplication>
   </Description>
