@@ -408,6 +408,7 @@ var shelve = {
         var dll = new DownloadListener(window, tr);
         // shelveUtils.debug("registerDownload: footer_sp_params=", footer_sp_params !== null);
         if (footer_sp_params) {
+            // TODO: adapt for download.jsm
             var dlm = Components.classes['@mozilla.org/download-manager;1']
                 .getService(Components.interfaces.nsIDownloadManager);
             persist.progressListener = {
