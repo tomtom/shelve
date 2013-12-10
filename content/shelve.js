@@ -39,6 +39,9 @@
 /*jsl:declare window*/
 
 Components.utils.import('resource://gre/modules/PrivateBrowsingUtils.jsm');
+if (shelveUtils.appVersion() >= '26') {
+    Components.utils.import("resource://gre/modules/Downloads.jsm");
+}
 
 
 var shelve = {
@@ -408,23 +411,26 @@ var shelve = {
         var dll = new DownloadListener(window, tr);
         // shelveUtils.debug("registerDownload: footer_sp_params=", footer_sp_params !== null);
         if (footer_sp_params) {
-            // TODO: adapt for download.jsm
-            var dlm = Components.classes['@mozilla.org/download-manager;1']
-                .getService(Components.interfaces.nsIDownloadManager);
-            persist.progressListener = {
-                addedFooter: false,
-                onProgressChange: dll.onProgressChange,
-                onStatusChange: dll.onStatusChange,
-                onStateChange: function (aWebProgress, aRequest, aStateFlags, aStatus) {
-                    // shelveUtils.debug("registerDownload: stop=", aStateFlags & shelve.STATE_STOP);
-                    if (!this.addedFooter && (aStateFlags & shelve.STATE_STOP)) {
-                        // shelveUtils.debug("Download finished:", uri);
-                        shelve.addFooter(footer_sp_params);
-                        this.addedFooter = true;
+            if (shelveUtils.appVersion() < '26') {
+                var dlm = Components.classes['@mozilla.org/download-manager;1']
+                    .getService(Components.interfaces.nsIDownloadManager);
+                persist.progressListener = {
+                    addedFooter: false,
+                    onProgressChange: dll.onProgressChange,
+                    onStatusChange: dll.onStatusChange,
+                    onStateChange: function (aWebProgress, aRequest, aStateFlags, aStatus) {
+                        // shelveUtils.debug("registerDownload: stop=", aStateFlags & shelve.STATE_STOP);
+                        if (!this.addedFooter && (aStateFlags & shelve.STATE_STOP)) {
+                            // shelveUtils.debug("Download finished:", uri);
+                            shelve.addFooter(footer_sp_params);
+                            this.addedFooter = true;
+                        }
+                        return dll.onStateChange(aWebProgress, aRequest, aStateFlags, aStatus);
                     }
-                    return dll.onStateChange(aWebProgress, aRequest, aStateFlags, aStatus);
-                }
-            };
+                };
+            } else {
+                // TODO: adapt for download.jsm
+            }
             // shelveUtils.debug("registerDownload: 2 onStateChange=", persist.progressListener.onStateChange);
         } else {
             persist.progressListener = dll;
