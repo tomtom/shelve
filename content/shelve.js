@@ -40,6 +40,7 @@
 
 Components.utils.import('resource://gre/modules/PrivateBrowsingUtils.jsm');
 if (shelveUtils.appVersion() >= '26') {
+    Components.utils.import("resource://gre/modules/Task.jsm");
     Components.utils.import("resource://gre/modules/Downloads.jsm");
 }
 
@@ -430,6 +431,25 @@ var shelve = {
                 };
             } else {
                 // TODO: adapt for download.jsm
+                Task.spawn((function (url, footer_sp_params) {
+                    return function () {
+                        let list = yield Downloads.getList(Downloads.ALL);
+                        let view = {
+                            addedFooter: false,
+                            onDownloadChanged: function (download) {
+                                if (download.source.url === url) {
+                                    if (download.succeeded && !this.addedFooter) {
+                                        shelveUtils.debug("Download finished:", url);
+                                        shelve.addFooter(footer_sp_params);
+                                        this.addedFooter = true;
+                                        list.removeView(this);
+                                    }
+                                }
+                            }
+                        };
+                        yield list.addView(view);
+                    }
+                })(uri, footer_sp_params)).then(null, Components.utils.reportError);
             }
             // shelveUtils.debug("registerDownload: 2 onStateChange=", persist.progressListener.onStateChange);
         } else {
