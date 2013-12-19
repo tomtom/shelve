@@ -390,7 +390,7 @@ var shelve = {
 
     useDownloadManager: function (sp_params, mode) {
         var prefs_dlm = shelve.getPrefs('use_download_manager.');
-        return !sp_params.noAlertNotification && !shelveUtils.appInfo().match(/^Firefox2/) && shelve.getBoolPref(prefs_dlm, mode);
+        return !sp_params.noAlertNotification && shelve.getBoolPref(prefs_dlm, mode);
     },
 
     STATE_STOP: Components.interfaces.nsIWebProgressListener.STATE_STOP,
