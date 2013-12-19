@@ -1138,7 +1138,7 @@ var shelve = {
         // shelveUtils.debug('DelayedFooter:', id);
         if (id) {
             shelve.clearDelayedFooter(id);
-            shelve.footers[id].timeoutID = setTimeout(function() {shelve.footer(id);}, 1000);
+            shelve.footers[id].timeoutID = setTimeout(function() {shelve.writeFooter(id);}, 1000);
         }
     },
 
@@ -1168,7 +1168,7 @@ var shelve = {
         return shelve.param('footer_' + template_mime + sp_params.shelf, 'footer.', template_mime);
     },
 
-    footer: function (id) {
+    writeFooter: function (id) {
         var sp_params = shelve.footers[id].params;
         // shelveUtils.debug('footer ' + id + ': sp_params=', sp_params);
         var file = shelveUtils.localFile(sp_params.filename);
