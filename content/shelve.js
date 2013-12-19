@@ -236,7 +236,8 @@ var shelve = {
         var allow_footer = true;
 
         var footer_sp_params = null;
-        var enable_dlm = shelve.useDownloadManager(sp_params, 'document');
+        // var enable_dlm = shelve.useDownloadManager(sp_params, 'document');
+        var enable_dlm = false;
         var wbp = Components.classes['@mozilla.org/embedding/browser/nsWebBrowserPersist;1'].
         createInstance(Components.interfaces.nsIWebBrowserPersist);
         // wbp.persistFlags |= wbp.PERSIST_FLAGS_FROM_CACHE;
@@ -314,7 +315,6 @@ var shelve = {
         // shelveUtils.debug('shelve saveDocument: encode=', encode);
         var uri = shelveUtils.newURI(sp_params.url);
         var file_uri = shelveUtils.newFileURI(file);
-        // shelveUtils.debug('shelve saveDocument: enable_dlm=', enable_dlm);
         // shelveUtils.debug('shelve saveDocument: footer_sp_params=', footer_sp_params);
         if (enable_dlm) {
             shelve.registerDownload(wbp, uri, file_uri, sp_params, footer_sp_params);
@@ -412,46 +412,51 @@ var shelve = {
         var dll = new DownloadListener(window, tr);
         // shelveUtils.debug("registerDownload: footer_sp_params=", footer_sp_params !== null);
         if (footer_sp_params) {
-            if (shelveUtils.appVersion() < '26') {
-                var dlm = Components.classes['@mozilla.org/download-manager;1']
-                    .getService(Components.interfaces.nsIDownloadManager);
-                persist.progressListener = {
-                    addedFooter: false,
-                    onProgressChange: dll.onProgressChange,
-                    onStatusChange: dll.onStatusChange,
-                    onStateChange: function (aWebProgress, aRequest, aStateFlags, aStatus) {
-                        // shelveUtils.debug("registerDownload: stop=", aStateFlags & shelve.STATE_STOP);
-                        if (!this.addedFooter && (aStateFlags & shelve.STATE_STOP)) {
-                            // shelveUtils.debug("Download finished:", uri);
-                            shelve.addFooter(footer_sp_params);
-                            this.addedFooter = true;
-                        }
-                        return dll.onStateChange(aWebProgress, aRequest, aStateFlags, aStatus);
-                    }
-                };
-            } else {
-                // TODO: adapt for download.jsm
-                Task.spawn((function (url, footer_sp_params) {
-                    return function () {
-                        let list = yield Downloads.getList(Downloads.ALL);
-                        let view = {
-                            addedFooter: false,
-                            onDownloadChanged: function (download) {
-                                if (download.source.url === url) {
-                                    if (download.succeeded && !this.addedFooter) {
-                                        shelveUtils.debug("Download finished:", url);
-                                        shelve.addFooter(footer_sp_params);
-                                        this.addedFooter = true;
-                                        list.removeView(this);
-                                    }
-                                }
-                            }
-                        };
-                        yield list.addView(view);
-                    }
-                })(uri, footer_sp_params)).then(null, Components.utils.reportError);
-            }
-            // shelveUtils.debug("registerDownload: 2 onStateChange=", persist.progressListener.onStateChange);
+            // if (shelveUtils.appVersion() < '26') {
+            //     var dlm = Components.classes['@mozilla.org/download-manager;1']
+            //         .getService(Components.interfaces.nsIDownloadManager);
+            //     persist.progressListener = {
+            //         addedFooter: false,
+            //         onProgressChange: dll.onProgressChange,
+            //         onStatusChange: dll.onStatusChange,
+            //         onStateChange: function (aWebProgress, aRequest, aStateFlags, aStatus) {
+            //             // shelveUtils.debug("registerDownload: stop=", aStateFlags & shelve.STATE_STOP);
+            //             if (!this.addedFooter && (aStateFlags & shelve.STATE_STOP)) {
+            //                 // shelveUtils.debug("Download finished:", uri);
+            //                 shelve.addFooter(footer_sp_params);
+            //                 this.addedFooter = true;
+            //             }
+            //             return dll.onStateChange(aWebProgress, aRequest, aStateFlags, aStatus);
+            //         }
+            //     };
+            // } else {
+            //     // TODO: adapt for download.jsm
+            //     Task.spawn((function (url, footer_sp_params) {
+            //         return function () {
+            //             let list = yield Downloads.getList(Downloads.ALL);
+            //             let view = {
+            //                 addedFooter: false,
+            //                 onDownloadChanged: function (download) {
+            //                     shelveUtils.debug("registerDownload: download.source.url=", download.source.url);
+            //                     shelveUtils.debug("registerDownload: url=", url);
+            //                     shelveUtils.debug("registerDownload: succeeded=", download.succeeded);
+            //                     shelveUtils.debug("registerDownload: addedFooter=", this.addedFooter);
+            //                     if (download.source.url === url) {
+            //                         if (download.succeeded && !this.addedFooter) {
+            //                             shelveUtils.debug("Download finished:", url);
+            //                             shelve.addFooter(footer_sp_params);
+            //                             alert("DBG " + this.addedFooter);
+            //                             this.addedFooter = true;
+            //                             list.removeView(this);
+            //                         }
+            //                     }
+            //                 }
+            //             };
+            //             yield list.addView(view);
+            //         }
+            //     })(uri, footer_sp_params)).then(null, Components.utils.reportError);
+            // }
+            // // shelveUtils.debug("registerDownload: 2 onStateChange=", persist.progressListener.onStateChange);
         } else {
             persist.progressListener = dll;
         }
