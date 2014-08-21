@@ -508,15 +508,14 @@ var shelveUtils = {
         if (shelveUtils.shouldLog(log_level)) {
             var logval = shelveStore.getString(null, 'logger', 'none');
             if (logval == 'none') {
-                // do nothing
-            // } else if (logval == 'js') {
-            //     if (window.console !== undefined) {
-            //         window.console.error("Shelve: %d", text);
-            //     }
             } else if (logval == 'console') {
-                var aConsoleService = Components.classes['@mozilla.org/consoleservice;1'].
-                getService(Components.interfaces.nsIConsoleService);
-                aConsoleService.logStringMessage('Shelve: ' + text);
+                if (shelveUtils.appVersion() >= '27') {
+                    console.log("Shelve: " + text);
+                } else {
+                    var aConsoleService = Components.classes['@mozilla.org/consoleservice;1'].
+                        getService(Components.interfaces.nsIConsoleService);
+                    aConsoleService.logStringMessage('Shelve: ' + text);
+                }
             } else if (logval == 'stdout') {
                 dump('Shelve: ' + text + '\n');
             }
@@ -935,4 +934,8 @@ var shelveUtils = {
     }
 
 };
+
+if (shelveUtils.appVersion() >= '27') {
+    Components.utils.import("resource://gre/modules/devtools/Console.jsm");
+}
 
