@@ -675,7 +675,7 @@ var shelveUtils = {
         var isWindowsP = shelveUtils.getOS() == 'WINNT';
         shelveUtils.isWindows = function () {
             return isWindowsP;
-        }
+        };
         return shelveUtils.isWindows();
     },
 

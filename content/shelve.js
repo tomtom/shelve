@@ -37,11 +37,13 @@
 /*jsl:option explicit*/
 /*jsl:declare document*/
 /*jsl:declare window*/
+/*jshint moz:true*/
+
 
 Components.utils.import('resource://gre/modules/PrivateBrowsingUtils.jsm');
 if (shelveUtils.appVersion() >= '26') {
-    Components.utils.import("resource://gre/modules/Task.jsm");
-    Components.utils.import("resource://gre/modules/Downloads.jsm");
+    Components.utils.import('resource://gre/modules/Task.jsm');
+    Components.utils.import('resource://gre/modules/Downloads.jsm');
 }
 
 
@@ -1364,7 +1366,6 @@ var shelve = {
                     /*jsl:end*/
                     // shelveUtils.debug('shelve expandTemplate: [pos, width, ch]=', [pos, width, et_params.template[pos]]);
                 } else if (skip_sep && (ch == '\\' || ch == '/')) {
-                    null;
                 } else {
                     if (ch == '\n') {
                         line_start = out.length + 1;
@@ -1454,11 +1455,9 @@ var shelve = {
             }
             // alert(name + ' ' + mode);
             return [pos1, name, mode];
-            break;
 
             default:
             return [pos, ch, ''];
-            break;
         }
     },
 
@@ -1867,7 +1866,7 @@ var shelve = {
                 case 'text':
                 case 'text_latin1':
                 return et_params.note;
-                break;
+
                 default:
                 return shelveUtils.escapeHTML(et_params.note);
             }
@@ -1972,10 +1971,13 @@ var shelve = {
     },
 
     getDocumentClip: function (doc_params) {
+        // shelveUtils.debug("shelve.getDocumentClip doc_params=", doc_params);
         if ('clip' in doc_params && doc_params.clip !== null) {
+            // shelveUtils.debug("shelve.getDocumentClipInWindow clip=", encodeURI(doc_params.clip));
             return doc_params.clip;
         } else {
             var rv = shelve.getDocumentClipInWindow(getBrowser().contentWindow);
+            // shelveUtils.debug("shelve.getDocumentClipInWindow rv=", encodeURI(rv));
             if (rv === null || rv === undefined) {
                 return null;
             } else {
