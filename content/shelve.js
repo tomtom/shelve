@@ -365,7 +365,11 @@ var shelve = {
 
         if (shelveUtils.appVersion() >= '18') {
             var isPrivate = shelve.isPrivate(sp_params);
-            wbp.savePrivacyAwareURI(uri, null, null, null, null, file_uri, isPrivate);
+            if (shelveUtils.appVersion() >= '36') {
+                wbp.savePrivacyAwareURI(uri, null, null, null, null, null, file_uri, isPrivate);
+            } else {
+                wbp.savePrivacyAwareURI(uri, null, null, null, null, file_uri, isPrivate);
+            }
         } else {
             wbp.saveURI(uri, null, null, null, null, file_uri);
         }
