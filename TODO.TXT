@@ -1,7 +1,10 @@
 * TODO
 
-    #A1 2014-02-23 Adapt for download.jsm: https://developer.mozilla.org/en-US/docs/Mozilla/JavaScript_code_modules/Downloads.jsm https://developer.mozilla.org/en-US/docs/Mozilla/JavaScript_code_modules/Downloads.jsm/Download
-    #A _ %I merkt sich zuletzt gewähltes Verzeichnis
+    #A1 2014-02-23 `init` should not be called with a null first argument: Calling `nsITransferable.init()` with a null first argument has the potential to leak data across private browsing mode sessions. `null` is appropriate only when reading data or writing data which is not associated with a particular window.
+    #A1 2014-02-23 Access to the `executeStep` global: The use of synchronous SQL via the storage system leads to severe responsiveness issues, and should be avoided at all costs. Please use asynchronous SQL via Sqlite.jsm (http://mzl.la/sqlite-jsm) or the `executeAsync` method, or otherwise switch to a simpler database such as JSON files or IndexedDB.
+    #A1 2014-02-23 Adapt for download.jsm: https://developer.mozilla.org/en-US/docs/Mozilla/JavaScript_code_modules/Downloads.jsm
+    #A1 2014-02-23 Synchronous SQL should not be used: The use of synchronous SQL via the storage system leads to severe responsiveness issues, and should be avoided at all costs. Please use asynchronous SQL via Sqlite.jsm (http://mzl.la/sqlite-jsm) or the `executeAsync` method, or otherwise switch to a simpler database such as JSON files or IndexedDB.
+    #A5 _ %I merkt sich zuletzt gewähltes Verzeichnis
     #D1 :sync Synchronize Shelve.Sqlite via Internet
     #D1 Enable/disable notification per shelf
     #D5 :images Save screenshots
@@ -32,7 +35,7 @@ I would like to see in future versions
 2. the possibility of one-click-save (single-click, and determine exactly how the profile will be processed that action)
 
 
-% 2008-07-28; @Last Change: 2012-07-02.
+% 2008-07-28; @Last Change: 2015-03-13.
 % vi: ft=viki:tw=0:ts=4
 % Local Variables:
 % End:
