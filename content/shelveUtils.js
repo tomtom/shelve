@@ -879,7 +879,7 @@ var shelveUtils = {
             try {
                 var MafObjects = {};
                 /*jsl:ignore*/
-                Components.utils.import('resource://maf/modules/mafObjects.jsm', MafObjects);
+                Components.utils.import('chrome://maf/content/MozillaArchiveFormat.jsm', MafObjects);
                 /*jsl:end*/
                 shelveUtils.mafObjects = MafObjects;
                 return true;
