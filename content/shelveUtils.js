@@ -934,7 +934,7 @@ var shelveUtils = {
 };
 
 if (shelveUtils.appVersion() >= '44') {
-    Components.utils.import("resource://devtools/Console.jsm");
+    Components.utils.import("resource://gre/modules/Console.jsm");
 } else if (shelveUtils.appVersion() >= '27') {
     Components.utils.import("resource://gre/modules/devtools/Console.jsm");
 }
