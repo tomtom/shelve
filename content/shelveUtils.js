@@ -557,7 +557,7 @@ var shelveUtils = {
 
         try {
             if (!file.exists()) {
-                file.create(0x00, 0644);
+                file.create(0x00, 420); // 0644
             }
 
             var fos = Components.classes['@mozilla.org/network/file-output-stream;1'].
@@ -636,9 +636,7 @@ var shelveUtils = {
         var shelveDir = shelveUtils.getProfDir();
         shelveDir.append('shelve');
         if (!shelveDir.exists()) {
-            /*jsl:ignore*/
-            shelveDir.create(0x01, 0755);
-            /*jsl:end*/
+            shelveDir.create(0x01, 493); // 0755
         }
         return shelveDir;
     },
@@ -935,7 +933,9 @@ var shelveUtils = {
 
 };
 
-if (shelveUtils.appVersion() >= '27') {
+if (shelveUtils.appVersion() >= '44') {
+    Components.utils.import("resource://devtools/Console.jsm");
+} else if (shelveUtils.appVersion() >= '27') {
     Components.utils.import("resource://gre/modules/devtools/Console.jsm");
 }
 

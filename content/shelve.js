@@ -5,7 +5,7 @@
  * 1.1 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
  * http://www.mozilla.org/MPL/
- * 
+ *
  * Software distributed under the License is distributed on an "AS IS" basis,
  * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
  * for the specific language governing rights and limitations under the
@@ -31,7 +31,7 @@
  * and other provisions required by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
- * 
+ *
  * ***** END LICENSE BLOCK ***** */
 
 /*jsl:option explicit*/
@@ -113,7 +113,7 @@ var shelve = {
                 mockup: true,
                 documentURI: url,
                 URL: url,
-                //TODO: guess contentType
+                // TODO: guess contentType
                 contentType: '',
                 title: title
             },
@@ -227,9 +227,7 @@ var shelve = {
         // shelveUtils.debug('shelve saveDocument: dataname=', dataname);
         var dir = file.parent;
         if (!dir.exists()) {
-            /*jsl:ignore*/
-            dir.create(dir.DIRECTORY_TYPE, 0755);
-            /*jsl:end*/
+            dir.create(dir.DIRECTORY_TYPE, 493); // 0755
         }
 
         var data = null;
@@ -246,12 +244,12 @@ var shelve = {
         wbp.persistFlags |= wbp.PERSIST_FLAGS_FROM_CACHE | wbp.PERSIST_FLAGS_AUTODETECT_APPLY_CONVERSION;
 
         var saver = function (doc, file, dataPath, outputContentType, encodingFlags, wrapColumn) {
-            // nsIDOMDocument document, 
-            // nsISupports file, 
-            // nsISupports dataPath, 
-            // char* outputContentType, 
-            // PRUint32 encodingFlags, 
-            // PRUint32 wrapColumn 
+            // nsIDOMDocument document,
+            // nsISupports file,
+            // nsISupports dataPath,
+            // char* outputContentType,
+            // PRUint32 encodingFlags,
+            // PRUint32 wrapColumn
             // shelveUtils.debug('shelve saveDocument.saver: file=', file);
             wbp.saveDocument(doc, file, dataPath, outputContentType, encodingFlags, wrapColumn);
         };
@@ -350,10 +348,10 @@ var shelve = {
             return false;
         } else if (!file.exists()) {
             /*jsl:ignore*/
-            file.create(0x00, 0644);
+            file.create(0x00, 420); // 0644
             /*jsl:end*/
         }
-        var file_uri = shelveUtils.newFileURI(file); 
+        var file_uri = shelveUtils.newFileURI(file);
 
         var wbp = Components.classes['@mozilla.org/embedding/browser/nsWebBrowserPersist;1'].
         createInstance(Components.interfaces.nsIWebBrowserPersist);
@@ -383,7 +381,7 @@ var shelve = {
         if (file === null) {
             return false;
         } else if (!file.exists()) {
-            file.create(0x00, 0644);
+            file.create(0x00, 420); // 0644
         }
 
         var text_enc = shelve.getUnicharPref(shelve.getPrefs('text.'), 'encoding');
@@ -515,10 +513,10 @@ var shelve = {
 
     autoselect: false,
 
-    setupAutoSelect: function (win) {
-        var win = win || window;
+    setupAutoSelect: function (win0) {
+        var win = win0 || window;
         // shelveUtils.debug('setupAutoSelect autoselect=', win.shelve.autoselect);
-        
+
         var max = shelveStore.max();
         // shelveUtils.debug('setupAutoSelect: max=', max);
         for (var i = 1; i <= max; i++) {
@@ -527,13 +525,13 @@ var shelve = {
             if (autoselect && !win.shelve.autoselect) {
                 win.shelve.addEventListener(shelve.autoSelectShelve, true);
                 win.shelve.autoselect = true;
-                // shelveUtils.debug('setupAutoSelect ' + i + ': set autoselect=', win.shelve.autoselect); 
+                // shelveUtils.debug('setupAutoSelect ' + i + ': set autoselect=', win.shelve.autoselect);
                 return;
             }
         }
-        
+
         // If here, then no shelves wanted auto select, so remove the listener
-        if (win.shelve.autoselect) { 
+        if (win.shelve.autoselect) {
             shelveUtils.log('setupAutoSelect: Uninstalling autoselect for window');
             shelve.removeEventListener(shelve.autoSelectShelve, true);
             win.shelve.autoselect = false;
@@ -551,13 +549,13 @@ var shelve = {
 
     addEventListener: function (listener, useCapture) {
         var prefs_events = shelve.getPrefs('events.');
-        
+
         if (shelve._listeners[listener]) {
             // already have a listener for this, don't add another one
             return;
         }
         shelve._listeners[listener] = shelveUtils.exceptionWrap(listener);
-        
+
         for (var ev in shelve.events) {
             var event = shelve.events[ev];
             var use = shelve.getBoolPref(prefs_events, event);
@@ -719,10 +717,10 @@ var shelve = {
             // + String(ev.ctrlKey == hkd.ctrl)
             // + String(ev.shiftKey == hkd.shift)
             // + String(ev.metaKey == hkd.meta));
-            if (ev.keyCode == ev['DOM_VK_' + hkd.hotkey] && 
-                ev.altKey == hkd.alt && 
-                ev.ctrlKey == hkd.ctrl && 
-                ev.shiftKey == hkd.shift && 
+            if (ev.keyCode == ev['DOM_VK_' + hkd.hotkey] &&
+                ev.altKey == hkd.alt &&
+                ev.ctrlKey == hkd.ctrl &&
+                ev.shiftKey == hkd.shift &&
                 ev.metaKey == hkd.meta) {
                 if (shelve.withShelfName(hk)) {
                     ev.preventDefault();
@@ -1272,9 +1270,9 @@ var shelve = {
                 try {
                     var alertsService = Components.classes['@mozilla.org/alerts-service;1'].
                     getService(Components.interfaces.nsIAlertsService);
-                    // alertsService.showAlertNotification('chrome://mozapps/skin/downloads/downloadIcon.png', 
+                    // alertsService.showAlertNotification('chrome://mozapps/skin/downloads/downloadIcon.png',
                     alertsService.showAlertNotification(
-                        'chrome://shelve/content/shelve.png', 
+                        'chrome://shelve/content/shelve.png',
                         'Shelve: ' + title, '' + text);
                 } catch (e) {
                     // Alert failed
@@ -1416,15 +1414,16 @@ var shelve = {
     },
 
     processCharacter: function (success_state, fail_state, et_params, pos, ch, out, line_start, width) {
+        var pos1, name, mode, fail_state1, val, next_state, out1, skip_sep;
         /*jsl:ignore*/
-        [pos, name, mode] = shelve.varName(et_params.template, pos, ch);
-        // shelveUtils.debug('shelve processCharacter1: [pos, name, mode]=', [pos, name, mode]);
-        [fail_state, val] = shelve.expandVar(out, fail_state, name, et_params, pos, width);
-        // shelveUtils.debug('shelve processCharacter2: [fail_state, val]=', [fail_state, val]);
-        [next_state, out, skip_sep] = shelve.processValue(success_state, fail_state, name, mode, val, out, line_start);
-        // shelveUtils.debug('shelve processCharacter3: [next_state, out, skip_sep]=', [next_state, out, skip_sep]);
+        [pos1, name, mode] = shelve.varName(et_params.template, pos, ch);
+        // shelveUtils.debug('shelve processCharacter1: [pos1, name, mode]=', [pos1, name, mode]);
+        [fail_state1, val] = shelve.expandVar(out, fail_state, name, et_params, pos1, width);
+        // shelveUtils.debug('shelve processCharacter2: [fail_state1, val]=', [fail_state1, val]);
+        [next_state, out1, skip_sep] = shelve.processValue(success_state, fail_state1, name, mode, val, out, line_start);
+        // shelveUtils.debug('shelve processCharacter3: [next_state, out1, skip_sep]=', [next_state, out1, skip_sep]);
         /*jsl:end*/
-        return [next_state, pos, out, skip_sep];
+        return [next_state, pos, out1, skip_sep];
     },
 
     fieldWidth: function (template, pos0) {
@@ -1548,12 +1547,12 @@ var shelve = {
             val = ch;
             break;
 
-            case 'clip': 
+            case 'clip':
             // val = shelve.cleanValue(et_params.clip);
             val = et_params.clip;
             break;
 
-            case 'Clip': 
+            case 'Clip':
             // val = shelve.cleanValue(et_params.clip);
             val = et_params.clip;
             if (et_params.interactive && !val.match(/\S/)) {
@@ -2018,7 +2017,7 @@ var shelve = {
     getDocumentMime: function (doc_params) {
         // shelveUtils.debug("shelve.getDocumentMime doc_params.mime=", doc_params.mime);
         // shelveUtils.debug("shelve.getDocumentMime doc_params.mime_fix=", doc_params.mime_fix);
-        if (doc_params.mime !== null && doc_params.mime !== undefined) {
+        if (doc_params.mime !== undefined && doc_params.mime !== null) {
             return doc_params.mime;
         } else {
             var doctype = shelveUtils.getDocumentType(doc_params);
@@ -2045,7 +2044,7 @@ var shelve = {
     },
 
     getDocumentKeywords: function (doc_params) {
-        if (doc_params.keywords !== null && doc_params.keywords !== undefined) {
+        if (doc_params.keywords !== undefined && doc_params.keywords !== null) {
             return doc_params.keywords;
         } else {
             var keywords = [];
@@ -2085,27 +2084,27 @@ var shelve = {
         var filename = pathcomps.pop();
         if (filename === '' && !is_not_last)
             filename = 'index';
-        
+
         var fileext_rx = RegExp(/\.[^/.]*$/);
         switch (filenametype) {
             case 1: // basename
             file = filename.replace(fileext_rx, '');
             break;
-            
+
             case 2: // filename
             file = filename;
             break;
-            
+
             case 3: // fullpath
             pathcomps.push(filename);
             file = pathcomps.join('/');
             break;
-            
+
             case 4: // fullpath excluding the extension
             file = shelve.getDocumentFilename(et_params, 3, is_not_last) + et_params.extension;
             file = file.replace(fileext_rx, '');
             break;
-            
+
             case 5: // path of only directory components
             file = pathcomps.join('/');
             break;
@@ -2142,4 +2141,3 @@ var shelve = {
     }
 
 };
-
