@@ -1644,17 +1644,25 @@ var shelve = {
             case 'dirnameshorten':
             rawmode = true;
             val = shelve.getDocumentFilename(et_params, 5, true);
+            // shelveUtils.debug('shelve.expandVar.dirnameshorten val=', val);
             var dirsep = shelveUtils.filenameSeparator();
             var dircomps = val.split(dirsep);
             var dirdepth = dircomps.length;
+            // shelveUtils.debug('shelve.expandVar.dirnameshorten val=', val);
+            // shelveUtils.debug('shelve.expandVar.dirnameshorten dirsep=', dirsep);
+            // shelveUtils.debug('shelve.expandVar.dirnameshorten dircomps=', dircomps);
+            // shelveUtils.debug('shelve.expandVar.dirnameshorten dirdepth=', dirdepth);
             for (var i = 0; i < dirdepth; i++) {
                 var d = dircomps[i];
                 if (d.length > shelveUtils.MAXNAMELEN) {
                     dircomps[i] = shelveUtils.shortenWithHash(d, 0);
                 }
             }
+            // shelveUtils.debug('shelve.expandVar.dirnameshorten dircomps=', dircomps);
             val = dircomps.join(dirsep);
+            // shelveUtils.debug('shelve.expandVar.dirnameshorten val=', val);
             val = shelve.cleanPath(val);
+            // shelveUtils.debug('shelve.expandVar.dirnameshorten val=', val);
             break;
 
             case 'fullpath':
@@ -2075,17 +2083,22 @@ var shelve = {
 
     getDocumentFilename: function (et_params, filenametype, is_not_last) {
         var url = shelveUtils.getDocumentURL(et_params);
+        // shelveUtils.debug('shelve.getDocumentFilename url=', url);
         // remove protocol and domain at the beginning of the url
         var url_no_proto = url.replace(/^(\w+:\/\/)?[^\/]*\/?/, '');
+        // shelveUtils.debug('shelve.getDocumentFilename url_no_proto=', url_no_proto);
         // remove hash or querystring
         var path = url_no_proto.replace(/[#?&].*$/, '');
         var pathcomps = path.split('/');
+        // shelveUtils.debug('shelve.getDocumentFilename pathcomps=', pathcomps);
         // filename is the last path component
         var filename = pathcomps.pop();
         if (filename === '' && !is_not_last)
             filename = 'index';
 
         var fileext_rx = RegExp(/\.[^/.]*$/);
+        // shelveUtils.debug('shelve.getDocumentFilename filename=', filename);
+        // shelveUtils.debug('shelve.getDocumentFilename filenametype=', filenametype);
         switch (filenametype) {
             case 1: // basename
             file = filename.replace(fileext_rx, '');
@@ -2110,6 +2123,7 @@ var shelve = {
             break;
         }
         file = String(file);
+        // shelveUtils.debug('shelve.getDocumentFilename file=', file);
         if (shelveUtils.isWindows()) {
             file = file.replace(/\//g, '\\');
             file = file.replace(/[<>:"/|?*]/g, '_');
