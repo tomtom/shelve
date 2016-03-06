@@ -730,7 +730,7 @@ var shelveUtils = {
         // result.value will contain the array length
         var result = {};
         // data is an array of bytes
-        var data = converter.convertToByteArray(val, result);
+        var data = converter.convertToByteArray(str, result);
         var ch = Components.classes['@mozilla.org/security/hash;1']
                            .createInstance(Components.interfaces.nsICryptoHash);
 
