@@ -1423,7 +1423,7 @@ var shelve = {
         [next_state, out1, skip_sep] = shelve.processValue(success_state, fail_state1, name, mode, val, out, line_start);
         // shelveUtils.debug('shelve processCharacter3: [next_state, out1, skip_sep]=', [next_state, out1, skip_sep]);
         /*jsl:end*/
-        return [next_state, pos, out1, skip_sep];
+        return [next_state, pos1, out1, skip_sep];
     },
 
     fieldWidth: function (template, pos0) {
