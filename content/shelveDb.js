@@ -54,26 +54,32 @@ var shelveDb = {
         var storageService = Components.
         classes['@mozilla.org/storage/service;1'].
         getService(Components.interfaces.mozIStorageService);
-        var con = storageService.openDatabase(db);
-        if (create) {
-            con.executeSimpleSQL(
-                'CREATE TABLE IF NOT EXISTS meta ( ' +
-                '  var VARCHAR(20) NOT NULL, ' +
-                '  value VARCHAR(255) ' +
-                ');' +
-                'INSERT INTO meta VALUES("schema", "1");' +
-                'CREATE TABLE IF NOT EXISTS replacements ( ' +
-                '  url VARCHAR(255) NOT NULL DEFAULT "%", ' +
-                '  klass VARCHAR(20) NOT NULL DEFAULT "title", ' +
-                '  rx VARCHAR(255) NOT NULL, ' +
-                '  subst VARCHAR(255), ' +
-                '  priority INTEGER NOT NULL DEFAULT 50, ' +
-                '  stop INTEGER DEFAULT 0' +
-                ');');
-            shelveUtils.log('Create shelve.sqlite tables');
-        }
-        return con;
-    },
+        if (shelveUtils.appVersion() >= '46') {
+            shelveUtils.debug('shelveDb getDB: db=', db);
+            // TODO: issue #7: error NS_ERROR_FILE_ACCESS_DENIED
+            return null;
+        } else {
+            var con = storageService.openDatabase(db);
+            if (create) {
+                con.executeSimpleSQL(
+                    'CREATE TABLE IF NOT EXISTS meta ( ' +
+                    '  var VARCHAR(20) NOT NULL, ' +
+                    '  value VARCHAR(255) ' +
+                    ');' +
+                    'INSERT INTO meta VALUES("schema", "1");' +
+                    'CREATE TABLE IF NOT EXISTS replacements ( ' +
+                    '  url VARCHAR(255) NOT NULL DEFAULT "%", ' +
+                    '  klass VARCHAR(20) NOT NULL DEFAULT "title", ' +
+                    '  rx VARCHAR(255) NOT NULL, ' +
+                    '  subst VARCHAR(255), ' +
+                    '  priority INTEGER NOT NULL DEFAULT 50, ' +
+                    '  stop INTEGER DEFAULT 0' +
+                    ');');
+                    shelveUtils.log('Create shelve.sqlite tables');
+                }
+                return con;
+            }
+        },
 
     selectSubstitutions: function(type, url) {
         var con = shelveDb.getDB();
